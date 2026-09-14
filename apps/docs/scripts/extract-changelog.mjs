@@ -64,7 +64,9 @@ function tagDates() {
     for (const line of out.split('\n')) {
       const [ref, date] = line.trim().split(/\s+/)
       if (!ref || !date) continue
-      // `@misoto22/design@0.3.0` and `v0.3.0` both reduce to `0.3.0`.
+      // `<package>@0.3.0` and `v0.3.0` both reduce to `0.3.0`. A tag keeps the
+      // package name it was cut under, before or after the Folio rename, so
+      // the version is read from after the last `@` and the name is ignored.
       const version = ref.replace(/^.*@/, '').replace(/^v/, '')
       if (/^\d+\.\d+\.\d+/.test(version)) dates.set(version, date)
     }
