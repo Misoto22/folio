@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import { cn } from '../../lib/cn'
+import { STEP_RAIL_LIST_CLASS, StepRailItem } from '../../lib/step-rail'
 
 export interface Step {
   /** Stable key; also what a caller keys its own data by. */
@@ -66,54 +67,19 @@ export function Steps({ steps, label, marker = 'number', className, ...rest }: S
   if (steps.length === 0) return null
 
   return (
-    <ol
-      aria-label={label}
-      // One number for the marker, because three rules depend on it: the
-      // marker's own box, where the connector starts, and where it is centred.
-      // Written as a property rather than repeated as a literal so a caller can
-      // move all three at once.
-      className={cn('m-0 flex list-none flex-col p-0 [--step-size:2rem]', className)}
-      {...rest}
-    >
-      {steps.map((step, index) => {
-        const last = index === steps.length - 1
-        return (
-          <li
-            key={step.id ?? `${step.title}-${index}`}
-            aria-current={step.current ? 'step' : undefined}
-            className="relative flex gap-4 pb-7 last:pb-0"
-          >
-            {/* The connector. Absolute, so it spans the gap between this marker
-                and the next without taking part in the row's own layout — and
-                it is simply absent on the last row rather than drawn and then
-                hidden. */}
-            {!last && (
-              <span
-                aria-hidden
-                className="absolute start-[calc(var(--step-size)/2)] top-(--step-size) bottom-0 w-px -translate-x-1/2 bg-(--rule-2) rtl:translate-x-1/2"
-              />
-            )}
-            <span
-              aria-hidden
-              className={cn(
-                'relative z-1 grid size-(--step-size) shrink-0 place-items-center rounded-full border text-[12px] tabular-nums',
-                step.current
-                  ? 'border-(--accent) bg-(--accent) text-(--accent-foreground)'
-                  : 'border-(--rule-2) bg-(--paper) text-(--ink-3-aa)',
-                marker === 'rule' && 'text-[0px]',
-              )}
-            >
-              {marker === 'number' ? index + 1 : ''}
-            </span>
-            <div className="flex min-w-0 flex-col gap-1 pt-1">
-              <span className="font-sans text-[15px] leading-tight text-(--ink)">{step.title}</span>
-              {step.note !== undefined && step.note !== null && (
-                <span className="mono-meta leading-[1.6] text-(--ink-3-aa)">{step.note}</span>
-              )}
-            </div>
-          </li>
-        )
-      })}
+    <ol aria-label={label} className={cn(STEP_RAIL_LIST_CLASS, className)} {...rest}>
+      {steps.map((step, index) => (
+        <StepRailItem
+          key={step.id ?? `${step.title}-${index}`}
+          aria-current={step.current ? 'step' : undefined}
+          filled={step.current}
+          last={index === steps.length - 1}
+          marker={marker === 'number' ? index + 1 : ''}
+          markerClassName={marker === 'rule' ? 'text-[0px]' : undefined}
+          title={step.title}
+          note={step.note}
+        />
+      ))}
     </ol>
   )
 }
