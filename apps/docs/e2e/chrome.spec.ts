@@ -87,6 +87,37 @@ for (const path of ['/components/', '/zh/components/', '/components/site-navigat
   })
 }
 
+/**
+ * The package's class prefix became `folio-` by codemod, and a half-renamed
+ * pair fails silently: markup carrying `folio-wide` against a stylesheet still
+ * selecting the old name renders unstyled, and nothing throws. So these pages —
+ * article scoping, a reduced-motion hook, a website composition, and the index
+ * that mounts every family's first example — are checked in the built output
+ * for any class, attribute or stylesheet rule still on the retired prefix.
+ */
+for (const path of ['/components/article/', '/components/collapsible/', '/components/site-navigation/', '/components/']) {
+  test(`${path}: no class, attribute or rule is left on the retired prefix`, async ({ page }) => {
+    await page.goto(path)
+    await expect(page.locator('[class*="folio-"], [data-folio-animated], [data-folio-article]').first()).toBeAttached()
+
+    const found = await page.evaluate(() => {
+      const retired = /(?:^|[^A-Za-z0-9_])m22[-:]/
+      const hits: string[] = []
+      for (const el of document.querySelectorAll('*')) {
+        for (const token of el.classList) if (retired.test(token)) hits.push(`class ${token}`)
+        for (const attr of el.getAttributeNames()) if (retired.test(attr)) hits.push(`attribute ${attr}`)
+        const style = el.getAttribute('style')
+        if (style && retired.test(style)) hits.push(`style ${style}`)
+      }
+      for (const sheet of document.styleSheets) {
+        for (const rule of sheet.cssRules) if (retired.test(rule.cssText)) hits.push(`rule ${rule.cssText.slice(0, 80)}`)
+      }
+      return hits
+    })
+    expect(found).toEqual([])
+  })
+}
+
 test('every page ends in a footer rather than in whitespace', async ({ page }) => {
   await page.goto('/components/button/')
   const footer = page.getByRole('contentinfo')

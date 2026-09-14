@@ -17,6 +17,13 @@
  * generated here, because Tailwind scans all of `src`.
  */
 @import 'tailwindcss';
+
+/* Automatic source detection also reads the package's CHANGELOG.md, and a
+   release note that quotes a class name from before the Folio prefix would be
+   compiled back into dist as a live rule. History is not markup. */
+@source not '../../CHANGELOG.md';
+
+@import './tokens.css';
 @import './tokens.css';
 @import './semantic.css';
 @import './themes.css';

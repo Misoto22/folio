@@ -29,6 +29,11 @@
    library component still gets generated for this site. */
 @source '../../../../packages/design/src';
 
+/* The Chinese changelog quotes class names from before the Folio prefix as
+   history, and automatic detection would compile them into live rules. The
+   package's own CHANGELOG.md is excluded the same way in its entry. */
+@source not '../i18n/changelog.ts';
+
 @custom-variant dark (&:is([data-mode='dark'] *));
 
 @theme {
