@@ -81,7 +81,11 @@ export function TemplateFrame({ templateId, name }: TemplateFrameProps) {
           // documentation page.
           role="region"
           aria-label={`${name} preview`}
-          className="@container mx-auto overflow-hidden rounded-(--radius-lg) border border-(--rule) bg-(--paper) transition-[max-width] duration-(--duration-slow) ease-(--ease-out-expo)"
+          // `contain-layout` so anything `fixed` in a template pins to this
+          // frame rather than to the window and the masthead above it. Being a
+          // query container does not do that: `container-type` applies size and
+          // style containment, not layout.
+          className="@container mx-auto overflow-hidden contain-layout rounded-(--radius-lg) border border-(--rule) bg-(--paper) transition-[max-width] duration-(--duration-slow) ease-(--ease-out-expo)"
           style={{ maxWidth: WIDTHS[size].width || undefined }}
         >
           {/* Inside the container, not on it: a container query unit resolves

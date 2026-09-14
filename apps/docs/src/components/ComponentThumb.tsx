@@ -110,7 +110,17 @@ export function ComponentThumb({ exampleKey }: { exampleKey: string }) {
       // A fixed height, and the same one on every card: the band is the half of
       // the card a reader is actually looking at, so it is the half that must
       // not move from card to card.
-      className="group/band relative -mx-5 -mt-5 mb-3 grid h-52 justify-items-center overflow-hidden border-b border-(--rule) bg-(--paper-2) content-center data-[cropped=true]:content-start data-[cropped=true]:pt-6"
+      //
+      // `contain-layout`, because `overflow-hidden` clips only what the band
+      // contains, and a `fixed` descendant is contained by the window unless an
+      // ancestor says otherwise. A thumbnail of `SiteNavigation` escaped every
+      // card and sat over the masthead of the page listing it. Containment
+      // rather than a transform: it does not touch paint, and leaves `zoom`
+      // below as the only thing scaling the example. On the band, not on the
+      // box, so a pinned header draws at the top of the card; `ExampleCanvas`
+      // contains its wrapper instead because its frame hosts open popovers, and
+      // an inert thumbnail never opens one.
+      className="group/band relative -mx-5 -mt-5 mb-3 grid h-52 justify-items-center overflow-hidden contain-layout border-b border-(--rule) bg-(--paper-2) content-center data-[cropped=true]:content-start data-[cropped=true]:pt-6"
     >
       {/* A cropped thumbnail says so. Without it the cut reads as a rendering
           fault rather than as "there is more of this on the page". */}
