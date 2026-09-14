@@ -24,8 +24,13 @@
  *   --dry-run  (default) per-file hit counts, planned path renames, a total.
  *   --write    apply the edits, then `git mv` every tracked path whose name
  *              contains an old name, then count what is left.
- *   --check    the plan's zero-grep for the mode over the same file set; lists
- *              every leftover line and exits 1 if there is one.
+ *   --check    THE ZERO-GREP OF RECORD: the mode's leftover pattern over the
+ *              same file set, every hit listed, exit 1 if there is one. Use it
+ *              instead of the rename plan's `git grep` lines, whose pathspecs
+ *              drift from this skip list — `:!**\/CHANGELOG.md` does not
+ *              exclude the root `CHANGELOG.md`, and the slug grep has no
+ *              `:!scripts/codemods/**` — so they report hits that are not
+ *              leftovers.
  *
  * OPTIONS: `--root <dir>` (default: the working directory) and `--skip <glob>`,
  * repeatable, which ADDS to the skip list below — the defaults protect history
@@ -43,6 +48,12 @@
  *   fixtures), and build output (`dist/`, `out/`, `src/generated/`).
  *   `--package` also skips `.changeset/*.md`, which name the package a pending
  *   release was written against.
+ * - Every file `.rulesync/managed-files.json` lists is harness-generated and
+ *   hash-locked, so it is never edited, renamed, or counted as a leftover or a
+ *   slug blocker. The run names the ones still holding an old name: rebuild
+ *   them from their sources — `.rulesync/rules/50-project.md` and
+ *   `.rulesync/rules.json`, which are NOT listed and so ARE rewritten — with
+ *   rulesync. A repository without the manifest skips nothing extra.
  * - Allow-listed leftovers are masked before any rule runs: `op://` references,
  *   `*.misoto22.com` hosts and `misoto22-site`. The `@misoto22` scope and the
  *   `Misoto22` owner survive because no rule matches them on their own.
@@ -120,6 +131,25 @@ export const DEFAULT_SKIP = [
 
 /** Paths never renamed: this script's own directory and build output. */
 const RENAME_SKIP = ['scripts/codemods/**', '**/dist/**', '**/out/**', '**/src/generated/**']
+
+/** The harness manifest of generated, hash-locked files. */
+const MANIFEST = '.rulesync/managed-files.json'
+
+const REGENERATE_NOTE = `Harness-generated files (${MANIFEST}) are never edited. Regenerate them from the sources this run rewrites (.rulesync/rules/50-project.md, .rulesync/rules.json): pnpm --dir .rulesync install --ignore-workspace --frozen-lockfile && ./.rulesync/node_modules/.bin/rulesync generate`
+
+/** Paths the harness manifest under `root` lists; none when it has no manifest. */
+export function managedFiles(root) {
+  const file = join(root, MANIFEST)
+  if (!existsSync(file)) return []
+  let payload
+  try {
+    payload = JSON.parse(readFileSync(file, 'utf8'))
+  } catch (error) {
+    throw new Error(`${MANIFEST} is not valid JSON: ${error.message}`, { cause: error })
+  }
+  if (!Array.isArray(payload?.files)) throw new Error(`${MANIFEST} has no "files" list`)
+  return payload.files.map((entry) => entry?.path).filter((path) => typeof path === 'string')
+}
 
 /** Spans no rule may touch, whatever mode is running. */
 const PROTECTED = [/op:\/\/[^'"`\n)\]>]*/g, /(?:[A-Za-z0-9-]+\.)*misoto22\.com/g, /misoto22-site/g]
@@ -226,11 +256,12 @@ function* scannedFiles(root, mode, extraSkip) {
   }
 }
 
-function plannedRenames(root, mode, extraSkip) {
+function plannedRenames(root, mode, extraSkip, managed) {
   const tracked = trackedFiles(root)
   const existing = new Set(tracked)
   const renames = []
   for (const from of tracked) {
+    if (managed.has(from)) continue
     if ([...RENAME_SKIP, ...extraSkip].some((glob) => matchesGlob(from, glob))) continue
     const to = renamedPath(from, mode)
     if (to === from) continue
@@ -247,21 +278,28 @@ function plannedRenames(root, mode, extraSkip) {
  *
  * @returns {{ root: string, mode: string, edits: { path: string, count: number,
  *   text: string }[], renames: { from: string, to: string }[], blockers: {
- *   path: string, count: number }[] }} `blockers` lists files still holding the
- *   GitHub slug, which `--package` refuses to run past
+ *   path: string, count: number }[], regenerate: { path: string, count: number
+ *   }[] }} `blockers` lists files still holding the GitHub slug, which
+ *   `--package` refuses to run past; `regenerate` lists harness-generated files
+ *   the rules would change, which are left for rulesync to rebuild
  */
 export function plan({ root, mode, skip = [] }) {
+  const managed = new Set(managedFiles(root))
   const edits = []
   const blockers = []
+  const regenerate = []
   for (const { path, source } of scannedFiles(root, mode, skip)) {
-    if (mode === 'package') {
+    if (mode === 'package' && !managed.has(path)) {
       const slugs = unprotectedMatches(source, MODES.slug.leftover).length
       if (slugs > 0) blockers.push({ path, count: slugs })
     }
     const { text, count } = transform(source, mode)
-    if (count > 0) edits.push({ path, count, text })
+    if (count === 0) continue
+    if (managed.has(path)) regenerate.push({ path, count })
+    else edits.push({ path, count, text })
   }
-  return { root, mode, edits, renames: plannedRenames(root, mode, skip), blockers }
+  const renames = plannedRenames(root, mode, skip, managed)
+  return { root, mode, edits, renames, blockers, regenerate }
 }
 
 function removeEmptyDirectories(root, directory) {
@@ -284,8 +322,13 @@ export function apply({ root, edits, renames }) {
   }
 }
 
-/** The mode's zero-grep over its own file set: `{ path, line, text }` per hit. */
+/**
+ * The mode's zero-grep over its own file set: `{ path, line, text, managed }`
+ * per hit, where `managed` marks a harness-generated file to regenerate rather
+ * than a leftover.
+ */
 export function leftovers({ root, mode, skip = [] }) {
+  const managed = new Set(managedFiles(root))
   const found = []
   for (const { path, source } of scannedFiles(root, mode, skip)) {
     const lines = source.split('\n')
@@ -299,7 +342,8 @@ export function leftovers({ root, mode, skip = [] }) {
       }
       if (seen.has(line)) continue
       seen.add(line)
-      found.push({ path, line: line + 1, text: lines[line].trim().slice(0, 160) })
+      const text = lines[line].trim().slice(0, 160)
+      found.push({ path, line: line + 1, text, managed: managed.has(path) })
     }
   }
   return found
@@ -339,6 +383,13 @@ function printPlan(result, action, io) {
   io.log(
     `${total} replacement(s) in ${result.edits.length} file(s); ${result.renames.length} path rename(s).`,
   )
+  printRegenerate(result.regenerate.map((entry) => entry.path), io)
+}
+
+function printRegenerate(paths, io) {
+  if (paths.length === 0) return
+  for (const path of paths) io.log(`  regenerate  ${path}`)
+  io.log(REGENERATE_NOTE)
 }
 
 function printRefusal(result, io) {
@@ -350,9 +401,29 @@ function printRefusal(result, io) {
 
 function runCheck(options, io) {
   const found = leftovers(options)
-  for (const { path, line, text } of found) io.log(`${path}:${line}: ${text}`)
-  io.log(`m22-to-folio --${options.mode} --check: ${found.length} leftover line(s).`)
-  return found.length === 0 ? 0 : 1
+  const open = found.filter((hit) => !hit.managed)
+  for (const { path, line, text } of open) io.log(`${path}:${line}: ${text}`)
+  printRegenerate([...new Set(found.filter((hit) => hit.managed).map((hit) => hit.path))], io)
+  io.log(`m22-to-folio --${options.mode} --check: ${open.length} leftover line(s).`)
+  return open.length === 0 ? 0 : 1
+}
+
+function execute(options, io) {
+  if (options.action === 'check') return runCheck(options, io)
+  const result = plan(options)
+  if (result.blockers.length > 0) {
+    printRefusal(result, io)
+    return 1
+  }
+  printPlan(result, options.action, io)
+  if (options.action === 'dry-run') {
+    io.log('Dry run: nothing was written. Rerun with --write to apply.')
+    return 0
+  }
+  apply(result)
+  const remaining = leftovers(options).filter((hit) => !hit.managed).length
+  io.log(`Written. ${remaining} leftover line(s) outside the skip list; --check lists them.`)
+  return 0
 }
 
 /** Run the command line; returns the process exit code. */
@@ -369,21 +440,14 @@ export function main(argv, io = console) {
     io.log('Usage: m22-to-folio.mjs --slug|--prefix|--package [--dry-run|--write|--check] [--root <dir>] [--skip <glob>]...')
     return 0
   }
-  if (options.action === 'check') return runCheck(options, io)
-  const result = plan(options)
-  if (result.blockers.length > 0) {
-    printRefusal(result, io)
+  try {
+    return execute(options, io)
+  } catch (error) {
+    // A broken manifest, a git failure or a rename collision: say which, once,
+    // without a stack trace, and write nothing further.
+    io.error(`m22-to-folio: ${error.message}`)
     return 1
   }
-  printPlan(result, options.action, io)
-  if (options.action === 'dry-run') {
-    io.log('Dry run: nothing was written. Rerun with --write to apply.')
-    return 0
-  }
-  apply(result)
-  const remaining = leftovers(options).length
-  io.log(`Written. ${remaining} leftover line(s) outside the skip list; --check lists them.`)
-  return 0
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

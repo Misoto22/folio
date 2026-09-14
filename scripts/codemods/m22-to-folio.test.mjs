@@ -1,5 +1,7 @@
 /**
- * Tests for `m22-to-folio.mjs`, run with `pnpm test:codemods` (`node --test`).
+ * Tests for `m22-to-folio.mjs`, run by `node --test` as `pnpm test:codemods`,
+ * which the root `pnpm test` chains after the packages' suites — so CI's
+ * Verify job runs them. The root `pnpm lint` lints this directory.
  *
  * They live beside the script rather than in a package's vitest suite because
  * the fixtures are full of `m22-` and `@misoto22/design`: anywhere outside
@@ -269,6 +271,7 @@ describe('a dry run', () => {
     assert.match(result.stdout, /2 {2}apps\/docs\/src\/components\/Card\.tsx/)
     assert.match(result.stdout, /2 replacement\(s\) in 1 file\(s\); 0 path rename\(s\)\./)
     assert.match(result.stdout, /Dry run: nothing was written/)
+    assert.doesNotMatch(result.stdout, /regenerate/)
     assert.deepEqual(snapshot(root), before)
     assert.equal(git(root, ['status', '--porcelain']), status)
   })
@@ -322,6 +325,59 @@ describe('--check', () => {
     const result = run(root, ['--prefix', '--check'])
     assert.equal(result.status, 1)
     assert.match(result.stdout, /src\/a\.ts:1: const id = 'xm22-legacy'/)
+  })
+})
+
+describe('harness-generated files', () => {
+  const manifest = JSON.stringify({
+    schemaVersion: 2,
+    files: [
+      { path: 'AGENTS.md', sha256: '0' },
+      { path: '.cursor/rules/misoto-harness.mdc', sha256: '0' },
+      { path: '.rulesync/rules/10-core-git.md', sha256: '0' },
+    ],
+  })
+  const files = {
+    '.rulesync/managed-files.json': manifest,
+    'AGENTS.md': '# @misoto22/design\n\nnpx skills add Misoto22/misoto22-design\n',
+    '.cursor/rules/misoto-harness.mdc': '# @misoto22/design\n',
+    '.rulesync/rules/10-core-git.md': '# Git safety\n',
+    '.rulesync/rules/50-project.md': '# @misoto22/design\n',
+    '.rulesync/rules.json': '{ "title": "@misoto22/design" }\n',
+  }
+
+  it('are never edited, are named for regeneration, and neither block --package nor fail --check', () => {
+    const root = repository(files)
+    const dry = run(root, ['--package'])
+    assert.equal(dry.status, 0, dry.stderr)
+    assert.match(dry.stdout, /regenerate {2}AGENTS\.md/)
+    assert.match(dry.stdout, /regenerate {2}\.cursor\/rules\/misoto-harness\.mdc/)
+    assert.match(dry.stdout, /rulesync generate/)
+
+    assert.equal(run(root, ['--package', '--write']).status, 0)
+    for (const path of ['AGENTS.md', '.cursor/rules/misoto-harness.mdc', '.rulesync/rules/10-core-git.md']) {
+      assert.equal(readFileSync(join(root, path), 'utf8'), files[path])
+    }
+
+    const check = run(root, ['--package', '--check'])
+    assert.equal(check.status, 0, check.stdout)
+    assert.match(check.stdout, /regenerate {2}AGENTS\.md/)
+  })
+
+  it('leaves the rulesync sources, which the manifest does not list, to be rewritten', () => {
+    const root = repository(files)
+    assert.equal(run(root, ['--package', '--write']).status, 0)
+    assert.equal(readFileSync(join(root, '.rulesync/rules/50-project.md'), 'utf8'), '# @misoto22/folio\n')
+    assert.equal(readFileSync(join(root, '.rulesync/rules.json'), 'utf8'), '{ "title": "@misoto22/folio" }\n')
+  })
+
+  it('stops with a clear message, writing nothing, when the manifest is not JSON', () => {
+    const root = repository({ '.rulesync/managed-files.json': '{ not json', 'src/a.css': '.m22-a {}\n' })
+    const result = run(root, ['--prefix', '--write'])
+    assert.equal(result.status, 1)
+    assert.match(result.stderr, /managed-files\.json is not valid JSON/)
+    assert.doesNotMatch(result.stderr, /\n\s+at /)
+    assert.equal(readFileSync(join(root, 'src/a.css'), 'utf8'), '.m22-a {}\n')
   })
 })
 
