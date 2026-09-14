@@ -1,5 +1,68 @@
 # @misoto22/design
 
+## 0.15.0
+
+### Minor Changes
+
+- [#109](https://github.com/Misoto22/misoto22-design/pull/109) [`d65dea0`](https://github.com/Misoto22/misoto22-design/commit/d65dea06af3e02cfd767f322e37b75febd0c8097) Thanks [@Misoto22](https://github.com/Misoto22)! - `CommandDialog` takes `shouldFilter`, `inputLabel` and its dialog's focus and Escape handlers, and `SearchPalette` is now built on it instead of beside it.
+  
+  `SearchPalette` rebuilt the same modal by hand — a `Dialog` holding a `Command`, placed above centre — and restyled the library's own row and heading attributes to get there, so a change to either palette could move one and leave the other behind. It now renders `CommandDialog`, takes its geometry and its list, and styles only the elements it renders itself.
+  
+  The new props are the hooks it could not do without, forwarded unchanged: `shouldFilter` for results a host has already filtered, `inputLabel` for a field named apart from its dialog, and `onOpenAutoFocus`, `onCloseAutoFocus` and `onEscapeKeyDown` for returning focus to whatever opened a palette that has no `DialogTrigger`, and for a detail view that Escape leaves rather than closes.
+
+- [#111](https://github.com/Misoto22/misoto22-design/pull/111) [`faf08cf`](https://github.com/Misoto22/misoto22-design/commit/faf08cfa9d16eeed365a76c0bbd2c3fa0f33a993) Thanks [@Misoto22](https://github.com/Misoto22)! - `styles.css` no longer carries the website compositions: import `website.css` for
+  them, and the new `website-base.css` for a whole site's document defaults.
+  
+  An application that wanted only the primitives received about 1,300 lines of
+  website CSS, and some of it reached the whole document: a body font size and
+  background, zeroed heading and paragraph margins, one focus ring on every link
+  and control, and a restyle of every `DropdownMenu`.
+  
+  `website.css` now holds only rules scoped to a composition's classes, and its
+  menu styling reaches only the menus the compositions open. The body, heading,
+  paragraph and link defaults, the scrollbar gutter, the `:lang(zh)` spacing and
+  the site-wide focus ring move to `@misoto22/design/website-base.css`.
+  
+  That ring now sits in the base layer, so a primitive's own outline utility wins
+  over it again. Unlayered, it beat `outline-none` and drew a clipped square around
+  the `Command` input in every host that loaded the website styles.
+  
+  `website-motion.css` is removed. No component used its unprefixed classes and
+  keyframes, and its `@keyframes pulse` shared a name with the one Tailwind's
+  `animate-pulse` reads.
+  
+  The chart surface's keyboard focus ring moves to `keyframes.css`, so an
+  application on `styles.css` keeps it.
+  
+  To migrate a website host, add the imports it now needs beside its existing
+  stylesheet:
+  
+  - `@import '@misoto22/design/website.css';` for the compositions.
+  - `@import '@misoto22/design/website-base.css';` for the document defaults and the focus ring, when the whole page is a website.
+  - Copy any of `.route-enter`, `.panel-in`, `.sheet-in`, `.scrim-in`, `.ask-launcher` or `::highlight(ask-passage)` the host still uses into its own stylesheet.
+  
+  An application that renders only the primitives needs no change.
+
+### Patch Changes
+
+- [#107](https://github.com/Misoto22/misoto22-design/pull/107) [`a2603e7`](https://github.com/Misoto22/misoto22-design/commit/a2603e7403ebc6f373d916e238ba5f6a99ec2a91) Thanks [@Misoto22](https://github.com/Misoto22)! - `CommandItem`'s active-row accent bar now clips to the row's own corner radius, so it no longer pokes past a rounded highlight.
+  
+  The bar is an absolutely-positioned `::before`, and a rounded parent does not clip an absolutely-positioned child by default — only `overflow-hidden` on the row does. At `data-radius="round"`, `--radius-row` reaches 18px and the bar's flat edge stuck out past the highlight's curve by close to 7px; at the default radius the miss was under a pixel, and at `sharp` there was none, which is why the defect went unnoticed until the round theme was checked directly.
+  
+  Every other child — icon, meta, shortcut — stays clear of the newly-clipped corners at every radius, the closest any of them comes to a corner's arc centre being about 7px on an 18px arc. The focus ring is unaffected too: `outline` paints outside an element's border box, which its own `overflow` never clips. `Combobox` and `SearchableMenu` render their rows through this same `CommandItem`, so both pick up the fix without a separate change; `DropdownMenu`, `ContextMenu`, `Select`, `NavItem` and `Sidebar` highlight a row with a plain background fill and carry no accent bar, so none of them shared the defect.
+
+- [#105](https://github.com/Misoto22/misoto22-design/pull/105) [`21fc205`](https://github.com/Misoto22/misoto22-design/commit/21fc205e7504bccec79c3ddb32f46fa614b88f9c) Thanks [@Misoto22](https://github.com/Misoto22)! - `SiteNavigation` takes its width from its containing block, so a transformed or contained frame keeps the whole masthead inside it.
+  
+  The header pinned itself to `window.innerWidth` so that an overlay's scroll lock could not change its width in a WebView. That is right against the viewport and wrong anywhere else: under an ancestor with a `transform` or `contain: layout` — a device preview, an embedded console, a documentation card — a fixed header is laid out against that ancestor, and a window-wide width pushed its links and preferences out past the frame's edge.
+  
+  It now pins a width only when the stylesheet's `inline-size: 100%` already resolves to the viewport, and otherwise leaves the width to the containing block.
+
+- [#106](https://github.com/Misoto22/misoto22-design/pull/106) [`ffd26b9`](https://github.com/Misoto22/misoto22-design/commit/ffd26b9ee6959825f147ab89f472e7f6dd95455a) Thanks [@Misoto22](https://github.com/Misoto22)! - `StepSequence` now draws the core `Steps` rail, and `ClipboardButton` shares `CodeBlock`'s copy state, including what a refused clipboard write does.
+  
+  The website rail was a second implementation of the same figure — marker, connector, name and note — at its own sizes. It now renders through the same internal rail item as `Steps`, so its markers are the core 2rem circles with sans counters and the anchor no longer sets its label in medium weight. Host counters, tags, the caption, `data-anchor` and the ARIA list roles that keep article prose from restyling it are unchanged, and the anchor is still not announced as the current step.
+  
+  Both copy controls confirm for 1600ms from the latest accepted write. A refused write now clears any confirmation still showing instead of leaving it up, and names the refusal once in development as `CLIPBOARD_WRITE_REJECTED`.
+
 ## 0.14.1
 
 ### Patch Changes
