@@ -6,7 +6,7 @@ import examplesJson from '@/generated/examples.json'
 import type { ExampleData } from '@/lib/docs'
 import { ComponentPage } from '@/views/ComponentPage'
 import { fingerprint } from '../api-hash'
-import { CATALOG_ENTRIES } from '@/content/registry'
+import { COMPONENTS } from '@/content/registry'
 import { EXAMPLE_ZH, exampleCopy, exampleTitle } from '../examples'
 
 vi.mock('next/link', () => ({
@@ -157,7 +157,7 @@ describe('a component page in Chinese', () => {
  * that long is a file nobody re-reads and a diff nobody can review.
  */
 describe('the Chinese example headings', () => {
-  const GROUP_BY_DIR = new Map(CATALOG_ENTRIES.map((entry) => [entry.dir, entry.group]))
+  const GROUP_BY_DIR = new Map(COMPONENTS.map((entry) => [entry.dir, entry.group]))
   const groupOf = (key: string) => GROUP_BY_DIR.get(key.slice(0, key.indexOf('/')))
 
   /** Groups whose headings are all translated. Add one when its batch lands. */

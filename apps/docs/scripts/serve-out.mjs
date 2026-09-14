@@ -11,14 +11,20 @@
  * No dependency: a directory server that resolves `/x/` to `/x/index.html` and
  * falls back to `404.html` is thirty lines, and a dependency here would be
  * thirty lines plus a supply chain.
+ *
+ * It honours the export's `_redirects` too, through the same reader the unit
+ * test uses, so a retired address is followed here the way Pages follows it.
  */
-import { createReadStream, existsSync, statSync } from 'node:fs'
+import { createReadStream, existsSync, readFileSync, statSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { dirname, extname, join, normalize } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { parseRedirects, redirectFor } from './redirects.mjs'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', 'out')
 const PORT = Number(process.env.PORT ?? 4024)
+const REDIRECTS = join(ROOT, '_redirects')
+const RULES = existsSync(REDIRECTS) ? parseRedirects(readFileSync(REDIRECTS, 'utf8')) : []
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -44,6 +50,13 @@ function resolve(urlPath) {
 }
 
 createServer((request, response) => {
+  // Before the file lookup, as on Pages: a redirect is followed whether or not
+  // an asset matches the request.
+  const redirect = redirectFor(RULES, (request.url ?? '/').split('?')[0])
+  if (redirect) {
+    response.writeHead(redirect.status, { location: redirect.location })
+    return response.end()
+  }
   const file = resolve(request.url ?? '/')
   if (!file) {
     const notFound = join(ROOT, '404.html')

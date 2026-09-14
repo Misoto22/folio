@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 test('compact records use the reading column when their optional index is absent', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 })
-  await page.goto('/patterns/collection/')
+  await page.goto('/components/collection/')
   const example = page.locator('[data-example="Collection/01-searchable-records"]')
   const row = example.locator('.m22-record-link').first()
   const copy = row.locator('.m22-record-copy')
@@ -16,7 +16,7 @@ test('compact records use the reading column when their optional index is absent
 
 test('site navigation is laid out against its preview rather than the window', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 })
-  await page.goto('/patterns/site-navigation/')
+  await page.goto('/components/site-navigation/')
   const frame = page.locator('[data-example="SiteNavigation/01-navigation-and-preferences"] [data-canvas="preview"]')
   const navigation = frame.locator('.m22-site-navigation')
   const language = navigation.getByRole('button', { name: 'Language' })
@@ -33,7 +33,7 @@ test('site navigation is laid out against its preview rather than the window', a
 
 test('media detail return control retains its touch target after browser rounding', async ({ page }) => {
   await page.setViewportSize({ width: 640, height: 1000 })
-  await page.goto('/patterns/media/')
+  await page.goto('/components/media/')
   const example = page.locator('[data-example="Media/02-photograph-detail"]')
   const backLink = example.getByRole('link', { name: 'Back to field observations' })
   await expect(backLink).toBeVisible()
@@ -41,4 +41,21 @@ test('media detail return control retains its touch target after browser roundin
   expect(bounds).not.toBeNull()
   expect(bounds!.width).toBeGreaterThanOrEqual(44)
   expect(bounds!.height).toBeGreaterThanOrEqual(44)
+})
+
+/**
+ * The compositions had a section of their own at /patterns/ before they became
+ * the Website group of the catalogue, and links to it are out in the world.
+ * `serve-out.mjs` reads the same `_redirects` Cloudflare Pages does, so this is
+ * the redirect production serves rather than a stand-in for it.
+ */
+test('an address from the retired Patterns section lands on the page that replaced it', async ({ page }) => {
+  await page.goto('/patterns/collection/')
+  await expect(page).toHaveURL(/\/components\/collection\/$/)
+  // By name: the Collection example on the page renders a heading of its own.
+  await expect(page.getByRole('heading', { level: 1, name: 'Collection', exact: true })).toBeVisible()
+
+  await page.goto('/zh/patterns/')
+  await expect(page).toHaveURL(/\/zh\/components\/#website$/)
+  await expect(page.getByRole('heading', { name: '网站', exact: true })).toBeVisible()
 })

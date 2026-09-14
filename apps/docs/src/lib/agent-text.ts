@@ -1,6 +1,6 @@
 import propsData from '@/generated/props.json'
 import examplesData from '@/generated/examples.json'
-import { CATALOG_ENTRIES, COMPONENTS, PATTERNS, type ComponentEntry } from '@/content/registry'
+import { COMPONENTS, type ComponentEntry } from '@/content/registry'
 import { FOUNDATIONS } from '@/content/foundations'
 import { TEMPLATES } from '@/content/templates'
 import { LAWS } from '@/content/principles'
@@ -93,7 +93,7 @@ export function componentText(entry: ComponentEntry): string {
     '',
     `- Group: ${entry.group}`,
     `- Import: \`import { ${primary?.name ?? entry.name} } from '${entry.entry}'\``,
-    `- Page: ${SITE}/${entry.kind === 'pattern' ? 'patterns' : 'components'}/${entry.slug}/`,
+    `- Page: ${SITE}/components/${entry.slug}/`,
   ]
 
   if (entry.related?.length) out.push(`- Related: ${entry.related.join(', ')}`)
@@ -163,6 +163,13 @@ export function componentText(entry: ComponentEntry): string {
 
 /** The index: what this is, and where everything lives. */
 export function indexText(): string {
+  // The website families are components with pages like any other, listed
+  // apart because they ship from their own entry point and an agent pasting an
+  // import from the wrong one gets a module-not-found rather than a component.
+  const website = COMPONENTS.filter((entry) => entry.group === 'Website')
+  const websiteEntries = [...new Set(website.map((entry) => `\`${entry.entry}\``))].join(', ')
+  const link = (entry: ComponentEntry) =>
+    `- [${entry.name}](${SITE}/components/${entry.slug}/llms.txt): ${entry.summary}`
   const out: string[] = [
     '# misoto22 design',
     '',
@@ -209,17 +216,14 @@ export function indexText(): string {
     '',
     '## Components',
     '',
-    ...COMPONENTS.map(
-      (entry) =>
-        `- [${entry.name}](${SITE}/components/${entry.slug}/llms.txt): ${entry.summary}`,
-    ),
+    ...COMPONENTS.filter((entry) => entry.group !== 'Website').map(link),
     '',
-    '## Website patterns',
+    '## Website',
     '',
-    ...PATTERNS.map(
-      (entry) =>
-        `- [${entry.name}](${SITE}/patterns/${entry.slug}/): ${entry.summary}`,
-    ),
+    `Page-shaped compositions of the components above, imported from ${websiteEntries}.`,
+    'The host supplies content, routes and service state.',
+    '',
+    ...website.map(link),
     '',
     '## Foundations',
     '',
@@ -240,5 +244,5 @@ export function indexText(): string {
 
 /** Everything, for a reader that would rather fetch once. */
 export function fullText(): string {
-  return [indexText(), '', '---', '', ...CATALOG_ENTRIES.map(componentText)].join('\n')
+  return [indexText(), '', '---', '', ...COMPONENTS.map(componentText)].join('\n')
 }

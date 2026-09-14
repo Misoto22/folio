@@ -4,7 +4,7 @@ import { WARNING_CODES } from '@/lib/docs'
 import { getMessages } from '@/i18n/messages'
 import { LOCALES } from '@/i18n/locales'
 import { componentText, indexText } from '@/lib/agent-text'
-import { PATTERNS } from '@/content/registry'
+import { COMPONENTS } from '@/content/registry'
 import * as website from '@misoto22/design/website'
 
 /**
@@ -20,11 +20,29 @@ import * as website from '@misoto22/design/website'
  * build emits, and these assert the site actually says it. A number typed into
  * prose is the other half of the same failure, and gets the same treatment.
  */
+const WEBSITE = COMPONENTS.filter((entry) => entry.group === 'Website')
+
 describe('the site keeps up with the package', () => {
-  it.each(PATTERNS)('advertises a real public import for the $name family', (entry) => {
-    const imported = componentText(entry).match(/- Import: `import \{ (\w+) \}/)?.[1]
+  it.each(WEBSITE)('advertises a real public import for the $name family', (entry) => {
+    const text = componentText(entry)
+    const imported = text.match(/- Import: `import \{ (\w+) \}/)?.[1]
     expect(imported).toBeTruthy()
     expect(website).toHaveProperty(imported!)
+    expect(text).toContain(`- Page: https://ui.misoto22.com/components/${entry.slug}/`)
+  })
+
+  it('indexes the website families under their own heading, at their component pages', () => {
+    // The /patterns/ section is retired and only redirects; an agent handed the
+    // old address pays a hop for nothing, and the index is the one place it
+    // would learn the address from.
+    const index = indexText()
+    expect(index).not.toContain('/patterns/')
+    const start = index.indexOf('## Website')
+    expect(start).toBeGreaterThan(-1)
+    const section = index.slice(start, index.indexOf('\n## ', start + 1))
+    expect(section).toContain('@misoto22/design/website')
+    const missing = WEBSITE.filter((entry) => !section.includes(`/components/${entry.slug}/llms.txt`))
+    expect(missing.map((entry) => entry.slug)).toEqual([])
   })
   const copy = Object.fromEntries(
     LOCALES.map((locale) => [locale, JSON.stringify(getMessages(locale))]),

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CATALOG_ENTRIES, type ComponentEntry } from '@/content/registry'
+import { COMPONENTS, type ComponentEntry } from '@/content/registry'
 import { fingerprint } from '../api-hash'
 import { componentCopy, COMPONENTS_ZH, TEMPLATES_ZH, templateCopy } from '../content'
 import { TEMPLATES } from '@/content/templates'
@@ -46,7 +46,7 @@ describe('the Chinese catalogue', () => {
   // the spread loses nine components the same way. Neither shows on the page —
   // the fallback prints English and the site looks merely untranslated.
   it('assembles every component from the group files', () => {
-    expect(Object.keys(COMPONENTS_ZH)).toHaveLength(CATALOG_ENTRIES.length)
+    expect(Object.keys(COMPONENTS_ZH)).toHaveLength(COMPONENTS.length)
   })
 
   it('lets no slug appear in two group files', () => {
@@ -66,12 +66,12 @@ describe('the Chinese catalogue', () => {
   })
 
   it('translates only slugs that exist', () => {
-    const slugs = new Set(CATALOG_ENTRIES.map((entry) => entry.slug))
+    const slugs = new Set(COMPONENTS.map((entry) => entry.slug))
     expect(Object.keys(COMPONENTS_ZH).filter((slug) => !slugs.has(slug))).toEqual([])
   })
 
   it('gives every component a summary', () => {
-    const missing = CATALOG_ENTRIES.filter((entry) => !COMPONENTS_ZH[entry.slug]?.summary)
+    const missing = COMPONENTS.filter((entry) => !COMPONENTS_ZH[entry.slug]?.summary)
     expect(missing.map((entry) => entry.slug)).toEqual([])
   })
 
@@ -81,7 +81,7 @@ describe('the Chinese catalogue', () => {
     // twenty chart and data primitives, because nothing in this file looked:
     // the summary was there, the page read as translated, and the one place
     // the gap showed was a list nobody diffs.
-    const missing = CATALOG_ENTRIES.filter((entry) => !COMPONENTS_ZH[entry.slug]?.name)
+    const missing = COMPONENTS.filter((entry) => !COMPONENTS_ZH[entry.slug]?.name)
     expect(missing.map((entry) => entry.slug)).toEqual([])
   })
 
@@ -114,7 +114,7 @@ describe('the Chinese catalogue', () => {
     expect(marked).toEqual([])
   })
 
-  it.each(CATALOG_ENTRIES.filter((entry) => entry.keyboard?.length))(
+  it.each(COMPONENTS.filter((entry) => entry.keyboard?.length))(
     'pairs $slug keyboard rows one to one',
     (entry) => {
       // Positional, so a row added in English without one here would shift
@@ -125,7 +125,7 @@ describe('the Chinese catalogue', () => {
     },
   )
 
-  it.each(CATALOG_ENTRIES.filter((entry) => entry.accessibility?.length))(
+  it.each(COMPONENTS.filter((entry) => entry.accessibility?.length))(
     'pairs $slug accessibility lines one to one',
     (entry) => {
       const zh = COMPONENTS_ZH[entry.slug]?.accessibility
@@ -139,7 +139,7 @@ describe('the Chinese catalogue', () => {
   // in this file noticing, because this file did not know the fields existed.
   // Nothing above them was wrong; they were simply outside what was checked.
   // These two are here so the next field cannot be added the same way.
-  it.each(CATALOG_ENTRIES.filter((entry) => entry.anatomy?.length))(
+  it.each(COMPONENTS.filter((entry) => entry.anatomy?.length))(
     'pairs $slug anatomy rows one to one [$group]',
     (entry) => {
       const zh = COMPONENTS_ZH[entry.slug]?.anatomy
@@ -148,7 +148,7 @@ describe('the Chinese catalogue', () => {
     },
   )
 
-  it.each(CATALOG_ENTRIES.filter((entry) => entry.practices?.length))(
+  it.each(COMPONENTS.filter((entry) => entry.practices?.length))(
     'pairs $slug practice lines one to one [$group]',
     (entry) => {
       // One list, do and don't together, in the English list's order — the
@@ -210,7 +210,7 @@ describe('the Chinese catalogue', () => {
   // the way `api.ts` does. Editing the catalog in the package now fails here
   // until the Chinese beside it is updated, and until it is, the page prints
   // English rather than the stale line — see `componentCopy`.
-  it.each(CATALOG_ENTRIES)('translates the English that is there now for $slug [$group]', (entry) => {
+  it.each(COMPONENTS)('translates the English that is there now for $slug [$group]', (entry) => {
     const stale = fingerprinted(entry)
       .filter((line) => line.hash !== undefined && line.hash !== fingerprint(line.english))
       .map((line) => line.field)
@@ -221,7 +221,7 @@ describe('the Chinese catalogue', () => {
     // The fallback is the point of the fingerprint, so it is checked through
     // `componentCopy` — the function the pages actually call — rather than by
     // re-deriving the rule here.
-    const entry = CATALOG_ENTRIES.find((component) => (component.anatomy?.length ?? 0) > 1)!
+    const entry = COMPONENTS.find((component) => (component.anatomy?.length ?? 0) > 1)!
     const englishRows = entry.anatomy!
     const copy = COMPONENTS_ZH[entry.slug]!
     const summary = copy.summary

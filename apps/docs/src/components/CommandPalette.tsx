@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { ACCENTS, SWATCH, useAccent } from './AccentProvider'
 import { FOUNDATIONS } from '@/content/foundations'
-import { COMPONENTS, PATTERNS } from '@/content/registry'
+import { COMPONENTS } from '@/content/registry'
 import { SEARCH_TERMS } from '@/content/haystack'
 import { componentName, foundationCopy, groupName } from '@/i18n/content'
 import { localePath } from '@/i18n/locales'
@@ -45,6 +45,18 @@ const FOUNDATION_ICON: Record<string, typeof RiPaletteLine> = {
   space: RiRulerLine,
   motion: RiDragMove2Line,
 }
+
+/**
+ * The website compositions under a heading of their own, and every other
+ * family under one shared heading.
+ *
+ * Their pages are in the component catalogue like everyone else's. They are
+ * looked for by the page they build rather than by the control they are, so
+ * they keep their own heading here, named for the group they are in.
+ */
+const PRIMITIVES = COMPONENTS.filter((entry) => entry.group !== 'Website')
+const WEBSITE = COMPONENTS.filter((entry) => entry.group === 'Website')
+
 export function CommandPalette() {
   const [open, setOpen] = useState(false)
   const router = useRouter()
@@ -197,7 +209,7 @@ export function CommandPalette() {
             "table" listed Tag, FigureBand and Alert above Table. The section is
             still on every row, as its meta. */}
         <CommandGroup heading={t.palette.components}>
-          {COMPONENTS.map((entry) => (
+          {PRIMITIVES.map((entry) => (
             <CommandItem
               key={entry.slug}
               // The summary is searchable but not printed: a palette that shows
@@ -226,8 +238,8 @@ export function CommandPalette() {
 
         <CommandSeparator />
 
-        <CommandGroup heading={t.palette.patterns}>
-          {PATTERNS.map((entry) => (
+        <CommandGroup heading={groupName(locale, 'Website')}>
+          {WEBSITE.map((entry) => (
             <CommandItem
               key={entry.slug}
               value={entry.name}
@@ -237,8 +249,8 @@ export function CommandPalette() {
                 componentName(locale, entry.slug, entry.name),
               ]}
               icon={<RiLayoutGridLine aria-hidden />}
-              meta={t.palette.patterns}
-              onSelect={() => go(`/patterns/${entry.slug}/`)}
+              meta={groupName(locale, entry.group)}
+              onSelect={() => go(`/components/${entry.slug}/`)}
             >
               {componentName(locale, entry.slug, entry.name)}
             </CommandItem>
