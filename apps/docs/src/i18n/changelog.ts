@@ -1261,6 +1261,15 @@ const ZH: Record<string, string> = {
   [fingerprint(
     "It now pins a width only when the stylesheet's `inline-size: 100%` already resolves to the viewport, and otherwise leaves the width to the containing block.",
   )]: '现在只有当样式表里的 `inline-size: 100%` 本来就解析为视口宽度时，它才会钉住宽度；否则就把宽度交给包含块。',
+  [fingerprint(
+    "`CommandItem`'s active-row accent bar now clips to the row's own corner radius, so it no longer pokes past a rounded highlight.",
+  )]: '`CommandItem` 高亮行左侧的强调竖线现在会按行自身的圆角裁切，不再在圆角主题下探出高亮区域。',
+  [fingerprint(
+    'The bar is an absolutely-positioned `::before`, and a rounded parent does not clip an absolutely-positioned child by default — only `overflow-hidden` on the row does. At `data-radius="round"`, `--radius-row` reaches 18px and the bar\'s flat edge stuck out past the highlight\'s curve by close to 7px; at the default radius the miss was under a pixel, and at `sharp` there was none, which is why the defect went unnoticed until the round theme was checked directly.',
+  )]: '这根竖线是一个绝对定位的 `::before`，圆角父元素默认并不会裁切绝对定位的子元素——只有在行自身加上 `overflow-hidden` 才会。在 `data-radius="round"` 下，`--radius-row` 达到 18px，竖线的直边会探出高亮曲线将近 7px；在默认圆角下这个偏差不到 1px，在 `sharp` 下则完全没有——这正是这个缺陷直到直接检查圆角主题才被发现的原因。',
+  [fingerprint(
+    "Every other child — icon, meta, shortcut — stays clear of the newly-clipped corners at every radius, the closest any of them comes to a corner's arc centre being about 7px on an 18px arc. The focus ring is unaffected too: `outline` paints outside an element's border box, which its own `overflow` never clips. `Combobox` and `SearchableMenu` render their rows through this same `CommandItem`, so both pick up the fix without a separate change; `DropdownMenu`, `ContextMenu`, `Select`, `NavItem` and `Sidebar` highlight a row with a plain background fill and carry no accent bar, so none of them shared the defect.",
+  )]: '行内其余的子元素——图标、说明文字、快捷键——在任何圆角下都离新裁切的角很远，其中离圆角弧心最近的一个，在 18px 的弧上也留了约 7px 的余量。焦点环同样不受影响：`outline` 画在元素边框盒之外，不会被元素自身的 `overflow` 裁掉。`Combobox` 和 `SearchableMenu` 的行都经由同一个 `CommandItem` 渲染，所以两者都无需单独改动就一并修好；`DropdownMenu`、`ContextMenu`、`Select`、`NavItem` 和 `Sidebar` 高亮一行用的是纯背景填色，没有这根强调竖线，因此都不受此缺陷影响。',
 }
 
 /** The English a translation was made from, for the orphan check. */
