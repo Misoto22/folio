@@ -1,10 +1,12 @@
 import { ImageResponse } from 'next/og'
 import { readFile } from 'node:fs/promises'
 import { BRAND } from '@misoto22/design'
+import { getMessages } from '@/i18n/messages'
+import { BRAND_NAME } from '@/lib/brand'
 
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
-export const alt = 'misoto22 design — the White Reset'
+export const alt = `${BRAND_NAME.en} — ${getMessages('en').tagline}`
 /** Drawn once at build time; `output: 'export'` has no runtime to draw it in. */
 export const dynamic = 'force-static'
 
@@ -45,7 +47,7 @@ export default async function OpengraphImage() {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           <div style={{ fontSize: 76, fontWeight: 600, color: BRAND.ink, letterSpacing: -2 }}>
-            misoto22 design
+            {BRAND_NAME.en}
           </div>
           <div style={{ fontSize: 34, color: BRAND.body, maxWidth: 900, lineHeight: 1.35 }}>
             The White Reset — portable tokens and accessible React primitives.

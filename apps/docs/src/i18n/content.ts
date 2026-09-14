@@ -1,4 +1,5 @@
 import { BY_SLUG, type ComponentGroup } from '@/content/registry'
+import { BRAND_NAME } from '@/lib/brand'
 import { fingerprint } from './api-hash'
 import type { Locale } from './locales'
 import { ACTIONS_ZH } from './components-zh/actions'
@@ -620,7 +621,7 @@ export function templateCopy(locale: Locale, slug: string) {
 /** The pages that are mostly prose. */
 export const PAGE_ZH = {
   home: {
-    eyebrow: 'misoto22 design',
+    eyebrow: BRAND_NAME.zh,
     title: '归白',
     summary:
       '一套给软件、写作与摄影用的纯白单色设计系统。底是纸白，记号是近黑，文件里剩下的唯一彩色是状态——它绑定在状态上，永远不绑定品牌。',

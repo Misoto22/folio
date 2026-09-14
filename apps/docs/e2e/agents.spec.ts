@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test'
 import { readdirSync, statSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { BRAND_NAME } from '../src/lib/brand'
 
 /**
  * The components the built site actually published, read off the export.
@@ -31,7 +32,7 @@ test('llms.txt lists every component the site publishes', async ({ request }) =>
   expect(response.status()).toBe(200)
   const body = await response.text()
 
-  expect(body).toContain('# misoto22 design')
+  expect(body).toMatch(new RegExp(`^# ${BRAND_NAME.en}$`, 'm'))
   // The laws, the theme axes and the install line: the three things an agent
   // has to know before it writes a single line against this package.
   expect(body).toContain('The accent is ink')

@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
+import { BRAND_NAME } from '../src/lib/brand'
 
 async function ready(page: Page) {
   await expect(page.getByRole('button', { name: /切换到|Switch to the/ })).toBeVisible()
@@ -16,12 +17,16 @@ test.describe('locales', () => {
     await page.goto('/components/button/')
     await expect(page.getByRole('heading', { name: 'Button', level: 1 })).toBeVisible()
     await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+    await expect(page).toHaveTitle(`Button · ${BRAND_NAME.en}`)
   })
 
   test('Chinese renders the editorial layer in Chinese', async ({ page }) => {
     await page.goto('/zh/components/button/')
     await ready(page)
     await expect(page.locator('html')).toHaveAttribute('lang', 'zh-Hans')
+    // The Chinese name in the tab too, and only once: the zh layout's template
+    // replaces the root one rather than stacking on it.
+    await expect(page).toHaveTitle(`Button · ${BRAND_NAME.zh}`)
     // The summary, the "when to reach for it" note and the section headings.
     await expect(page.getByText('这套系统的动作')).toBeVisible()
     await expect(page.getByRole('heading', { name: '示例' })).toBeVisible()
@@ -41,6 +46,18 @@ test.describe('locales', () => {
     await expect(table).toContainText('这个屏幕最希望你做的那一件事')
     // Identifiers and type signatures stay as they are; they are code.
     await expect(table).toContainText('ButtonVariant')
+  })
+
+  test('Chinese names the site in Chinese', async ({ page }) => {
+    await page.goto('/zh/')
+    await ready(page)
+    // 册页 is the site's Chinese name rather than a gloss on Folio, so the
+    // wordmark, the footer and the title all carry it, and none carries Folio.
+    // Anchored: the rail's link reads the tagline straight after the name.
+    await expect(page.getByRole('link', { name: new RegExp(`^${BRAND_NAME.zh}`) }).first()).toBeVisible()
+    await expect(page.locator('footer').getByRole('link', { name: BRAND_NAME.zh, exact: true })).toBeVisible()
+    await expect(page.getByRole('link', { name: new RegExp(`^${BRAND_NAME.en}`) })).toHaveCount(0)
+    await expect(page).toHaveTitle(`${BRAND_NAME.zh} — 归白`)
   })
 
   test('the switcher goes to the same page, not the home page', async ({ page }) => {

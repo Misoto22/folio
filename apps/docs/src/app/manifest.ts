@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { BRAND } from '@misoto22/design'
+import { BRAND_NAME } from '@/lib/brand'
 
 /**
  * Named for the pinned tab and the installed shortcut, not for an app store —
@@ -11,8 +12,8 @@ export const dynamic = 'force-static'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'misoto22 design',
-    short_name: 'misoto22',
+    name: BRAND_NAME.en,
+    short_name: BRAND_NAME.en,
     description: 'The White Reset — portable tokens and accessible React primitives.',
     start_url: '/',
     display: 'minimal-ui',

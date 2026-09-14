@@ -1,10 +1,10 @@
-# misoto22 design
+# Folio
 
 <div align="center">
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.png">
-  <img alt="misoto22 design — the White Reset" src="assets/hero-light.png" width="820">
+  <img alt="Folio — the White Reset" src="assets/hero-light.png" width="820">
 </picture>
 
 <br />

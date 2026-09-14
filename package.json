@@ -2,7 +2,7 @@
   "name": "misoto22-design-workspace",
   "private": true,
   "type": "module",
-  "description": "misoto22 design system \u2014 the @misoto22/design package and its documentation site",
+  "description": "Folio design system \u2014 the @misoto22/design package and its documentation site",
   "license": "MIT",
   "author": "Henry Chen",
   "scripts": {

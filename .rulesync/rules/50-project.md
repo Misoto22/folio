@@ -1,7 +1,7 @@
 ---
 root: true
 targets: ["agentsmd"]
-description: Project-owned rules for the misoto22 design system
+description: Project-owned rules for the Folio design system
 scope: project
 ---
 

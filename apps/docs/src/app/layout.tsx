@@ -5,19 +5,21 @@ import { DocsShell } from '@/components/DocsShell'
 import { BRAND } from '@misoto22/design'
 import './globals.css'
 import { COMPONENTS } from '@/content/registry'
+import { getMessages } from '@/i18n/messages'
+import { BRAND_NAME } from '@/lib/brand'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ui.misoto22.com'),
   title: {
-    default: 'misoto22 design — the White Reset',
-    template: '%s · misoto22 design',
+    default: `${BRAND_NAME.en} — ${getMessages('en').tagline}`,
+    template: `%s · ${BRAND_NAME.en}`,
   },
   // Counted, not typed: it said 34 while the package shipped 52, and a number
   // in a meta description is the kind nobody re-reads.
   description: `A pure-white monochrome design system for software, writing and photography: portable tokens and ${COMPONENTS.length} accessible React primitives.`,
   openGraph: {
     type: 'website',
-    siteName: 'misoto22 design',
+    siteName: BRAND_NAME.en,
     url: 'https://ui.misoto22.com',
   },
   alternates: {

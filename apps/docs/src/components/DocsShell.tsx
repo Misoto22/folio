@@ -24,6 +24,7 @@ import { ThemeToggle } from './ThemeToggle'
 import { HAS_SIDEBAR, SECTIONS, SECTION_ROOT, sectionFor, type SectionId } from '@/content/sections'
 import { localePath } from '@/i18n/locales'
 import { useLocale, useMessages } from '@/i18n/useLocale'
+import { BRAND_NAME } from '@/lib/brand'
 
 /**
  * The frame every page sits in: a fixed sidebar on a desktop, a drawer under
@@ -155,7 +156,7 @@ function Frame({ children }: { children: ReactNode }) {
           >
             <BrandMark size={26} className="shrink-0" />
             <span className="flex flex-col leading-none">
-              <span className="font-heading text-[17px] leading-tight">misoto22 design</span>
+              <span className="font-heading text-[17px] leading-tight">{BRAND_NAME[locale]}</span>
               <span className="mono-meta text-(--ink-3-aa)">{t.tagline}</span>
             </span>
           </Link>
@@ -230,7 +231,7 @@ function Frame({ children }: { children: ReactNode }) {
           >
             <BrandMark size={24} className="shrink-0" />
             <span className="font-heading text-[16px] leading-none max-sm:sr-only">
-              misoto22 design
+              {BRAND_NAME[locale]}
             </span>
           </Link>
           {/* Only while there is no rail to hold its own control. Shown in
