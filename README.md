@@ -56,7 +56,7 @@ Monochrome design system — CSS tokens and accessible React primitives
 <tr><td><b>Docs site</b></td><td>Next.js 16.3 · TypeScript 6.0 · <code>react-live</code> · static export</td></tr>
 <tr><td><b>Testing</b></td><td><code>vitest</code> · Playwright + <code>axe-core</code> (E2E) · esbuild size budget</td></tr>
 <tr><td><b>Release</b></td><td>Changesets · npm (<code>@misoto22/folio</code>)</td></tr>
-<tr><td><b>Deploy</b></td><td>Cloudflare Pages (<code>misoto22-ui</code>)</td></tr>
+<tr><td><b>Deploy</b></td><td>Cloudflare Pages (<code>folio-design</code>)</td></tr>
 </table>
 
 ---
@@ -224,7 +224,7 @@ the built export. Both are `workflow_call` definitions, so a pull request and a
 release are gated by the same file rather than by two that drift — and nothing
 deploys or publishes that they have not both passed.
 
-`deploy` uploads the exact directory `verify` built to the `misoto22-ui`
+`deploy` uploads the exact directory `verify` built to the `folio-design`
 Cloudflare Pages project and smoke-tests the deployed routes;
 `ui.misoto22.com` is a proxied CNAME onto it. `publish` is the npm half — see
 [docs/releasing.md](docs/releasing.md).
