@@ -57,7 +57,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy out --project-name=misoto22-ui --branch=main
+          command: pages deploy out --project-name=folio-design --branch=main
 
       # Two checks, because they can fail independently and for different
       # reasons: the deployment can be broken, or the custom domain can have
@@ -77,7 +77,7 @@ jobs:
             # Six tries at ten seconds: a Pages deployment is live within a
             # minute, and a route that is not by then is a route that is broken.
             for _ in 1 2 3 4 5 6; do
-              status=$(curl -sS -o /dev/null -w '%{http_code}' "https://misoto22-ui.pages.dev${route}" || echo 000)
+              status=$(curl -sS -o /dev/null -w '%{http_code}' "https://folio-design.pages.dev${route}" || echo 000)
               [ "$status" = "200" ] && break
               sleep 10
             done
@@ -92,13 +92,13 @@ jobs:
         run: |
           set -euo pipefail
           curl -sS -H "Authorization: Bearer $CF_API_TOKEN" \
-            "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/pages/projects/misoto22-ui/domains" \
+            "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/pages/projects/folio-design/domains" \
             | python3 -c "
           import json, sys
           domains = json.load(sys.stdin)['result']
           found = [d for d in domains if d['name'] == 'ui.misoto22.com']
           if not found:
-              sys.exit('ui.misoto22.com is not attached to the misoto22-ui project')
+              sys.exit('ui.misoto22.com is not attached to the folio-design project')
           print('ui.misoto22.com ->', found[0]['status'])
           "
 
