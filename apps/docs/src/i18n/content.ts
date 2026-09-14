@@ -1,4 +1,5 @@
-import { CATALOG_BY_SLUG, type ComponentGroup } from '@/content/registry'
+import { BY_SLUG, type ComponentGroup } from '@/content/registry'
+import { BRAND_NAME } from '@/lib/brand'
 import { fingerprint } from './api-hash'
 import type { Locale } from './locales'
 import { ACTIONS_ZH } from './components-zh/actions'
@@ -202,7 +203,7 @@ function anatomySource(row: { element: string; description: string }): string {
 export function componentCopy(locale: Locale, slug: string): ComponentCopy {
   if (locale === 'en') return {}
   const zh = COMPONENTS_ZH[slug]
-  const english = CATALOG_BY_SLUG.get(slug)
+  const english = BY_SLUG.get(slug)
   if (!zh || !english) return {}
   return {
     name: zh.name,
@@ -296,7 +297,9 @@ const FOUNDATIONS_ZH: Record<string, FoundationCopy> = {
           '@misoto22/design': '组件、类型，以及 `cn`、`CONTROL_BASE`、`CONTROL_BORDER`、`isInvalid`、`BRAND`。',
           '/charts': '图表，也是那两个可选 peer 存在的唯一理由——它 import 了 `recharts` 和 `motion/react`。放在自己的入口后面，所以一个只渲染 Badge 的页面两样都不必付。',
           '/diagrams': '五个图形渲染器，以及读者用来查看它们的画布、工具条、图例、缩略图和检视面板。除 React 之外不需要任何 peer。',
-          '/styles.css': '全部，已编译：Tailwind + 下面每一层 + 自带的字体。一次 import 走完的那条路。',
+          '/styles.css': '基础组件需要的全部，已编译：Tailwind、token、语义角色、主题轴、长文样式和关键帧这几层，以及自带的字体。一次 import 走完的那条路。网站样式表不在里面。',
+          '/website.css': '`@misoto22/design/website` 的样式，只作用于组合组件本身。渲染组合组件时，把它和 `styles.css` 或那几张可移植样式表一起 import。',
+          '/website-base.css': '给「整个页面就是一个网站」准备的文档级默认样式——body 排版、标题外边距、全站焦点环。按需引入：只是嵌入组合组件的应用不要引入它。',
           '/tokens.css': '原始 token，外加默认的暗色换值和 compact 密度轴。',
           '/semantic.css': '组件真正读的那些角色——`--background`、`--foreground-muted`、`--border-color`。',
           '/keyframes.css': '动画，以及把它们停下来的那一条减少动效规则。',
@@ -618,7 +621,7 @@ export function templateCopy(locale: Locale, slug: string) {
 /** The pages that are mostly prose. */
 export const PAGE_ZH = {
   home: {
-    eyebrow: 'misoto22 design',
+    eyebrow: BRAND_NAME.zh,
     title: '归白',
     summary:
       '一套给软件、写作与摄影用的纯白单色设计系统。底是纸白，记号是近黑，文件里剩下的唯一彩色是状态——它绑定在状态上，永远不绑定品牌。',

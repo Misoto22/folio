@@ -24,6 +24,8 @@ import { ThemeToggle } from './ThemeToggle'
 import { HAS_SIDEBAR, SECTIONS, SECTION_ROOT, sectionFor, type SectionId } from '@/content/sections'
 import { localePath } from '@/i18n/locales'
 import { useLocale, useMessages } from '@/i18n/useLocale'
+import { BRAND_NAME } from '@/lib/brand'
+import { STORAGE_KEYS } from '@/lib/storage-keys'
 
 /**
  * The frame every page sits in: a fixed sidebar on a desktop, a drawer under
@@ -41,14 +43,15 @@ export function DocsShell({ children }: { children: ReactNode }) {
     // Everything this used to keep by hand — which media query makes the rail a
     // drawer, whether a closed one is `inert`, where the docked state is
     // remembered — is the component's now. `1024` is `lg`, the width the rest
-    // of this file already switches at; `m22-sidebar` is the key the shell was
-    // already writing, so a reader who had put the rail away keeps it away
-    // across this change. `shortcut={null}` because this site's chord is ⌘K and
-    // taking a second one nobody asked for is not a refactor.
+    // of this file already switches at; the key is `STORAGE_KEYS.sidebar`, and
+    // the pre-paint script copies a value saved under its legacy name forward
+    // before this mounts, so a reader who had put the rail away keeps it away.
+    // `shortcut={null}` because this site's chord is ⌘K and taking a second one
+    // nobody asked for is not a refactor.
     <SidebarProvider
       collapsible="offcanvas"
       breakpoint="lg"
-      persist="m22-sidebar"
+      persist={STORAGE_KEYS.sidebar}
       shortcut={null}
     >
       <Frame>{children}</Frame>
@@ -72,7 +75,6 @@ function Frame({ children }: { children: ReactNode }) {
   const SECTION_LABEL: Record<SectionId, string> = {
     docs: t.nav.docs,
     components: t.section.components,
-    patterns: t.nav.patterns,
     templates: t.nav.templates,
     themes: t.themes.title,
   }
@@ -156,7 +158,7 @@ function Frame({ children }: { children: ReactNode }) {
           >
             <BrandMark size={26} className="shrink-0" />
             <span className="flex flex-col leading-none">
-              <span className="font-heading text-[17px] leading-tight">misoto22 design</span>
+              <span className="font-heading text-[17px] leading-tight">{BRAND_NAME[locale]}</span>
               <span className="mono-meta text-(--ink-3-aa)">{t.tagline}</span>
             </span>
           </Link>
@@ -231,7 +233,7 @@ function Frame({ children }: { children: ReactNode }) {
           >
             <BrandMark size={24} className="shrink-0" />
             <span className="font-heading text-[16px] leading-none max-sm:sr-only">
-              misoto22 design
+              {BRAND_NAME[locale]}
             </span>
           </Link>
           {/* Only while there is no rail to hold its own control. Shown in

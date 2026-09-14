@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { BRAND_NAME } from '../src/lib/brand'
 
 /**
  * The page's two ends.
@@ -12,7 +13,9 @@ import { expect, test } from '@playwright/test'
 
 test('the brand is on screen in every state of the sidebar', async ({ page }) => {
   await page.goto('/components/button/')
-  const brand = page.getByRole('link', { name: 'misoto22 design' })
+  // Anchored, because a role name is matched as a substring and "Folio" is
+  // inside "Portfolio". The rail's link also carries the tagline after it.
+  const brand = page.getByRole('link', { name: new RegExp(`^${BRAND_NAME.en}`) })
 
   // Docked: the rail's own head carries it.
   await expect(brand.first()).toBeVisible()
@@ -21,7 +24,7 @@ test('the brand is on screen in every state of the sidebar', async ({ page }) =>
   // Collapsed: the aside goes `lg:hidden`, and the wordmark used to go with it.
   await page.getByRole('button', { name: 'Collapse the sidebar' }).click()
   await expect(page.getByRole('button', { name: 'Show the sidebar' })).toBeVisible()
-  const inHeader = page.locator('header').getByRole('link', { name: 'misoto22 design' })
+  const inHeader = page.locator('header').getByRole('link', { name: BRAND_NAME.en, exact: true })
   await expect(inHeader).toBeVisible()
 
   // And it is a mark, not only type — an <svg> inside the link.
@@ -48,9 +51,13 @@ test('the current section is marked by more than a step of grey', async ({ page 
  * to the top of its containing block. The preview frames established none, so
  * the example's opaque header escaped its card, pinned itself to the top of the
  * WINDOW at the masthead's own z-index and, being later in the document, painted
- * over it: the Patterns tab read as a page with no navigation at all.
+ * over it: the page listing it read as a page with no navigation at all.
+ *
+ * The index is the case that matters most. It renders every family's first
+ * example as a thumbnail, SiteNavigation's among them in the Website group, so
+ * the whole catalogue page is where one escaped header would land.
  */
-for (const path of ['/patterns/', '/zh/patterns/', '/patterns/site-navigation/']) {
+for (const path of ['/components/', '/zh/components/', '/components/site-navigation/']) {
   test(`${path}: the masthead is the topmost thing where it sits`, async ({ page }) => {
     await page.goto(path)
     const masthead = page.locator('header').filter({

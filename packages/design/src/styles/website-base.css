@@ -1,6 +1,17 @@
+/*
+ * Document defaults for a host whose whole page is a website, published as
+ * `website-base.css`.
+ *
+ * Opt-in, and deliberately not part of `website.css`: every rule here reaches
+ * past the compositions to the document — the body's type and ground, heading
+ * and paragraph margins, link colour, the scrollbar gutter, and one focus ring
+ * for every focusable element. An application that renders a composition inside
+ * its own chrome keeps its own defaults by not importing this file.
+ *
+ * All of it sits in the base layer, so any utility still wins over it.
+ */
 @layer base {
-  /* Document defaults shared by the website compositions. */
-  html { -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; }
   body {
     margin: 0;
     background: var(--paper);
@@ -19,14 +30,17 @@
     text-autospace: normal;
     font-synthesis-style: none;
   }
-  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-    outline: var(--focus-w) solid var(--focus);
-    outline-offset: var(--focus-off);
-  }
-  /* Recharts clears the browser's SVG outline. Keep its keyboard cursor as
-     visible as every other control, without asking hosts to add a local rule. */
-  [data-slot='chart'] svg.recharts-surface[tabindex]:focus-visible {
-    outline: var(--focus-w) solid var(--focus);
-    outline-offset: var(--focus-off);
+
+  /* The site-wide ring the compositions are drawn against.
+
+     Layered, because unlayered it beat every utility whatever its specificity:
+     the `Command` input asks for `outline-none` and still drew a clipped square.
+     `:is()` rather than `:where()` so it outranks the core `:focus-visible` ring
+     in this same layer whichever stylesheet loads last, while any composition
+     rule and any utility still outranks it. `--website-focus` is defined in
+     `website.css`; without it the ring takes the core focus colour. */
+  :is(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: var(--focus-w) solid var(--website-focus, var(--focus));
+    outline-offset: 3px;
   }
 }

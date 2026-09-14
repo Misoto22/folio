@@ -9,7 +9,7 @@ import { AXES, DEFAULTS, LOOK_AXES, PRESETS, attribute } from '@/components/Them
 import { themeAxes } from '../../../../packages/design/scripts/theme-axes.mjs'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
-const LAYOUT = readFileSync(join(HERE, '..', 'app', 'layout.tsx'), 'utf8')
+const SCRIPT = readFileSync(join(HERE, '..', 'lib', 'theme-script.ts'), 'utf8')
 
 /** The axes the stylesheets actually define, read out of the selectors. */
 const DERIVED: Record<string, string[]> = themeAxes()
@@ -23,8 +23,8 @@ describe('the pre-paint theme script', () => {
    * console, reloads, and the charts quietly come back grey.
    */
   it('knows every axis, and the same default for each', () => {
-    const literal = /var defaults = \{([^}]*)\}/.exec(LAYOUT)?.[1]
-    expect(literal, 'layout.tsx must declare the defaults inline').toBeDefined()
+    const literal = /var defaults = \{([^}]*)\}/.exec(SCRIPT)?.[1]
+    expect(literal, 'theme-script.ts must declare the defaults inline').toBeDefined()
     const restored = Object.fromEntries(
       [...literal!.matchAll(/(\w+): '([\w-]+)'/g)].map((m) => [m[1]!, m[2]!]),
     )

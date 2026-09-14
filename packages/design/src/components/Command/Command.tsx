@@ -28,7 +28,7 @@ function iconNode(icon: RemixiconComponentType | ReactNode): ReactNode {
   const Icon = icon
   return <Icon size={16} aria-hidden />
 }
-import { Dialog, DialogContent } from '../Dialog/Dialog'
+import { Dialog, DialogContent, type DialogContentProps } from '../Dialog/Dialog'
 import { Kbd } from '../Kbd/Kbd'
 
 /**
@@ -213,10 +213,22 @@ export function CommandItem({ shortcut, icon, meta, className, children, ...prop
   return (
     <CommandPrimitive.Item
       className={cn(
-        'flex cursor-pointer items-center gap-3 rounded-(--radius-row) px-3 py-2.5 text-[15px] text-(--ink-2) outline-none transition-colors duration-(--duration-fast)',
+        'flex cursor-pointer items-center gap-3 overflow-hidden rounded-(--radius-row) px-3 py-2.5 text-[15px] text-(--ink-2) outline-none transition-colors duration-(--duration-fast)',
         // The highlighted row is a chosen state, and law 7 says a chosen state
         // reads --accent. The leading rule gives it an edge the eye catches
         // while scrolling, which a fill alone does not.
+        //
+        // `overflow-hidden` above clips the bar below to the row's own
+        // `--radius-row` corner. Without it the bar is a straight-edged
+        // absolutely-positioned box that ignores the rounded highlight behind
+        // it — invisible at `sharp` (0px radius) and barely off at the
+        // default, but at `round` the row's radius outgrows the bar's own
+        // inset and the bar pokes past the curve by several pixels. The row
+        // is never a clip boundary for anything but itself: padding keeps
+        // every child (icon, label, meta, shortcut) inside it already, so
+        // clipping to the row's shape costs nothing else. The focus ring
+        // is unaffected too — `outline` paints outside the border box, which
+        // an element's own `overflow` never clips.
         'relative data-[selected=true]:bg-(--accent-muted) data-[selected=true]:text-(--ink)',
         'before:absolute before:inset-y-1 before:start-0 before:w-0.5 before:rounded-(--radius-pill) before:bg-transparent data-[selected=true]:before:bg-(--accent)',
         'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-(--disabled-opacity)',
@@ -241,7 +253,30 @@ export interface CommandDialogProps {
   onOpenChange: (open: boolean) => void
   /** Names the palette for assistive tech. */
   label: string
+  /**
+   * Names the search field when it should read differently from the dialog —
+   * a "Search records" field inside a "Library search" palette. Defaults to
+   * `label`. An `aria-label` on `CommandInput` cannot do this: the field is
+   * labelled by reference, and a reference outranks an `aria-label`.
+   */
+  inputLabel?: string
   children: ReactNode
+  /**
+   * Pass `false` when the host has already filtered the rows — a server search
+   * or an index of its own. The palette would otherwise filter them a second
+   * time against the input and hide results the host meant to show.
+   */
+  shouldFilter?: boolean
+  /** Runs as the dialog moves focus in. Prevent the default to place focus yourself. */
+  onOpenAutoFocus?: DialogContentProps['onOpenAutoFocus']
+  /**
+   * Runs as the dialog hands focus back on close. The default returns it to a
+   * `DialogTrigger`, and a palette opened by a shortcut has none, so focus falls
+   * to the page. Prevent the default and focus what opened it.
+   */
+  onCloseAutoFocus?: DialogContentProps['onCloseAutoFocus']
+  /** Runs before Escape closes the dialog. Prevent the default to keep it open, as a nested view stepping back does. */
+  onEscapeKeyDown?: DialogContentProps['onEscapeKeyDown']
 }
 
 /**
@@ -250,13 +285,26 @@ export interface CommandDialogProps {
  * The dialog's own padding is removed: a palette is edge-to-edge, and its input
  * is the first thing focus lands on.
  */
-export function CommandDialog({ open, onOpenChange, label, children }: CommandDialogProps) {
+export function CommandDialog({
+  open,
+  onOpenChange,
+  label,
+  inputLabel,
+  children,
+  shouldFilter,
+  onOpenAutoFocus,
+  onCloseAutoFocus,
+  onEscapeKeyDown,
+}: CommandDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         title={label}
         hideTitle
         showClose={false}
+        onOpenAutoFocus={onOpenAutoFocus}
+        onCloseAutoFocus={onCloseAutoFocus}
+        onEscapeKeyDown={onEscapeKeyDown}
         // Above centre, not at it. A palette is read as a layer over the page
         // rather than as a message about it, and centring it puts the list
         // under the reader's own hands on a laptop.
@@ -273,7 +321,8 @@ export function CommandDialog({ open, onOpenChange, label, children }: CommandDi
             `scroll-hairline` rather than `scroll-slim`: eleven pixels of grey
             down the side of a palette is the widest thing in it. */}
         <Command
-          label={label}
+          label={inputLabel ?? label}
+          shouldFilter={shouldFilter}
           className="rounded-none border-0 [&_[cmdk-list]]:max-h-[26rem] [&_[cmdk-list]]:scroll-hairline"
         >
           {children}

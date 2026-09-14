@@ -4,6 +4,7 @@ import { Button } from '@misoto22/design'
 import { RiMoonLine, RiSunLine } from '@remixicon/react'
 import { useEffect, useState } from 'react'
 import { useMessages } from '@/i18n/useLocale'
+import { STORAGE_KEYS } from '@/lib/storage-keys'
 
 type Mode = 'light' | 'dark'
 
@@ -28,7 +29,7 @@ export function ThemeToggle() {
     const next: Mode = mode === 'dark' ? 'light' : 'dark'
     document.documentElement.dataset.mode = next
     try {
-      localStorage.setItem('m22-mode', next)
+      localStorage.setItem(STORAGE_KEYS.mode, next)
     } catch {
       // A private window with storage blocked still gets the toggle; it just
       // does not remember. Swallowing here is the whole handling.

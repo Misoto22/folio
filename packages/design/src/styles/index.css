@@ -9,6 +9,12 @@
  * They are consumed with Tailwind's arbitrary-property syntax — text-(--ink),
  * bg-(--paper), border-(--rule) — so adding or recolouring a role is one edit
  * in semantic.css and nothing here.
+ *
+ * The website compositions are deliberately NOT imported. Their rules ship as
+ * `website.css` (and the document defaults a whole site wants as
+ * `website-base.css`), so an application that renders only the primitives
+ * receives none of them. The utilities those compositions use are still
+ * generated here, because Tailwind scans all of `src`.
  */
 @import 'tailwindcss';
 @import './tokens.css';
@@ -16,7 +22,6 @@
 @import './themes.css';
 @import './article.css';
 @import './keyframes.css';
-@import './website.css';
 
 /* Matches the site: the mode is an attribute on <html>, not a class, so the
    value can be written by an inline script before first paint without a class

@@ -17,6 +17,9 @@
 @import '../../../../packages/design/src/styles/article.css';
 @import '../../../../packages/design/src/styles/keyframes.css';
 @import '../../../../packages/design/src/styles/website.css';
+/* This site is a website, so it takes the document defaults and the site-wide
+   focus ring as well — the opt-in half `styles.css` no longer carries. */
+@import '../../../../packages/design/src/styles/website-base.css';
 /* Generated: the package's vendored faces, rewritten to the paths a static
    export actually serves them from. See scripts/generate.mjs. */
 @import '../generated/fonts.css';

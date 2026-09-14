@@ -68,7 +68,7 @@ function componentText(entry, source, specifier) {
     `- Group: ${entry.group}`,
     `- Import: \`import { ${importName} } from '${specifier}'\``,
     `- Version: ${version}`,
-    `- Docs: ${SITE}/${entry.kind === 'pattern' ? 'patterns' : 'components'}/${slug}/`,
+    `- Docs: ${SITE}/components/${slug}/`,
   ]
   if (entry.related?.length) out.push(`- Related: ${entry.related.join(', ')}`)
   out.push('')
@@ -175,7 +175,7 @@ function indexText() {
     '> Monochrome design system: portable CSS tokens and accessible React 19',
     '> primitives. Components ship compiled — import them, do not copy them.',
     '',
-    "Install: `npm install @misoto22/design`. Styles: `import '@misoto22/design/styles.css'`.",
+    "Install: `npm install @misoto22/design`. Styles: `import '@misoto22/design/styles.css'`. Website compositions add `website.css`, and `website-base.css` when the whole page is a website.",
     '',
     'One component, in full, offline:',
     '',

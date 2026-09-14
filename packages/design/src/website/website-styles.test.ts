@@ -7,6 +7,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', 'styles')
 const controls = readFileSync(join(ROOT, 'website-controls.css'), 'utf8')
 const search = readFileSync(join(ROOT, 'website-search.css'), 'utf8')
 const base = readFileSync(join(ROOT, 'website-base.css'), 'utf8')
+const keyframes = readFileSync(join(ROOT, 'keyframes.css'), 'utf8')
 const media = readFileSync(join(ROOT, 'website-media.css'), 'utf8')
 
 describe('website interaction styles', () => {
@@ -20,9 +21,11 @@ describe('website interaction styles', () => {
   })
 
   it('gives the keyboard chart surface the shared visible focus ring', () => {
-    expect(base).toContain("[data-slot='chart'] svg.recharts-surface[tabindex]:focus-visible")
-    expect(base).toContain('outline: var(--focus-w) solid var(--focus);')
-    expect(controls).toContain('outline: var(--focus-w) solid var(--website-focus);')
+    // The chart ring ships with the core layers, so an application using the
+    // charts keeps it without importing any website stylesheet.
+    expect(keyframes).toContain("[data-slot='chart'] svg.recharts-surface[tabindex]:focus-visible")
+    expect(keyframes).toContain('outline: var(--focus-w) solid var(--focus);')
+    expect(base).toContain('outline: var(--focus-w) solid var(--website-focus, var(--focus));')
   })
 
   it('keeps compact collection filters wide enough for a thumb', () => {

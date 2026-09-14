@@ -40,6 +40,7 @@
       "import": "./dist/website/index.js"
     },
     "./website.css": "./dist/website.css",
+    "./website-base.css": "./dist/website-base.css",
     "./styles.css": "./dist/styles.css",
     "./tokens.css": "./dist/tokens.css",
     "./semantic.css": "./dist/semantic.css",

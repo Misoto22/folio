@@ -1,10 +1,10 @@
-# misoto22 design
+# Folio
 
 <div align="center">
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.png">
-  <img alt="misoto22 design — the White Reset" src="assets/hero-light.png" width="820">
+  <img alt="Folio — the White Reset" src="assets/hero-light.png" width="820">
 </picture>
 
 <br />
@@ -251,6 +251,8 @@ after the local gates pass. See [`.design-sync/NOTES.md`](.design-sync/NOTES.md)
 
 `@misoto22/design/website` adds 17 composition families for complete editorial
 websites. Presentation and accessible interactions live in the package; content,
-router adapters and backend integrations remain with each consumer. Use the
-portable `website.css` entry with an existing Tailwind pipeline, or import the
-complete `styles.css`. The offline CLI documents every family and public part.
+router adapters and backend integrations remain with each consumer. Import
+`website.css` beside `styles.css` or the portable layers — `styles.css` does not
+include it — and add `website-base.css` when the whole page is a website, for its
+body type, heading margins and site-wide focus ring. The offline CLI documents
+every family and public part.

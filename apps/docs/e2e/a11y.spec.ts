@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
+import { STORAGE_KEYS } from '../src/lib/storage-keys'
 import { ROUTES } from './routes'
 
 /**
@@ -34,13 +35,16 @@ const THEMES = ['light', 'dark'] as const
 const COMPONENT_ROUTE = /^\/(zh\/)?components\/[^/]+\/$/
 
 async function setTheme(page: Page, theme: (typeof THEMES)[number]) {
-  await page.addInitScript((value) => {
-    try {
-      window.localStorage.setItem('m22-mode', value)
-    } catch {
-      // A storage-blocked context still gets the attribute below.
-    }
-  }, theme)
+  await page.addInitScript(
+    ({ key, value }) => {
+      try {
+        window.localStorage.setItem(key, value)
+      } catch {
+        // A storage-blocked context still gets the attribute below.
+      }
+    },
+    { key: STORAGE_KEYS.mode, value: theme },
+  )
 }
 
 /**

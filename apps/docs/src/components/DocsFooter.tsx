@@ -7,6 +7,7 @@ import { SECTIONS, SECTION_ROOT, type SectionId } from '@/content/sections'
 import { foundationCopy } from '@/i18n/content'
 import { localePath } from '@/i18n/locales'
 import { useLocale, useMessages } from '@/i18n/useLocale'
+import { BRAND_NAME } from '@/lib/brand'
 import changelog from '@/generated/changelog.json'
 
 /** The version on the front of the changelog — the package's newest release. */
@@ -38,7 +39,6 @@ export function DocsFooter() {
   const SECTION_LABEL: Record<SectionId, string> = {
     docs: t.nav.docs,
     components: t.section.components,
-    patterns: t.nav.patterns,
     templates: t.nav.templates,
     themes: t.themes.title,
   }
@@ -60,7 +60,7 @@ export function DocsFooter() {
               className="flex w-fit items-center gap-2.5 text-(--ink) transition-opacity duration-(--duration-fast) hover:opacity-70"
             >
               <BrandMark size={24} ground="var(--paper-2)" className="shrink-0" />
-              <span className="font-heading text-[17px] leading-tight">misoto22 design</span>
+              <span className="font-heading text-[17px] leading-tight">{BRAND_NAME[locale]}</span>
             </Link>
             <p className="max-w-[38ch] text-[13.5px] leading-relaxed text-(--ink-2)">{t.footer.blurb}</p>
             {/* The site is published twice — once for people, once for a reader

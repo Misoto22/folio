@@ -170,7 +170,8 @@ you are about to do that thing, not before.
   once at the app root.
 - **Styles are a separate import.** `@misoto22/design/styles.css` for the whole
   compiled sheet, or `tokens.css` + `semantic.css` + `keyframes.css` when the app
-  compiles its own Tailwind.
+  compiles its own Tailwind. Compositions from `@misoto22/design/website` also
+  need `website.css`, plus `website-base.css` when the whole page is a website.
 
 ## Key patterns
 
