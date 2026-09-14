@@ -1,0 +1,21 @@
+# Retired addresses, each sent permanently to the page that replaced it.
+#
+# The website compositions had a section of their own at /patterns/ until they
+# became the Website group of the component catalogue. Links to the old section
+# are out in the world, so every one of them keeps working.
+#
+# Both spellings of each path, because Pages matches a trailing slash literally.
+# The static index rules come first: the first matching rule wins, and a
+# placeholder never matches an empty segment anyway.
+#
+# `src/content/__tests__/redirects.test.ts` holds every retired address to a
+# page the export still publishes, and `scripts/serve-out.mjs` serves these
+# rules to the end-to-end suite through the same reader.
+/patterns/ /components/#website 301
+/patterns /components/#website 301
+/zh/patterns/ /zh/components/#website 301
+/zh/patterns /zh/components/#website 301
+/patterns/:slug/ /components/:slug/ 301
+/patterns/:slug /components/:slug/ 301
+/zh/patterns/:slug/ /zh/components/:slug/ 301
+/zh/patterns/:slug /zh/components/:slug/ 301

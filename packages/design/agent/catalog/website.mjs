@@ -1,9 +1,10 @@
 /**
  * Website patterns compose primitives into an application-shaped surface.
  *
- * They remain public exports, but are intentionally not presented as another
- * group of primitives: callers bring routes, content and service state, while
- * these entries describe how the system's components fit together.
+ * Callers bring routes, content and service state; these entries describe how
+ * the system's components fit together. They ship from their own entry point,
+ * and the documentation site lists them as the Website group of its component
+ * catalogue, at `/components/<slug>/`.
  */
 export const WEBSITE = [
   {

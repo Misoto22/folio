@@ -15,7 +15,7 @@ import { stripLocale } from '@/i18n/locales'
  * Docs is the writing, Components is the catalogue, Templates is the screens,
  * Themes is the proof that the token layer does what it claims.
  */
-export const SECTIONS = ['docs', 'components', 'patterns', 'templates', 'themes'] as const
+export const SECTIONS = ['docs', 'components', 'templates', 'themes'] as const
 
 export type SectionId = (typeof SECTIONS)[number]
 
@@ -23,7 +23,6 @@ export type SectionId = (typeof SECTIONS)[number]
 export const SECTION_ROOT: Record<SectionId, string> = {
   docs: '/',
   components: '/components/',
-  patterns: '/patterns/',
   templates: '/templates/',
   themes: '/themes/',
 }
@@ -38,7 +37,6 @@ export const SECTION_ROOT: Record<SectionId, string> = {
 export function sectionFor(pathname: string): SectionId {
   const path = stripLocale(pathname)
   if (path.startsWith('/components')) return 'components'
-  if (path.startsWith('/patterns')) return 'patterns'
   if (path.startsWith('/templates')) return 'templates'
   if (path.startsWith('/themes')) return 'themes'
   return 'docs'
@@ -55,7 +53,6 @@ export function sectionFor(pathname: string): SectionId {
 export const HAS_SIDEBAR: Record<SectionId, boolean> = {
   docs: true,
   components: true,
-  patterns: true,
   templates: true,
   themes: true,
 }

@@ -48,9 +48,13 @@ test('the current section is marked by more than a step of grey', async ({ page 
  * to the top of its containing block. The preview frames established none, so
  * the example's opaque header escaped its card, pinned itself to the top of the
  * WINDOW at the masthead's own z-index and, being later in the document, painted
- * over it: the Patterns tab read as a page with no navigation at all.
+ * over it: the page listing it read as a page with no navigation at all.
+ *
+ * The index is the case that matters most. It renders every family's first
+ * example as a thumbnail, SiteNavigation's among them in the Website group, so
+ * the whole catalogue page is where one escaped header would land.
  */
-for (const path of ['/patterns/', '/zh/patterns/', '/patterns/site-navigation/']) {
+for (const path of ['/components/', '/zh/components/', '/components/site-navigation/']) {
   test(`${path}: the masthead is the topmost thing where it sits`, async ({ page }) => {
     await page.goto(path)
     const masthead = page.locator('header').filter({

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { SEARCH_TERMS } from '../haystack'
-import { CATALOG_ENTRIES } from '../registry'
+import { COMPONENTS } from '../registry'
 
 /**
  * cmdk renders an item's keywords into the DOM.
@@ -14,7 +14,7 @@ import { CATALOG_ENTRIES } from '../registry'
  */
 describe('palette search terms', () => {
   it('covers every component', () => {
-    const missing = CATALOG_ENTRIES.filter((entry) => !SEARCH_TERMS.get(entry.slug)?.length)
+    const missing = COMPONENTS.filter((entry) => !SEARCH_TERMS.get(entry.slug)?.length)
     expect(missing.map((entry) => entry.slug)).toEqual([])
   })
 

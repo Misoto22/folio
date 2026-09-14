@@ -1,4 +1,4 @@
-import { COMPONENTS, PATTERNS } from '@/content/registry'
+import { COMPONENTS } from '@/content/registry'
 import { FOUNDATIONS } from '@/content/foundations'
 import { TEMPLATES } from '@/content/templates'
 
@@ -14,13 +14,11 @@ const EN_ROUTES: string[] = [
   '/',
   '/principles/',
   '/components/',
-  '/patterns/',
   '/changelog/',
   '/templates/',
   '/themes/',
   ...FOUNDATIONS.map((page) => `/foundations/${page.slug}/`),
   ...COMPONENTS.map((entry) => `/components/${entry.slug}/`),
-  ...PATTERNS.map((entry) => `/patterns/${entry.slug}/`),
   ...TEMPLATES.map((template) => `/templates/${template.slug}/`),
 ]
 

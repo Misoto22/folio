@@ -6,7 +6,7 @@ import {
 } from '@misoto22/design'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { groupedComponents, groupedPatterns } from '@/content/registry'
+import { groupedComponents } from '@/content/registry'
 import { foundationsInGroup } from '@/content/foundations'
 import { TEMPLATES } from '@/content/templates'
 import { sectionFor } from '@/content/sections'
@@ -60,33 +60,6 @@ export function Sidebar() {
               <Row
                 key={entry.slug}
                 href={localePath(locale, `/components/${entry.slug}/`)}
-                pathname={pathname}
-              >
-                {componentName(locale, entry.slug, entry.name)}
-              </Row>
-            ))}
-          </Section>
-        ))}
-      </>
-    )
-  }
-
-  if (section === 'patterns') {
-    return (
-      <>
-        {groupedPatterns().map((group) => (
-          <Section
-            key={group.group}
-            title={t.nav.patterns}
-            count={group.entries.length}
-            defaultOpen={group.entries.some((entry) =>
-              pathname.includes(`/patterns/${entry.slug}/`),
-            )}
-          >
-            {group.entries.map((entry) => (
-              <Row
-                key={entry.slug}
-                href={localePath(locale, `/patterns/${entry.slug}/`)}
                 pathname={pathname}
               >
                 {componentName(locale, entry.slug, entry.name)}

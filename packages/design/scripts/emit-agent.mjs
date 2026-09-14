@@ -68,7 +68,7 @@ function componentText(entry, source, specifier) {
     `- Group: ${entry.group}`,
     `- Import: \`import { ${importName} } from '${specifier}'\``,
     `- Version: ${version}`,
-    `- Docs: ${SITE}/${entry.kind === 'pattern' ? 'patterns' : 'components'}/${slug}/`,
+    `- Docs: ${SITE}/components/${slug}/`,
   ]
   if (entry.related?.length) out.push(`- Related: ${entry.related.join(', ')}`)
   out.push('')

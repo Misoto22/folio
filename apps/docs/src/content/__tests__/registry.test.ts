@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CATALOG_ENTRIES, COMPONENTS, GROUPS, PATTERNS, groupedComponents, groupedPatterns } from '../registry'
+import { COMPONENTS, GROUPS, groupedComponents } from '../registry'
 import propsJson from '@/generated/props.json'
 import examplesJson from '@/generated/examples.json'
 import { EXAMPLES } from '@/generated/example-registry'
@@ -15,20 +15,20 @@ const EXAMPLE_DIRS = examplesJson as Record<string, { id: string }[]>
  */
 describe('component registry', () => {
   it('points every entry at a real component directory', () => {
-    const missing = CATALOG_ENTRIES.filter((entry) => !SOURCE_DIRS.has(entry.dir))
+    const missing = COMPONENTS.filter((entry) => !SOURCE_DIRS.has(entry.dir))
     expect(missing.map((entry) => entry.dir)).toEqual([])
   })
 
   it('documents every component the package ships', () => {
     // The package's own source is the authority on what exists. A new component
     // that nobody added to the registry has no page, and nothing else notices.
-    const documented = new Set(CATALOG_ENTRIES.map((entry) => entry.dir))
+    const documented = new Set(COMPONENTS.map((entry) => entry.dir))
     const undocumented = [...SOURCE_DIRS].filter((dir) => !documented.has(dir))
     expect(undocumented).toEqual([])
   })
 
   it('gives every component at least one example', () => {
-    const withoutExamples = CATALOG_ENTRIES.filter(
+    const withoutExamples = COMPONENTS.filter(
       (entry) => (EXAMPLE_DIRS[entry.dir] ?? []).length === 0,
     )
     expect(withoutExamples.map((entry) => entry.name)).toEqual([])
@@ -46,13 +46,13 @@ describe('component registry', () => {
   })
 
   it('uses unique slugs', () => {
-    const slugs = CATALOG_ENTRIES.map((entry) => entry.slug)
+    const slugs = COMPONENTS.map((entry) => entry.slug)
     expect(new Set(slugs).size).toBe(slugs.length)
   })
 
   it('only cross-links to components that exist', () => {
-    const slugs = new Set(CATALOG_ENTRIES.map((entry) => entry.slug))
-    const broken = CATALOG_ENTRIES.flatMap((entry) =>
+    const slugs = new Set(COMPONENTS.map((entry) => entry.slug))
+    const broken = COMPONENTS.flatMap((entry) =>
       (entry.related ?? []).filter((slug) => !slugs.has(slug)).map((slug) => `${entry.slug} → ${slug}`),
     )
     expect(broken).toEqual([])
@@ -61,12 +61,20 @@ describe('component registry', () => {
   it('places every entry in a declared group', () => {
     const declared = new Set<string>(GROUPS)
     expect(COMPONENTS.filter((entry) => !declared.has(entry.group))).toEqual([])
-    expect(new Set(PATTERNS.map((entry) => entry.group))).toEqual(new Set(['Website']))
     // And the grouping loses nothing on the way to the sidebar.
     const grouped = groupedComponents().flatMap((section) => section.entries)
     expect(grouped).toHaveLength(COMPONENTS.length)
-    const patterns = groupedPatterns().flatMap((section) => section.entries)
-    expect(patterns).toHaveLength(PATTERNS.length)
+  })
+
+  it('lists the website compositions as a group of the catalogue', () => {
+    // They had a section of their own at /patterns/, filtered out of every list
+    // this file exports. Charts and Diagrams ship from separate entry points
+    // too and were never split off; this holds Website to the same shape.
+    const website = groupedComponents().find((section) => section.group === 'Website')
+    expect(website?.entries.length).toBeGreaterThan(0)
+    expect(new Set(website?.entries.map((entry) => entry.entry))).toEqual(
+      new Set(['@misoto22/design/website']),
+    )
   })
 })
 

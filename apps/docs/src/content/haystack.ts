@@ -1,5 +1,5 @@
 import propsJson from '@/generated/props.json'
-import { CATALOG_ENTRIES } from './registry'
+import { COMPONENTS } from './registry'
 
 /**
  * Everything about a component a reader might plausibly type.
@@ -24,7 +24,7 @@ import { CATALOG_ENTRIES } from './registry'
  * Built once at module load, from data the build already produced.
  */
 export const SEARCH_TERMS = new Map<string, string[]>(
-  CATALOG_ENTRIES.map((entry) => {
+  COMPONENTS.map((entry) => {
     type Prop = { name: string; type: string }
     const source = (propsJson as Record<string, { components?: { name: string; props?: Prop[] }[] }>)[entry.dir]
     const props = (source?.components ?? []).flatMap((component) => [

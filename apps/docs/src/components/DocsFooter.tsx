@@ -38,7 +38,6 @@ export function DocsFooter() {
   const SECTION_LABEL: Record<SectionId, string> = {
     docs: t.nav.docs,
     components: t.section.components,
-    patterns: t.nav.patterns,
     templates: t.nav.templates,
     themes: t.themes.title,
   }

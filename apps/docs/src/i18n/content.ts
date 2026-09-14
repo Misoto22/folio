@@ -1,4 +1,4 @@
-import { CATALOG_BY_SLUG, type ComponentGroup } from '@/content/registry'
+import { BY_SLUG, type ComponentGroup } from '@/content/registry'
 import { fingerprint } from './api-hash'
 import type { Locale } from './locales'
 import { ACTIONS_ZH } from './components-zh/actions'
@@ -202,7 +202,7 @@ function anatomySource(row: { element: string; description: string }): string {
 export function componentCopy(locale: Locale, slug: string): ComponentCopy {
   if (locale === 'en') return {}
   const zh = COMPONENTS_ZH[slug]
-  const english = CATALOG_BY_SLUG.get(slug)
+  const english = BY_SLUG.get(slug)
   if (!zh || !english) return {}
   return {
     name: zh.name,

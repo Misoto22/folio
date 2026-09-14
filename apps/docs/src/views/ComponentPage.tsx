@@ -15,7 +15,7 @@ import { Prose } from '@/components/Prose'
 import { PropsPlayground } from '@/components/PropsPlayground'
 import { PropsTable } from '@/components/PropsTable'
 import { TocRail } from '@/components/TocRail'
-import { BY_SLUG, CATALOG_ENTRIES, PATTERN_BY_SLUG } from '@/content/registry'
+import { BY_SLUG, COMPONENTS } from '@/content/registry'
 import { componentExamples, componentSource, componentTypes } from '@/lib/docs'
 
 /**
@@ -32,18 +32,8 @@ function plainBlock(code: string): string {
   return `<pre class="shiki"><code><span class="line">${escaped}</span></code></pre>`
 }
 
-export type CataloguePageKind = 'component' | 'pattern'
-
-export async function ComponentPage({
-  locale,
-  slug,
-  kind = 'component',
-}: {
-  locale: Locale
-  slug: string
-  kind?: CataloguePageKind
-}) {
-  const entry = kind === 'pattern' ? PATTERN_BY_SLUG.get(slug) : BY_SLUG.get(slug)
+export async function ComponentPage({ locale, slug }: { locale: Locale; slug: string }) {
+  const entry = BY_SLUG.get(slug)
   if (!entry) notFound()
 
   const t = getMessages(locale)
@@ -61,10 +51,7 @@ export async function ComponentPage({
     (component) => component.name !== primary?.name && !component.reexport,
   )
   const reexports = source.components.filter((component) => component.reexport)
-  const entries = kind === 'pattern' ? PATTERN_BY_SLUG : BY_SLUG
-  const related = (entry.related ?? []).map((s) => entries.get(s)).filter(Boolean)
-  const indexPath = kind === 'pattern' ? '/patterns/' : '/components/'
-  const indexLabel = kind === 'pattern' ? t.nav.patterns : t.section.components
+  const related = (entry.related ?? []).map((s) => BY_SLUG.get(s)).filter(Boolean)
 
   const subject = primary?.name ?? entry.name
   // The specifier, not the root: `@misoto22/design/charts` and
@@ -76,7 +63,7 @@ export async function ComponentPage({
   // Every alias the package exports, not this directory's. `StatusTone` is
   // declared by StatusDot and used by StatusPill, so a per-directory list is
   // exactly how the second component loses the only control it has.
-  const aliases = CATALOG_ENTRIES.flatMap((item) => componentSource(item.dir).exportedTypes)
+  const aliases = COMPONENTS.flatMap((item) => componentSource(item.dir).exportedTypes)
 
   // Resolved here rather than inside the panel: the panel is a client
   // component, and `api.ts` is a few thousand lines of translated prose keyed
@@ -341,7 +328,7 @@ export async function ComponentPage({
             <SectionHeading id="related">{t.section.related}</SectionHeading>
             <div className="flex flex-wrap gap-2">
               {related.map((item) => (
-                <Link key={item!.slug} href={localePath(locale, `${indexPath}${item!.slug}/`)}>
+                <Link key={item!.slug} href={localePath(locale, `/components/${item!.slug}/`)}>
                   <Badge tone="outline">{item!.name}</Badge>
                 </Link>
               ))}
@@ -390,11 +377,11 @@ export async function ComponentPage({
     <div className="mx-auto flex w-full max-w-4xl gap-10 xl:max-w-[70rem]">
       <article className="flex min-w-0 flex-1 flex-col gap-8">
         <PageIntro
-          eyebrow={kind === 'pattern' ? indexLabel : groupName(locale, entry.group)}
+          eyebrow={groupName(locale, entry.group)}
           title={componentName(locale, entry.slug, entry.name)}
           summary={zh.summary ?? entry.summary}
           crumbs={[
-            { label: indexLabel, href: localePath(locale, indexPath) },
+            { label: t.section.components, href: localePath(locale, '/components/') },
             { label: componentName(locale, entry.slug, entry.name) },
           ]}
         />
