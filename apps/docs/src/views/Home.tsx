@@ -10,10 +10,11 @@ import STACK from '@/generated/stack.json'
 import { foundationCopy, groupName, PAGE_ZH } from '@/i18n/content'
 import { localePath, type Locale } from '@/i18n/locales'
 import { fill, getMessages } from '@/i18n/messages'
+import { BRAND_NAME } from '@/lib/brand'
 import { packageVersion, radiusSteps, snippet, tokenCount, WARNING_CODES } from '@/lib/docs'
 
 const EN = {
-  eyebrow: 'misoto22 design',
+  eyebrow: BRAND_NAME.en,
   title: 'The White Reset',
   summary:
     'A pure-white monochrome design system for software, writing and photography. The ground is paper-white, the mark is near-black, and the only chroma left in the file is status — which is bound to state and never to brand.',

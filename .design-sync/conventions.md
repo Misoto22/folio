@@ -1,4 +1,4 @@
-# misoto22 design system — conventions
+# Folio design system — conventions
 
 A warm, editorial, flat design system: warm-cream / ink palette, Cormorant
 Garamond display + Geist body + JetBrains Mono labels. Body text on the base

@@ -5,6 +5,7 @@ import { FOUNDATIONS } from '@/content/foundations'
 import { TEMPLATES } from '@/content/templates'
 import { LAWS } from '@/content/principles'
 import catalog from '@/generated/catalog'
+import { BRAND_NAME } from '@/lib/brand'
 import { WARNING_CODES } from '@/lib/docs'
 
 /**
@@ -171,7 +172,7 @@ export function indexText(): string {
   const link = (entry: ComponentEntry) =>
     `- [${entry.name}](${SITE}/components/${entry.slug}/llms.txt): ${entry.summary}`
   const out: string[] = [
-    '# misoto22 design',
+    `# ${BRAND_NAME.en}`,
     '',
     '> A monochrome design system for software, writing and photography:',
     '> portable CSS tokens and accessible React primitives. Paper ground,',
