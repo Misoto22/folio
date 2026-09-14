@@ -15,7 +15,7 @@ Monochrome design system — CSS tokens and accessible React primitives
 
 <br />
 
-[Documentation](https://ui.misoto22.com) · [中文](https://ui.misoto22.com/zh/) · [Report Issue](https://github.com/Misoto22/misoto22-design/issues)
+[Documentation](https://ui.misoto22.com) · [中文](https://ui.misoto22.com/zh/) · [Report Issue](https://github.com/Misoto22/folio/issues)
 
 <br />
 
@@ -144,8 +144,8 @@ Take the portable layers instead and skip a second copy of the utilities:
 ### Development
 
 ```bash
-git clone https://github.com/Misoto22/misoto22-design.git
-cd misoto22-design
+git clone https://github.com/Misoto22/folio.git
+cd folio
 pnpm install
 pnpm build:design           # the docs site reads the package from dist
 pnpm dev                    # → http://localhost:4023

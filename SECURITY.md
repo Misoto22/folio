@@ -4,7 +4,7 @@
 
 Please do not open a public issue for a security problem.
 
-Use [GitHub's private vulnerability reporting](https://github.com/Misoto22/misoto22-design/security/advisories/new),
+Use [GitHub's private vulnerability reporting](https://github.com/Misoto22/folio/security/advisories/new),
 which opens a thread visible only to the maintainer.
 
 Include what you can: the version or commit, what an attacker can do with it,

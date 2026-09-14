@@ -192,7 +192,7 @@ configuration error:
 | Where | What it says |
 |---|---|
 | `.github/workflows/release.yml` | `permissions: id-token: write` |
-| npmjs → the package → Settings → Trusted Publisher | repository `Misoto22/misoto22-design`, workflow `release.yml` |
+| npmjs → the package → Settings → Trusted Publisher | repository `Misoto22/folio`, workflow `release.yml` |
 
 Renaming the workflow file, or moving the publish into a different one, breaks
 publishing until the npmjs side is updated to match.

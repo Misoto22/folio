@@ -315,7 +315,7 @@ function Frame({ children }: { children: ReactNode }) {
               iconOnly
               size="sm"
               variant="ghost"
-              href="https://github.com/Misoto22/misoto22-design"
+              href="https://github.com/Misoto22/folio"
               target="_blank"
               rel="noreferrer noopener"
               aria-label="GitHub"
