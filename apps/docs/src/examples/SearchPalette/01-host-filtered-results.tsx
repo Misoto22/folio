@@ -13,8 +13,10 @@ export function Example() {
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState('Nothing selected')
   const titles = ['A practice of attention', 'The shared library', 'Keeping a field journal']
+  // The palette opens inside this card rather than over the page, capped at the
+  // card's height, so the card needs room for the whole list or it shows a sliver.
   return (
-    <div>
+    <div className="min-h-[26rem]">
       <Button onClick={() => setOpen(true)}>Search the library</Button>
       <Text role="status" size="sm">{selected}</Text>
       <SearchPalette open={open} onOpenChange={setOpen} label="Library search" inputLabel="Search records"
