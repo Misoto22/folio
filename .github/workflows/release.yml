@@ -240,23 +240,23 @@ jobs:
           # far longer than propagation takes and still bounded.
           published=""
           for _ in 1 2 3 4 5 6; do
-            published=$(npm view "@misoto22/folio@${version}" version 2>/dev/null || true)
+            published=$(npm view "${name}@${version}" version 2>/dev/null || true)
             [ "$published" = "$version" ] && break
             sleep 10
           done
           if [ "$published" != "$version" ]; then
-            echo "@misoto22/folio@${version} is not on the registry — nothing to tag."
+            echo "${name}@${version} is not on the registry — nothing to tag."
             exit 0
           fi
 
           # Idempotent: `changeset tag` skips tags that already exist. It will
           # not MOVE one, so a tag left behind at the wrong commit by the bug
           # above stays wrong — say so rather than reporting a clean run.
-          existing=$(git rev-list -n 1 "@misoto22/folio@${version}" 2>/dev/null || true)
+          existing=$(git rev-list -n 1 "${name}@${version}" 2>/dev/null || true)
           if [ -n "$existing" ] && [ "$existing" != "$GITHUB_SHA" ]; then
-            echo "::warning::@misoto22/folio@${version} already tags ${existing}, not ${GITHUB_SHA}. Left as it is; a published release tag is not moved by CI."
+            echo "::warning::${name}@${version} already tags ${existing}, not ${GITHUB_SHA}. Left as it is; a published release tag is not moved by CI."
           fi
 
           pnpm exec changeset tag
           git push origin --tags
-          echo "tagged: @misoto22/folio@${version}"
+          echo "tagged: ${name}@${version}"
