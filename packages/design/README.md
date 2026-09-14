@@ -89,7 +89,7 @@ version you actually have rather than whatever the website shipped last.
 unions, the keyboard contract, the accessibility promises, the examples:
 
 ```bash
-npx folio-design docs Button
+npx @misoto22/folio docs Button
 ```
 
 The median component is about 500 tokens. It resolves parts and types too, so
@@ -100,14 +100,14 @@ useful when an import just failed.
 tables:
 
 ```bash
-npx folio-design docs --installed
+npx @misoto22/folio docs --installed
 ```
 
 **Install the skill** into your project, so a coding agent picks up the
 conventions without being told each time:
 
 ```bash
-npx folio-design init --agents-md
+npx @misoto22/folio init --agents-md
 ```
 
 That writes the skill to `.agents/skills/` — the path Codex, Cursor, GitHub
@@ -157,7 +157,7 @@ imperative fix:
   field: children
   fix:   Put the control itself directly inside Field, with no wrapper. For a
          row of controls, give each its own Field and lay them out around it.
-  docs:  npx folio-design docs Field
+  docs:  npx @misoto22/folio docs Field
 ```
 
 Every call site is behind `process.env.NODE_ENV`, so none of it reaches a
@@ -203,7 +203,7 @@ import '@misoto22/folio/website.css'
 import '@misoto22/folio/website-base.css' // only when the whole page is a website
 ```
 
-`npx folio-design docs SiteShell` and `docs SearchPalette` explain the contracts.
+`npx @misoto22/folio docs SiteShell` and `docs SearchPalette` explain the contracts.
 
 For metadata and build scripts, `import { BRAND } from '@misoto22/folio/brand'`
 loads the token mirror without loading React components. This data-only entry

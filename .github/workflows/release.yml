@@ -222,6 +222,10 @@ jobs:
           # Tag the commit this run is actually for.
           git checkout --quiet "$GITHUB_SHA"
 
+          # The name is read rather than written here: the package was renamed
+          # once, and a hard-coded name asks the registry about the old one and
+          # silently stops tagging.
+          name=$(node -p "require('./packages/design/package.json').name")
           version=$(node -p "require('./packages/design/package.json').version")
 
           # WHETHER TO TAG AT ALL. A version run bumps `package.json` without

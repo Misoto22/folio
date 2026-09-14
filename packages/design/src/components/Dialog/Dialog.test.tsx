@@ -95,7 +95,7 @@ describe('a dialog with no title', () => {
     )
     expect(message()).toContain('DIALOG_TITLE_MISSING')
     expect(message()).toContain('field: title')
-    expect(message()).toContain('npx folio-design docs Dialog')
+    expect(message()).toContain('npx @misoto22/folio docs Dialog')
   })
 
   it('still renders the fallback, because an unnamed modal is worse', () => {

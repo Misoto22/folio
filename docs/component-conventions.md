@@ -105,7 +105,7 @@ to be done together:
   fails the build exactly as one added to `src/components` does.
 - A line in `apps/docs/scripts/generate.mjs` and in `scripts/emit-agent.mjs`, so
   the prop tables are extracted from the second tree as well. Miss the second
-  and `npx folio-design docs <Component>` throws on the whole catalog.
+  and `npx @misoto22/folio docs <Component>` throws on the whole catalog.
 - Two budgets in `scripts/check-size.mjs`: the entry as a whole, and one leaf
   component from it. The second is the one that matters — it is what proves the
   entry is still tree-shakeable rather than shipping whole.

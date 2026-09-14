@@ -180,7 +180,7 @@ function indexText() {
     'One component, in full, offline:',
     '',
     '```bash',
-    'npx folio-design docs <Component>',
+    'npx @misoto22/folio docs <Component>',
     '```',
     '',
     '## Theme axes',

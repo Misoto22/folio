@@ -44,7 +44,10 @@
  *   `apps/docs/src/i18n/changelog.ts` (history), `pnpm-lock.yaml` (regenerated),
  *   `apps/docs/src/lib/storage-keys.ts` and its guard test
  *   `apps/docs/src/__tests__/storage-keys.test.ts` (the legacy `m22-*` keys must
- *   survive; either may be absent), `scripts/codemods/**` (this script and its
+ *   survive; either may be absent), `packages/design/bin/migrate-legacy.mjs`
+ *   and its guard test `packages/design/src/__tests__/bin-init.test.ts` (the
+ *   bin's `init` looks for the pre-rename skill and AGENTS.md section by their
+ *   old names), `scripts/codemods/**` (this script and its
  *   fixtures), and build output (`dist/`, `out/`, `src/generated/`).
  *   `--package` also skips `.changeset/*.md`, which name the package a pending
  *   release was written against.
@@ -123,6 +126,8 @@ export const DEFAULT_SKIP = [
   'pnpm-lock.yaml',
   'apps/docs/src/lib/storage-keys.ts',
   'apps/docs/src/__tests__/storage-keys.test.ts',
+  'packages/design/bin/migrate-legacy.mjs',
+  'packages/design/src/__tests__/bin-init.test.ts',
   'scripts/codemods/**',
   '**/dist/**',
   '**/out/**',

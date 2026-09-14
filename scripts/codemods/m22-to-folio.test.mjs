@@ -167,6 +167,8 @@ describe('the skip list', () => {
     'pnpm-lock.yaml',
     'apps/docs/src/lib/storage-keys.ts',
     'apps/docs/src/__tests__/storage-keys.test.ts',
+    'packages/design/bin/migrate-legacy.mjs',
+    'packages/design/src/__tests__/bin-init.test.ts',
     'scripts/codemods/m22-to-folio.test.mjs',
     'packages/design/dist/styles.css',
     'apps/docs/out/index.html',

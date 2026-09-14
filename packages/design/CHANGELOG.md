@@ -1,4 +1,4 @@
-# @misoto22/design
+# @misoto22/folio
 
 ## 0.15.0
 

@@ -147,7 +147,7 @@ Spelled as expected, no surprises: `Popover`, `DropdownMenu`, `ContextMenu`,
 ## When in doubt
 
 ```bash
-npx folio-design docs <Component>
+npx @misoto22/folio docs <Component>
 ```
 
 That prints the component's real exports, every prop with its type and default,

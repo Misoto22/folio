@@ -145,7 +145,7 @@ describe('the portable CSS recipe', () => {
     const fence = README.split('```').find((block) => block.includes('@misoto22/folio/tokens.css'))
     expect(fence, 'README must show the portable-layer recipe').toBeDefined()
     return new Set(
-      [...fence!.matchAll(/@misoto22\/design\/([\w.-]+\.css)/g)].map((match) => match[1]!),
+      [...fence!.matchAll(/@misoto22\/folio\/([\w.-]+\.css)/g)].map((match) => match[1]!),
     )
   }
 

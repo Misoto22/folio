@@ -1,7 +1,7 @@
 ---
 name: folio-design
 description: Builds UI with @misoto22/folio — a monochrome design system of CSS tokens and 83 accessible React primitives, charts and diagrams included. Use when a project imports '@misoto22/folio', '@misoto22/folio/charts' '@misoto22/folio/diagrams' or '@misoto22/folio/website', sets data-mode / data-surface / data-radius / data-density, or uses cn(), CONTROL_BASE, or isInvalid. Also applies when adding a component, theming, plotting data, drawing an architecture, workflow, sequence, data-flow or lifecycle diagram, or fixing a form, table, dialog, or toast in such a project.
-allowed-tools: Bash(npx folio-design *), Bash(pnpm exec folio-design *), Bash(bunx folio-design *)
+allowed-tools: Bash(npx @misoto22/folio *), Bash(pnpm exec folio-design *), Bash(bunx @misoto22/folio *)
 ---
 
 # @misoto22/folio
@@ -66,7 +66,7 @@ following the theme, and every one of these mirrors a token that does.
 ## What this project has installed
 
 ```
-!`npx folio-design docs --installed`
+!`npx @misoto22/folio docs --installed`
 ```
 
 That is the version resolved in this project and every component it ships. Get
@@ -75,7 +75,7 @@ exported unions, its keyboard map, its accessibility promises, its examples —
 with:
 
 ```bash
-npx folio-design docs Button
+npx @misoto22/folio docs Button
 ```
 
 Run that before writing against a component you have not used in this session.
@@ -116,7 +116,7 @@ you are about to do that thing, not before.
 - **Theme with the `data-*` axes**, set on any element, not just `:root`.
   `data-mode`, `data-accent`, `data-surface`, `data-radius`, `data-rules`,
   `data-type`, `data-motion`, `data-density`, `data-table-density`,
-  `data-chart-palette`. `npx folio-design docs --installed` prints the
+  `data-chart-palette`. `npx @misoto22/folio docs --installed` prints the
   current list; it is read out of the stylesheets rather than kept by hand here.
 - **Durations and radii come from tokens.** `duration-(--duration-fast)`,
   `rounded-(--radius)` — not `duration-150`, not `rounded-lg`.

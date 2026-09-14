@@ -10,7 +10,7 @@
  * This lives in the PACKAGE rather than in the documentation site because it
  * describes the components, not the site. It is also what makes the package
  * legible offline: `scripts/emit-agent.mjs` turns it plus the extracted props
- * into `dist/agent/`, which is what `npx folio-design docs <Component>`
+ * into `dist/agent/`, which is what `npx @misoto22/folio docs <Component>`
  * prints and what the skill in `skills/` sends an agent to.
  *
  * The site reads the emitted `dist/agent/catalog.json`, the same way it already

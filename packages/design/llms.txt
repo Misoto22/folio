@@ -19,8 +19,8 @@ Prefer the CLI over reading these by path — it resolves parts and types, not
 just components:
 
 ```bash
-npx folio-design docs Button
-npx folio-design docs --installed
+npx @misoto22/folio docs Button
+npx @misoto22/folio docs --installed
 ```
 
 ## On the web

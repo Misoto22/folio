@@ -82,7 +82,7 @@ export function warn({ code, problem, field, fix, component }: Warning): void {
       `  ${problem}`,
       `  field: ${field}`,
       `  fix:   ${fix}`,
-      `  docs:  npx folio-design docs ${component}`,
+      `  docs:  npx @misoto22/folio docs ${component}`,
     ].join('\n'),
   )
 }

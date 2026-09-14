@@ -21,6 +21,6 @@
   },
   "agent": {
     "lang": "bash",
-    "code": "# One component in full — every prop with its type and default, the exported\n# unions, the keyboard contract, the accessibility promises, the examples.\nnpx folio-design docs Button\n\n# It resolves parts and types too, which is what you hold when an import fails.\nnpx folio-design docs CardBody\n\n# Install the skill under .claude/skills/, and point AGENTS.md at it.\nnpx folio-design init --agents-md"
+    "code": "# One component in full — every prop with its type and default, the exported\n# unions, the keyboard contract, the accessibility promises, the examples.\nnpx @misoto22/folio docs Button\n\n# It resolves parts and types too, which is what you hold when an import fails.\nnpx @misoto22/folio docs CardBody\n\n# Install the skill under .claude/skills/, and point AGENTS.md at it.\nnpx @misoto22/folio init --agents-md"
   }
 }

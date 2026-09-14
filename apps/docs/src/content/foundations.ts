@@ -303,12 +303,12 @@ export const FOUNDATIONS: FoundationPage[] = [
             // and two regions called "terminal" are two landmarks a reader
             // navigating by landmark cannot tell apart.
             label: 'terminal — docs',
-            source: `npx folio-design docs Button          # one component, in full
-npx folio-design docs CardBody        # resolves a part to its owner
-npx folio-design docs ButtonVariant   # …and an exported type
-npx folio-design docs --list          # every component, one line each
-npx folio-design docs --installed     # version + names, no prop tables
-npx folio-design docs --installed --json`,
+            source: `npx @misoto22/folio docs Button          # one component, in full
+npx @misoto22/folio docs CardBody        # resolves a part to its owner
+npx @misoto22/folio docs ButtonVariant   # …and an exported type
+npx @misoto22/folio docs --list          # every component, one line each
+npx @misoto22/folio docs --installed     # version + names, no prop tables
+npx @misoto22/folio docs --installed --json`,
           },
         ],
       },
@@ -323,8 +323,8 @@ npx folio-design docs --installed --json`,
         commands: [
           {
             label: 'terminal — init',
-            source: `npx folio-design init              # writes .claude/skills/folio-design/
-npx folio-design init --agents-md  # …and points AGENTS.md at it`,
+            source: `npx @misoto22/folio init              # writes .claude/skills/folio-design/
+npx @misoto22/folio init --agents-md  # …and points AGENTS.md at it`,
           },
         ],
       },

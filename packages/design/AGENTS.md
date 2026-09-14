@@ -9,9 +9,9 @@ You are probably reading this because you searched `node_modules` for a filename
 you recognise. The three commands are what you came for:
 
 ```bash
-npx folio-design docs Button        # one component, in full
-npx folio-design docs --installed   # this version, and every component in it
-npx folio-design init --agents-md   # install the skill into this project
+npx @misoto22/folio docs Button        # one component, in full
+npx @misoto22/folio docs --installed   # this version, and every component in it
+npx @misoto22/folio init --agents-md   # install the skill into this project
 ```
 
 `docs` resolves parts and types as well as components, so `docs CardBody`,
