@@ -56,7 +56,7 @@ blank. Each `docs` file names its own on the `Import:` line.
 | `@misoto22/design` | The primitives |
 | `@misoto22/design/charts` | Charts — needs the `recharts` and `motion` peers |
 | `@misoto22/design/diagrams` | Figures with routed edges |
-| `@misoto22/design/website` | Website compositions, with data and routes supplied by the host |
+| `@misoto22/design/website` | Website compositions, with data and routes supplied by the host — styled by `website.css`, which `styles.css` does not include |
 
 ## You are working ON this package, in its repository
 

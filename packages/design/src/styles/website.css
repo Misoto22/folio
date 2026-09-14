@@ -1,5 +1,12 @@
-@import './website-base.css';
-@import './website-motion.css';
+/*
+ * Styles for `@misoto22/design/website`, published as `website.css`.
+ *
+ * Separate from `styles.css`, so an application that renders only the
+ * primitives ships none of it. Every rule here is scoped to a composition's own
+ * classes. The document defaults a whole website wants — body type, heading
+ * margins, the site-wide focus ring — are in `website-base.css`, a second
+ * opt-in entry, because they reach past the compositions to the page itself.
+ */
 @import './website-shell.css';
 @import './website-portfolio.css';
 @import './website-collection.css';

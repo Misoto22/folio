@@ -29,11 +29,9 @@
   :is(.m22-command-tabs [role=tabpanel],.m22-command-snippet) div:has(>button[aria-label]) { padding-block: 0; }
 }
 .m22-selection-toolbar { animation: m22-fade-in var(--duration-fast) var(--ease); }
+/* The site-wide ring that reads this colour lives in `website-base.css`; the
+   scoped rules below read it too. */
 :root { --website-focus: color-mix(in srgb, var(--ink) 60%, var(--paper)); }
-:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-  outline: var(--focus-w) solid var(--website-focus);
-  outline-offset: 3px;
-}
 .m22-site-navigation-inner { min-block-size: 3.75rem; }
 .m22-site-navigation .m22-navigation-search {
   min-block-size: 34px;
@@ -60,9 +58,12 @@
 .m22-selection-toolbar > button:first-child { min-block-size: 34px; background: transparent; color: var(--ink-2); border: 0; border-radius: var(--radius-sm); padding: .375rem .75rem; font-family: var(--sans); font-size: .8125rem; font-weight: 400; }
 .m22-selection-toolbar > button + button { border-inline-start: 1px solid var(--rule); border-start-start-radius: 0; border-end-start-radius: 0; }
 .m22-selection-toolbar > button:hover { background: var(--paper-2); color: var(--ink); }
-[data-m22-menu] { padding: .375rem; border-color: var(--rule); border-radius: var(--radius-md); background: var(--paper); box-shadow: 0 4px 20px color-mix(in srgb, var(--ink) 8%, transparent); backdrop-filter: none; }
-[data-m22-menu]:focus { outline: none; }
-[data-m22-menu] [role='menuitem'],
+/* The menus the compositions open, and no others. A menu portals to <body>, so
+   it cannot be scoped by an ancestor; it carries its composition's class
+   instead, and a host's own DropdownMenu keeps the primitive's look. */
+:is(.m22-action-menu, .m22-site-preference-menu)[data-m22-menu] { padding: .375rem; border-color: var(--rule); border-radius: var(--radius-md); background: var(--paper); box-shadow: 0 4px 20px color-mix(in srgb, var(--ink) 8%, transparent); backdrop-filter: none; }
+:is(.m22-action-menu, .m22-site-preference-menu)[data-m22-menu]:focus { outline: none; }
+:is(.m22-action-menu, .m22-site-preference-menu)[data-m22-menu] [role='menuitem'],
 .m22-site-preference-item { min-block-size: 36px; font-family: var(--sans); font-size: .8125rem; font-weight: 400; border-radius: var(--radius-sm); }
 .m22-portfolio-index [role='tab'] > span { color: var(--ink-3-aa); background: transparent; border: 0; font-family: var(--sans); font-size: .75rem; font-weight: 400; font-variant-numeric: tabular-nums; }
 .m22-portfolio-image[data-natural] .m22-portfolio-image-frame { aspect-ratio: auto; background: transparent; }
@@ -85,6 +86,6 @@
 @media (pointer: coarse) {
   .m22-site-navigation .m22-navigation-search,
   .m22-selection-toolbar > button,
-  [data-m22-menu] [role='menuitem'],
+  :is(.m22-action-menu, .m22-site-preference-menu)[data-m22-menu] [role='menuitem'],
   .m22-site-preference-item { min-block-size: 44px; }
 }

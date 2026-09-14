@@ -27,12 +27,14 @@ const BUDGET = {
   /**
    * The compiled stylesheet, without the vendored font files.
    *
-   * 100 → 210 for seventeen website composition families (206.4 kB measured). The standalone sheet
-   * includes their responsive layouts; Tailwind consumers can import the
-   * portable layers separately. Website compositions have their own JS entry
+   * 210 → 115 when the website compositions moved out to `website.css` and
+   * `website-base.css` (103.6 kB measured). The sheet still carries the
+   * utilities those compositions use, because Tailwind scans all of `src`, but
+   * none of their rules. Previously 100 → 210 for seventeen website composition
+   * families (206.4 kB measured). Website compositions have their own JS entry
    * and tree-shaking checks below.
    */
-  styles: 210,
+  styles: 115,
   /**
    * Everything, bundled and minified — the worst case a consumer can hit.
    *

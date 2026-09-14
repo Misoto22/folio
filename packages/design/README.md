@@ -189,9 +189,20 @@ contact forms, listening views, metrics, search and conversations. Pass localize
 labels, router link elements and plain view data; keep backend requests, routing
 and authentication in the application.
 
-The complete `styles.css` includes these compositions. In an application that
-already builds Tailwind, import `website.css` alongside the portable token,
-semantic, theme and keyframe layers, and scan the package's `dist` directory.
+`styles.css` does not include these compositions, so an application that renders
+only the primitives receives none of their rules. Import `website.css` beside it —
+or beside the portable token, semantic, theme and keyframe layers in an
+application that already builds Tailwind, scanning the package's `dist`
+directory. A host whose whole page is a website also imports `website-base.css`,
+which sets the body type, heading and paragraph margins and a site-wide focus
+ring; an application that embeds a composition in its own chrome leaves it out.
+
+```tsx
+import '@misoto22/design/styles.css'
+import '@misoto22/design/website.css'
+import '@misoto22/design/website-base.css' // only when the whole page is a website
+```
+
 `npx misoto22-design docs SiteShell` and `docs SearchPalette` explain the contracts.
 
 For metadata and build scripts, `import { BRAND } from '@misoto22/design/brand'`

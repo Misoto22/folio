@@ -1,5 +1,4 @@
 @layer base {
-  html { scrollbar-gutter: stable; }
   .m22-site-shell { min-block-size: 100svh; background: var(--background); color: var(--foreground); }
   .m22-site-shell main { min-block-size: 60svh; }
 }

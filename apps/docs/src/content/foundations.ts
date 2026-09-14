@@ -104,7 +104,21 @@ export const FOUNDATIONS: FoundationPage[] = [
             detail:
               'Five figure renderers and the canvas, toolbar, legend, minimap and inspector a reader explores one with. No peer beyond React.',
           },
-          { term: '/styles.css', detail: 'Everything, compiled: Tailwind + every layer below + the vendored faces. The single-import path.' },
+          {
+            term: '/styles.css',
+            detail:
+              'Everything the primitives need, compiled: Tailwind, the token, semantic, theme, article and keyframe layers, and the vendored faces. The single-import path. The website stylesheets are not in it.',
+          },
+          {
+            term: '/website.css',
+            detail:
+              'The styles for `@misoto22/design/website`, scoped to the compositions. Import it beside `styles.css` or the portable layers when you render one.',
+          },
+          {
+            term: '/website-base.css',
+            detail:
+              'Document defaults for a page that is a website — body type, heading margins, the site-wide focus ring. Opt-in: an application that embeds a composition leaves it out.',
+          },
           { term: '/tokens.css', detail: 'The primitives, plus the default dark swap and the compact density axis.' },
           { term: '/semantic.css', detail: 'The roles a component actually reads — `--background`, `--foreground-muted`, `--border-color`.' },
           { term: '/keyframes.css', detail: 'The animations, and the one reduced-motion rule that stops them.' },
