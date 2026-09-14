@@ -1,4 +1,4 @@
-import { RadioGroup, RadioGroupItem, Switch, Text } from '@misoto22/design'
+import { RadioGroup, RadioGroupItem, Switch, Text } from '@misoto22/folio'
 
 /**
  * A switch has two states and no third. “Inherit from the workspace” has no

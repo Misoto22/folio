@@ -1,4 +1,4 @@
-import { StatusDot } from '@misoto22/design'
+import { StatusDot } from '@misoto22/folio'
 
 /**
  * The four tones, each next to the word that names it. The dot is aria-hidden

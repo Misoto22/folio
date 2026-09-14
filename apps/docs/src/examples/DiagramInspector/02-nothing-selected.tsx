@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@misoto22/design'
-import { DiagramInspector } from '@misoto22/design/diagrams'
+import { Button } from '@misoto22/folio'
+import { DiagramInspector } from '@misoto22/folio/diagrams'
 
 // Two nodes the other examples on this page do not inspect. The panel is a
 // landmark named from `title`, so a page carrying three of them needs three

@@ -18,14 +18,14 @@ import {
   Text,
   ToggleGroup,
   ToggleGroupItem,
-} from "@misoto22/design";
+} from "@misoto22/folio";
 import {
   BarChart,
   BarList,
   BigNumber,
   type ChartConfig,
   LineChart,
-} from "@misoto22/design/charts";
+} from "@misoto22/folio/charts";
 import { useState } from "react";
 
 /** Two named sets of repositories. Colour on this board means one thing: which. */

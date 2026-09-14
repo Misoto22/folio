@@ -1,4 +1,4 @@
-import { LinkArrow } from '@misoto22/design'
+import { LinkArrow } from '@misoto22/folio'
 
 /**
  * The mark, inside the anchor and as its last child. Outside it, it is an arrow

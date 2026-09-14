@@ -1,6 +1,6 @@
 'use client'
 
-import { BarList } from '@misoto22/design/charts'
+import { BarList } from '@misoto22/folio/charts'
 
 const referrers = [
   { name: 'google.com', value: 42_100 },

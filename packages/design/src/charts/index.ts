@@ -1,12 +1,12 @@
 /**
- * @misoto22/design/charts — the data-visualisation entry.
+ * @misoto22/folio/charts — the data-visualisation entry.
  *
  * Separate from the main entry on purpose. Charts need a rendering engine and
  * an animation runtime that nothing else in the package does, and both are
  * peer dependencies:
  *
  *   pnpm add recharts motion
- *   import { AreaChart } from '@misoto22/design/charts'
+ *   import { AreaChart } from '@misoto22/folio/charts'
  *
  * Keeping them behind their own entry is what stops an app that renders a
  * Badge from paying for Recharts, and it is why the package's size budget

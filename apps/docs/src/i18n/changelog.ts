@@ -49,6 +49,33 @@ const ZH: Record<string, string> = {
   [fingerprint("The portable `website.css` entry and compiled stylesheet share the canonical tokens. Offline documentation includes every family and its server and client exports.")]: "独立的 `website.css` 与编译后的完整样式共用同一套设计变量。离线文档覆盖所有新增组件组及其服务端、客户端导出。",
   // ─── unreleased ───
   [fingerprint(
+    '`@misoto22/design` is now `@misoto22/folio`, and classes, `data-` attributes and custom properties move from `m22-` to `folio-`.',
+  )]: '`@misoto22/design` 更名为 `@misoto22/folio`，类名、`data-` 属性与自定义属性的前缀由 `m22-` 改为 `folio-`。',
+  [fingerprint(
+    'Every component, prop, token and entry point is unchanged; only the names below move. `@misoto22/design` receives no further releases, so upgrading is swapping the dependency and replacing the old names in imports, stylesheets and selectors.',
+  )]: '所有组件、属性、token 和入口都没有变，变的只是下面这些名字。`@misoto22/design` 不会再发布新版本，所以升级就是换掉依赖，再把 import、样式表和选择器里的旧名字替换掉。',
+  [fingerprint(
+    '`@misoto22/design`, `@misoto22/design/charts`, `@misoto22/design/styles.css` … → `@misoto22/folio`, `@misoto22/folio/charts`, `@misoto22/folio/styles.css` …',
+  )]: '`@misoto22/design`、`@misoto22/design/charts`、`@misoto22/design/styles.css` … → `@misoto22/folio`、`@misoto22/folio/charts`、`@misoto22/folio/styles.css` …',
+  [fingerprint('`npx misoto22-design docs Button` → `npx @misoto22/folio docs Button`')]:
+    '`npx misoto22-design docs Button` → `npx @misoto22/folio docs Button`',
+  [fingerprint('The `misoto22-design` bin → `folio-design`')]: '可执行文件 `misoto22-design` → `folio-design`',
+  [fingerprint('`skills/misoto22-design/` → `skills/folio-design/`')]: '`skills/misoto22-design/` → `skills/folio-design/`',
+  [fingerprint('`.m22-*` classes and `m22-*` keyframes → `.folio-*` and `folio-*`')]:
+    '类名 `.m22-*` 与关键帧 `m22-*` → `.folio-*` 与 `folio-*`',
+  [fingerprint(
+    '`data-m22-animated`, `data-m22-article`, `data-m22-menu` → `data-folio-animated`, `data-folio-article`, `data-folio-menu`',
+  )]: '`data-m22-animated`、`data-m22-article`、`data-m22-menu` → `data-folio-animated`、`data-folio-article`、`data-folio-menu`',
+  [fingerprint('`--m22-media-aspect`, `--m22-media-max-block` → `--folio-media-aspect`, `--folio-media-max-block`')]:
+    '`--m22-media-aspect`、`--m22-media-max-block` → `--folio-media-aspect`、`--folio-media-max-block`',
+  [fingerprint('The `m22:palette` event → `folio:palette`')]: '事件 `m22:palette` → `folio:palette`',
+  [fingerprint(
+    "`npx @misoto22/folio init` moves a skill an earlier version installed at `.agents/skills/misoto22-design` or `.claude/skills/misoto22-design` to `folio-design`, and rewrites the section `--agents-md` wrote into `AGENTS.md`, so a project is not left with two copies of the skill or with instructions naming a bin that is gone.",
+  )]: '`npx @misoto22/folio init` 会把旧版本装在 `.agents/skills/misoto22-design` 或 `.claude/skills/misoto22-design` 的 skill 挪到 `folio-design`，并改写 `--agents-md` 当初写进 `AGENTS.md` 的那一节，免得项目里留着两份 skill，或者留着一段指向已经不存在的可执行文件的说明。',
+  [fingerprint(
+    "`folio` on npm is another package that ships a `folio` command, so the bin and the skill are `folio-design`, and the documentation runs the CLI as `npx @misoto22/folio` rather than by a bare name `npx` would resolve to someone else's package.",
+  )]: 'npm 上的 `folio` 是另一个包，自带一个 `folio` 命令，所以可执行文件和 skill 都叫 `folio-design`，文档里也用 `npx @misoto22/folio` 来运行 CLI，而不是写一个会被 `npx` 解析成别人家包的裸名字。',
+  [fingerprint(
     "`StepSequence` now draws the core `Steps` rail, and `ClipboardButton` shares `CodeBlock`'s copy state, including what a refused clipboard write does.",
   )]: '`StepSequence` 现在直接用核心 `Steps` 的流程轨道绘制，`ClipboardButton` 也与 `CodeBlock` 共用同一套复制状态，包括剪贴板写入被拒绝时的处理。',
   [fingerprint(

@@ -1,6 +1,6 @@
 # Changelog
 
-`@misoto22/design` follows [Semantic Versioning](https://semver.org). Entries
+`@misoto22/folio` follows [Semantic Versioning](https://semver.org). Entries
 below 1.0.0 are the pre-release history, written by hand; from the first
 changeset-driven release onward this file is assembled from the changesets that
 shipped with each change.

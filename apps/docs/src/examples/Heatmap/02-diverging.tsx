@@ -1,6 +1,6 @@
 'use client'
 
-import { Heatmap, type HeatmapCell } from '@misoto22/design/charts'
+import { Heatmap, type HeatmapCell } from '@misoto22/folio/charts'
 
 const WEEKS = ['W1', 'W2', 'W3', 'W4', 'W5', 'W6']
 const TEAMS = ['Platform', 'Growth', 'Mobile', 'Data']

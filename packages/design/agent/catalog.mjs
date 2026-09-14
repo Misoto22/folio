@@ -10,7 +10,7 @@
  * This lives in the PACKAGE rather than in the documentation site because it
  * describes the components, not the site. It is also what makes the package
  * legible offline: `scripts/emit-agent.mjs` turns it plus the extracted props
- * into `dist/agent/`, which is what `npx misoto22-design docs <Component>`
+ * into `dist/agent/`, which is what `npx @misoto22/folio docs <Component>`
  * prints and what the skill in `skills/` sends an agent to.
  *
  * The site reads the emitted `dist/agent/catalog.json`, the same way it already
@@ -143,14 +143,14 @@ export const slugOf = (name) => name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLo
  * @type {Record<string, string>} specifier → directory under `src/`
  */
 export const ENTRY_POINTS = {
-  '@misoto22/design': 'components',
-  '@misoto22/design/charts': 'charts',
-  '@misoto22/design/diagrams': 'diagrams',
-  '@misoto22/design/website': 'website',
+  '@misoto22/folio': 'components',
+  '@misoto22/folio/charts': 'charts',
+  '@misoto22/folio/diagrams': 'diagrams',
+  '@misoto22/folio/website': 'website',
 }
 
 /** The specifier a consumer imports the root entry from. */
-export const DEFAULT_ENTRY = '@misoto22/design'
+export const DEFAULT_ENTRY = '@misoto22/folio'
 
 /** The directory under `src/` an entry point is built from. */
 export const sourceDirOf = (specifier) => ENTRY_POINTS[specifier] ?? ENTRY_POINTS[DEFAULT_ENTRY]

@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { RiMoreLine } from '@remixicon/react'
-import { Text } from '@misoto22/design'
-import { ActionMenu } from '@misoto22/design/website'
+import { Text } from '@misoto22/folio'
+import { ActionMenu } from '@misoto22/folio/website'
 
 /**
  * An accessible action menu delegates each choice to a host callback.

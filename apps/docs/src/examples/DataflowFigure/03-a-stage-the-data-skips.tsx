@@ -1,4 +1,4 @@
-import { DataflowFigure } from '@misoto22/design/diagrams'
+import { DataflowFigure } from '@misoto22/folio/diagrams'
 
 /**
  * A stage is a claim about how far something has got, and that axis is what

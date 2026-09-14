@@ -1,6 +1,6 @@
 'use client'
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@misoto22/design'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@misoto22/folio'
 
 /**
  * One strip, three panels, paired by string equality — a typo in a value is not

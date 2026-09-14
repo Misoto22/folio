@@ -1,4 +1,4 @@
-import { Avatar, SkeletonBlock, SkeletonCircle, SkeletonLine, SkeletonPage, Text } from '@misoto22/design'
+import { Avatar, SkeletonBlock, SkeletonCircle, SkeletonLine, SkeletonPage, Text } from '@misoto22/folio'
 
 /**
  * The same comment twice: the shape that holds its place, and the thing that

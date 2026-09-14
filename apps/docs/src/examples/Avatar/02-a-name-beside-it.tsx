@@ -1,4 +1,4 @@
-import { Avatar, Text } from '@misoto22/design'
+import { Avatar, Text } from '@misoto22/folio'
 
 /**
  * The arrangement that makes the avatar readable: the name printed next to it.

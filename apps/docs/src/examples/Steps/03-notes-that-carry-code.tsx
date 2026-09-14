@@ -1,4 +1,4 @@
-import { Code, Steps } from '@misoto22/design'
+import { Code, Steps } from '@misoto22/folio'
 
 /**
  * note takes a node, not only a string, so a step can carry the exact command
@@ -12,8 +12,8 @@ export function Example() {
     <Steps
       label="Adding the package to an app"
       steps={[
-        { title: 'Install', note: <Code>pnpm add @misoto22/design</Code> },
-        { title: 'Import the stylesheet', note: <Code>@misoto22/design/styles.css</Code> },
+        { title: 'Install', note: <Code>pnpm add @misoto22/folio</Code> },
+        { title: 'Import the stylesheet', note: <Code>@misoto22/folio/styles.css</Code> },
         { title: 'Render', note: <Code>{'<Button>Save</Button>'}</Code>, current: true },
       ]}
     />

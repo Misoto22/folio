@@ -1,4 +1,4 @@
-import { MediaDetailLayout } from '@misoto22/design/website'
+import { MediaDetailLayout } from '@misoto22/folio/website'
 
 /**
  * A media detail preserves the host's return destination as a real link, while the layout holds it at a measured touch target across browser rounding.

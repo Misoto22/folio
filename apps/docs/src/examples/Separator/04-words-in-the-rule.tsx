@@ -1,4 +1,4 @@
-import { Separator } from '@misoto22/design'
+import { Separator } from '@misoto22/folio'
 
 /**
  * Words in the break. label changes the CONSTRUCTION rather than the styling:

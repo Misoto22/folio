@@ -1,4 +1,4 @@
-import { NavItem } from '@misoto22/design'
+import { NavItem } from '@misoto22/folio'
 import { RiDashboardLine, RiFileTextLine, RiImageLine, RiSettings3Line } from '@remixicon/react'
 
 export function ActiveAndDefault() {

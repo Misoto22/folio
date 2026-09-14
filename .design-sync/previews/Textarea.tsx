@@ -1,4 +1,4 @@
-import { Textarea } from '@misoto22/design'
+import { Textarea } from '@misoto22/folio'
 
 export function Empty() {
   return (

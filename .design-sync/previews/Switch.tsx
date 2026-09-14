@@ -1,4 +1,4 @@
-import { Switch } from '@misoto22/design'
+import { Switch } from '@misoto22/folio'
 
 export function On() {
   return (

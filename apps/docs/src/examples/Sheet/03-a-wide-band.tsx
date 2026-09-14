@@ -9,7 +9,7 @@ import {
   SheetClose,
   SheetContent,
   SheetTrigger,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 
 /**
  * Content that is wide and short belongs on the bottom edge, not in a column.

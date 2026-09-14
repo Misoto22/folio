@@ -1,4 +1,4 @@
-import { Badge, StatusDot } from '@misoto22/design'
+import { Badge, StatusDot } from '@misoto22/folio'
 
 /**
  * A dot inside the chip rather than beside it. Badge spaces its children 6px

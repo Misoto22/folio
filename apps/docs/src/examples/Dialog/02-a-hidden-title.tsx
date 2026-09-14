@@ -9,7 +9,7 @@ import {
   DialogTrigger,
   Heading,
   Text,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 
 /**
  * A panel that draws its own header — an eyebrow above the title, a badge

@@ -128,7 +128,7 @@ test('every page ends in a footer rather than in whitespace', async ({ page }) =
 
   // The version is read off the changelog the site already generates, so it
   // cannot disagree with the release it names.
-  await expect(footer.getByText(/@misoto22\/design v\d+\.\d+\.\d+/)).toBeVisible()
+  await expect(footer.getByText(/@misoto22\/folio v\d+\.\d+\.\d+/)).toBeVisible()
 
   // A short page must not leave the footer stranded halfway up the viewport.
   await page.goto('/themes/')

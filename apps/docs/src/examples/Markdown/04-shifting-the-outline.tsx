@@ -1,4 +1,4 @@
-import { Article, Heading, Markdown, slugify } from '@misoto22/design'
+import { Article, Heading, Markdown, slugify } from '@misoto22/folio'
 
 const SECTIONS = ['Installing', 'Upgrading']
 

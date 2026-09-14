@@ -1,4 +1,4 @@
-import { ERROR_ACTION_CLASS, ErrorState } from '@misoto22/design'
+import { ERROR_ACTION_CLASS, ErrorState } from '@misoto22/folio'
 import Link from 'next/link'
 
 export default function NotFound() {

@@ -1,6 +1,6 @@
 # Releasing
 
-`@misoto22/design` is published to **npmjs** as a public package under the
+`@misoto22/folio` is published to **npmjs** as a public package under the
 `@misoto22` scope. Versioning is driven by changesets, so the changelog is
 written by whoever made the change, at the moment they understood it — rather
 than reconstructed from commit subjects a month later.
@@ -23,7 +23,7 @@ request for auto-merge, and the merge starts the `main` run that publishes to
 npmjs, deploys the site and pushes the tag. Nobody clicks anything.
 
 A change to the documentation site, to CI, or to a test needs no changeset;
-`@misoto22/design-docs` is in the `ignore` list because it is deployed, not
+`@misoto22/folio-docs` is in the `ignore` list because it is deployed, not
 versioned.
 
 The `changeset` job in `.github/workflows/pr.yml` enforces exactly that split: a
@@ -168,7 +168,7 @@ package manager reads it without a token or an `.npmrc` — `npm`, `pnpm`, `yarn
 and `bun` are four clients of one registry, not four places to publish.
 
 ```bash
-pnpm add @misoto22/design
+pnpm add @misoto22/folio
 ```
 
 ## There is no publish credential

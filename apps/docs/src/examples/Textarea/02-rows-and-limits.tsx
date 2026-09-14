@@ -1,6 +1,6 @@
 'use client'
 
-import { Field, Textarea } from '@misoto22/design'
+import { Field, Textarea } from '@misoto22/folio'
 import { useState } from 'react'
 
 const LIMIT = 280

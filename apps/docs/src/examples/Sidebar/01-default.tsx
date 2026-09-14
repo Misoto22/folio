@@ -14,7 +14,7 @@ import {
   SidebarProvider,
   SidebarSeparator,
   SidebarTrigger,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiAddLine, RiBookOpenLine, RiBuilding2Line, RiDeleteBinLine, RiFileTextLine, RiHomeLine, RiInboxLine } from '@remixicon/react'
 
 /**

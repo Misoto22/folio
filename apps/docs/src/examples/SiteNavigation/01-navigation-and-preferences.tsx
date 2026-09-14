@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { RiTranslate2 } from '@remixicon/react'
-import { PreferenceMenu, SiteNavigation } from '@misoto22/design/website'
+import { PreferenceMenu, SiteNavigation } from '@misoto22/folio/website'
 
 /**
  * Navigation receives real link elements and a controlled language preference.

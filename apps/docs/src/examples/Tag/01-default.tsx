@@ -1,4 +1,4 @@
-import { Tag } from '@misoto22/design'
+import { Tag } from '@misoto22/folio'
 
 /**
  * A facet row with one facet chosen. The accent fill is the system's one

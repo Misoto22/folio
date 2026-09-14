@@ -14,7 +14,7 @@ import changelog from '@/generated/changelog.json'
 const VERSION = (changelog as { version: string }[])[0]?.version ?? ''
 
 const REPO = 'https://github.com/Misoto22/folio'
-const NPM = 'https://www.npmjs.com/package/@misoto22/design'
+const NPM = 'https://www.npmjs.com/package/@misoto22/folio'
 
 /**
  * The page's floor.
@@ -114,7 +114,7 @@ export function DocsFooter() {
             href={localePath(locale, '/changelog/')}
             className="hover:text-(--ink)"
           >
-            @misoto22/design v{VERSION}
+            @misoto22/folio v{VERSION}
           </Link>
         </div>
       </div>

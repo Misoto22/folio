@@ -6,7 +6,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiArrowUpDownLine, RiEqualizerLine, RiFilterLine, RiLayoutRowLine, RiTableLine } from '@remixicon/react'
 
 /**

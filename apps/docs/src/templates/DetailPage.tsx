@@ -13,7 +13,7 @@ import {
   Separator,
   StatusPill,
   Tag,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiDeleteBinLine, RiFileCopyLine, RiLinkM, RiMoreLine, RiNotification3Line } from '@remixicon/react'
 
 const FACTS = [

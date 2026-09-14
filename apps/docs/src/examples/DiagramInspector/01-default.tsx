@@ -1,4 +1,4 @@
-import { DiagramInspector } from '@misoto22/design/diagrams'
+import { DiagramInspector } from '@misoto22/folio/diagrams'
 
 /**
  * What a selection puts on the screen: the kind of thing it is, its name, the

@@ -246,7 +246,7 @@ export const SURFACE: SurfaceEntry[] = [
   ) },
   { dir: 'Markdown', render: () => (
     <Markdown headingLevelStart={1}>
-      {'# Release notes\n\nA paragraph with `code`, **strong** and [a link](/changelog).\n\n- One\n- Two\n\n```bash\npnpm add @misoto22/design\n```\n'}
+      {'# Release notes\n\nA paragraph with `code`, **strong** and [a link](/changelog).\n\n- One\n- Two\n\n```bash\npnpm add @misoto22/folio\n```\n'}
     </Markdown>
   ) },
   { dir: 'Article', render: () => (

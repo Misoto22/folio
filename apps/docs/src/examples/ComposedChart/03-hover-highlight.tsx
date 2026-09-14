@@ -1,6 +1,6 @@
 'use client'
 
-import { ComposedChart, type ChartConfig } from '@misoto22/design/charts'
+import { ComposedChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const data = [
   { month: 'Jan', revenue: 4200, profit: 1800 },

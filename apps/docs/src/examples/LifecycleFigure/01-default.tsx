@@ -1,4 +1,4 @@
-import { LifecycleFigure } from '@misoto22/design/diagrams'
+import { LifecycleFigure } from '@misoto22/folio/diagrams'
 
 /**
  * The rail across the top is not in the spec. A lifecycle diagram gives its

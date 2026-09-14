@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ConversationAnswer, ConversationProse, ConversationThread, QuestionComposer } from '@misoto22/design/website'
+import { ConversationAnswer, ConversationProse, ConversationThread, QuestionComposer } from '@misoto22/folio/website'
 
 /**
  * The host owns the questions and rendered answer nodes while the composition owns their reading order.

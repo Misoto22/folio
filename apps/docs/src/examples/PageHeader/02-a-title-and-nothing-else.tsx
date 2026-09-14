@@ -1,4 +1,4 @@
-import { PageHeader } from '@misoto22/design'
+import { PageHeader } from '@misoto22/folio'
 
 /**
  * Every slot but the title is optional, and an omitted one renders nothing at

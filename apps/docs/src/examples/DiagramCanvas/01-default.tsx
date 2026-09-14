@@ -1,6 +1,6 @@
 'use client'
 
-import { ArchitectureFigure, DiagramCanvas } from '@misoto22/design/diagrams'
+import { ArchitectureFigure, DiagramCanvas } from '@misoto22/folio/diagrams'
 
 const SPEC = {
   meta: { title: 'Request path' },

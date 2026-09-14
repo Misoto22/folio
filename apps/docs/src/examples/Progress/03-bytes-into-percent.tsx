@@ -1,4 +1,4 @@
-import { Progress, Text } from '@misoto22/design'
+import { Progress, Text } from '@misoto22/folio'
 
 /**
  * The quantity belongs to the caller; the percentage belongs to the bar. Divide

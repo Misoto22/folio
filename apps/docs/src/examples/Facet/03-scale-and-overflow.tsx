@@ -1,6 +1,6 @@
 'use client'
 
-import { Facet, Sparkline } from '@misoto22/design/charts'
+import { Facet, Sparkline } from '@misoto22/folio/charts'
 
 /** Deterministic, so the server and the client draw the same thing. */
 const WOBBLE = [0.62, 0.58, 0.71, 0.66, 0.8, 0.88, 0.95, 1]

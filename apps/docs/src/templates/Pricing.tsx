@@ -20,7 +20,7 @@ import {
   Tag,
   ToggleGroup,
   ToggleGroupItem,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiCheckLine, RiSubtractLine } from '@remixicon/react'
 import { useState } from 'react'
 

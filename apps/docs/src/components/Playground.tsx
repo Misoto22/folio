@@ -1,7 +1,7 @@
 'use client'
 
-import * as Design from '@misoto22/design'
-import { cn } from '@misoto22/design'
+import * as Design from '@misoto22/folio'
+import { cn } from '@misoto22/folio'
 import * as Icons from '@remixicon/react'
 import { useEffect, useRef, useState } from 'react'
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live'

@@ -1,6 +1,6 @@
 'use client'
 
-import { ScrollArea } from '@misoto22/design'
+import { ScrollArea } from '@misoto22/folio'
 
 const COLUMNS = ['timestamp', 'level', 'service', 'region', 'request id', 'message']
 

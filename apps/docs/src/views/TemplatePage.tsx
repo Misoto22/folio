@@ -1,7 +1,7 @@
 import { PAGE_ZH, templateCopy } from '@/i18n/content'
 import { localePath, type Locale } from '@/i18n/locales'
 import { getMessages } from '@/i18n/messages'
-import { Tag } from '@misoto22/design'
+import { Tag } from '@misoto22/folio'
 import { notFound } from 'next/navigation'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageIntro, SectionHeading } from '@/components/PageIntro'

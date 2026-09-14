@@ -1,6 +1,6 @@
 'use client'
 
-import { Combobox, Field } from '@misoto22/design'
+import { Combobox, Field } from '@misoto22/folio'
 
 const TAGS = [
   { value: 'film', label: 'Film' },

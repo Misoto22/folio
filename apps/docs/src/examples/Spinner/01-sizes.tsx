@@ -1,4 +1,4 @@
-import { Spinner } from '@misoto22/design'
+import { Spinner } from '@misoto22/folio'
 
 /**
  * The three rings — 14px, 18px and 26px — matched to the type they sit beside

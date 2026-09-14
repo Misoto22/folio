@@ -7,7 +7,7 @@ import {
   TabsList,
   TabsTrigger,
   Text,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 
 /**
  * Three ways to hide the same sentence, and the same consequence in all three:

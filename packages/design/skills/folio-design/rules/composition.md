@@ -21,7 +21,7 @@ gap in the system — say so rather than patching it at one call site.
 ## Use `cn()` for conditional classes
 
 ```tsx
-import { cn } from '@misoto22/design'
+import { cn } from '@misoto22/folio'
 
 // Incorrect — emits both sides of the conflict; stylesheet order picks a winner
 <div className={`p-6 ${dense ? 'p-2' : ''}`}>

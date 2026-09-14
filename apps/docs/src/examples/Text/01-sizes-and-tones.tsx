@@ -1,4 +1,4 @@
-import { Text } from '@misoto22/design'
+import { Text } from '@misoto22/folio'
 
 /**
  * Four steps of type against three rungs of ink. The default is base on body,

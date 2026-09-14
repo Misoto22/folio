@@ -1,7 +1,7 @@
 'use client'
 
-import { Button } from '@misoto22/design'
-import { DiagramToolbar, DiagramToolbarGroup } from '@misoto22/design/diagrams'
+import { Button } from '@misoto22/folio'
+import { DiagramToolbar, DiagramToolbarGroup } from '@misoto22/folio/diagrams'
 
 /**
  * Four controls in two groups, separated by a hairline rather than by space —

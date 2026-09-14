@@ -1,4 +1,4 @@
-import { cn } from '@misoto22/design'
+import { cn } from '@misoto22/folio'
 
 export interface ProseProps {
   /** Plain text with blank-line paragraphs, `backticks` and **bold**. */

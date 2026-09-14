@@ -1,4 +1,4 @@
-import { FigureBand } from '@misoto22/design'
+import { FigureBand } from '@misoto22/folio'
 
 /**
  * The same four figures in a 24rem column, still two across. The band reads a

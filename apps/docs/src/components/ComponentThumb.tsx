@@ -1,6 +1,6 @@
 'use client'
 
-import { OverlayContainer } from '@misoto22/design'
+import { OverlayContainer } from '@misoto22/folio'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { EXAMPLES } from '@/generated/example-registry'
 

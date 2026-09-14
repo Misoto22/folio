@@ -1,6 +1,6 @@
 'use client'
 
-import { CollapsibleSection, Field, Input } from '@misoto22/design'
+import { CollapsibleSection, Field, Input } from '@misoto22/folio'
 
 /**
  * One thing that opens, on its own. CollapsibleSection is the composed root —

@@ -1,4 +1,4 @@
-import { RadioGroup, RadioGroupItem } from '@misoto22/design'
+import { RadioGroup, RadioGroupItem } from '@misoto22/folio'
 
 /**
  * “Any time” is the option that keeps the rest optional. There is no way back

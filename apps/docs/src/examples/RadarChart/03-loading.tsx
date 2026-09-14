@@ -1,6 +1,6 @@
 'use client'
 
-import { RadarChart, type ChartConfig } from '@misoto22/design/charts'
+import { RadarChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const config = { current: { label: 'Current' } } satisfies ChartConfig
 

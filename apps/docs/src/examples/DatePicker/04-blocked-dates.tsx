@@ -1,4 +1,4 @@
-import { DatePicker, Field } from '@misoto22/design'
+import { DatePicker, Field } from '@misoto22/folio'
 
 /** Midnight today, so the day itself stays choosable and yesterday does not. */
 const TODAY = new Date(new Date().setHours(0, 0, 0, 0))

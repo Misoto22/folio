@@ -1,4 +1,4 @@
-import { Badge, StatusPill, Tag } from '@misoto22/design'
+import { Badge, StatusPill, Tag } from '@misoto22/folio'
 
 /**
  * The three chips that look nearly identical, on the one record where each is

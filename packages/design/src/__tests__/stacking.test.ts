@@ -142,10 +142,10 @@ describe('the portable CSS recipe', () => {
 
   /** The imports inside the README's portable-layer code fence. */
   function recipe(): Set<string> {
-    const fence = README.split('```').find((block) => block.includes('@misoto22/design/tokens.css'))
+    const fence = README.split('```').find((block) => block.includes('@misoto22/folio/tokens.css'))
     expect(fence, 'README must show the portable-layer recipe').toBeDefined()
     return new Set(
-      [...fence!.matchAll(/@misoto22\/design\/([\w.-]+\.css)/g)].map((match) => match[1]!),
+      [...fence!.matchAll(/@misoto22\/folio\/([\w.-]+\.css)/g)].map((match) => match[1]!),
     )
   }
 

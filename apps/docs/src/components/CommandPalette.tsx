@@ -10,7 +10,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiBox3Line, RiCircleLine, RiColorFilterLine, RiContrastLine, RiDragMove2Line, RiHistoryLine, RiHome5Line, RiLayoutGridLine, RiLayoutLine, RiPaletteLine, RiRulerLine, RiScales3Line, RiText } from '@remixicon/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'

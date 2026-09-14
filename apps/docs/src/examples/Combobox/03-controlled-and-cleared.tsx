@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Combobox, Field, Text } from '@misoto22/design'
+import { Button, Combobox, Field, Text } from '@misoto22/folio'
 import { useState } from 'react'
 
 const REVIEWERS = [

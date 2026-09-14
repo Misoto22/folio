@@ -111,7 +111,7 @@ function orphans(keys: string[], pending: Map<string, string> = PENDING): string
 /** A changeset directory holding one changeset, for the tests that need one. */
 function fixture(body: string[]): string {
   const dir = mkdtempSync(join(tmpdir(), 'changeset-fixture-'))
-  const source = ['---', "'@misoto22/design': minor", '---', '', ...body, ''].join('\n')
+  const source = ['---', "'@misoto22/folio': minor", '---', '', ...body, ''].join('\n')
   writeFileSync(join(dir, 'a-pending-change.md'), source)
   return dir
 }

@@ -22,7 +22,7 @@ import {
   SidebarItem,
   SidebarProvider,
   SidebarTrigger,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiBankCardLine, RiEqualizerLine, RiNotification3Line, RiShieldCheckLine } from '@remixicon/react'
 import { useState } from 'react'
 

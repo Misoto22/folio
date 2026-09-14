@@ -4,7 +4,7 @@ import { COMPONENTS } from '@/content/registry'
 
 export const metadata: Metadata = {
   title: 'Components',
-  description: `All ${COMPONENTS.length} components in @misoto22/design, grouped by what they do.`,
+  description: `All ${COMPONENTS.length} components in @misoto22/folio, grouped by what they do.`,
 }
 
 export default function Page() {

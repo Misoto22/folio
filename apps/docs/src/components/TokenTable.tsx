@@ -1,4 +1,4 @@
-import { TBody, TD, TH, THead, TR, Table } from '@misoto22/design'
+import { TBody, TD, TH, THead, TR, Table } from '@misoto22/folio'
 import type { Locale } from '@/i18n/locales'
 import { getMessages } from '@/i18n/messages'
 

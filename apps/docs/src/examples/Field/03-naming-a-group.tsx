@@ -1,4 +1,4 @@
-import { Field, RadioGroup, RadioGroupItem } from '@misoto22/design'
+import { Field, RadioGroup, RadioGroupItem } from '@misoto22/folio'
 
 /**
  * A Field around a RadioGroup draws the words and binds them to nothing: the

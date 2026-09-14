@@ -1,4 +1,4 @@
-import { ArchitectureFigure } from '@misoto22/design/diagrams'
+import { ArchitectureFigure } from '@misoto22/folio/diagrams'
 
 /**
  * Eight boxes and eight lines on a grid tightened through layout, which is what

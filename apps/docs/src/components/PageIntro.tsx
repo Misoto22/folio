@@ -1,4 +1,4 @@
-import { Breadcrumb, type Crumb } from '@misoto22/design'
+import { Breadcrumb, type Crumb } from '@misoto22/folio'
 import type { ReactNode } from 'react'
 
 export interface PageIntroProps {

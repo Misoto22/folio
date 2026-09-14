@@ -1,6 +1,6 @@
 'use client'
 
-import { Field, Select, SelectGroup, SelectItem, SelectLabel, SelectSeparator } from '@misoto22/design'
+import { Field, Select, SelectGroup, SelectItem, SelectLabel, SelectSeparator } from '@misoto22/folio'
 
 /**
  * Two groups under mono headings, divided by a hairline. Reach for SelectGroup

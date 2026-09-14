@@ -12,7 +12,7 @@ and the shortest way to reproduce it.
 
 ## Supported versions
 
-`@misoto22/design` is pre-1.0 and has no maintenance branches. Fixes land on
+`@misoto22/folio` is pre-1.0 and has no maintenance branches. Fixes land on
 `main` and ship in the next release; the latest published version is the only
 one that receives them.
 

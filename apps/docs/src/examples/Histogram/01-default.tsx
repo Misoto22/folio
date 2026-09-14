@@ -1,6 +1,6 @@
 'use client'
 
-import { Histogram } from '@misoto22/design/charts'
+import { Histogram } from '@misoto22/folio/charts'
 
 // A fixed sample with two humps in it — a warm cache path and a cold one. A
 // box plot of these numbers draws one tidy box and says nothing about that.

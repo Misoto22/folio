@@ -1,5 +1,5 @@
-import { Text } from '@misoto22/design'
-import { DetailMasthead, ReadingLayout, ReadingSection, RecordPager, TableOfContents } from '@misoto22/design/website'
+import { Text } from '@misoto22/folio'
+import { DetailMasthead, ReadingLayout, ReadingSection, RecordPager, TableOfContents } from '@misoto22/folio/website'
 
 /**
  * A reading layout combines semantic publication metadata, sections and an outline.

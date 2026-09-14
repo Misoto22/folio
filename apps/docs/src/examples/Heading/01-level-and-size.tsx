@@ -1,4 +1,4 @@
-import { Heading, Text } from '@misoto22/design'
+import { Heading, Text } from '@misoto22/folio'
 
 /**
  * The two decisions, apart. level is the document outline — what a screen

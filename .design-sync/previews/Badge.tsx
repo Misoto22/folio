@@ -1,4 +1,4 @@
-import { Badge } from '@misoto22/design'
+import { Badge } from '@misoto22/folio'
 
 export function Draft() {
   return <Badge>Draft</Badge>

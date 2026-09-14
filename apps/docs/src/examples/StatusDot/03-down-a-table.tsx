@@ -1,4 +1,4 @@
-import { StatusDot, Table, TBody, TD, TH, THead, TR } from '@misoto22/design'
+import { StatusDot, Table, TBody, TD, TH, THead, TR } from '@misoto22/folio'
 
 /**
  * A column of states, at the size the dot is for. sm is 7px against md's 8px —

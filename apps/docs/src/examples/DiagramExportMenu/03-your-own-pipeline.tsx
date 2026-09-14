@@ -1,8 +1,8 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { Button } from '@misoto22/design'
-import { ArchitectureFigure, DiagramExportMenu } from '@misoto22/design/diagrams'
+import { Button } from '@misoto22/folio'
+import { ArchitectureFigure, DiagramExportMenu } from '@misoto22/folio/diagrams'
 import { RiDownloadLine } from '@remixicon/react'
 
 const SPEC = {

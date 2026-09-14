@@ -1,4 +1,4 @@
-import { WorkflowFigure } from '@misoto22/design/diagrams'
+import { WorkflowFigure } from '@misoto22/folio/diagrams'
 
 /**
  * One check with two outcomes, which is the shape most of a workflow is. The

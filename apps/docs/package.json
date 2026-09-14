@@ -1,9 +1,9 @@
 {
-  "name": "@misoto22/design-docs",
+  "name": "@misoto22/folio-docs",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "ui.misoto22.com — the documentation and component gallery for @misoto22/design",
+  "description": "ui.misoto22.com — the documentation and component gallery for @misoto22/folio",
   "scripts": {
     "predev": "node scripts/generate.mjs",
     "dev": "next dev --port ${PORT:-4023}",
@@ -19,7 +19,7 @@
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
-    "@misoto22/design": "workspace:*",
+    "@misoto22/folio": "workspace:*",
     "@remixicon/react": "^4.9.0",
     "motion": "^12.43.0",
     "next": "16.3.2",

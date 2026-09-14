@@ -1,4 +1,4 @@
-import { SequenceFigure } from '@misoto22/design/diagrams'
+import { SequenceFigure } from '@misoto22/folio/diagrams'
 
 /**
  * column_fit spread, which widens every column to the widest participant name

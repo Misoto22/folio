@@ -87,8 +87,8 @@ root should not pay for gets its own subpath instead:
 
 | Entry | What lives there |
 |---|---|
-| `@misoto22/design` | `src/components` — the primitives |
-| `@misoto22/design/diagrams` | `src/diagrams` — five figure renderers, a routing engine, and the chrome to explore one |
+| `@misoto22/folio` | `src/components` — the primitives |
+| `@misoto22/folio/diagrams` | `src/diagrams` — five figure renderers, a routing engine, and the chrome to explore one |
 
 A separate entry is a real commitment rather than a folder, and all of it has
 to be done together:
@@ -105,7 +105,7 @@ to be done together:
   fails the build exactly as one added to `src/components` does.
 - A line in `apps/docs/scripts/generate.mjs` and in `scripts/emit-agent.mjs`, so
   the prop tables are extracted from the second tree as well. Miss the second
-  and `npx misoto22-design docs <Component>` throws on the whole catalog.
+  and `npx @misoto22/folio docs <Component>` throws on the whole catalog.
 - Two budgets in `scripts/check-size.mjs`: the entry as a whole, and one leaf
   component from it. The second is the one that matters — it is what proves the
   entry is still tree-shakeable rather than shipping whole.
@@ -130,7 +130,7 @@ which classes were emitted.
 Everything above holds. What a chart adds, and why:
 
 - **Its own directory tree and its own entry.** `packages/design/src/charts`, shipped
-  as `@misoto22/design/charts`. Charts need a rendering engine (`recharts`) and an
+  as `@misoto22/folio/charts`. Charts need a rendering engine (`recharts`) and an
   animation runtime (`motion`); both are optional peer dependencies, so an app that
   renders a Badge does not pay for them. `check-size.mjs` measures the charts entry
   separately, and the number appearing inside `everything` would mean charts have

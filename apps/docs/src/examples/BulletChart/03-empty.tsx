@@ -1,5 +1,5 @@
-import { Button } from '@misoto22/design'
-import { BulletChart } from '@misoto22/design/charts'
+import { Button } from '@misoto22/folio'
+import { BulletChart } from '@misoto22/folio/charts'
 
 /**
  * The state a status page is in on the morning nobody has filled it in — a new

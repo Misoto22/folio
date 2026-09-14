@@ -1,4 +1,4 @@
-import { RadioGroup, RadioGroupItem, Text } from '@misoto22/design'
+import { RadioGroup, RadioGroupItem, Text } from '@misoto22/folio'
 
 const PLANS = [
   { value: 'solo', name: 'Solo', detail: 'One seat, 5 GB of originals.' },

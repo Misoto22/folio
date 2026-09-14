@@ -1,4 +1,4 @@
-import { StatusPill } from '@misoto22/design'
+import { StatusPill } from '@misoto22/folio'
 
 /**
  * Every tone, with the pulse spent on the one state that is actually happening.

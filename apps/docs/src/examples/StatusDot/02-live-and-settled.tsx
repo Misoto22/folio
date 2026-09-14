@@ -1,4 +1,4 @@
-import { StatusDot } from '@misoto22/design'
+import { StatusDot } from '@misoto22/folio'
 
 /**
  * The same tone, twice: pulsing means something is happening right now, and it

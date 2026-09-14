@@ -1,4 +1,4 @@
-import { Button } from '@misoto22/design'
+import { Button } from '@misoto22/folio'
 
 /**
  * A control in flight, a control that is off, and a control advertising a

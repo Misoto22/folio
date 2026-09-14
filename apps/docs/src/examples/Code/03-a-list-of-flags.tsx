@@ -1,4 +1,4 @@
-import { Code } from '@misoto22/design'
+import { Code } from '@misoto22/folio'
 
 /**
  * The same chip in a definition list, where the type around it is smaller. It

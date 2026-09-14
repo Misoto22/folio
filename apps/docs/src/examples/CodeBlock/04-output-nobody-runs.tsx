@@ -1,6 +1,6 @@
-import { CodeBlock } from '@misoto22/design'
+import { CodeBlock } from '@misoto22/folio'
 
-const OUTPUT = `> @misoto22/design build
+const OUTPUT = `> @misoto22/folio build
 tokens      → dist/tokens.css     145 tokens
 components  → dist/index.js        61 exports
 types       → dist/index.d.ts

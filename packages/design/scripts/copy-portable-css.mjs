@@ -35,7 +35,7 @@ for (const file of PORTABLE) {
 await cp(join(SRC, 'fonts'), join(DIST, 'fonts'), { recursive: true })
 
 // Append the @font-face rules to the compiled bundle so a single
-// `import '@misoto22/design/styles.css'` also delivers the faces.
+// `import '@misoto22/folio/styles.css'` also delivers the faces.
 const fonts = await readFile(join(SRC, 'fonts.css'), 'utf8')
 const bundle = await readFile(join(DIST, 'styles.css'), 'utf8')
 await writeFile(join(DIST, 'styles.css'), `${bundle}\n${fonts}`)

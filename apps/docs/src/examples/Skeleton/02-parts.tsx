@@ -1,4 +1,4 @@
-import { SkeletonBlock, SkeletonCircle, SkeletonLine, SkeletonPage, SkeletonText } from '@misoto22/design'
+import { SkeletonBlock, SkeletonCircle, SkeletonLine, SkeletonPage, SkeletonText } from '@misoto22/folio'
 
 /**
  * The four presets over the one fill. Skeleton itself sets a --stone ground and

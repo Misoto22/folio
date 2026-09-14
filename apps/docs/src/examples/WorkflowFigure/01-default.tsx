@@ -1,4 +1,4 @@
-import { WorkflowFigure } from '@misoto22/design/diagrams'
+import { WorkflowFigure } from '@misoto22/folio/diagrams'
 
 /**
  * A release pipeline with the failure path in a lane of its own. mainPath is

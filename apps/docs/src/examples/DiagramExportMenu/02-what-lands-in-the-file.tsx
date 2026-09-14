@@ -1,13 +1,13 @@
 'use client'
 
 import { useRef } from 'react'
-import { Button } from '@misoto22/design'
+import { Button } from '@misoto22/folio'
 import {
   ArchitectureFigure,
   DiagramExportMenu,
   DiagramToolbar,
   DiagramToolbarGroup,
-} from '@misoto22/design/diagrams'
+} from '@misoto22/folio/diagrams'
 import { RiInformationLine } from '@remixicon/react'
 
 const SPEC = {

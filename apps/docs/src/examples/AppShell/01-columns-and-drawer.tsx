@@ -1,6 +1,6 @@
 'use client'
 
-import { AppShell, Card, CardBody, CardTitle, NavItem } from '@misoto22/design'
+import { AppShell, Card, CardBody, CardTitle, NavItem } from '@misoto22/folio'
 import { RiHomeLine, RiSettings3Line, RiShapesLine } from '@remixicon/react'
 
 /**

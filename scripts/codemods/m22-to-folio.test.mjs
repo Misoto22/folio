@@ -167,6 +167,8 @@ describe('the skip list', () => {
     'pnpm-lock.yaml',
     'apps/docs/src/lib/storage-keys.ts',
     'apps/docs/src/__tests__/storage-keys.test.ts',
+    'packages/design/bin/migrate-legacy.mjs',
+    'packages/design/src/__tests__/bin-init.test.ts',
     'scripts/codemods/m22-to-folio.test.mjs',
     'packages/design/dist/styles.css',
     'apps/docs/out/index.html',
@@ -178,10 +180,11 @@ describe('the skip list', () => {
     }
   }
 
-  it('skips pending changesets only under --package', () => {
+  it('skips pending changesets under --prefix and --package, not --slug', () => {
     assert.equal(isSkipped('.changeset/brave-owls.md', 'package'), true)
-    assert.equal(isSkipped('.changeset/brave-owls.md', 'prefix'), false)
+    assert.equal(isSkipped('.changeset/brave-owls.md', 'prefix'), true)
     assert.equal(isSkipped('.changeset/brave-owls.md', 'slug'), false)
+    assert.equal(isSkipped('.changeset/config.json', 'prefix'), false)
   })
 
   it('does not skip ordinary sources', () => {

@@ -1,4 +1,4 @@
-import { Alert, Button, Card, CardBody, CardHeader, CardTitle } from '@misoto22/design'
+import { Alert, Button, Card, CardBody, CardHeader, CardTitle } from '@misoto22/folio'
 
 /**
  * One panel failed; the rest of the page still works. This is the case a

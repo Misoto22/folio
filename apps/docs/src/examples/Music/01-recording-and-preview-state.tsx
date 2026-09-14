@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { MediaListRow, MusicFeature } from '@misoto22/design/website'
+import { MediaListRow, MusicFeature } from '@misoto22/folio/website'
 
 /**
  * Recording information and preview state arrive as props from the host player.

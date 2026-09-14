@@ -1,4 +1,4 @@
-import { Diagram } from '@misoto22/design'
+import { Diagram } from '@misoto22/folio'
 
 /**
  * The same machinery turned on its side. spec.direction stacks the top rank and

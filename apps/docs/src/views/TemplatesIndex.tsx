@@ -3,7 +3,7 @@
 import { PAGE_ZH, templateCopy } from '@/i18n/content'
 import { localePath, type Locale } from '@/i18n/locales'
 import { getMessages } from '@/i18n/messages'
-import { Badge, Card, CardBody, CardTitle, Tag, ToggleGroup, ToggleGroupItem } from '@misoto22/design'
+import { Badge, Card, CardBody, CardTitle, Tag, ToggleGroup, ToggleGroupItem } from '@misoto22/folio'
 import Link from 'next/link'
 import { useState } from 'react'
 import { PageIntro } from '@/components/PageIntro'

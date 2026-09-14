@@ -5,7 +5,7 @@ description: Project-owned rules for the Folio design system
 scope: project
 ---
 
-# @misoto22/design
+# @misoto22/folio
 
 - **[DESIGN-ARCH-001] MUST — Keep primitives reusable.** Tokens and components may serve the public site and admin console but must not absorb either host's routes, data access, or business logic.
 - **[DESIGN-TOKEN-001] MUST — Preserve token ownership.** Change the canonical CSS and TypeScript token sources, then rebuild exported CSS and package artifacts instead of editing `dist/`.

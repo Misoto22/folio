@@ -1,4 +1,4 @@
-import { ERROR_ACTION_CLASS, ErrorState } from '@misoto22/design'
+import { ERROR_ACTION_CLASS, ErrorState } from '@misoto22/folio'
 
 /**
  * The page that could not be shown. Render it instead of the page rather than

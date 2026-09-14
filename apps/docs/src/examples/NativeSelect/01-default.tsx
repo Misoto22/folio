@@ -1,4 +1,4 @@
-import { Field, NativeSelect } from '@misoto22/design'
+import { Field, NativeSelect } from '@misoto22/folio'
 
 /**
  * The platform's own picker, restyled as far as it can be: appearance-none

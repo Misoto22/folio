@@ -1,4 +1,4 @@
-import { Button, EmptyState, ERROR_ACTION_CLASS, ErrorState } from '@misoto22/design'
+import { Button, EmptyState, ERROR_ACTION_CLASS, ErrorState } from '@misoto22/folio'
 import { RiFileTextLine } from '@remixicon/react'
 
 /**

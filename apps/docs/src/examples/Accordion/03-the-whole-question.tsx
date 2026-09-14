@@ -1,6 +1,6 @@
 'use client'
 
-import { Accordion, AccordionItem, Text } from '@misoto22/design'
+import { Accordion, AccordionItem, Text } from '@misoto22/folio'
 
 /**
  * title is the accessible name of the panel as well as of the trigger, so a row

@@ -1,4 +1,4 @@
-import { Heading, Separator, Text } from '@misoto22/design'
+import { Heading, Separator, Text } from '@misoto22/folio'
 
 /**
  * The rule that is doing real work. decorative={false} swaps role="none" for

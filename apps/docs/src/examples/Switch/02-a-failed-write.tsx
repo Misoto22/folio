@@ -1,6 +1,6 @@
 'use client'
 
-import { Alert, Switch } from '@misoto22/design'
+import { Alert, Switch } from '@misoto22/folio'
 import { useEffect, useRef, useState } from 'react'
 
 /**

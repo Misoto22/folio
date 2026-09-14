@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Tooltip, TooltipProvider } from '@misoto22/design'
+import { Button, Tooltip, TooltipProvider } from '@misoto22/folio'
 import { RiBold, RiDoubleQuotesL, RiItalic, RiLinkM, RiListUnordered } from '@remixicon/react'
 
 const TOOLS = [

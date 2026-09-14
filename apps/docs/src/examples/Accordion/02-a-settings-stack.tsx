@@ -1,6 +1,6 @@
 'use client'
 
-import { Accordion, AccordionItem, Field, Input, Switch } from '@misoto22/design'
+import { Accordion, AccordionItem, Field, Input, Switch } from '@misoto22/folio'
 
 /**
  * type multiple, because these two rows have to be read against each other —

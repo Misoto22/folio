@@ -10,7 +10,7 @@ import {
   Heading,
   NavItem,
   Text,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiDashboardLine, RiGitBranchLine, RiStackLine } from '@remixicon/react'
 
 /**

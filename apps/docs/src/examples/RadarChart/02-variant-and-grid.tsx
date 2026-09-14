@@ -1,7 +1,7 @@
 'use client'
 
-import { ToggleGroup, ToggleGroupItem } from '@misoto22/design'
-import { RadarChart, type ChartConfig, type RadarVariant } from '@misoto22/design/charts'
+import { ToggleGroup, ToggleGroupItem } from '@misoto22/folio'
+import { RadarChart, type ChartConfig, type RadarVariant } from '@misoto22/folio/charts'
 import { useState } from 'react'
 import { ExampleControls } from '@/components/ExampleControls'
 

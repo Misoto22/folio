@@ -1,4 +1,4 @@
-import { Metric } from '@misoto22/design'
+import { Metric } from '@misoto22/folio'
 
 /**
  * Four across, which is the arrangement this exists for. The figures are

@@ -1,4 +1,4 @@
-import { MediaCollection, MediaGallery, MediaGalleryItem, MediaMasthead } from '@misoto22/design/website'
+import { MediaCollection, MediaGallery, MediaGalleryItem, MediaMasthead } from '@misoto22/folio/website'
 
 /**
  * A gallery receives link and image slots while preserving each print's orientation.

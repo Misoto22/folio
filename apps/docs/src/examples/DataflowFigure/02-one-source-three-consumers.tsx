@@ -1,4 +1,4 @@
-import { DataflowFigure } from '@misoto22/design/diagrams'
+import { DataflowFigure } from '@misoto22/folio/diagrams'
 
 /**
  * A fan-out, and the reason classification is a field rather than a word in the

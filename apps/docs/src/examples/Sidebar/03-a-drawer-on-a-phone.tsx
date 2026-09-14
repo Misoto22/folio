@@ -9,7 +9,7 @@ import {
   SidebarItem,
   SidebarProvider,
   SidebarTrigger,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiHomeLine, RiSettings3Line, RiStackLine } from '@remixicon/react'
 
 /**

@@ -1,4 +1,4 @@
-import { CodePanel, StepSequence } from '@misoto22/design/website'
+import { CodePanel, StepSequence } from '@misoto22/folio/website'
 
 /**
  * A process rail and a code panel share the same reading surface.

@@ -1,6 +1,6 @@
 'use client'
 
-import { Sparkline, type SparklineVariant } from '@misoto22/design/charts'
+import { Sparkline, type SparklineVariant } from '@misoto22/folio/charts'
 
 const data = [12, 18, 9, 24, 30, 22, 41, 36, 48, 44, 57, 61]
 

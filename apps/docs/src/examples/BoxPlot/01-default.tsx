@@ -1,6 +1,6 @@
 'use client'
 
-import { BoxPlot } from '@misoto22/design/charts'
+import { BoxPlot } from '@misoto22/folio/charts'
 
 // Raw observations, one array per region. The chart does the quartiles and
 // Tukey's fences; nothing here has to know what a five-number summary is.

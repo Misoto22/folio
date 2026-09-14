@@ -1,4 +1,4 @@
-# @misoto22/design
+# @misoto22/folio
 
 A monochrome design system for software, writing and photography: portable CSS
 tokens and accessible React 19 primitives. Paper ground, near-black mark, and
@@ -12,12 +12,12 @@ project.
 ## Install
 
 ```bash
-npm install @misoto22/design
+npm install @misoto22/folio
 ```
 
 ```tsx
-import { Button, Field, Input } from '@misoto22/design'
-import '@misoto22/design/styles.css'
+import { Button, Field, Input } from '@misoto22/folio'
+import '@misoto22/folio/styles.css'
 ```
 
 `styles.css` is the whole compiled sheet — tokens, roles, themes, motion and
@@ -25,25 +25,25 @@ the vendored faces. An app that compiles its own Tailwind can take the portable
 layers instead:
 
 ```tsx
-import '@misoto22/design/tokens.css'    // primitives, plus data-mode and data-density
-import '@misoto22/design/semantic.css'  // roles
-import '@misoto22/design/themes.css'    // the other six theming axes
-import '@misoto22/design/keyframes.css' // motion
+import '@misoto22/folio/tokens.css'    // primitives, plus data-mode and data-density
+import '@misoto22/folio/semantic.css'  // roles
+import '@misoto22/folio/themes.css'    // the other six theming axes
+import '@misoto22/folio/keyframes.css' // motion
 ```
 
 All four, or the theming table below is a table of attributes that do nothing.
 `data-mode` and `data-density` are declared in `tokens.css`; every other axis
 lives only in `themes.css`, and an app that skips it writes `data-radius="sharp"`
 and gets no error, no warning, and no corner. Two more layers are opt-in rather
-than missing: `@misoto22/design/fonts.css` carries the vendored faces, and
-`@misoto22/design/article.css` styles long-form prose.
+than missing: `@misoto22/folio/fonts.css` carries the vendored faces, and
+`@misoto22/folio/article.css` styles long-form prose.
 
 Diagrams ship from their own specifier, so a page that renders a `Badge` does
 not pay for a routing engine:
 
 ```tsx
-import { ArchitectureFigure, DiagramCanvas } from '@misoto22/design/diagrams'
-import { SiteShell, Portfolio, CollectionIntro, SearchPalette } from '@misoto22/design/website'
+import { ArchitectureFigure, DiagramCanvas } from '@misoto22/folio/diagrams'
+import { SiteShell, Portfolio, CollectionIntro, SearchPalette } from '@misoto22/folio/website'
 ```
 
 Five server-rendered figures — architecture, workflow, sequence, data-flow and
@@ -89,7 +89,7 @@ version you actually have rather than whatever the website shipped last.
 unions, the keyboard contract, the accessibility promises, the examples:
 
 ```bash
-npx misoto22-design docs Button
+npx @misoto22/folio docs Button
 ```
 
 The median component is about 500 tokens. It resolves parts and types too, so
@@ -100,14 +100,14 @@ useful when an import just failed.
 tables:
 
 ```bash
-npx misoto22-design docs --installed
+npx @misoto22/folio docs --installed
 ```
 
 **Install the skill** into your project, so a coding agent picks up the
 conventions without being told each time:
 
 ```bash
-npx misoto22-design init --agents-md
+npx @misoto22/folio init --agents-md
 ```
 
 That writes the skill to `.agents/skills/` — the path Codex, Cursor, GitHub
@@ -150,14 +150,14 @@ those where it happens, with a stable code, the offending field and an
 imperative fix:
 
 ```
-[@misoto22/design] FIELD_CONTROL_NOT_LABELLABLE
+[@misoto22/folio] FIELD_CONTROL_NOT_LABELLABLE
   Field's child is a <div>, which cannot take a label — so the id,
   aria-describedby, aria-required and aria-invalid were applied to it rather
   than to a control.
   field: children
   fix:   Put the control itself directly inside Field, with no wrapper. For a
          row of controls, give each its own Field and lay them out around it.
-  docs:  npx misoto22-design docs Field
+  docs:  npx @misoto22/folio docs Field
 ```
 
 Every call site is behind `process.env.NODE_ENV`, so none of it reaches a
@@ -183,7 +183,7 @@ MIT © Henry Chen
 
 ## Website compositions
 
-Import page composition families from `@misoto22/design/website`. They include
+Import page composition families from `@misoto22/folio/website`. They include
 navigation, portfolios, content collections, reading layouts, media browsing,
 contact forms, listening views, metrics, search and conversations. Pass localized
 labels, router link elements and plain view data; keep backend requests, routing
@@ -198,13 +198,13 @@ which sets the body type, heading and paragraph margins and a site-wide focus
 ring; an application that embeds a composition in its own chrome leaves it out.
 
 ```tsx
-import '@misoto22/design/styles.css'
-import '@misoto22/design/website.css'
-import '@misoto22/design/website-base.css' // only when the whole page is a website
+import '@misoto22/folio/styles.css'
+import '@misoto22/folio/website.css'
+import '@misoto22/folio/website-base.css' // only when the whole page is a website
 ```
 
-`npx misoto22-design docs SiteShell` and `docs SearchPalette` explain the contracts.
+`npx @misoto22/folio docs SiteShell` and `docs SearchPalette` explain the contracts.
 
-For metadata and build scripts, `import { BRAND } from '@misoto22/design/brand'`
+For metadata and build scripts, `import { BRAND } from '@misoto22/folio/brand'`
 loads the token mirror without loading React components. This data-only entry
 also supports Node's native ESM loading from CommonJS on the supported Node versions.

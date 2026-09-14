@@ -1,4 +1,4 @@
-import { Badge, Button, FigureBand, StatusPill } from '@misoto22/design'
+import { Badge, Button, FigureBand, StatusPill } from '@misoto22/folio'
 import { RiRulerLine, RiShapesLine } from '@remixicon/react'
 import Link from 'next/link'
 import { CodeBlock } from '@/components/CodeBlock'

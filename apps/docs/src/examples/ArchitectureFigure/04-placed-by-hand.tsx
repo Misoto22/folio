@@ -1,4 +1,4 @@
-import { ArchitectureFigure } from '@misoto22/design/diagrams'
+import { ArchitectureFigure } from '@misoto22/folio/diagrams'
 
 /**
  * pos instead of row and col, which is what unlocks a hand-tuned route: via,

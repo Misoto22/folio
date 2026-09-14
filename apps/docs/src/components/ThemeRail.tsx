@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Separator, cn } from '@misoto22/design'
+import { Button, Separator, cn } from '@misoto22/folio'
 import { RiCheckLine, RiResetLeftLine } from '@remixicon/react'
 import { useMessages } from '@/i18n/useLocale'
 import {

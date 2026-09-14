@@ -1,7 +1,7 @@
 'use client'
 
-import { Card, CardBody } from '@misoto22/design'
-import { BigNumber, Sparkline } from '@misoto22/design/charts'
+import { Card, CardBody } from '@misoto22/folio'
+import { BigNumber, Sparkline } from '@misoto22/folio/charts'
 
 const trend = [31, 28, 34, 30, 39, 44, 41, 48]
 

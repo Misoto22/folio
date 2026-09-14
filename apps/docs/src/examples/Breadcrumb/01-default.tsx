@@ -1,4 +1,4 @@
-import { Breadcrumb } from '@misoto22/design'
+import { Breadcrumb } from '@misoto22/folio'
 
 /**
  * Where you are, as a path. The last crumb is plain text carrying

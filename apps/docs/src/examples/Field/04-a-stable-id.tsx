@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Field, Input } from '@misoto22/design'
+import { Button, Field, Input } from '@misoto22/folio'
 
 /**
  * htmlFor, and the same id on the control. Leave it off and the field generates

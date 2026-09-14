@@ -1,6 +1,6 @@
 'use client'
 
-import { TreemapChart, type TreemapNode } from '@misoto22/design/charts'
+import { TreemapChart, type TreemapNode } from '@misoto22/folio/charts'
 
 // A route's payload: two files carry it, and eighteen more are the tail.
 const files: TreemapNode[] = [

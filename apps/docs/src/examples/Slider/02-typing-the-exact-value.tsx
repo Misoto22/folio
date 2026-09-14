@@ -1,6 +1,6 @@
 'use client'
 
-import { Slider } from '@misoto22/design'
+import { Slider } from '@misoto22/folio'
 
 /**
  * A slider is a control for a neighbourhood, and this is the way out of it.

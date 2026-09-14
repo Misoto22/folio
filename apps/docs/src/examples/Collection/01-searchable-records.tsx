@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { CollectionControls, CollectionEmpty, CollectionIntro, RecordRow } from '@misoto22/design/website'
+import { CollectionControls, CollectionEmpty, CollectionIntro, RecordRow } from '@misoto22/folio/website'
 
 /**
  * Search and category state stay with the host, which supplies the filtered records.

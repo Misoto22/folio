@@ -1,4 +1,4 @@
-import { Article } from '@misoto22/design'
+import { Article } from '@misoto22/folio'
 
 /**
  * The whole reading surface, styled from element selectors rather than from

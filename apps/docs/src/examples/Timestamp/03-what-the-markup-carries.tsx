@@ -1,4 +1,4 @@
-import { Code, DescriptionList, Timestamp } from '@misoto22/design'
+import { Code, DescriptionList, Timestamp } from '@misoto22/folio'
 
 const AT = '2026-01-14T09:30:00.000Z'
 

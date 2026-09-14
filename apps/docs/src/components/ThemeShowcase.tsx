@@ -27,8 +27,8 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from '@misoto22/design'
-import { AreaChart, type ChartConfig } from '@misoto22/design/charts'
+} from '@misoto22/folio'
+import { AreaChart, type ChartConfig } from '@misoto22/folio/charts'
 import { RiSearchLine, RiShoppingBagLine } from '@remixicon/react'
 
 /**

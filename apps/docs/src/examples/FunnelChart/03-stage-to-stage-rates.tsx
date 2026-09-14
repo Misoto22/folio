@@ -1,6 +1,6 @@
 'use client'
 
-import { FunnelChart, type ChartConfig } from '@misoto22/design/charts'
+import { FunnelChart, type ChartConfig } from '@misoto22/folio/charts'
 
 // The rate is worked out at the call site: a funnel holds one number per stage
 // and knows nothing about what its numbers mean.

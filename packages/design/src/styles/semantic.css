@@ -142,7 +142,7 @@
   --z-overlay: var(--z-scrim);
 
   /* ─── Diagrams ───────────────────────────────────────────────────────────
-     The figures in `@misoto22/design/diagrams`, which draw in SVG and
+     The figures in `@misoto22/folio/diagrams`, which draw in SVG and
      therefore cannot read a custom property from a presentation attribute —
      every one of these reaches a mark through a style rule.
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { Accordion, AccordionItem } from '@misoto22/design'
+import { Accordion, AccordionItem } from '@misoto22/folio'
 
 /**
  * An FAQ: type single with collapsible, so the row the reader opened can be
@@ -16,7 +16,7 @@ export function Example() {
   return (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value="install" title="How do I install it?">
-        <code className="font-mono text-xs">pnpm add @misoto22/design</code>, then import the stylesheet once
+        <code className="font-mono text-xs">pnpm add @misoto22/folio</code>, then import the stylesheet once
         at your app root.
       </AccordionItem>
       <AccordionItem value="tailwind" title="Do I need Tailwind?">

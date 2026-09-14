@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { MetricsList, MetricsPanel, MetricsPanelGrid, MetricsRange, MetricsSection } from '@misoto22/design/website'
+import { MetricsList, MetricsPanel, MetricsPanelGrid, MetricsRange, MetricsSection } from '@misoto22/folio/website'
 
 /**
  * The selected range and already-formatted readings remain in application state.

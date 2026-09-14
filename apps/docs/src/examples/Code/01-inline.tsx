@@ -1,4 +1,4 @@
-import { Code, Text } from '@misoto22/design'
+import { Code, Text } from '@misoto22/folio'
 
 /**
  * A real <code> element, sized in em so the same token is proportionate in body

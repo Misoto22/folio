@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, cn } from '@misoto22/design'
+import { Button, cn } from '@misoto22/folio'
 import { RiCheckLine, RiFileCopyLine } from '@remixicon/react'
 import { useEffect, useState } from 'react'
 
@@ -17,7 +17,7 @@ export interface CommandBlockProps {
  *
  * Not `CodeBlock`. That one renders Shiki markup produced during
  * `generate.mjs` from `content/snippets.json`, which is the right shape for a
- * TSX example and the wrong shape for `npx misoto22-design docs Button` — a
+ * TSX example and the wrong shape for `npx @misoto22/folio docs Button` — a
  * shell line has almost no syntax to colour, and routing it through a second
  * file and a build step is how a command ends up not being written down at all.
  *

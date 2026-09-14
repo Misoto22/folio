@@ -1,4 +1,4 @@
-import { AspectRatio, Text } from '@misoto22/design'
+import { AspectRatio, Text } from '@misoto22/folio'
 
 const NOTE =
   'Adds the five diagram renderers, the canvas chrome around them, and a share-card export at 1200 by 630. The specification types mirror archify, so a document authored for that tool renders here with no translation step.'

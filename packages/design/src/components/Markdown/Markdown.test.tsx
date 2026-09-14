@@ -90,7 +90,7 @@ describe('Markdown', () => {
   })
 
   it('renders a fenced block as a CodeBlock with its language', () => {
-    render(<Markdown>{'```bash\npnpm add @misoto22/design\n```'}</Markdown>)
+    render(<Markdown>{'```bash\npnpm add @misoto22/folio\n```'}</Markdown>)
 
     expect(screen.getByRole('group', { name: 'Code' })).toBeInTheDocument()
     expect(screen.getByText('Shell')).toBeInTheDocument()

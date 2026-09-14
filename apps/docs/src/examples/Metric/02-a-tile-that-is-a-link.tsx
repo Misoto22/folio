@@ -1,4 +1,4 @@
-import { Metric } from '@misoto22/design'
+import { Metric } from '@misoto22/folio'
 
 /**
  * asChild hands the whole plate to the caller's own element, which is how a

@@ -1,4 +1,4 @@
-import { CodeBlock } from '@misoto22/design'
+import { CodeBlock } from '@misoto22/folio'
 
 const SOURCE = `import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'

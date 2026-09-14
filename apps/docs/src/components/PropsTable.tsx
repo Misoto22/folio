@@ -1,4 +1,4 @@
-import { Badge, TBody, TD, TH, THead, TR, Table } from '@misoto22/design'
+import { Badge, TBody, TD, TH, THead, TR, Table } from '@misoto22/folio'
 import { apiCopy } from '@/i18n/api'
 import type { Locale } from '@/i18n/locales'
 import { fill, getMessages } from '@/i18n/messages'

@@ -1,4 +1,4 @@
-import { Article, Markdown } from '@misoto22/design'
+import { Article, Markdown } from '@misoto22/folio'
 
 const SOURCE = `# Release notes
 
@@ -12,7 +12,7 @@ that is not http, https, mailto or tel renders as text instead.
 > Depth is a hairline and a change of ground, never a blur.
 
 \`\`\`bash
-pnpm add @misoto22/design
+pnpm add @misoto22/folio
 \`\`\`
 `
 

@@ -1,4 +1,4 @@
-import { Badge, Collapsible, CollapsibleContent, CollapsibleTrigger } from '@misoto22/design'
+import { Badge, Collapsible, CollapsibleContent, CollapsibleTrigger } from '@misoto22/folio'
 import { RiArrowDownSLine } from '@remixicon/react'
 
 /**

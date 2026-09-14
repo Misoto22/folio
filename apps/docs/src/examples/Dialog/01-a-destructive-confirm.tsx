@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Dialog, DialogClose, DialogContent, DialogTrigger } from '@misoto22/design'
+import { Button, Dialog, DialogClose, DialogContent, DialogTrigger } from '@misoto22/folio'
 
 /**
  * One question, two answers, and nothing else in the panel. Both controls are

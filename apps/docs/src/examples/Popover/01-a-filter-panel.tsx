@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Field, Popover, PopoverClose, PopoverContent, PopoverTrigger, Select, SelectItem } from '@misoto22/design'
+import { Button, Field, Popover, PopoverClose, PopoverContent, PopoverTrigger, Select, SelectItem } from '@misoto22/folio'
 
 /**
  * A panel with controls in it, which is the whole distinction from a tooltip:

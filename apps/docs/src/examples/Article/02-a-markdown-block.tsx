@@ -1,4 +1,4 @@
-import { Article, Markdown } from '@misoto22/design'
+import { Article, Markdown } from '@misoto22/folio'
 
 const REPLY = `## Why the tokens ship as CSS
 
@@ -7,7 +7,7 @@ build to get \`--ink\`. The three portable layers — tokens, semantic, keyframe
 are importable on their own:
 
 \`\`\`ts
-import '@misoto22/design/tokens.css'
+import '@misoto22/folio/tokens.css'
 \`\`\`
 
 - The compiled bundle is for an app with no build of its own

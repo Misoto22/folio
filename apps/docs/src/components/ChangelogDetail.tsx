@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@misoto22/design'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@misoto22/folio'
 import type { ReactNode } from 'react'
 
 /**

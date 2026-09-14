@@ -1,6 +1,6 @@
 'use client'
 
-import { Calendar } from '@misoto22/design'
+import { Calendar } from '@misoto22/folio'
 import { useState } from 'react'
 
 /**

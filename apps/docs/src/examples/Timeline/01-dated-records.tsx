@@ -1,4 +1,4 @@
-import { CareerRecord, RecordSection, Timeline, TimelineItem } from '@misoto22/design/website'
+import { CareerRecord, RecordSection, Timeline, TimelineItem } from '@misoto22/folio/website'
 
 /**
  * A chronological record retains its supplied dates, organization and supporting details.

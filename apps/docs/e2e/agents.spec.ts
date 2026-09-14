@@ -37,7 +37,7 @@ test('llms.txt lists every component the site publishes', async ({ request }) =>
   // has to know before it writes a single line against this package.
   expect(body).toContain('The accent is ink')
   expect(body).toContain('data-surface')
-  expect(body).toContain("npm install @misoto22/design")
+  expect(body).toContain("npm install @misoto22/folio")
 
   expect(SLUGS.length).toBeGreaterThan(0)
   for (const slug of SLUGS) {
@@ -51,7 +51,7 @@ test('each component has its own file, with its props and its keyboard', async (
   const body = await response.text()
 
   expect(body).toContain('# Button')
-  expect(body).toContain("import { Button } from '@misoto22/design'")
+  expect(body).toContain("import { Button } from '@misoto22/folio'")
   // A prop table is the part a rendered page spreads over the most pixels.
   expect(body).toContain('`iconOnly`')
   expect(body).toContain('## Keyboard')
@@ -65,10 +65,10 @@ test('a component names the specifier it actually ships from', async ({ request 
   // project, and both split entries printed the root one until the catalog was
   // taught which specifier each component lives behind.
   const cases = [
-    ['button', 'Button', '@misoto22/design'],
-    ['bar-chart', 'BarChart', '@misoto22/design/charts'],
-    ['heatmap', 'Heatmap', '@misoto22/design/charts'],
-    ['architecture-figure', 'ArchitectureFigure', '@misoto22/design/diagrams'],
+    ['button', 'Button', '@misoto22/folio'],
+    ['bar-chart', 'BarChart', '@misoto22/folio/charts'],
+    ['heatmap', 'Heatmap', '@misoto22/folio/charts'],
+    ['architecture-figure', 'ArchitectureFigure', '@misoto22/folio/diagrams'],
   ] as const
 
   for (const [slug, name, specifier] of cases) {

@@ -1,4 +1,4 @@
-import { Badge, Card, CardBody, CardFooter, CardHeader, CardTitle } from '@misoto22/design'
+import { Badge, Card, CardBody, CardFooter, CardHeader, CardTitle } from '@misoto22/folio'
 
 /**
  * The bounded surface and the one reversed one, side by side. There is no

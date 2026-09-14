@@ -1,6 +1,6 @@
 {
-  "pkg": "@misoto22/design",
-  "globalName": "Misoto22Design",
+  "pkg": "@misoto22/folio",
+  "globalName": "Misoto22Folio",
   "projectId": "f363d98d-fa01-4902-8a9a-62c2ddd0e594",
   "shape": "package",
   "buildCmd": "pnpm build:design",

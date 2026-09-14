@@ -1,4 +1,4 @@
-import { DataflowFigure } from '@misoto22/design/diagrams'
+import { DataflowFigure } from '@misoto22/folio/diagrams'
 
 /**
  * Four stages, because minimisation is a stage: the reviewer's question is

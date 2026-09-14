@@ -1,4 +1,4 @@
-import { Field, Input } from '@misoto22/design'
+import { Field, Input } from '@misoto22/folio'
 
 /**
  * The same idea locked two ways. readOnly keeps the field in the tab order and

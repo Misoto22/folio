@@ -1,4 +1,4 @@
-import { Field, NativeSelect } from '@misoto22/design'
+import { Field, NativeSelect } from '@misoto22/folio'
 
 /**
  * An empty first option, disabled, with defaultValue pointing at it. A select

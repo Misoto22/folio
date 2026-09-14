@@ -1,6 +1,6 @@
 'use client'
 
-import { RadialChart, type ChartConfig } from '@misoto22/design/charts'
+import { RadialChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const data = [
   { tier: 'documents', used: 72 },

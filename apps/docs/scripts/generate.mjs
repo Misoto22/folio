@@ -77,7 +77,7 @@ function toSnippet(source) {
 
   const imports = source
     .split('\n')
-    .filter((line) => line.startsWith('import') && line.includes('@misoto22/design'))
+    .filter((line) => line.startsWith('import') && line.includes('@misoto22/folio'))
     .join('\n')
 
   const printed = unwrapControls(jsx)

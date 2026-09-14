@@ -20,7 +20,7 @@ import {
   TR,
   Table,
   Textarea,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiArrowLeftLine, RiArrowRightLine, RiRocketLine } from '@remixicon/react'
 import { useState } from 'react'
 

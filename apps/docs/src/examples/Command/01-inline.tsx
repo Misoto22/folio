@@ -10,7 +10,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiCompassLine, RiMoonLine, RiRulerLine, RiScales3Line, RiShapesLine, RiSunLine } from '@remixicon/react'
 
 /**

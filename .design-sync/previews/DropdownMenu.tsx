@@ -6,7 +6,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
   Button,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiDeleteBinLine, RiFileCopyLine, RiLockLine, RiMoreLine, RiPencilLine } from '@remixicon/react'
 
 export function PostActions() {

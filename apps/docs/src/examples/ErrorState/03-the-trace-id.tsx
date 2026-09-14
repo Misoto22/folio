@@ -1,4 +1,4 @@
-import { Code, ERROR_ACTION_CLASS, ErrorState } from '@misoto22/design'
+import { Code, ERROR_ACTION_CLASS, ErrorState } from '@misoto22/folio'
 
 /**
  * Where the reference goes: in the message, never in code. code is set at

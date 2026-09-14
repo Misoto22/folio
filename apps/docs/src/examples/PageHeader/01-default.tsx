@@ -1,4 +1,4 @@
-import { Breadcrumb, Button, PageHeader } from '@misoto22/design'
+import { Breadcrumb, Button, PageHeader } from '@misoto22/folio'
 
 /**
  * The whole opening, in the order it is fixed in: trail, kicker, title, then

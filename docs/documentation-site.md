@@ -9,7 +9,7 @@ cannot disagree.
 | Output | Read from | Why not hand-written |
 |---|---|---|
 | `props.json` | the components' TypeScript AST | a hand-kept prop table is how a docs site starts lying — someone adds a prop and the table still lists four |
-| `tokens.json` | `@misoto22/design/tokens` | the package emits it; the site parsing the CSS a second time meant the two could disagree, and the site is the one people believe |
+| `tokens.json` | `@misoto22/folio/tokens` | the package emits it; the site parsing the CSS a second time meant the two could disagree, and the site is the one people believe |
 | `examples.json` | `src/examples/**/*.tsx` | the page renders the module and the code block is read from the same file, so a preview cannot drift from the code beneath it |
 | `templates.json` | `src/templates/*.tsx` | same trick, for whole screens |
 | `changelog.json` | the repository's `CHANGELOG.md` | two lists of what changed disagree within two releases |
@@ -52,7 +52,7 @@ carry a line saying so.
 
 ```bash
 pnpm dev                                       # localhost:4023
-pnpm --filter @misoto22/design-docs test:e2e   # needs `pnpm build` first
+pnpm --filter @misoto22/folio-docs test:e2e   # needs `pnpm build` first
 ```
 
 The end-to-end suite serves the **built export**, not the dev server — the dev

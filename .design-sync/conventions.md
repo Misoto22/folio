@@ -12,7 +12,7 @@ Import the stylesheet once at the app root — it ships the tokens, fonts, and
 component styles:
 
 ```tsx
-import '@misoto22/design/styles.css'
+import '@misoto22/folio/styles.css'
 ```
 
 Dark mode is a class toggle: put `class="dark"` on `<html>` (or any ancestor)
@@ -58,7 +58,7 @@ Don't restyle a component's internals — compose it and add layout around it.
 ## Build snippet (idiomatic)
 
 ```tsx
-import { AppShell, NavItem, Card, CardBody, Button } from '@misoto22/design'
+import { AppShell, NavItem, Card, CardBody, Button } from '@misoto22/folio'
 import { RiDashboardLine, RiFileTextLine } from '@remixicon/react'
 
 export function Dashboard() {

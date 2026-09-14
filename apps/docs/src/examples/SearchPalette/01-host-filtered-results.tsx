@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Button, Text } from '@misoto22/design'
-import { SearchPalette } from '@misoto22/design/website'
+import { Button, Text } from '@misoto22/folio'
+import { SearchPalette } from '@misoto22/folio/website'
 
 /**
  * The host filters records and handles selection; the palette supplies modal focus and keyboard navigation.

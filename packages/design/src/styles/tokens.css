@@ -1,7 +1,7 @@
 /* ==========================================================================
    WHITE RESET — design tokens
    --------------------------------------------------------------------------
-   The portable layer of @misoto22/design: plain CSS custom properties, no
+   The portable layer of @misoto22/folio: plain CSS custom properties, no
    Tailwind dependency. Import this alone and any consumer — a Tailwind app, a
    plain-CSS app, a preview sandbox — gets the same look.
 

@@ -1,4 +1,4 @@
-import { Button, EmptyState, Tag } from '@misoto22/design'
+import { Button, EmptyState, Tag } from '@misoto22/folio'
 import { RiFilterOffLine } from '@remixicon/react'
 
 /**

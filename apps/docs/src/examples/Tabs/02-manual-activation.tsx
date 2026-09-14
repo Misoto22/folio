@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger, Text } from '@misoto22/design'
+import { Tabs, TabsContent, TabsList, TabsTrigger, Text } from '@misoto22/folio'
 
 /**
  * activationMode manual, and a strip with a name. The default is automatic, so

@@ -1,9 +1,9 @@
-import { DescriptionList } from '@misoto22/design'
+import { DescriptionList } from '@misoto22/folio'
 
 const FIELDS = [
   { term: 'Runtime', description: 'Node 24 on Cloudflare Workers' },
   { term: 'Region', description: 'ap-southeast-2' },
-  { term: 'Build', description: 'pnpm --filter @misoto22/design build' },
+  { term: 'Build', description: 'pnpm --filter @misoto22/folio build' },
 ]
 
 /**

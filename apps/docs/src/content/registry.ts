@@ -48,8 +48,8 @@ export interface ComponentEntry {
   /**
    * The specifier this component is imported from.
    *
-   * Emitted rather than authored: `@misoto22/design/charts` and
-   * `@misoto22/design/diagrams` are separate entry points, and an import line
+   * Emitted rather than authored: `@misoto22/folio/charts` and
+   * `@misoto22/folio/diagrams` are separate entry points, and an import line
    * naming the wrong one does not render a blank page — it throws.
    */
   entry: string

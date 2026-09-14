@@ -1,4 +1,4 @@
-import { SkeletonBlock, SkeletonLine, SkeletonPage, SkeletonText } from '@misoto22/design'
+import { SkeletonBlock, SkeletonLine, SkeletonPage, SkeletonText } from '@misoto22/folio'
 
 /**
  * The skeleton for the list that replaces it, built on the same grid — a 9rem

@@ -17,24 +17,26 @@
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { migrateLegacySkills, replaceLegacyAgentsBlock } from './migrate-legacy.mjs'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const AGENT = join(ROOT, 'dist', 'agent')
-const SKILL = join(ROOT, 'skills', 'misoto22-design')
+const SKILL_NAME = 'folio-design'
+const SKILL = join(ROOT, 'skills', SKILL_NAME)
 
 const { version } = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'))
 
-const USAGE = `@misoto22/design ${version}
+const USAGE = `@misoto22/folio ${version}
 
-  misoto22-design docs <Component>    One component, in full — props, types,
-                                      keyboard, accessibility, examples.
-  misoto22-design docs --list         Every component, one line each.
-  misoto22-design docs --installed    This package's version and what it ships.
-                       [--json]
-  misoto22-design init                Install the agent skill into this project.
-                      [--agents-md]   Also point AGENTS.md at it.
-                      [--agent <id>]  Write only to one agent's directory:
-                                      "agents" (the shared path) or "claude".
+  folio-design docs <Component>    One component, in full — props, types,
+                                   keyboard, accessibility, examples.
+  folio-design docs --list         Every component, one line each.
+  folio-design docs --installed    This package's version and what it ships.
+                    [--json]
+  folio-design init                Install the agent skill into this project.
+                   [--agents-md]   Also point AGENTS.md at it.
+                   [--agent <id>]  Write only to one agent's directory:
+                                   "agents" (the shared path) or "claude".
 
 Docs on the web: https://ui.misoto22.com`
 
@@ -82,16 +84,16 @@ function installed(asJson) {
     process.stdout.write(
       `${JSON.stringify(
         {
-          package: '@misoto22/design',
+          package: '@misoto22/folio',
           version,
           components: byGroup,
           styles: [
-            '@misoto22/design/styles.css',
-            '@misoto22/design/tokens.css',
-            '@misoto22/design/semantic.css',
-            '@misoto22/design/keyframes.css',
+            '@misoto22/folio/styles.css',
+            '@misoto22/folio/tokens.css',
+            '@misoto22/folio/semantic.css',
+            '@misoto22/folio/keyframes.css',
           ],
-          detail: 'npx misoto22-design docs <Component>',
+          detail: 'npx @misoto22/folio docs <Component>',
         },
         null,
         2,
@@ -99,12 +101,12 @@ function installed(asJson) {
     )
     return
   }
-  const lines = [`@misoto22/design ${version} — ${components.length} components`, '']
+  const lines = [`@misoto22/folio ${version} — ${components.length} components`, '']
   for (const group of groups) {
     const names = components.filter((c) => c.group === group).map((c) => c.name)
     if (names.length > 0) lines.push(`${group}: ${names.join(', ')}`)
   }
-  lines.push('', 'One in full: npx misoto22-design docs <Component>')
+  lines.push('', 'One in full: npx @misoto22/folio docs <Component>')
   process.stdout.write(`${lines.join('\n')}\n`)
 }
 
@@ -143,19 +145,19 @@ function docs(args) {
   fail(
     near.length > 0
       ? `No component named "${name}". Did you mean: ${near.join(', ')}?`
-      : `No component named "${name}". Run \`misoto22-design docs --list\` for all ${componentNames().length}.`,
+      : `No component named "${name}". Run \`folio-design docs --list\` for all ${componentNames().length}.`,
   )
 }
 
 const AGENTS_BLOCK = `
-## @misoto22/design
+## @misoto22/folio
 
-UI comes from \`@misoto22/design\`. Read \`SKILL.md\` in the installed skill
+UI comes from \`@misoto22/folio\`. Read \`SKILL.md\` in the installed skill
 directory before writing components against it — the names diverge from
 shadcn/ui in several places, and colour is never written as a raw class.
 
-- One component in full: \`npx misoto22-design docs <Component>\`
-- Everything it ships: \`npx misoto22-design docs --installed\`
+- One component in full: \`npx @misoto22/folio docs <Component>\`
+- Everything it ships: \`npx @misoto22/folio docs --installed\`
 `
 
 /**
@@ -204,24 +206,48 @@ function initTargets(args) {
 function init(args) {
   if (!existsSync(SKILL)) fail('This build has no skills/ directory.')
 
-  const written = []
-  for (const dir of initTargets(args)) {
-    const target = join(process.cwd(), dir, 'misoto22-design')
+  const cwd = process.cwd()
+  const requested = initTargets(args)
+  // A directory that held the pre-rename skill is written whatever the flags
+  // say: the migration moved the old copy to the new name, and it still holds
+  // the old content until it is refreshed here.
+  const migrated = migrateLegacySkills(cwd, Object.values(AGENT_DIRS), SKILL_NAME)
+  const written = migrated.map(({ from, to }) => `  migrated  ${resolve(from)} -> ${resolve(to)}`)
+  for (const dir of new Set([...requested, ...migrated.map((entry) => entry.dir)])) {
+    const target = join(cwd, dir, SKILL_NAME)
     const existed = existsSync(target)
     mkdirSync(dirname(target), { recursive: true })
     cpSync(SKILL, target, { recursive: true })
     written.push(`  ${existed ? 'updated' : 'installed'}  ${resolve(target)}`)
   }
   process.stdout.write(`${written.join('\n')}\n`)
+  pointAgentsMd(cwd, args)
+}
+
+/**
+ * Append the AGENTS.md section when asked, and replace the pre-rename one
+ * whether asked or not — it names a bin this package no longer ships, so
+ * leaving it is leaving an instruction that fails.
+ */
+function pointAgentsMd(cwd, args) {
+  const agentsFile = join(cwd, 'AGENTS.md')
+  const existing = existsSync(agentsFile) ? readFileSync(agentsFile, 'utf8') : null
+  if (existing !== null) {
+    const rewritten = replaceLegacyAgentsBlock(existing, AGENTS_BLOCK)
+    if (rewritten !== existing) {
+      writeFileSync(agentsFile, rewritten)
+      process.stdout.write(`Replaced the pre-rename section in ${resolve(agentsFile)}\n`)
+      return
+    }
+  }
 
   if (!args.includes('--agents-md')) {
     process.stdout.write('Pass --agents-md to also point AGENTS.md at it.\n')
     return
   }
 
-  const agentsFile = join(process.cwd(), 'AGENTS.md')
-  const current = existsSync(agentsFile) ? readFileSync(agentsFile, 'utf8') : '# AGENTS.md\n'
-  if (current.includes('@misoto22/design')) {
+  const current = existing ?? '# AGENTS.md\n'
+  if (current.includes('@misoto22/folio')) {
     process.stdout.write('AGENTS.md already mentions the package; left alone.\n')
     return
   }

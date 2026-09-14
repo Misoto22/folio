@@ -1,4 +1,4 @@
-import { Separator } from '@misoto22/design'
+import { Separator } from '@misoto22/folio'
 
 /**
  * A meta row divided by vertical rules. The vertical form is h-full, which

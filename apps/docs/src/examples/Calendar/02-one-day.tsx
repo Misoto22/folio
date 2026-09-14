@@ -1,6 +1,6 @@
 'use client'
 
-import { Calendar, Text } from '@misoto22/design'
+import { Calendar, Text } from '@misoto22/folio'
 import { useState } from 'react'
 
 const MONTH = new Date(2026, 8, 1)

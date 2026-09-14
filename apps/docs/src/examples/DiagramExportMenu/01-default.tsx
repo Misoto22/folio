@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { ArchitectureFigure, DiagramExportMenu } from '@misoto22/design/diagrams'
+import { ArchitectureFigure, DiagramExportMenu } from '@misoto22/folio/diagrams'
 
 const SPEC = {
   meta: { title: 'Request path' },

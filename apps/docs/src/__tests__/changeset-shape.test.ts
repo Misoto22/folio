@@ -27,7 +27,7 @@ const CHANGESETS = resolve(dirname(fileURLToPath(import.meta.url)), '../../../..
 
 /** A changeset, as it is actually written: frontmatter, then prose. */
 function changeset(body: string): string {
-  return `---\n'@misoto22/design': minor\n---\n\n${body}\n`
+  return `---\n'@misoto22/folio': minor\n---\n\n${body}\n`
 }
 
 describe('where a changeset headline ends', () => {

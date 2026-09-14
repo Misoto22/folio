@@ -1,6 +1,6 @@
 'use client'
 
-import { BarChart, type ChartConfig } from '@misoto22/design/charts'
+import { BarChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const data = Array.from({ length: 28 }, (_, index) => ({
   day: `D${index + 1}`,

@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useRef, useState } from 'react'
-import { Badge, Button, StatusPill, Tag, toast } from '@misoto22/design'
+import { Badge, Button, StatusPill, Tag, toast } from '@misoto22/folio'
 import {
   ArchitectureFigure,
   DiagramCanvas,
@@ -16,7 +16,7 @@ import {
   type CanvasView,
   type DiagramCanvasHandle,
   type NodeKind,
-} from '@misoto22/design/diagrams'
+} from '@misoto22/folio/diagrams'
 import { RiFullscreenLine, RiResetLeftLine } from '@remixicon/react'
 
 /**

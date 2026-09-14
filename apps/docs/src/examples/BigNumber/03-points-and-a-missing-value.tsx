@@ -1,6 +1,6 @@
 'use client'
 
-import { BigNumber } from '@misoto22/design/charts'
+import { BigNumber } from '@misoto22/folio/charts'
 
 /** A change in percentage POINTS, which is not what the default prints. */
 const points = (value: number): string => `${value > 0 ? '+' : ''}${value.toFixed(1)} pts`

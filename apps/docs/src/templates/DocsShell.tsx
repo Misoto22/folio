@@ -21,7 +21,7 @@ import {
   SidebarItem,
   SidebarProvider,
   SidebarTrigger,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiBookOpenLine, RiPuzzleLine, RiStackLine, RiTerminalBoxLine } from '@remixicon/react'
 
 const SIDEBAR = [

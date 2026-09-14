@@ -1,4 +1,4 @@
-import { RadioGroup, RadioGroupItem } from '@misoto22/design'
+import { RadioGroup, RadioGroupItem } from '@misoto22/folio'
 
 /**
  * Three options and one tab stop: the arrows move between them, which is the

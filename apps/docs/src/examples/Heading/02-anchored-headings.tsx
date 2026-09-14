@@ -1,4 +1,4 @@
-import { Heading, Text } from '@misoto22/design'
+import { Heading, Text } from '@misoto22/folio'
 
 /**
  * Two headings a table of contents can link into. Every Heading carries

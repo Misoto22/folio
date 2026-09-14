@@ -1,4 +1,4 @@
-import { Markdown } from '@misoto22/design'
+import { Markdown } from '@misoto22/folio'
 
 const ANSWER = `Use \`Tag\` for the facets and keep the button outside it, so the
 padding stays on the chip and the target stays on the control.

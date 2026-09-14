@@ -10,7 +10,7 @@ import {
   SkeletonLine,
   SkeletonPage,
   SkeletonText,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiInboxLine } from '@remixicon/react'
 
 /**

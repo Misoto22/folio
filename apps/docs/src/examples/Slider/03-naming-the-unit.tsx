@@ -1,6 +1,6 @@
 'use client'
 
-import { Slider } from '@misoto22/design'
+import { Slider } from '@misoto22/folio'
 
 /**
  * format prints, and nothing more: it renders the readout above the track, and

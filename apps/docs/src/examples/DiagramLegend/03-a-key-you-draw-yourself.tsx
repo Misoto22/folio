@@ -1,4 +1,4 @@
-import { DiagramLegend } from '@misoto22/design/diagrams'
+import { DiagramLegend } from '@misoto22/folio/diagrams'
 
 const OWNERSHIP = [
   {

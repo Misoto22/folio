@@ -33,7 +33,7 @@ jobs:
       - uses: ./.github/actions/setup
 
       - name: Install Chromium
-        run: pnpm --filter @misoto22/design-docs exec playwright install --with-deps chromium
+        run: pnpm --filter @misoto22/folio-docs exec playwright install --with-deps chromium
 
       # The suite serves the built export, so it tests the artifact that ships
       # rather than a dev server that renders through a different pipeline.
@@ -48,7 +48,7 @@ jobs:
       # the whole suite on every shard — three times the work and none of the
       # speed.
       - name: Accessibility and keyboard suite
-        run: pnpm --filter @misoto22/design-docs exec playwright test --shard=${{ matrix.shard }}/${{ strategy.job-total }}
+        run: pnpm --filter @misoto22/folio-docs exec playwright test --shard=${{ matrix.shard }}/${{ strategy.job-total }}
 
       - name: Upload the report on failure
         if: failure()

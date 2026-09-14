@@ -147,6 +147,6 @@ describe('development warnings', () => {
 
   it('names the component to ask about', () => {
     render(<Progress value={10} label="" />)
-    expect(message()).toContain('npx misoto22-design docs Progress')
+    expect(message()).toContain('npx @misoto22/folio docs Progress')
   })
 })

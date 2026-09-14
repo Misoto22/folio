@@ -1,4 +1,4 @@
-import { Steps } from '@misoto22/design'
+import { Steps } from '@misoto22/folio'
 
 /**
  * The same rail without the digits. marker="rule" is for a sequence of STATES —

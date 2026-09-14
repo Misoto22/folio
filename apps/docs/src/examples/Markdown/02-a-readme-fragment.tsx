@@ -1,18 +1,18 @@
-import { Article, Markdown } from '@misoto22/design'
+import { Article, Markdown } from '@misoto22/folio'
 
-const README = `# @misoto22/design
+const README = `# @misoto22/folio
 
 A monochrome design system, published as one package and one stylesheet.
 
 ## Install
 
 \`\`\`bash
-pnpm add @misoto22/design
+pnpm add @misoto22/folio
 \`\`\`
 
 Then import the compiled look once, at the root of the app:
 
-1. \`@misoto22/design/styles.css\` — tokens, fonts and the compiled utilities
+1. \`@misoto22/folio/styles.css\` — tokens, fonts and the compiled utilities
 2. Or the portable layers on their own:
    - \`tokens.css\` for the primitives
    - \`semantic.css\` for the roles

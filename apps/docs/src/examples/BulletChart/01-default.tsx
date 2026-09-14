@@ -1,4 +1,4 @@
-import { BulletChart } from '@misoto22/design/charts'
+import { BulletChart } from '@misoto22/folio/charts'
 
 // One shared 0–100 scale, so the bands mean the same thing on every row and
 // the measures can be compared with each other as well as with their targets.

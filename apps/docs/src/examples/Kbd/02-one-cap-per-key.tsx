@@ -1,4 +1,4 @@
-import { Kbd, Text } from '@misoto22/design'
+import { Kbd, Text } from '@misoto22/folio'
 
 /**
  * A three-key chord, as three caps. One box holding ⌘⇧P is a single key that

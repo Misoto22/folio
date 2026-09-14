@@ -1,6 +1,6 @@
 'use client'
 
-import { Alert, Button, toast } from '@misoto22/design'
+import { Alert, Button, toast } from '@misoto22/folio'
 
 /**
  * The same failure twice: once in the page, once on a timer. Nothing a reader

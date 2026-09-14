@@ -1,4 +1,4 @@
-import { ArchitectureFigure, DiagramMinimap } from '@misoto22/design/diagrams'
+import { ArchitectureFigure, DiagramMinimap } from '@misoto22/folio/diagrams'
 
 const SPEC = {
   meta: { title: 'Request path' },

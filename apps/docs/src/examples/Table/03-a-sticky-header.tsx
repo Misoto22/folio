@@ -1,4 +1,4 @@
-import { TBody, TD, TH, THead, TR, Table } from '@misoto22/design'
+import { TBody, TD, TH, THead, TR, Table } from '@misoto22/folio'
 
 const RUNS = Array.from({ length: 24 }, (_, index) => ({
   sha: (0x9a2f41c + index * 7919).toString(16).slice(0, 7),

@@ -1,4 +1,4 @@
-import { Progress } from '@misoto22/design'
+import { Progress } from '@misoto22/folio'
 
 /**
  * A bar with a real fraction, and its name on screen. showValue is the only

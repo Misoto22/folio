@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@misoto22/design-docs"]
+  "ignore": ["@misoto22/folio-docs"]
 }

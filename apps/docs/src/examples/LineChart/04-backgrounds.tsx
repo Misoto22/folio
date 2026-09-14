@@ -1,7 +1,7 @@
 'use client'
 
-import { ToggleGroup, ToggleGroupItem } from '@misoto22/design'
-import { LineChart, type ChartBackgroundVariant, type ChartConfig } from '@misoto22/design/charts'
+import { ToggleGroup, ToggleGroupItem } from '@misoto22/folio'
+import { LineChart, type ChartBackgroundVariant, type ChartConfig } from '@misoto22/folio/charts'
 import { useState } from 'react'
 import { ExampleControls } from '@/components/ExampleControls'
 

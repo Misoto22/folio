@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { BRAND } from '@misoto22/design'
+import { BRAND } from '@misoto22/folio'
 import { BRAND_NAME } from '@/lib/brand'
 
 /**

@@ -166,7 +166,7 @@ const HIGHLIGHTED =
  * For a function name inside a sentence, reach for `Code`.
  *
  * @example
- * <CodeBlock code="pnpm add @misoto22/design" lang="bash" />
+ * <CodeBlock code="pnpm add @misoto22/folio" lang="bash" />
  * @example
  * <CodeBlock
  *   title="cn.ts"

@@ -1,4 +1,4 @@
-import { TBody, TD, TH, THead, TR, Table } from '@misoto22/design'
+import { TBody, TD, TH, THead, TR, Table } from '@misoto22/folio'
 
 const HOSTS = [
   { host: 'api', region: 'ap-southeast-2', version: '0.4.0', cpu: '12%', memory: '1.4 GB', p95: '84 ms', uptime: '31d' },

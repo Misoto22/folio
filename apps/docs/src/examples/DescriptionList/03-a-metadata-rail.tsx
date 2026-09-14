@@ -1,4 +1,4 @@
-import { Badge, DescriptionList, Heading, Text, Timestamp } from '@misoto22/design'
+import { Badge, DescriptionList, Heading, Text, Timestamp } from '@misoto22/folio'
 
 /**
  * The shape it was built for: a detail page with the record on the left and its

@@ -1,4 +1,4 @@
-import { WorkflowFigure } from '@misoto22/design/diagrams'
+import { WorkflowFigure } from '@misoto22/folio/diagrams'
 
 /**
  * Lanes answer who, the phase captions on the header rule answer when, and the

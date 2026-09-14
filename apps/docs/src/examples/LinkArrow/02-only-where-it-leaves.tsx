@@ -1,4 +1,4 @@
-import { LinkArrow } from '@misoto22/design'
+import { LinkArrow } from '@misoto22/folio'
 
 /**
  * Three links, one arrow. It marks a CHANGE of destination, so an index where

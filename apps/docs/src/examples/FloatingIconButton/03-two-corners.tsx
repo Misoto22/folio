@@ -1,4 +1,4 @@
-import { FloatingIconButton } from '@misoto22/design'
+import { FloatingIconButton } from '@misoto22/folio'
 import { RiArrowUpLine, RiChat3Line } from '@remixicon/react'
 
 /**

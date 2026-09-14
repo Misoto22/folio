@@ -1,4 +1,4 @@
-import { Diagram } from '@misoto22/design'
+import { Diagram } from '@misoto22/folio'
 
 /**
  * Structure with no flow in it: no edges, just nesting. A node WITH children is
@@ -24,7 +24,7 @@ export function Example() {
             ],
           },
           {
-            label: '@misoto22/design',
+            label: '@misoto22/folio',
             note: 'one package',
             direction: 'column',
             children: [

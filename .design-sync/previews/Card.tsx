@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardTitle, CardBody, CardFooter, Button, Badge } from '@misoto22/design'
+import { Card, CardHeader, CardTitle, CardBody, CardFooter, Button, Badge } from '@misoto22/folio'
 
 export function Basic() {
   return (
