@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useRef, type ReactNode } from 'react'
+import { useEffect, useRef, type KeyboardEvent, type ReactNode, type RefObject } from 'react'
 import { RiArrowLeftLine, RiCloseLine } from '@remixicon/react'
 import { Badge } from '../../components/Badge/Badge'
 import { Button } from '../../components/Button/Button'
-import { Command, CommandEmpty, CommandFooter, CommandGroup, CommandHint, CommandInput, CommandItem, CommandList } from '../../components/Command/Command'
-import { Dialog, DialogContent, type DialogContentProps } from '../../components/Dialog/Dialog'
+import { CommandDialog, CommandEmpty, CommandFooter, CommandGroup, CommandHint, CommandInput, CommandItem, CommandList } from '../../components/Command/Command'
+import type { DialogContentProps } from '../../components/Dialog/Dialog'
 import { Input } from '../../components/Input/Input'
 
 export interface SearchPaletteItem {
@@ -53,71 +53,122 @@ export function SearchPalette({
   useEffect(() => {
     if (open) input.current?.focus()
   }, [open, showingDetail])
+  const close = () => onOpenChange(false)
+  const field = { input, inputLabel, placeholder, query, onQueryChange }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
-        title={label} hideTitle showClose={false} aria-describedby={undefined} aria-modal="true"
-        className="m22-search-palette translate-y-0"
-        onOpenAutoFocus={() => {
-          previousFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
-        }}
-        onCloseAutoFocus={(event) => {
-          onCloseAutoFocus?.(event)
-          if (!event.defaultPrevented) {
-            event.preventDefault()
-            previousFocus.current?.focus()
-          }
-        }}
-        onEscapeKeyDown={(event) => {
-          if (detail) { event.preventDefault(); detail.onBack() }
-        }}
-      >
-        {detail ? (
-          <>
-            <form className="m22-search-palette__input" onSubmit={(event) => {
-              event.preventDefault()
-              if (query.trim() && !detail.submitDisabled) detail.onSubmit()
-            }}>
-              <Button variant="ghost" iconOnly aria-label={labels.back} onClick={detail.onBack}><RiArrowLeftLine size={18} aria-hidden /></Button>
-              <Input ref={input} aria-label={inputLabel} placeholder={placeholder} value={query} onChange={(event) => onQueryChange(event.target.value)} autoComplete="off" />
-              <Badge>{detail.label}</Badge>
-              <Button variant="ghost" iconOnly aria-label={labels.close} onClick={() => onOpenChange(false)}><RiCloseLine size={18} aria-hidden /></Button>
-            </form>
-            <div className="m22-search-palette__detail" aria-live="polite" onClick={(event) => {
-              if ((event.target as HTMLElement).closest('a')) onContentLinkClick?.()
-            }}>{detail.content}</div>
-          </>
-        ) : (
-          <Command label={inputLabel} shouldFilter={false} className="m22-search-palette__commands">
-            <div className="m22-search-palette__search">
-              <CommandInput ref={input} aria-label={inputLabel} placeholder={placeholder} value={query} onValueChange={onQueryChange} autoComplete="off" spellCheck={false} />
-              <Button variant="ghost" iconOnly aria-label={labels.close} onClick={() => onOpenChange(false)}><RiCloseLine size={18} aria-hidden /></Button>
-            </div>
-            <CommandList label={label}>
-              <CommandEmpty>{emptyLabel}</CommandEmpty>
-              {groups.map((group) => (
-                <CommandGroup key={group.id} heading={group.label}>
-                  {group.items.map((item) => (
-                    <CommandItem key={item.id} value={item.id} icon={item.icon} meta={item.meta} onSelect={item.onSelect}>
-                      <span className="m22-search-palette__result">
-                        <span>{item.title}</span>
-                        {item.description && <span className="m22-search-palette__description">{item.description}</span>}
-                      </span>
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              ))}
-            </CommandList>
-          </Command>
-        )}
-        <CommandFooter className="m22-search-palette__footer">
-          {!detail && <CommandHint keys={['↑', '↓']}>{labels.navigate}</CommandHint>}
-          <CommandHint keys={['↵']}>{labels.select}</CommandHint>
-          <CommandHint keys={['esc']}>{detail ? labels.back : labels.close}</CommandHint>
-        </CommandFooter>
-      </DialogContent>
-    </Dialog>
+    <CommandDialog
+      open={open} onOpenChange={onOpenChange} label={label} inputLabel={inputLabel} shouldFilter={false}
+      onOpenAutoFocus={() => {
+        previousFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
+      }}
+      // A palette opened by a shortcut has no trigger for the dialog to return
+      // focus to, so it goes back to whatever held it before opening.
+      onCloseAutoFocus={(event) => {
+        onCloseAutoFocus?.(event)
+        if (!event.defaultPrevented) {
+          event.preventDefault()
+          previousFocus.current?.focus()
+        }
+      }}
+      onEscapeKeyDown={(event) => {
+        if (detail) { event.preventDefault(); detail.onBack() }
+      }}
+    >
+      {detail
+        ? <SearchDetail {...field} detail={detail} labels={labels} onClose={close} onContentLinkClick={onContentLinkClick} />
+        : <SearchResults {...field} label={label} groups={groups} emptyLabel={emptyLabel} closeLabel={labels.close} onClose={close} />}
+      <CommandFooter className="m22-search-palette__footer">
+        {!detail && <CommandHint keys={['↑', '↓']}>{labels.navigate}</CommandHint>}
+        <CommandHint keys={['↵']}>{labels.select}</CommandHint>
+        <CommandHint keys={['esc']}>{detail ? labels.back : labels.close}</CommandHint>
+      </CommandFooter>
+    </CommandDialog>
+  )
+}
+
+interface SearchFieldProps {
+  input: RefObject<HTMLInputElement | null>
+  inputLabel: string
+  placeholder: string
+  query: string
+  onQueryChange: (query: string) => void
+  onClose: () => void
+}
+
+interface SearchResultsProps extends SearchFieldProps {
+  label: string
+  groups: SearchPaletteGroup[]
+  emptyLabel: ReactNode
+  closeLabel: string
+}
+
+/** The combobox over the host's groups, which the palette never filters again. */
+function SearchResults({ input, inputLabel, placeholder, query, onQueryChange, onClose, label, groups, emptyLabel, closeLabel }: SearchResultsProps) {
+  return (
+    <>
+      <div className="m22-search-palette__search">
+        <CommandInput ref={input} aria-label={inputLabel} placeholder={placeholder} value={query} onValueChange={onQueryChange} autoComplete="off" spellCheck={false} />
+        <Button variant="ghost" iconOnly aria-label={closeLabel} onClick={onClose} className="m22-search-palette__close"><RiCloseLine size={18} aria-hidden /></Button>
+      </div>
+      <CommandList label={label}>
+        <CommandEmpty>{emptyLabel}</CommandEmpty>
+        {groups.map((group) => (
+          <CommandGroup key={group.id} heading={<span className="m22-search-palette__heading">{group.label}</span>}>
+            {group.items.map((item) => (
+              <CommandItem
+                key={item.id} value={item.id} icon={item.icon} onSelect={item.onSelect} className="m22-search-palette__item"
+                meta={item.meta ? <span className="m22-search-palette__meta">{item.meta}</span> : undefined}
+              >
+                <span className="m22-search-palette__result">
+                  <span>{item.title}</span>
+                  {item.description && <span className="m22-search-palette__description">{item.description}</span>}
+                </span>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        ))}
+      </CommandList>
+    </>
+  )
+}
+
+interface SearchDetailProps extends SearchFieldProps {
+  detail: NonNullable<SearchPaletteProps['detail']>
+  labels: SearchPaletteProps['labels']
+  onContentLinkClick?: () => void
+}
+
+/**
+ * The keys the command list takes for itself: moving its highlight, and running
+ * the highlighted row with Enter, which it does by cancelling the key. The
+ * detail view has no list, and needs them back — Enter submits the question or
+ * follows a link, and the others move the caret or scroll the answer — so they
+ * stop here instead of reaching it.
+ */
+const LIST_KEYS = new Set(['Enter', 'Home', 'End', 'ArrowUp', 'ArrowDown'])
+
+function keepFromList(event: KeyboardEvent<HTMLElement>) {
+  if (LIST_KEYS.has(event.key)) event.stopPropagation()
+}
+
+/** The answer view: a question field over content the host renders. */
+function SearchDetail({ input, inputLabel, placeholder, query, onQueryChange, onClose, detail, labels, onContentLinkClick }: SearchDetailProps) {
+  return (
+    <>
+      <form className="m22-search-palette__input" onKeyDown={keepFromList} onSubmit={(event) => {
+        event.preventDefault()
+        if (query.trim() && !detail.submitDisabled) detail.onSubmit()
+      }}>
+        <Button variant="ghost" iconOnly aria-label={labels.back} onClick={detail.onBack}><RiArrowLeftLine size={18} aria-hidden /></Button>
+        <Input ref={input} aria-label={inputLabel} placeholder={placeholder} value={query} onChange={(event) => onQueryChange(event.target.value)} autoComplete="off" />
+        <Badge>{detail.label}</Badge>
+        <Button variant="ghost" iconOnly aria-label={labels.close} onClick={onClose}><RiCloseLine size={18} aria-hidden /></Button>
+      </form>
+      <div className="m22-search-palette__detail" aria-live="polite" onKeyDown={keepFromList} onClick={(event) => {
+        if ((event.target as HTMLElement).closest('a')) onContentLinkClick?.()
+      }}>{detail.content}</div>
+    </>
   )
 }
 

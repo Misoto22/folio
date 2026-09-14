@@ -1,40 +1,26 @@
-  .m22-search-palette {
-    inset-block-start: 10svh;
-    inline-size: min(94vw, 38rem);
-    max-block-size: 80svh;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    overflow: hidden;
-    scrollbar-gutter: auto;
-    border:1px solid var(--rule-2);
-    border-radius:var(--radius-lg);
-    box-shadow:0 20px 80px color-mix(in srgb,var(--ink) 14%,transparent);
-  }
-  .m22-search-palette__commands { min-block-size: 0; border: 0; border-radius: 0; box-shadow: none; }
-  .m22-search-palette__commands [cmdk-list] { max-block-size: min(24rem, 56svh); min-block-size: 0; overscroll-behavior: contain; padding: .5rem; }
-  .m22-search-palette input:focus, .m22-search-palette input:focus-visible { outline: none; box-shadow: none; }
-  .m22-search-palette__search:focus-within { border-block-end-color: var(--rule-2); background: var(--paper-2); }
-  .m22-search-palette__search input { block-size: 3.25rem; border: 0; border-radius: 0; font-size: .875rem; }
-  .m22-search-palette__search { display: flex; align-items: center; padding-inline-end: .5rem; border-block-end: 1px solid var(--rule); }
-  .m22-search-palette__search > div { flex: 1; min-inline-size: 0; border: 0; }
+  .m22-search-palette__search { position: relative; }
+  .m22-search-palette__search:focus-within { background: var(--paper-2); }
+  .m22-search-palette__search input { padding-inline-end: 3rem; font-size: .875rem; }
+  .m22-search-palette__search input:focus, .m22-search-palette__search input:focus-visible,
+  .m22-search-palette__input input:focus, .m22-search-palette__input input:focus-visible { outline: none; box-shadow: none; }
+  .m22-search-palette__close { position: absolute; inset-block-start: 50%; inset-inline-end: .5rem; translate: 0 -50%; }
   .m22-search-palette__input { display: flex; align-items: center; gap: .5rem; padding: .75rem; border-block-end: 1px solid var(--rule); }
   .m22-search-palette__input input { min-inline-size: 0; }
-  .m22-search-palette__detail { min-block-size: 0; overflow-y: auto; overscroll-behavior: contain; padding: 1.5rem; }
+  .m22-search-palette__detail { max-block-size: calc(80svh - 6.5rem); overflow-y: auto; overscroll-behavior: contain; padding: 1.5rem; }
   .m22-search-palette__result { flex: 1; min-inline-size: 0; display: grid; gap: .125rem; }
   .m22-search-palette__result > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .m22-search-palette__description { color: var(--ink-3-aa); font-size: .75rem; }
-  .m22-search-palette__commands [cmdk-group-heading] { font-family:var(--sans);font-size:.75rem;letter-spacing:normal;text-transform:none; }
-  .m22-search-palette__commands [cmdk-item] { margin: .125rem 0; border-radius:var(--radius-sm); padding:.625rem .75rem; font-size: .875rem; }
-  .m22-search-palette__commands [cmdk-item]::before { display: none; }
-  .m22-search-palette__commands [cmdk-item][data-selected=true] { background: var(--paper-2); box-shadow: inset 0 0 0 1px var(--rule); }
-  .m22-search-palette__commands [cmdk-item] > .mono-meta { font-family: var(--sans); font-size: .6875rem; opacity: 0; }
-  .m22-search-palette__commands [cmdk-item][data-selected=true] > .mono-meta { opacity: 1; }
+  .m22-search-palette__heading { font-family: var(--sans); font-size: .75rem; letter-spacing: normal; text-transform: none; }
+  .m22-search-palette__item { margin: .125rem 0; border-radius: var(--radius-sm); font-size: .875rem; }
+  .m22-search-palette__item::before { display: none; }
+  .m22-search-palette__item[data-selected=true] { background: var(--paper-2); box-shadow: inset 0 0 0 1px var(--rule); }
+  .m22-search-palette__meta { font-family: var(--sans); font-size: .6875rem; opacity: 0; }
+  .m22-search-palette__item[data-selected=true] .m22-search-palette__meta { opacity: 1; }
   .m22-search-palette__highlight { color: var(--ink); background: var(--stone); border-radius: var(--radius-sm); }
-  .m22-search-palette__footer { flex-shrink: 0; flex-wrap: wrap; gap: 1rem; }
+  .m22-search-palette__footer { flex-wrap: wrap; }
   @media (max-width: 40rem) {
-    .m22-search-palette { inset-block-start: 4svh; max-block-size: 88svh; }
     .m22-search-palette__search input { font-size: 1rem; }
-    .m22-search-palette__result + span { display: none; }
+    .m22-search-palette__detail { max-block-size: calc(84svh - 4.5rem); }
+    .m22-search-palette__meta { display: none; }
     .m22-search-palette__footer { display: none; }
   }
