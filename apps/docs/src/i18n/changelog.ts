@@ -58,6 +58,15 @@ const ZH: Record<string, string> = {
     'Both copy controls confirm for 1600ms from the latest accepted write. A refused write now clears any confirmation still showing instead of leaving it up, and names the refusal once in development as `CLIPBOARD_WRITE_REJECTED`.',
   )]: '两个复制控件都会从最近一次被浏览器接受的写入起确认 1600 毫秒。写入被拒绝时，现在会清除仍在显示的确认状态，而不是继续显示成功；在开发环境中还会以 `CLIPBOARD_WRITE_REJECTED` 提示一次原因。',
   [fingerprint(
+    "`CommandDialog` takes `shouldFilter`, `inputLabel` and its dialog's focus and Escape handlers, and `SearchPalette` is now built on it instead of beside it.",
+  )]: '`CommandDialog` 新增 `shouldFilter`、`inputLabel` 以及对话框的焦点与 Escape 处理函数；`SearchPalette` 现在直接构建在它之上，不再在旁边另起一套。',
+  [fingerprint(
+    "`SearchPalette` rebuilt the same modal by hand — a `Dialog` holding a `Command`, placed above centre — and restyled the library's own row and heading attributes to get there, so a change to either palette could move one and leave the other behind. It now renders `CommandDialog`, takes its geometry and its list, and styles only the elements it renders itself.",
+  )]: '`SearchPalette` 过去是手工重建同一个弹窗——一个装着 `Command` 的 `Dialog`，放在中线偏上——而且为此改写了组件库自己的行和分组标题属性上的样式，于是任何一边的改动都可能只挪动其中一个面板，把另一个落在后面。现在它直接渲染 `CommandDialog`，沿用它的尺寸位置和列表，只给自己渲染的元素写样式。',
+  [fingerprint(
+    "The new props are the hooks it could not do without, forwarded unchanged: `shouldFilter` for results a host has already filtered, `inputLabel` for a field named apart from its dialog, and `onOpenAutoFocus`, `onCloseAutoFocus` and `onEscapeKeyDown` for returning focus to whatever opened a palette that has no `DialogTrigger`, and for a detail view that Escape leaves rather than closes.",
+  )]: '新增的这些 prop 是它离不开的钩子，原样透传：`shouldFilter` 用于应用已经筛选过的结果，`inputLabel` 用于名称与对话框不同的输入框；`onOpenAutoFocus`、`onCloseAutoFocus` 和 `onEscapeKeyDown` 则用来把焦点还给打开面板的那个元素——面板没有 `DialogTrigger` 时它无处可回——以及让详情视图在按 Escape 时退回列表而不是关闭。',
+  [fingerprint(
     '`CalendarHeatmap` — a year of daily readings as a week-by-week grid, built from the dates rather than from the order of the array.',
   )]: '`CalendarHeatmap`——一年的每日读数，画成一周一列的网格，而且是按日期搭出来的，不是按数组顺序。',
   [fingerprint(

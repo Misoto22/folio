@@ -28,7 +28,7 @@ function iconNode(icon: RemixiconComponentType | ReactNode): ReactNode {
   const Icon = icon
   return <Icon size={16} aria-hidden />
 }
-import { Dialog, DialogContent } from '../Dialog/Dialog'
+import { Dialog, DialogContent, type DialogContentProps } from '../Dialog/Dialog'
 import { Kbd } from '../Kbd/Kbd'
 
 /**
@@ -253,7 +253,30 @@ export interface CommandDialogProps {
   onOpenChange: (open: boolean) => void
   /** Names the palette for assistive tech. */
   label: string
+  /**
+   * Names the search field when it should read differently from the dialog —
+   * a "Search records" field inside a "Library search" palette. Defaults to
+   * `label`. An `aria-label` on `CommandInput` cannot do this: the field is
+   * labelled by reference, and a reference outranks an `aria-label`.
+   */
+  inputLabel?: string
   children: ReactNode
+  /**
+   * Pass `false` when the host has already filtered the rows — a server search
+   * or an index of its own. The palette would otherwise filter them a second
+   * time against the input and hide results the host meant to show.
+   */
+  shouldFilter?: boolean
+  /** Runs as the dialog moves focus in. Prevent the default to place focus yourself. */
+  onOpenAutoFocus?: DialogContentProps['onOpenAutoFocus']
+  /**
+   * Runs as the dialog hands focus back on close. The default returns it to a
+   * `DialogTrigger`, and a palette opened by a shortcut has none, so focus falls
+   * to the page. Prevent the default and focus what opened it.
+   */
+  onCloseAutoFocus?: DialogContentProps['onCloseAutoFocus']
+  /** Runs before Escape closes the dialog. Prevent the default to keep it open, as a nested view stepping back does. */
+  onEscapeKeyDown?: DialogContentProps['onEscapeKeyDown']
 }
 
 /**
@@ -262,13 +285,26 @@ export interface CommandDialogProps {
  * The dialog's own padding is removed: a palette is edge-to-edge, and its input
  * is the first thing focus lands on.
  */
-export function CommandDialog({ open, onOpenChange, label, children }: CommandDialogProps) {
+export function CommandDialog({
+  open,
+  onOpenChange,
+  label,
+  inputLabel,
+  children,
+  shouldFilter,
+  onOpenAutoFocus,
+  onCloseAutoFocus,
+  onEscapeKeyDown,
+}: CommandDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         title={label}
         hideTitle
         showClose={false}
+        onOpenAutoFocus={onOpenAutoFocus}
+        onCloseAutoFocus={onCloseAutoFocus}
+        onEscapeKeyDown={onEscapeKeyDown}
         // Above centre, not at it. A palette is read as a layer over the page
         // rather than as a message about it, and centring it puts the list
         // under the reader's own hands on a laptop.
@@ -285,7 +321,8 @@ export function CommandDialog({ open, onOpenChange, label, children }: CommandDi
             `scroll-hairline` rather than `scroll-slim`: eleven pixels of grey
             down the side of a palette is the widest thing in it. */}
         <Command
-          label={label}
+          label={inputLabel ?? label}
+          shouldFilter={shouldFilter}
           className="rounded-none border-0 [&_[cmdk-list]]:max-h-[26rem] [&_[cmdk-list]]:scroll-hairline"
         >
           {children}
