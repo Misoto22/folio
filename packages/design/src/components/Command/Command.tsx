@@ -213,10 +213,22 @@ export function CommandItem({ shortcut, icon, meta, className, children, ...prop
   return (
     <CommandPrimitive.Item
       className={cn(
-        'flex cursor-pointer items-center gap-3 rounded-(--radius-row) px-3 py-2.5 text-[15px] text-(--ink-2) outline-none transition-colors duration-(--duration-fast)',
+        'flex cursor-pointer items-center gap-3 overflow-hidden rounded-(--radius-row) px-3 py-2.5 text-[15px] text-(--ink-2) outline-none transition-colors duration-(--duration-fast)',
         // The highlighted row is a chosen state, and law 7 says a chosen state
         // reads --accent. The leading rule gives it an edge the eye catches
         // while scrolling, which a fill alone does not.
+        //
+        // `overflow-hidden` above clips the bar below to the row's own
+        // `--radius-row` corner. Without it the bar is a straight-edged
+        // absolutely-positioned box that ignores the rounded highlight behind
+        // it — invisible at `sharp` (0px radius) and barely off at the
+        // default, but at `round` the row's radius outgrows the bar's own
+        // inset and the bar pokes past the curve by several pixels. The row
+        // is never a clip boundary for anything but itself: padding keeps
+        // every child (icon, label, meta, shortcut) inside it already, so
+        // clipping to the row's shape costs nothing else. The focus ring
+        // is unaffected too — `outline` paints outside the border box, which
+        // an element's own `overflow` never clips.
         'relative data-[selected=true]:bg-(--accent-muted) data-[selected=true]:text-(--ink)',
         'before:absolute before:inset-y-1 before:start-0 before:w-0.5 before:rounded-(--radius-pill) before:bg-transparent data-[selected=true]:before:bg-(--accent)',
         'data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-(--disabled-opacity)',

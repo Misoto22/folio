@@ -1,6 +1,8 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { act, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { COPIED_RESET_MS } from '../../lib/useClipboardCopy'
+import { resetWarnings } from '../../lib/warn'
 import { CodeBlock } from './CodeBlock'
 
 const SOURCE = 'const a = 1\n\nexport default a\n'
@@ -150,5 +152,57 @@ describe('CodeBlock', () => {
   it('renders an empty snippet as one empty line rather than nothing', () => {
     const { container } = render(<CodeBlock code="" lineNumbers />)
     expect(container.querySelectorAll('[data-line]')).toHaveLength(1)
+  })
+})
+
+describe('CodeBlock copy state', () => {
+  beforeEach(() => resetWarnings())
+  afterEach(() => vi.useRealTimers())
+
+  // Plain fake timers and a direct click: `shouldAdvanceTime` lets the test's
+  // own real duration leak into the clock and close the window early.
+  it('returns to the copy label once the confirmation window closes', async () => {
+    vi.useFakeTimers()
+    withClipboard(vi.fn(async () => {}))
+    render(<CodeBlock code={SOURCE} />)
+
+    await act(async () => { screen.getByRole('button', { name: 'Copy the snippet' }).click() })
+    expect(screen.getByRole('button', { name: 'Copied' })).toBeInTheDocument()
+
+    act(() => { vi.advanceTimersByTime(COPIED_RESET_MS - 1) })
+    expect(screen.getByRole('button', { name: 'Copied' })).toBeInTheDocument()
+    act(() => { vi.advanceTimersByTime(1) })
+    expect(screen.getByRole('button', { name: 'Copy the snippet' })).toBeInTheDocument()
+  })
+
+  it('gives a second copy its own full confirmation window', async () => {
+    vi.useFakeTimers()
+    withClipboard(vi.fn(async () => {}))
+    render(<CodeBlock code={SOURCE} />)
+
+    await act(async () => { screen.getByRole('button', { name: 'Copy the snippet' }).click() })
+    act(() => { vi.advanceTimersByTime(COPIED_RESET_MS - 200) })
+    await act(async () => { screen.getByRole('button', { name: 'Copied' }).click() })
+    act(() => { vi.advanceTimersByTime(COPIED_RESET_MS - 1) })
+    expect(screen.getByRole('button', { name: 'Copied' })).toBeInTheDocument()
+    act(() => { vi.advanceTimersByTime(1) })
+    expect(screen.getByRole('button', { name: 'Copy the snippet' })).toBeInTheDocument()
+  })
+
+  it('stops claiming success when a later write is refused, and says why in development', async () => {
+    const user = userEvent.setup()
+    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const writeText = vi.fn<() => Promise<void>>().mockResolvedValueOnce(undefined).mockRejectedValueOnce(new Error('denied'))
+    withClipboard(writeText)
+    render(<CodeBlock code={SOURCE} />)
+
+    await user.click(screen.getByRole('button', { name: 'Copy the snippet' }))
+    expect(screen.getByRole('button', { name: 'Copied' })).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Copied' }))
+
+    expect(screen.getByRole('button', { name: 'Copy the snippet' })).toBeInTheDocument()
+    expect(consoleWarn).toHaveBeenCalledTimes(1)
+    expect(consoleWarn.mock.calls[0]![0]).toContain('CLIPBOARD_WRITE_REJECTED')
+    expect(consoleWarn.mock.calls[0]![0]).toContain('CodeBlock.copy')
   })
 })

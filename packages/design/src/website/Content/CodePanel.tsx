@@ -1,9 +1,10 @@
 'use client'
 
 import { RiCheckLine, RiFileCopyLine } from '@remixicon/react'
-import { useEffect, useRef, useState, type HTMLAttributes, type ReactNode } from 'react'
+import { useRef, type HTMLAttributes, type ReactNode } from 'react'
 import { Button } from '../../components/Button/Button'
 import { cn } from '../../lib/cn'
+import { useClipboardCopy } from '../../lib/useClipboardCopy'
 
 export interface ClipboardButtonProps {
   text?: string
@@ -16,23 +17,10 @@ export interface ClipboardButtonProps {
 
 /** Confirms copying only after the browser accepts the clipboard write. */
 export function ClipboardButton({ text, getText, copyLabel, copiedLabel, className }: ClipboardButtonProps) {
-  const [copied, setCopied] = useState(false)
-  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
-  useEffect(() => () => clearTimeout(timer.current), [])
-
-  async function copy() {
-    try {
-      await navigator.clipboard.writeText(getText ? getText() : (text ?? ''))
-      setCopied(true)
-      clearTimeout(timer.current)
-      timer.current = setTimeout(() => setCopied(false), 1600)
-    } catch {
-      setCopied(false)
-    }
-  }
+  const { copied, copy } = useClipboardCopy('ClipboardButton')
 
   return (
-    <Button variant="ghost" size="sm" onClick={() => void copy()} aria-label={copied ? copiedLabel : copyLabel} className={cn('m22-clipboard-button', className)}>
+    <Button variant="ghost" size="sm" onClick={() => void copy(getText ?? text ?? '')} aria-label={copied ? copiedLabel : copyLabel} className={cn('m22-clipboard-button', className)}>
       {copied ? <RiCheckLine size={14} aria-hidden="true" /> : <RiFileCopyLine size={14} aria-hidden="true" />}
       <span aria-live="polite">{copied ? copiedLabel : copyLabel}</span>
     </Button>

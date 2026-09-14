@@ -49,6 +49,15 @@ const ZH: Record<string, string> = {
   [fingerprint("The portable `website.css` entry and compiled stylesheet share the canonical tokens. Offline documentation includes every family and its server and client exports.")]: "独立的 `website.css` 与编译后的完整样式共用同一套设计变量。离线文档覆盖所有新增组件组及其服务端、客户端导出。",
   // ─── unreleased ───
   [fingerprint(
+    "`StepSequence` now draws the core `Steps` rail, and `ClipboardButton` shares `CodeBlock`'s copy state, including what a refused clipboard write does.",
+  )]: '`StepSequence` 现在直接用核心 `Steps` 的流程轨道绘制，`ClipboardButton` 也与 `CodeBlock` 共用同一套复制状态，包括剪贴板写入被拒绝时的处理。',
+  [fingerprint(
+    'The website rail was a second implementation of the same figure — marker, connector, name and note — at its own sizes. It now renders through the same internal rail item as `Steps`, so its markers are the core 2rem circles with sans counters and the anchor no longer sets its label in medium weight. Host counters, tags, the caption, `data-anchor` and the ARIA list roles that keep article prose from restyling it are unchanged, and the anchor is still not announced as the current step.',
+  )]: '网站版流程轨道原本是同一种图形的第二套实现——标记、连接线、名称和注释——而且尺寸自成一套。现在它与 `Steps` 通过同一个内部轨道条目渲染，所以标记变成核心的 2rem 圆形、编号改用无衬线字体，锚点步骤的名称也不再使用中等字重。应用提供的编号、标签、说明文字、`data-anchor`，以及让文章正文样式不去改写它的 ARIA 列表角色都保持不变，锚点仍然不会被播报为当前步骤。',
+  [fingerprint(
+    'Both copy controls confirm for 1600ms from the latest accepted write. A refused write now clears any confirmation still showing instead of leaving it up, and names the refusal once in development as `CLIPBOARD_WRITE_REJECTED`.',
+  )]: '两个复制控件都会从最近一次被浏览器接受的写入起确认 1600 毫秒。写入被拒绝时，现在会清除仍在显示的确认状态，而不是继续显示成功；在开发环境中还会以 `CLIPBOARD_WRITE_REJECTED` 提示一次原因。',
+  [fingerprint(
     '`CalendarHeatmap` — a year of daily readings as a week-by-week grid, built from the dates rather than from the order of the array.',
   )]: '`CalendarHeatmap`——一年的每日读数，画成一周一列的网格，而且是按日期搭出来的，不是按数组顺序。',
   [fingerprint(
@@ -1252,6 +1261,15 @@ const ZH: Record<string, string> = {
   [fingerprint(
     "It now pins a width only when the stylesheet's `inline-size: 100%` already resolves to the viewport, and otherwise leaves the width to the containing block.",
   )]: '现在只有当样式表里的 `inline-size: 100%` 本来就解析为视口宽度时，它才会钉住宽度；否则就把宽度交给包含块。',
+  [fingerprint(
+    "`CommandItem`'s active-row accent bar now clips to the row's own corner radius, so it no longer pokes past a rounded highlight.",
+  )]: '`CommandItem` 高亮行左侧的强调竖线现在会按行自身的圆角裁切，不再在圆角主题下探出高亮区域。',
+  [fingerprint(
+    'The bar is an absolutely-positioned `::before`, and a rounded parent does not clip an absolutely-positioned child by default — only `overflow-hidden` on the row does. At `data-radius="round"`, `--radius-row` reaches 18px and the bar\'s flat edge stuck out past the highlight\'s curve by close to 7px; at the default radius the miss was under a pixel, and at `sharp` there was none, which is why the defect went unnoticed until the round theme was checked directly.',
+  )]: '这根竖线是一个绝对定位的 `::before`，圆角父元素默认并不会裁切绝对定位的子元素——只有在行自身加上 `overflow-hidden` 才会。在 `data-radius="round"` 下，`--radius-row` 达到 18px，竖线的直边会探出高亮曲线将近 7px；在默认圆角下这个偏差不到 1px，在 `sharp` 下则完全没有——这正是这个缺陷直到直接检查圆角主题才被发现的原因。',
+  [fingerprint(
+    "Every other child — icon, meta, shortcut — stays clear of the newly-clipped corners at every radius, the closest any of them comes to a corner's arc centre being about 7px on an 18px arc. The focus ring is unaffected too: `outline` paints outside an element's border box, which its own `overflow` never clips. `Combobox` and `SearchableMenu` render their rows through this same `CommandItem`, so both pick up the fix without a separate change; `DropdownMenu`, `ContextMenu`, `Select`, `NavItem` and `Sidebar` highlight a row with a plain background fill and carry no accent bar, so none of them shared the defect.",
+  )]: '行内其余的子元素——图标、说明文字、快捷键——在任何圆角下都离新裁切的角很远，其中离圆角弧心最近的一个，在 18px 的弧上也留了约 7px 的余量。焦点环同样不受影响：`outline` 画在元素边框盒之外，不会被元素自身的 `overflow` 裁掉。`Combobox` 和 `SearchableMenu` 的行都经由同一个 `CommandItem` 渲染，所以两者都无需单独改动就一并修好；`DropdownMenu`、`ContextMenu`、`Select`、`NavItem` 和 `Sidebar` 高亮一行用的是纯背景填色，没有这根强调竖线，因此都不受此缺陷影响。',
 }
 
 /** The English a translation was made from, for the orphan check. */

@@ -1,8 +1,8 @@
 'use client'
 
 import { RiCheckLine, RiFileCopyLine } from '@remixicon/react'
-import { useEffect, useState } from 'react'
 import { cn } from '../../lib/cn'
+import { useClipboardCopy } from '../../lib/useClipboardCopy'
 import { Button } from '../Button/Button'
 
 /**
@@ -194,24 +194,8 @@ export function CodeBlock({
   lineNumbers = false,
   highlightLines,
 }: CodeBlockProps) {
-  const [copied, setCopied] = useState(false)
-
-  useEffect(() => {
-    if (!copied) return
-    const timer = setTimeout(() => setCopied(false), 1600)
-    return () => clearTimeout(timer)
-  }, [copied])
-
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(code)
-      setCopied(true)
-    } catch {
-      // Clipboard access is denied in an insecure context and inside some
-      // embeds. The snippet is still selectable, so there is nothing to
-      // recover — and an unhandled rejection here would take the page with it.
-    }
-  }
+  // Shared with the website ClipboardButton, including what a refused write does.
+  const { copied, copy } = useClipboardCopy('CodeBlock')
 
   const languageLabel = lang ? (LANGUAGE_LABEL[lang] ?? lang.toUpperCase()) : undefined
   const banded = new Set(highlightLines ?? [])
@@ -239,7 +223,7 @@ export function CodeBlock({
               iconOnly
               size="sm"
               variant="ghost"
-              onClick={copy}
+              onClick={() => void copy(code)}
               aria-label={copied ? copiedLabel : copyLabel}
               // `sm` is 36px, under the 44px a finger needs. The bump is gated
               // on a coarse pointer so a mouse-driven page keeps the compact
