@@ -1,4 +1,4 @@
-import { Button, NativeSelect, Text, Toolbar } from '@misoto22/design'
+import { Button, NativeSelect, Text, Toolbar } from '@misoto22/folio'
 
 const ROWS = ['a1b2c3d', '9f8e7d6', '4c5b6a7', '77aa2b1', 'e3d4c5b', '0099aab', '12ff34e']
 

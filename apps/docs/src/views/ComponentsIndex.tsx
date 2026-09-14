@@ -1,7 +1,7 @@
 import { componentCopy, componentName, groupName, PAGE_ZH } from '@/i18n/content'
 import { localePath, type Locale } from '@/i18n/locales'
 import { fill } from '@/i18n/messages'
-import { Badge, Card, CardBody, CardTitle } from '@misoto22/design'
+import { Badge, Card, CardBody, CardTitle } from '@misoto22/folio'
 import Link from 'next/link'
 import { PageIntro, SectionHeading } from '@/components/PageIntro'
 import { COMPONENTS, groupedComponents } from '@/content/registry'

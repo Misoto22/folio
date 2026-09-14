@@ -1,6 +1,6 @@
 'use client'
 
-import { AppShell, NavItem, Separator, Text } from '@misoto22/design'
+import { AppShell, NavItem, Separator, Text } from '@misoto22/folio'
 import { RiDashboardLine, RiDatabase2Line, RiFileTextLine, RiGitBranchLine, RiGlobalLine, RiGroupLine, RiKey2Line, RiMailLine, RiPulseLine, RiServerLine, RiSettings3Line, RiShieldLine, RiStackLine, RiTerminalBoxLine } from '@remixicon/react'
 
 const SECTIONS = [

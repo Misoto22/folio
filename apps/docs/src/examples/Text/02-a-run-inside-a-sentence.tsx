@@ -1,4 +1,4 @@
-import { Text } from '@misoto22/design'
+import { Text } from '@misoto22/folio'
 
 /**
  * as changes the element and nothing else. Inside a sentence that has to be

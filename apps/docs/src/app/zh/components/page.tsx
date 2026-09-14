@@ -4,7 +4,7 @@ import { COMPONENTS } from '@/content/registry'
 
 export const metadata: Metadata = {
   title: '组件',
-  description: `@misoto22/design 里全部 ${COMPONENTS.length} 个组件，按用途分组。`,
+  description: `@misoto22/folio 里全部 ${COMPONENTS.length} 个组件，按用途分组。`,
 }
 
 export default function Page() {

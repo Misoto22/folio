@@ -1,4 +1,4 @@
-import { Checkbox } from '@misoto22/design'
+import { Checkbox } from '@misoto22/folio'
 
 export function Checked() {
   return (

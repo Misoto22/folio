@@ -1,4 +1,4 @@
-import { Field, NativeSelect } from '@misoto22/design'
+import { Field, NativeSelect } from '@misoto22/folio'
 
 /**
  * optgroup is the one piece of structure the operating system's picker actually

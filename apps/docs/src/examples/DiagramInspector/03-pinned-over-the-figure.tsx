@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@misoto22/design'
-import { ArchitectureFigure, DiagramInspector } from '@misoto22/design/diagrams'
+import { Button } from '@misoto22/folio'
+import { ArchitectureFigure, DiagramInspector } from '@misoto22/folio/diagrams'
 
 const SPEC = {
   meta: { title: 'Request path' },

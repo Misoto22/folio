@@ -72,7 +72,7 @@ export const FOUNDATIONS: FoundationPage[] = [
     related: ['agents', 'colour'],
     intro: [
       'Components ship compiled. You import them; you do not copy them into your project, and there is no CLI that writes a Button into your source tree for you to maintain. That is the trade the package makes: an upgrade is a version bump rather than a diff across forty files you now own.',
-      'Four peer dependencies, and only two of them are React. react and react-dom at ^19.0.0 are required; motion and recharts are declared optional and are the price of one entry point — @misoto22/design/charts imports both, and without them installed it does not resolve. @misoto22/design/diagrams asks for neither. Everything else the components need — Radix, cmdk, sonner, Remix Icon, react-day-picker, tailwind-merge — is a real dependency and comes down with the package. Node 24 or newer, and the package is ESM only: the exports map carries an import condition and no require, so a CommonJS build will not resolve it.',
+      'Four peer dependencies, and only two of them are React. react and react-dom at ^19.0.0 are required; motion and recharts are declared optional and are the price of one entry point — @misoto22/folio/charts imports both, and without them installed it does not resolve. @misoto22/folio/diagrams asks for neither. Everything else the components need — Radix, cmdk, sonner, Remix Icon, react-day-picker, tailwind-merge — is a real dependency and comes down with the package. Node 24 or newer, and the package is ESM only: the exports map carries an import condition and no require, so a CommonJS build will not resolve it.',
       'The rest of this page is the part the README is thinnest on: which of the twelve entries in the exports map you actually want, and what each one leaves out.',
     ],
     sections: [
@@ -93,7 +93,7 @@ export const FOUNDATIONS: FoundationPage[] = [
           '`data-mode="dark"` and `data-density="compact"` are declared in `tokens.css` and survive. The other five axes — `data-surface`, `data-radius`, `data-rules`, `data-type`, `data-motion` — are declared only in `themes.css`, which is a separate export and is in neither the README recipe nor the snippet above. Write `data-radius="sharp"` without it and the attribute lands on the element and changes nothing. The faces are in `fonts.css`, also separate; the long-form article styles are in `article.css`. Add the ones you want by name.',
         ],
         rows: [
-          { term: '@misoto22/design', detail: 'The components, the types, `cn`, `CONTROL_BASE`, `CONTROL_BORDER`, `isInvalid`, `BRAND`.' },
+          { term: '@misoto22/folio', detail: 'The components, the types, `cn`, `CONTROL_BASE`, `CONTROL_BORDER`, `isInvalid`, `BRAND`.' },
           {
             term: '/charts',
             detail:
@@ -112,7 +112,7 @@ export const FOUNDATIONS: FoundationPage[] = [
           {
             term: '/website.css',
             detail:
-              'The styles for `@misoto22/design/website`, scoped to the compositions. Import it beside `styles.css` or the portable layers when you render one.',
+              'The styles for `@misoto22/folio/website`, scoped to the compositions. Import it beside `styles.css` or the portable layers when you render one.',
           },
           {
             term: '/website-base.css',
@@ -256,7 +256,7 @@ export const FOUNDATIONS: FoundationPage[] = [
       'Three of those six sizes are named: --ico-s is 14, --ico-m is 16, --ico-l is 20. There were four. --ico-stroke went when the stroke did, because a token naming a weight nothing in the system can set is worse than no token at all. 12px, 18px and 24px have never had one. Read the three as the specification, not as the mechanism — nothing in the package reads them. Every icon in src/components is written as size={16} in TSX, because the size lands on the SVG as an attribute rather than as a style. So the tokens are what a review checks against, and the numbers are what you will find in the source. Do not go looking for the var() that wires them together; there isn’t one.',
       'An icon aligns by flex, never by baseline. Button sets inline-flex items-center gap-(--control-gap) on every variant, so the glyph centres against its label and the gap comes off the density axis rather than off a margin written at the call site. Centring is right on a line of text and wrong against a block of it: Alert’s tone mark sits beside a title and a paragraph, so it takes mt-px shrink-0 instead. shrink-0 is on most icons in the package and it is not decoration — without it a flex row squashes the glyph before it wraps the label, and a 16px icon compressed to 11 is the artefact everyone sees and nobody can name.',
       'An icon is decoration until proven otherwise, so aria-hidden is the default and nearly every icon in the package carries it. A chevron on an accordion, a tick in a checkbox, a tone mark on an alert whose words already say what went wrong — announcing any of those is the same sentence twice. IT IS NOW WRITTEN RATHER THAN INHERITED. lucide stamped aria-hidden="true" onto any icon it had not been handed an aria- prop or a role for; @remixicon/react adds nothing and spreads what it is given straight onto the svg. Every decorative glyph therefore carries the attribute at its own call site, which makes it a line of review instead of a library default — and the one thing a review must not miss, because a control with no text at all has nothing else to announce. FloatingIconButton makes that the type’s problem: label is a required prop, so the code does not compile without it. Button does not — its JSDoc says an icon-only button REQUIRES aria-label and nothing checks it. An icon-only control with no accessible name is the single most common way a design system ships something unusable.',
-      'BRAND MARKS ARE BACK. lucide dropped every one of them: there was no Github export, and no Twitter, Slack, Figma, Gitlab, Linkedin, Youtube, Chrome, Codepen, Framer, Dribbble, Instagram or Facebook either, so import { Github } from "lucide-react" was a compile error rather than a missing glyph. This site paid for that with a hand-drawn octocat in apps/docs/src/components/GithubMark.tsx. Remix Icon ships them — RiGithubFill, RiTwitterXFill, RiDiscordFill, RiFigmaFill, RiSlackFill and a couple of hundred more, most in both a Fill and a Line — so that file is deleted and the masthead imports RiGithubFill like anything else. @misoto22/design depends on @remixicon/react at ^4.9.0 as a dependency rather than a peer, so an app importing it directly resolves its own copy against its own range, and the failure lands on its upgrade rather than on ours.',
+      'BRAND MARKS ARE BACK. lucide dropped every one of them: there was no Github export, and no Twitter, Slack, Figma, Gitlab, Linkedin, Youtube, Chrome, Codepen, Framer, Dribbble, Instagram or Facebook either, so import { Github } from "lucide-react" was a compile error rather than a missing glyph. This site paid for that with a hand-drawn octocat in apps/docs/src/components/GithubMark.tsx. Remix Icon ships them — RiGithubFill, RiTwitterXFill, RiDiscordFill, RiFigmaFill, RiSlackFill and a couple of hundred more, most in both a Fill and a Line — so that file is deleted and the masthead imports RiGithubFill like anything else. @misoto22/folio depends on @remixicon/react at ^4.9.0 as a dependency rather than a peer, so an app importing it directly resolves its own copy against its own range, and the failure lands on its upgrade rather than on ours.',
     ],
     categories: [
       {
@@ -303,12 +303,12 @@ export const FOUNDATIONS: FoundationPage[] = [
             // and two regions called "terminal" are two landmarks a reader
             // navigating by landmark cannot tell apart.
             label: 'terminal — docs',
-            source: `npx misoto22-design docs Button          # one component, in full
-npx misoto22-design docs CardBody        # resolves a part to its owner
-npx misoto22-design docs ButtonVariant   # …and an exported type
-npx misoto22-design docs --list          # every component, one line each
-npx misoto22-design docs --installed     # version + names, no prop tables
-npx misoto22-design docs --installed --json`,
+            source: `npx folio-design docs Button          # one component, in full
+npx folio-design docs CardBody        # resolves a part to its owner
+npx folio-design docs ButtonVariant   # …and an exported type
+npx folio-design docs --list          # every component, one line each
+npx folio-design docs --installed     # version + names, no prop tables
+npx folio-design docs --installed --json`,
           },
         ],
       },
@@ -316,15 +316,15 @@ npx misoto22-design docs --installed --json`,
         id: 'skill',
         title: 'Install the skill',
         body: [
-          'The package carries an agent skill under `skills/misoto22-design/`, and `init` copies it into your project at `.claude/skills/misoto22-design/`. `--agents-md` also appends a short section to your `AGENTS.md` pointing at it, and leaves the file alone if it already mentions the package.',
+          'The package carries an agent skill under `skills/folio-design/`, and `init` copies it into your project at `.claude/skills/folio-design/`. `--agents-md` also appends a short section to your `AGENTS.md` pointing at it, and leaves the file alone if it already mentions the package.',
           'The skill is progressive on purpose. Its name and description are all that sit in a session until something actually touches this package; the body loads when the work reaches it, and five rule files — tokens, composition, forms, accessibility, naming — load one at a time after that. It leads with the shadcn/ui naming table, and the package’s own test suite fails the build if any row of it stops being true.',
           'Re-run it after upgrading. The skill is a copy, not a link, so a project that installed it once is holding whatever the version at that time said.',
         ],
         commands: [
           {
             label: 'terminal — init',
-            source: `npx misoto22-design init              # writes .claude/skills/misoto22-design/
-npx misoto22-design init --agents-md  # …and points AGENTS.md at it`,
+            source: `npx folio-design init              # writes .claude/skills/folio-design/
+npx folio-design init --agents-md  # …and points AGENTS.md at it`,
           },
         ],
       },
@@ -346,7 +346,7 @@ npx misoto22-design init --agents-md  # …and points AGENTS.md at it`,
         title: 'What is in the tarball',
         body: [
           'The generated documentation is a build artifact and ships inside the published package, so none of it needs a network. `dist/agent/` holds one Markdown file per component, an `index.md` with a name and a line each, and a `catalog.json` the CLI reads to resolve a part or a type back to its owner. The CLI is a thin reader over that directory; in a source checkout it is built by `pnpm build:agent` and the CLI says so rather than printing nothing.',
-          '`skills/misoto22-design/` ships alongside it, which is what `init` copies. Both are listed in the package’s `files` field, so `npm pack` carries them.',
+          '`skills/folio-design/` ships alongside it, which is what `init` copies. Both are listed in the package’s `files` field, so `npm pack` carries them.',
         ],
       },
     ],

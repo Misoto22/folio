@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Field, Select, SelectItem, Text } from '@misoto22/design'
+import { Button, Field, Select, SelectItem, Text } from '@misoto22/folio'
 import { useState } from 'react'
 
 /**

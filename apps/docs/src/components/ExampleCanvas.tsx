@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, OverlayContainer, cn } from '@misoto22/design'
+import { Button, OverlayContainer, cn } from '@misoto22/folio'
 import { RiCodeSSlashLine, RiEyeLine, RiPencilLine } from '@remixicon/react'
 import { lazy, Suspense, useState } from 'react'
 import { EXAMPLES } from '@/generated/example-registry'

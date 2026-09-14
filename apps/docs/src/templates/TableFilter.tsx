@@ -24,7 +24,7 @@ import {
   ToggleGroup,
   ToggleGroupItem,
   type SortDirection,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiAddLine, RiDeleteBinLine, RiDownloadLine, RiFileCopyLine, RiMoreLine, RiSearchLine, RiSendPlaneLine } from '@remixicon/react'
 import { useMemo, useState } from 'react'
 

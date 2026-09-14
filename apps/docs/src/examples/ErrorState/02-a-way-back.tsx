@@ -1,4 +1,4 @@
-import { ERROR_ACTION_CLASS, ErrorState } from '@misoto22/design'
+import { ERROR_ACTION_CLASS, ErrorState } from '@misoto22/folio'
 
 /**
  * action is required rather than optional, because it is the only focusable

@@ -1,4 +1,4 @@
-import { Badge, Card, CardBody, CardHeader, CardTitle, Text } from '@misoto22/design'
+import { Badge, Card, CardBody, CardHeader, CardTitle, Text } from '@misoto22/folio'
 
 /**
  * A whole card that acts as one target, without an onClick on the box. A Card

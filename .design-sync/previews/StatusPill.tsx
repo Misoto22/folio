@@ -1,4 +1,4 @@
-import { StatusPill } from '@misoto22/design'
+import { StatusPill } from '@misoto22/folio'
 
 export function Published() {
   return <StatusPill>Published</StatusPill>

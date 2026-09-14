@@ -178,7 +178,7 @@ export function indexText(): string {
     '> portable CSS tokens and accessible React primitives. Paper ground,',
     '> near-black mark, and status is the only chroma in the file.',
     '',
-    `Install: \`npm install @misoto22/design\`. Styles: \`import '@misoto22/design/styles.css'\`.`,
+    `Install: \`npm install @misoto22/folio\`. Styles: \`import '@misoto22/folio/styles.css'\`.`,
     'Every component is a client-safe React 19 component; the token layer is',
     'plain CSS and works without React at all.',
     '',

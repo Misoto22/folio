@@ -1,6 +1,6 @@
 'use client'
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@misoto22/design'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@misoto22/folio'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 
 export interface PageTab {

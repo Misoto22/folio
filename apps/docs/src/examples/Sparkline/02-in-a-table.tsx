@@ -1,7 +1,7 @@
 'use client'
 
-import { TBody, TD, TH, THead, TR, Table } from '@misoto22/design'
-import { Sparkline } from '@misoto22/design/charts'
+import { TBody, TD, TH, THead, TR, Table } from '@misoto22/folio'
+import { Sparkline } from '@misoto22/folio/charts'
 
 const ROWS = [
   { channel: 'Organic search', trend: [42, 48, 44, 57, 61, 66, 71], now: '71k' },

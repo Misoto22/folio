@@ -1,4 +1,4 @@
-import { Textarea } from '@misoto22/design'
+import { Textarea } from '@misoto22/folio'
 
 /**
  * A resting box at four rows. rows is the only thing that lifts it off the

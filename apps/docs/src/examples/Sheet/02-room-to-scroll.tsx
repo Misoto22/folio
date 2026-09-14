@@ -9,7 +9,7 @@ import {
   SheetClose,
   SheetContent,
   SheetTrigger,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 
 const BRANCHES = [
   'main',

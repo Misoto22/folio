@@ -1,4 +1,4 @@
-import { DiagramLegend, kindLegend, stateLegend } from '@misoto22/design/diagrams'
+import { DiagramLegend, kindLegend, stateLegend } from '@misoto22/folio/diagrams'
 
 /**
  * Two of the sets the renderers build for themselves. kindLegend draws each

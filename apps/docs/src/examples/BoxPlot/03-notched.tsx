@@ -1,6 +1,6 @@
 'use client'
 
-import { BoxPlot } from '@misoto22/design/charts'
+import { BoxPlot } from '@misoto22/folio/charts'
 
 // Summaries that arrived already computed — with `count`, which is what a
 // notch needs and what tells a box over 40 readings from a box over 4,000.

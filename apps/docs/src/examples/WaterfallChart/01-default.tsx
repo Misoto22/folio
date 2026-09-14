@@ -1,6 +1,6 @@
 'use client'
 
-import { WaterfallChart, formatNumber, type WaterfallStep } from '@misoto22/design/charts'
+import { WaterfallChart, formatNumber, type WaterfallStep } from '@misoto22/folio/charts'
 
 // The closing bar carries no value of its own: it is whatever the deltas add
 // up to, so it can never disagree with the steps above it.

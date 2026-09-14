@@ -1,4 +1,4 @@
-import type { DiagramSpec, StepsProps } from '@misoto22/design'
+import type { DiagramSpec, StepsProps } from '@misoto22/folio'
 import postsJson from '@/generated/posts.json'
 
 /**

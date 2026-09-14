@@ -6,7 +6,7 @@
  * component, a token or the component count cannot drift from what the README
  * shows — the same reason the site's prop tables are parsed rather than typed.
  *
- *   pnpm --filter @misoto22/design-docs dev        # in one shell
+ *   pnpm --filter @misoto22/folio-docs dev        # in one shell
  *   node apps/docs/scripts/shoot-readme-images.mjs # in another
  *
  * Point it elsewhere with DOCS_URL=https://ui.misoto22.com.

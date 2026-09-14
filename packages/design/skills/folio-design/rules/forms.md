@@ -103,7 +103,7 @@ Do not re-derive the text-control look. Three exports carry it, and they respond
 to `data-density` and `data-mode` for free.
 
 ```tsx
-import { CONTROL_BASE, CONTROL_BORDER, cn, isInvalid } from '@misoto22/design'
+import { CONTROL_BASE, CONTROL_BORDER, cn, isInvalid } from '@misoto22/folio'
 
 function MoneyInput({ invalid, 'aria-invalid': ariaInvalid, className, ...rest }) {
   const bad = isInvalid(invalid, ariaInvalid)

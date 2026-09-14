@@ -1,4 +1,4 @@
-import { Checkbox, Text } from '@misoto22/design'
+import { Checkbox, Text } from '@misoto22/folio'
 
 const OPTIONS = [
   {

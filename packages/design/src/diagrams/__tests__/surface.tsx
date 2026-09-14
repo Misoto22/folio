@@ -17,7 +17,7 @@ import {
 import { ARCHITECTURE, DATAFLOW, LIFECYCLE, SEQUENCE, WORKFLOW } from './fixtures'
 
 /**
- * One representative render per component in `@misoto22/design/diagrams`.
+ * One representative render per component in `@misoto22/folio/diagrams`.
  *
  * The same fixture three suites share — the axe pass, the server-render pass
  * and the theming pass — for the same reason the main entry does it: eleven

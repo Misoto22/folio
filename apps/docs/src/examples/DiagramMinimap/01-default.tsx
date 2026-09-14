@@ -7,7 +7,7 @@ import {
   DiagramMinimap,
   type CanvasView,
   type DiagramCanvasHandle,
-} from '@misoto22/design/diagrams'
+} from '@misoto22/folio/diagrams'
 
 const SPEC = {
   meta: { title: 'Request path' },

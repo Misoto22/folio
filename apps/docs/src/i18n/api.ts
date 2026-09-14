@@ -227,7 +227,7 @@ export const API_ZH: Record<string, ApiCopy> = {
   "Sparkline.Sparkline#value": { hash: '04d9e13b', zh: "和标签一起播报出来的值——当前读数，已经格式化好。不传就退回最后一个数字。" },
 
   // ─── Charts ───
-  // The data-visualisation entry, `@misoto22/design/charts`. Same contract as
+  // The data-visualisation entry, `@misoto22/folio/charts`. Same contract as
   // everything above: the fingerprint is of the English these were made from,
   // and editing a chart's doc comment fails the build until the Chinese here
   // is updated beside it.
@@ -393,7 +393,7 @@ export const API_ZH: Record<string, ApiCopy> = {
   'AppShell.AppShell#navLabel': { hash: 'f3c3b799', zh: '给侧栏里那个导航地标命名。' },
   'AppShell.AppShell#openLabel': { hash: 'fd19c7ac', zh: '抽屉开关的两个名字，关着时和开着时。' },
   'AppShell.AppShell#contentAs': { hash: '1d25cec4', zh: '内容区渲染成哪个元素。\n\n应用的外壳用 `main` 是对的，也是默认值。一个文档里只能有一个 `main` 地标，所以当 AppShell 被放进另一个页面里时——文档站上的预览、截图工具——必须传 `div`，否则页面上就有两个，辅助技术再也回答不了“内容在哪”。' },
-  'Article.Article': { hash: 'a33eb49b', zh: '长文阅读面。\n\nMarkdown 管线能产出的一切——标题、正文、列表、表格、引文、代码、图注、脚注、MathML——都套上这套系统的字体、颜色和线。样式写在 `article.css` 里而不是一串 class 里，因为它的输入不是 JSX：标记是以字符串到达的，没有任何组件可以挂 class，所以约定只能是元素名本身。\n\n那个文件也单独发布为 `@misoto22/design/article.css`，所以一个自带 Markdown 管线的站点可以只拿阅读面、不拿组件——这正是它存在的场景。三个站各写一份正文样式表，就是三份会各自漂移的正文样式表。\n\n两种用法都行：传 `html` 渲染字符串，或者直接给 children 写真元素——二选一，绝不能都给。两个都到了时以 `html` 为准，并且开发环境会把这件事说出来：`html=""` 也依然是 `html`，正因如此，整整一页 children 可以一声不响地丢掉。两者混排的文章——正文中间插一张 `Diagram`——按顺序渲染各个块，每块各给一个 `Article`。在一个 `Article` 里面，这些规则**赢过**组件的工具类：`article.css` 是不分层引入的，而 Tailwind 的工具类待在 `@layer utilities` 里，不分层的规则不论两边优先级如何都胜过分层的规则。这是刻意的机制而不是意外——正是它让一个 `Markdown` 段落（一个带 `m-0` 的 `Text`）把外边距让给文章的节奏。一个必须在文章里保住某个属性的组件，得用内联样式，而不是类。' },
+  'Article.Article': { hash: 'a33eb49b', zh: '长文阅读面。\n\nMarkdown 管线能产出的一切——标题、正文、列表、表格、引文、代码、图注、脚注、MathML——都套上这套系统的字体、颜色和线。样式写在 `article.css` 里而不是一串 class 里，因为它的输入不是 JSX：标记是以字符串到达的，没有任何组件可以挂 class，所以约定只能是元素名本身。\n\n那个文件也单独发布为 `@misoto22/folio/article.css`，所以一个自带 Markdown 管线的站点可以只拿阅读面、不拿组件——这正是它存在的场景。三个站各写一份正文样式表，就是三份会各自漂移的正文样式表。\n\n两种用法都行：传 `html` 渲染字符串，或者直接给 children 写真元素——二选一，绝不能都给。两个都到了时以 `html` 为准，并且开发环境会把这件事说出来：`html=""` 也依然是 `html`，正因如此，整整一页 children 可以一声不响地丢掉。两者混排的文章——正文中间插一张 `Diagram`——按顺序渲染各个块，每块各给一个 `Article`。在一个 `Article` 里面，这些规则**赢过**组件的工具类：`article.css` 是不分层引入的，而 Tailwind 的工具类待在 `@layer utilities` 里，不分层的规则不论两边优先级如何都胜过分层的规则。这是刻意的机制而不是意外——正是它让一个 `Markdown` 段落（一个带 `m-0` 的 `Text`）把外边距让给文章的节奏。一个必须在文章里保住某个属性的组件，得用内联样式，而不是类。' },
   'Article.Article#html': { hash: '57750067', zh: 'Markdown 或 MDX 管线渲染出来的 HTML。\n\n只接受可信标记。这里会设置 `dangerouslySetInnerHTML`，所以内容必须来自你自己掌控的地方——仓库里的文章、你自己写的 CMS——绝不能来自读者。不可信的 Markdown 必须在到达这里之前先净化；那是管线的决定，不是组件的决定，把净化器塞进一个只管样式的原语里，既放错了地方，也最容易做错。' },
   'Article.Article#as': { hash: '8fc3e47a', zh: '渲染成哪个元素。默认 `article`；只是一个片段就传 `div`。' },
   'AspectRatio.AspectRatio': { hash: '8869afb3', zh: '一个盒子，不管里面装什么都保持形状。\n\n这是唯一一个真正难以手搓的布局原语。大家伸手就去用的 `padding-top: 56.25%` 是**宽度**的百分比——它能成立是因为这个，它在盒子成为 flex 或 grid 子项的那一刻悄悄失效也是因为这个，而且它还会把元素自己的 padding 一起卷进去。现代的 `aspect-ratio` 属性一行就干完同一件事，前提是里面没有任何东西撑出高度——底下那套绝对定位保证的正是这一点。\n\n于是：盒子声明比例，每一个直接子元素都被拉满并脱离文档流。这意味着一个本身完全没有固有尺寸的子元素——一个空的 `<div>`、一张要量容器才知道自己多大的地图、一块骨架屏——照样拿到整个盒子；而 `<img>` 或 `<video>` 是裁切填满，不是留黑边。不能被裁的内容，请自己加 `object-contain`。\n\n当高度必须在内容加载之前就知道时，用它：最常见的情形是一个媒体网格，否则每来一张图它就重排一次——而那次重排，正是 Core Web Vitals 分数在量的那个布局偏移。' },

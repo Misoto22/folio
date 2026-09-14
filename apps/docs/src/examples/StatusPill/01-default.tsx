@@ -1,4 +1,4 @@
-import { StatusPill } from '@misoto22/design'
+import { StatusPill } from '@misoto22/folio'
 
 /**
  * The whole pill rather than a dot and a span assembled at the call site, which

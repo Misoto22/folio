@@ -1,4 +1,4 @@
-import { SequenceFigure } from '@misoto22/design/diagrams'
+import { SequenceFigure } from '@misoto22/folio/diagrams'
 
 /**
  * A cache miss read down the page, where the vertical axis is time rather than

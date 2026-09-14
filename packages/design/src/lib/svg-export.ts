@@ -2,7 +2,7 @@
  * Taking an `<svg>` off the page as a file.
  *
  * Shared by two entries that both draw in SVG and both need to hand a reader a
- * picture of it: `@misoto22/design/charts` and `@misoto22/design/diagrams`.
+ * picture of it: `@misoto22/folio/charts` and `@misoto22/folio/diagrams`.
  * Everything here is engine-agnostic — nothing knows what a series or a node
  * is — so the parts that DO know (which `<svg>` inside a wrapper is the plot,
  * what the file should be called, what sits behind it) stay with the caller.

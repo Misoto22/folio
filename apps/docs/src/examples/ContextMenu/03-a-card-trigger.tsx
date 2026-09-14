@@ -10,7 +10,7 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
   Badge,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiExternalLinkLine, RiPushpinLine, RiResetLeftLine } from '@remixicon/react'
 
 /**

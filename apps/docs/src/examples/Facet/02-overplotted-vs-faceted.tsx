@@ -1,6 +1,6 @@
 'use client'
 
-import { Facet, LineChart, type ChartConfig } from '@misoto22/design/charts'
+import { Facet, LineChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']
 

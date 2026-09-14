@@ -3,7 +3,7 @@ import { Changelog } from '@/views/Changelog'
 
 export const metadata: Metadata = {
   title: 'Changelog',
-  description: 'What changed in @misoto22/design, and why.',
+  description: 'What changed in @misoto22/folio, and why.',
 }
 
 export default function Page() {

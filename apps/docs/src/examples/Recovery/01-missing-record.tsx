@@ -1,5 +1,5 @@
-import { Button } from '@misoto22/design'
-import { RecoveryLinks, RecoveryState } from '@misoto22/design/website'
+import { Button } from '@misoto22/folio'
+import { RecoveryLinks, RecoveryState } from '@misoto22/folio/website'
 
 /**
  * A missing record explains the state and offers concrete destinations.

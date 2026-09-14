@@ -1,4 +1,4 @@
-import { Badge } from '@misoto22/design'
+import { Badge } from '@misoto22/folio'
 
 /**
  * The same two words on the ground one of them disappears into. Neutral fills

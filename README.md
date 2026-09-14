@@ -31,10 +31,10 @@ Monochrome design system — CSS tokens and accessible React primitives
 ### Features
 
 - **52 React primitives** — Radix underneath wherever behaviour is involved, `cmdk` for the command palette, `react-day-picker` for the calendar. No router, no state library, no CSS-in-JS.
-- **15 data-visualisation primitives**, from a separate entry (`@misoto22/design/charts`) so an app that renders a Badge does not pay for a rendering engine — and four of them (`Heatmap`, `Sparkline`, `BarList`, `BigNumber`) need no engine at all. Texture carries series identity and the grey ramp supports it, which is what keeps two series apart in greyscale print, under forced colours and for a colour-blind reader. Every chart is announced, has an empty state, and puts its rows in a table.
-- **11 diagram components**, from a third entry (`@misoto22/design/diagrams`) — five server-rendered figures for architecture, workflow, sequence, data-flow and lifecycle, plus the chrome to explore one. They read [archify](https://github.com/tt-a1i/archify)'s JSON schemas, so a specification authored for that tool renders here in this system's own monochrome terms. The kind of a node is carried by a drawn sigil AND a word, so it survives greyscale.
+- **15 data-visualisation primitives**, from a separate entry (`@misoto22/folio/charts`) so an app that renders a Badge does not pay for a rendering engine — and four of them (`Heatmap`, `Sparkline`, `BarList`, `BigNumber`) need no engine at all. Texture carries series identity and the grey ramp supports it, which is what keeps two series apart in greyscale print, under forced colours and for a colour-blind reader. Every chart is announced, has an empty state, and puts its rows in a table.
+- **11 diagram components**, from a third entry (`@misoto22/folio/diagrams`) — five server-rendered figures for architecture, workflow, sequence, data-flow and lifecycle, plus the chrome to explore one. They read [archify](https://github.com/tt-a1i/archify)'s JSON schemas, so a specification authored for that tool renders here in this system's own monochrome terms. The kind of a node is carried by a drawn sigil AND a word, so it survives greyscale.
 - **Two axes, both attributes** (`data-mode`, `data-density`) — light and dark, comfortable and compact. Set either on any container and everything below it follows.
-- **178 tokens, machine-readable** (`@misoto22/design/tokens`) — every token with its light value, dark value, category and comment, as JSON and as a typed module.
+- **178 tokens, machine-readable** (`@misoto22/folio/tokens`) — every token with its light value, dark value, category and comment, as JSON and as a typed module.
 - **RTL with no second stylesheet** — every component is written in logical properties, so `dir="rtl"` mirrors the system. A test fails the build on a physical one.
 - **Accessibility the build enforces** — `coverage.test.ts` fails when a component has no fixture, so "every component is checked" is a property rather than a claim.
 
@@ -55,7 +55,7 @@ Monochrome design system — CSS tokens and accessible React primitives
 <tr><td><b>Package</b></td><td>React 19 · Radix UI · Tailwind CSS 4.3 · <code>tsup</code></td></tr>
 <tr><td><b>Docs site</b></td><td>Next.js 16.3 · TypeScript 6.0 · <code>react-live</code> · static export</td></tr>
 <tr><td><b>Testing</b></td><td><code>vitest</code> · Playwright + <code>axe-core</code> (E2E) · esbuild size budget</td></tr>
-<tr><td><b>Release</b></td><td>Changesets · npm (<code>@misoto22/design</code>)</td></tr>
+<tr><td><b>Release</b></td><td>Changesets · npm (<code>@misoto22/folio</code>)</td></tr>
 <tr><td><b>Deploy</b></td><td>Cloudflare Pages (<code>misoto22-ui</code>)</td></tr>
 </table>
 
@@ -102,7 +102,7 @@ docs/                       component conventions · the site · releasing
 ### Install
 
 ```bash
-pnpm add @misoto22/design
+pnpm add @misoto22/folio
 ```
 
 **Prerequisites** — Node.js 24+, React 19 and React DOM 19 as peers
@@ -110,9 +110,9 @@ pnpm add @misoto22/design
 ```tsx
 // Once, at your app root — the compiled stylesheet carries the tokens, the
 // utilities the components use, and the vendored faces.
-import '@misoto22/design/styles.css'
+import '@misoto22/folio/styles.css'
 
-import { Button, Field, Input } from '@misoto22/design'
+import { Button, Field, Input } from '@misoto22/folio'
 ```
 
 <details>
@@ -122,11 +122,11 @@ Take the portable layers instead and skip a second copy of the utilities:
 
 ```css
 @import 'tailwindcss';
-@import '@misoto22/design/tokens.css';    /* primitives  */
-@import '@misoto22/design/semantic.css';  /* roles       */
-@import '@misoto22/design/keyframes.css'; /* motion      */
+@import '@misoto22/folio/tokens.css';    /* primitives  */
+@import '@misoto22/folio/semantic.css';  /* roles       */
+@import '@misoto22/folio/keyframes.css'; /* motion      */
 
-@source '../node_modules/@misoto22/design/dist';
+@source '../node_modules/@misoto22/folio/dist';
 
 @custom-variant dark (&:is([data-mode='dark'] *));
 ```
@@ -158,8 +158,8 @@ pnpm lint                                        ESLint, both workspaces
 pnpm typecheck                                   tsc --noEmit, both workspaces
 pnpm test                                        vitest, both workspaces
 pnpm build                                       the package, then the site
-pnpm --filter @misoto22/design-docs test:e2e     axe + keyboard, in a browser
-pnpm --filter @misoto22/design check:size        size and tree-shaking budget
+pnpm --filter @misoto22/folio-docs test:e2e     axe + keyboard, in a browser
+pnpm --filter @misoto22/folio check:size        size and tree-shaking budget
 ```
 
 The site's Tailwind compiles from the package's *source*, so styling changes are
@@ -249,7 +249,7 @@ after the local gates pass. See [`.design-sync/NOTES.md`](.design-sync/NOTES.md)
 
 ### Website compositions
 
-`@misoto22/design/website` adds 17 composition families for complete editorial
+`@misoto22/folio/website` adds 17 composition families for complete editorial
 websites. Presentation and accessible interactions live in the package; content,
 router adapters and backend integrations remain with each consumer. Import
 `website.css` beside `styles.css` or the portable layers — `styles.css` does not

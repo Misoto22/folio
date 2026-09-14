@@ -34,7 +34,7 @@ import {
   TabsTrigger,
   ToggleGroup,
   ToggleGroupItem,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiCloudLine, RiHomeLine, RiPulseLine, RiSettings3Line, RiStackLine } from '@remixicon/react'
 import { useState } from 'react'
 

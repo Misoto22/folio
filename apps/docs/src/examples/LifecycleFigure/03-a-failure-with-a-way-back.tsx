@@ -1,4 +1,4 @@
-import { LifecycleFigure } from '@misoto22/design/diagrams'
+import { LifecycleFigure } from '@misoto22/folio/diagrams'
 
 /**
  * Two states of type failure, drawn identically, and only one of them ends the

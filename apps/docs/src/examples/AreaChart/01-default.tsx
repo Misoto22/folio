@@ -1,6 +1,6 @@
 'use client'
 
-import { AreaChart, type ChartConfig } from '@misoto22/design/charts'
+import { AreaChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const data = [
   { month: 'Jan', desktop: 186, mobile: 80 },

@@ -1,6 +1,6 @@
 'use client'
 
-import { CollapsibleSection, NavItem } from '@misoto22/design'
+import { CollapsibleSection, NavItem } from '@misoto22/folio'
 import { RiHomeLine } from '@remixicon/react'
 import { useState } from 'react'
 

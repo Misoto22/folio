@@ -1,6 +1,6 @@
 'use client'
 
-import { Slider } from '@misoto22/design'
+import { Slider } from '@misoto22/folio'
 
 /**
  * One value, then two, both with the readout on. Always pass defaultValue or

@@ -1,4 +1,4 @@
-import { Card, CardBody, CardTitle, Heading, Text } from '@misoto22/design'
+import { Card, CardBody, CardTitle, Heading, Text } from '@misoto22/folio'
 
 const REGIONS = [
   { name: 'Australia', orders: '1,204', revenue: '$48,210' },

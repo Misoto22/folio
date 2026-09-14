@@ -102,7 +102,7 @@ const BUDGET = {
    */
   singleChart: 40,
   /**
-   * The diagrams entry, which ships from `@misoto22/design/diagrams`.
+   * The diagrams entry, which ships from `@misoto22/folio/diagrams`.
    *
    * Measured separately because that separation is the point: five renderers,
    * an orthogonal routing engine and a pan-zoom canvas have no business in a

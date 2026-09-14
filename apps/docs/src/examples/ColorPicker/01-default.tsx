@@ -1,6 +1,6 @@
 'use client'
 
-import { ColorPicker, Field } from '@misoto22/design'
+import { ColorPicker, Field } from '@misoto22/folio'
 
 /**
  * The panel works in OKLCH, which is the whole argument for it over the native

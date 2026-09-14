@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Toaster, toast } from '@misoto22/design'
+import { Button, Toaster, toast } from '@misoto22/folio'
 
 /**
  * The three types, and the single Toaster they all reach. Mount exactly one,

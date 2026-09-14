@@ -1,4 +1,4 @@
-import { AppShell, NavItem, Button, Card, CardBody, Badge, Tag, StatusDot } from '@misoto22/design'
+import { AppShell, NavItem, Button, Card, CardBody, Badge, Tag, StatusDot } from '@misoto22/folio'
 import { RiBriefcaseLine, RiCameraLine, RiDashboardLine, RiGitRepositoryLine, RiMusic2Line, RiPencilLine } from '@remixicon/react'
 
 // Real misoto22-site content: the projects table (title/category/technologies/

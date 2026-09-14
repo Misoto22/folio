@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   Text,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiDeleteBinLine, RiDownloadLine, RiFileCopyLine, RiMoreLine, type RemixiconComponentType } from '@remixicon/react'
 
 interface Action {

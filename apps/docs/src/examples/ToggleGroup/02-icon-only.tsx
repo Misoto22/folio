@@ -1,4 +1,4 @@
-import { ToggleGroup, ToggleGroupItem } from '@misoto22/design'
+import { ToggleGroup, ToggleGroupItem } from '@misoto22/folio'
 import { RiAlignCenter, RiAlignJustify, RiAlignLeft, RiAlignRight } from '@remixicon/react'
 
 const ALIGNMENTS = [

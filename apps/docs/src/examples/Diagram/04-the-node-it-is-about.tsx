@@ -1,4 +1,4 @@
-import { Diagram } from '@misoto22/design'
+import { Diagram } from '@misoto22/folio'
 
 /**
  * One accented plate, which is the whole budget: accent is the system's only

@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Tooltip, TooltipProvider } from '@misoto22/design'
+import { Button, Tooltip, TooltipProvider } from '@misoto22/folio'
 import { RiCheckLine, RiFileCopyLine, RiShareLine } from '@remixicon/react'
 import { useEffect, useState } from 'react'
 

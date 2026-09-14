@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, toast } from '@misoto22/design'
+import { Button, toast } from '@misoto22/folio'
 
 /**
  * Four seconds is the default, and four seconds is roughly ten words read

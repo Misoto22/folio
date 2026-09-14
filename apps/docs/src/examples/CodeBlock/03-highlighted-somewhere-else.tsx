@@ -1,4 +1,4 @@
-import { CodeBlock } from '@misoto22/design'
+import { CodeBlock } from '@misoto22/folio'
 
 const SOURCE = `export function tone(state: string) {
   return state === 'ok' ? 'success' : 'danger'

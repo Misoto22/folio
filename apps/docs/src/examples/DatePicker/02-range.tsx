@@ -1,6 +1,6 @@
 'use client'
 
-import { DateRangePicker, Field } from '@misoto22/design'
+import { DateRangePicker, Field } from '@misoto22/folio'
 
 /**
  * Two months side by side, because a range that crosses a month boundary is the

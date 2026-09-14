@@ -3,7 +3,7 @@
 import {
   SidebarGroup,
   SidebarItem,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { groupedComponents } from '@/content/registry'

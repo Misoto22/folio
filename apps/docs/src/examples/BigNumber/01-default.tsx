@@ -1,6 +1,6 @@
 'use client'
 
-import { BigNumber } from '@misoto22/design/charts'
+import { BigNumber } from '@misoto22/folio/charts'
 
 /**
  * Three deltas, each with its direction stated by the call site rather than

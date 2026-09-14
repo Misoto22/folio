@@ -1,4 +1,4 @@
-import { Button, EmptyState } from '@misoto22/design'
+import { Button, EmptyState } from '@misoto22/folio'
 import { RiInboxLine } from '@remixicon/react'
 
 /**

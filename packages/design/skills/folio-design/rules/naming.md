@@ -139,15 +139,15 @@ Spelled as expected, no surprises: `Popover`, `DropdownMenu`, `ContextMenu`,
 
 | Habit | Here |
 | --- | --- |
-| `import { toast } from 'sonner'` | `import { toast } from '@misoto22/design'` |
-| `import { cn } from '@/lib/utils'` | `import { cn } from '@misoto22/design'` |
+| `import { toast } from 'sonner'` | `import { toast } from '@misoto22/folio'` |
+| `import { cn } from '@/lib/utils'` | `import { cn } from '@misoto22/folio'` |
 
 `<Toaster />` goes once at the app root, and it is exported from here too.
 
 ## When in doubt
 
 ```bash
-npx misoto22-design docs <Component>
+npx folio-design docs <Component>
 ```
 
 That prints the component's real exports, every prop with its type and default,

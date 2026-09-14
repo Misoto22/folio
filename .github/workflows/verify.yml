@@ -35,12 +35,12 @@ jobs:
       # Answers "did the package suddenly get bigger" and, more usefully, "does
       # importing one component still avoid dragging in the other forty-eight".
       - name: Size and tree-shaking budget
-        run: pnpm --filter @misoto22/design check:size
+        run: pnpm --filter @misoto22/folio check:size
 
       # The tarball and its nine export paths — the surface a consumer meets,
       # and the one thing every other gate here tests around rather than.
       - name: Publish surface
-        run: pnpm --filter @misoto22/design check:publish
+        run: pnpm --filter @misoto22/folio check:publish
 
       - name: Build the documentation site
         run: pnpm build:docs

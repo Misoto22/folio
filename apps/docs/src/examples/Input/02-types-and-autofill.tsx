@@ -1,4 +1,4 @@
-import { Field, Input } from '@misoto22/design'
+import { Field, Input } from '@misoto22/folio'
 
 /**
  * type, inputMode and autoComplete, spelled out on every row. An Input that

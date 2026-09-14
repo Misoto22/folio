@@ -1,6 +1,6 @@
 'use client'
 
-import { FunnelChart, type ChartConfig } from '@misoto22/design/charts'
+import { FunnelChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const stages = [
   { stage: 'Visited', people: 4200 },

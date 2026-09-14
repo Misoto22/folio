@@ -1,6 +1,6 @@
 'use client'
 
-import { Tag } from '@misoto22/design'
+import { Tag } from '@misoto22/folio'
 import { useState } from 'react'
 
 const FACETS = ['TypeScript', 'Rust', 'Postgres', 'Photography']

@@ -1,6 +1,6 @@
 'use client'
 
-import { SearchableMenu, type MenuAction } from '@misoto22/design'
+import { SearchableMenu, type MenuAction } from '@misoto22/folio'
 import { useState } from 'react'
 
 /**

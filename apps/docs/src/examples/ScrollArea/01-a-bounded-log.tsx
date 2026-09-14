@@ -1,6 +1,6 @@
 'use client'
 
-import { ScrollArea } from '@misoto22/design'
+import { ScrollArea } from '@misoto22/folio'
 
 const LINES = Array.from({ length: 18 }, (_, index) => ({
   sha: (0x1a2b3c4 + index * 7919).toString(16).slice(0, 7),

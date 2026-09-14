@@ -1,4 +1,4 @@
-import { Button, Text, Toolbar } from '@misoto22/design'
+import { Button, Text, Toolbar } from '@misoto22/folio'
 
 /**
  * The bar of actions at the foot of a working surface. The ground is opaque

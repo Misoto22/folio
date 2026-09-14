@@ -38,7 +38,7 @@ function rendersSomething(children: ReactNode): boolean {
  * on when the markup arrived as a string, so the contract has to be the element
  * names themselves.
  *
- * That file is published on its own as `@misoto22/design/article.css`, so a
+ * That file is published on its own as `@misoto22/folio/article.css`, so a
  * site with its own Markdown pipeline can take the reading surface without
  * taking the components — which is the case this exists for. Three sites
  * hand-rolling a prose stylesheet is three prose stylesheets that drift.

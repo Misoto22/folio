@@ -1,4 +1,4 @@
-import { AspectRatio, Text } from '@misoto22/design'
+import { AspectRatio, Text } from '@misoto22/folio'
 
 const RATIOS = ['16 / 9', '4 / 3', '1 / 1']
 

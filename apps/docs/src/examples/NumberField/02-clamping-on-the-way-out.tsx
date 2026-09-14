@@ -1,6 +1,6 @@
 'use client'
 
-import { Field, NumberField, Text } from '@misoto22/design'
+import { Field, NumberField, Text } from '@misoto22/folio'
 import { useState } from 'react'
 
 /**

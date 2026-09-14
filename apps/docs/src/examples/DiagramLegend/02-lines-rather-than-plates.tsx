@@ -1,4 +1,4 @@
-import { DiagramLegend, variantLegend } from '@misoto22/design/diagrams'
+import { DiagramLegend, variantLegend } from '@misoto22/folio/diagrams'
 
 /**
  * variantLegend keys the RELATIONSHIPS rather than the boxes, drawing each entry

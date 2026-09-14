@@ -1,6 +1,6 @@
 'use client'
 
-import { FloatingIconButton, Tooltip, TooltipProvider } from '@misoto22/design'
+import { FloatingIconButton, Tooltip, TooltipProvider } from '@misoto22/folio'
 import { RiNodeTree } from '@remixicon/react'
 
 /**

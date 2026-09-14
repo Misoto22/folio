@@ -132,7 +132,7 @@ describe('agent catalog', () => {
   it('names an entry point that actually exports every component', () => {
     // The `Import:` line in `dist/agent/` is derived from this, and it is the
     // one line an agent pastes without checking. `AreaChart` under
-    // `@misoto22/design` does not render a blank page — it throws, because the
+    // `@misoto22/folio` does not render a blank page — it throws, because the
     // charts entry exists precisely so an app that renders a Badge never
     // resolves `recharts`. It shipped wrong once, in 0.6.0.
     const homeless = entries.filter((entry) => !ENTRY_OF.has(entry.name))

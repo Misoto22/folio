@@ -1,6 +1,6 @@
 'use client'
 
-import { BarChart, formatNumber, type ChartConfig } from '@misoto22/design/charts'
+import { BarChart, formatNumber, type ChartConfig } from '@misoto22/folio/charts'
 
 const data = [
   { month: 'Jan', revenue: 18_600, refunds: 1_240 },

@@ -1,6 +1,6 @@
 'use client'
 
-import { TreemapChart } from '@misoto22/design/charts'
+import { TreemapChart } from '@misoto22/folio/charts'
 
 const packages = [
   { name: 'recharts', size: 480 },

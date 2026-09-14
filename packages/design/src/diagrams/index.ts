@@ -1,5 +1,5 @@
 /**
- * @misoto22/design/diagrams — the public entry.
+ * @misoto22/folio/diagrams — the public entry.
  *
  * Five renderers for the five diagram shapes software actually needs, plus the
  * chrome a reader explores one with. They ship from their own entry point
@@ -14,7 +14,7 @@
  *
  * The look ships with the rest of the package:
  *
- *   import '@misoto22/design/styles.css'
+ *   import '@misoto22/folio/styles.css'
  *
  * Everything below is a consumer contract. Adding an export is cheap; changing
  * or removing one is a breaking change (DESIGN-API-001).

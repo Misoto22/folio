@@ -8,7 +8,7 @@ import {
   Separator,
   StatusPill,
   Tag,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import type { ReactNode } from 'react'
 
 /**

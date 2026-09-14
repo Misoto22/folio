@@ -1,6 +1,6 @@
 'use client'
 
-import { BarChart, type ChartConfig } from '@misoto22/design/charts'
+import { BarChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 

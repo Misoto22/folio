@@ -1,4 +1,4 @@
-import { Heading, Text } from '@misoto22/design'
+import { Heading, Text } from '@misoto22/folio'
 
 /**
  * A panel dropped into a page that already has its h1. The outline decides

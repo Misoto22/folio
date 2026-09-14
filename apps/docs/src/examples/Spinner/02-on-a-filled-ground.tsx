@@ -1,4 +1,4 @@
-import { Button, Spinner } from '@misoto22/design'
+import { Button, Spinner } from '@misoto22/folio'
 
 /**
  * Two spinners standing on a ground that is not paper. The default tone draws

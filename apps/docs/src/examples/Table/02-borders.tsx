@@ -1,4 +1,4 @@
-import { TBody, TD, TH, THead, TR, Table, type TableBorders } from '@misoto22/design'
+import { TBody, TD, TH, THead, TR, Table, type TableBorders } from '@misoto22/folio'
 
 const OPTIONS: { value: TableBorders; note: string }[] = [
   { value: 'rows', note: 'the default — read down a column' },

@@ -1,6 +1,6 @@
 'use client'
 
-import { Field, Input, Select, SelectItem, Textarea } from '@misoto22/design'
+import { Field, Input, Select, SelectItem, Textarea } from '@misoto22/folio'
 
 /**
  * The four shapes a row takes: required, wrong, a control that has to name

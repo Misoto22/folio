@@ -1,17 +1,17 @@
 /**
- * @misoto22/design — public entry.
+ * @misoto22/folio — public entry.
  *
  * Components export from here; the look ships separately as CSS:
  *
- *   import '@misoto22/design/styles.css'    // compiled Tailwind + tokens + fonts
+ *   import '@misoto22/folio/styles.css'    // compiled Tailwind + tokens + fonts
  *
  * or, for an app that already compiles Tailwind itself, the portable layers on
  * their own:
  *
- *   import '@misoto22/design/tokens.css'    // primitives, plus data-mode and data-density
- *   import '@misoto22/design/semantic.css'  // roles
- *   import '@misoto22/design/themes.css'    // the other six theming axes
- *   import '@misoto22/design/keyframes.css' // motion
+ *   import '@misoto22/folio/tokens.css'    // primitives, plus data-mode and data-density
+ *   import '@misoto22/folio/semantic.css'  // roles
+ *   import '@misoto22/folio/themes.css'    // the other six theming axes
+ *   import '@misoto22/folio/keyframes.css' // motion
  *
  * All four, or the theming attributes are attributes that do nothing: every
  * axis but `data-mode` and `data-density` is declared only in `themes.css`, and

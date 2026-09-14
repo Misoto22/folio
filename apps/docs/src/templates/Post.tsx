@@ -1,6 +1,6 @@
 'use client'
 
-import { Article, Avatar, Badge, Button, Diagram, Separator, Steps, Tag } from '@misoto22/design'
+import { Article, Avatar, Badge, Button, Diagram, Separator, Steps, Tag } from '@misoto22/folio'
 import { RiArrowLeftLine, RiLinkM } from '@remixicon/react'
 import { post } from '@/lib/posts'
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { Field, NumberField } from '@misoto22/design'
+import { Field, NumberField } from '@misoto22/folio'
 
 /**
  * The grip at the start of each field is the reason to reach for this rather

@@ -1,4 +1,4 @@
-import { LinkArrow } from '@misoto22/design'
+import { LinkArrow } from '@misoto22/folio'
 
 /**
  * The one thing on this component meant to be overridden. It is set in

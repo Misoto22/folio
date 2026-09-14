@@ -1,4 +1,4 @@
-import { Input } from '@misoto22/design'
+import { Input } from '@misoto22/folio'
 
 /**
  * Resting, invalid, disabled. invalid paints the border with --danger and sets

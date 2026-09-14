@@ -1,6 +1,6 @@
 'use client'
 
-import { WaterfallChart, formatNumber, type WaterfallStep } from '@misoto22/design/charts'
+import { WaterfallChart, formatNumber, type WaterfallStep } from '@misoto22/folio/charts'
 
 const steps: WaterfallStep[] = [
   { name: 'H1 actual', value: 5200, type: 'total' },

@@ -1,6 +1,6 @@
 'use client'
 
-import { LineChart, type ChartConfig } from '@misoto22/design/charts'
+import { LineChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const data = Array.from({ length: 40 }, (_, index) => ({
   day: `D${index + 1}`,

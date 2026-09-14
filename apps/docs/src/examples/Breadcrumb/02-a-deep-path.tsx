@@ -1,4 +1,4 @@
-import { Breadcrumb } from '@misoto22/design'
+import { Breadcrumb } from '@misoto22/folio'
 
 /**
  * A path deep enough to wrap, with a separator that is not the default slash.

@@ -1,6 +1,6 @@
 'use client'
 
-import { ToggleGroup, ToggleGroupItem } from '@misoto22/design'
+import { ToggleGroup, ToggleGroupItem } from '@misoto22/folio'
 import { RiComputerLine, RiSmartphoneLine, RiTabletLine } from '@remixicon/react'
 import { useState } from 'react'
 import { TEMPLATE_COMPONENTS } from '@/generated/template-registry'

@@ -1,4 +1,4 @@
-import { Spinner } from '@misoto22/design'
+import { Spinner } from '@misoto22/folio'
 
 export function Sizes() {
   return (

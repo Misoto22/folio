@@ -1,4 +1,4 @@
-import { ArchitectureFigure } from '@misoto22/design/diagrams'
+import { ArchitectureFigure } from '@misoto22/folio/diagrams'
 
 /**
  * A request path on the default grid: every component names a row and a column,

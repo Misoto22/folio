@@ -15,7 +15,7 @@ import {
   Separator,
   StatusPill,
   Tag,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiQuillPenLine, RiRulerLine, RiStackLine } from '@remixicon/react'
 
 const PILLARS = [

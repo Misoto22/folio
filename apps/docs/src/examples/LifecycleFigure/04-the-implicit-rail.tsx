@@ -1,4 +1,4 @@
-import { LifecycleFigure } from '@misoto22/design/diagrams'
+import { LifecycleFigure } from '@misoto22/folio/diagrams'
 
 /**
  * Three facts about placement that only bite once. Declaring one of the spine's

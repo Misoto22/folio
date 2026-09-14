@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Field, Input, Sheet, SheetContent, SheetTrigger } from '@misoto22/design'
+import { Button, Field, Input, Sheet, SheetContent, SheetTrigger } from '@misoto22/folio'
 
 /**
  * The four edges, named in reading order rather than as left and right: end is

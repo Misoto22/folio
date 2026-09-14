@@ -19,7 +19,7 @@ import catalog from '@/generated/catalog'
 export const WARNING_CODES: string[] = catalog.warningCodes
 
 /**
- * The version of `@misoto22/design` this build documents.
+ * The version of `@misoto22/folio` this build documents.
  *
  * Read out of the catalog the package emits at build time, for the same reason
  * the warning codes are: the landing page prints it, and a version typed into a
@@ -81,7 +81,7 @@ export interface ExampleData {
   lang: string
 }
 
-/** One token, as `@misoto22/design` emits it. */
+/** One token, as `@misoto22/folio` emits it. */
 export interface TokenRecord {
   layer: 'tokens' | 'semantic'
   category: string

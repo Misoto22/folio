@@ -9,7 +9,7 @@ import {
   LinkArrow,
   Separator,
   StatusPill,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiKey2Line, RiMailLine } from '@remixicon/react'
 
 /**

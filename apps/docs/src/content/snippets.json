@@ -1,15 +1,15 @@
 {
   "install": {
     "lang": "bash",
-    "code": "pnpm add @misoto22/design"
+    "code": "pnpm add @misoto22/folio"
   },
   "usage": {
     "lang": "tsx",
-    "code": "// Once, at your app root — the compiled stylesheet carries the tokens,\n// the utilities the components use, and the vendored faces.\nimport '@misoto22/design/styles.css'\n\nimport { Button, Field, Input } from '@misoto22/design'\n\nexport function SignIn() {\n  return (\n    <form className=\"flex flex-col gap-4\">\n      <Field label=\"Email\" required>\n        <Input type=\"email\" />\n      </Field>\n      <Button type=\"submit\">Continue</Button>\n    </form>\n  )\n}"
+    "code": "// Once, at your app root — the compiled stylesheet carries the tokens,\n// the utilities the components use, and the vendored faces.\nimport '@misoto22/folio/styles.css'\n\nimport { Button, Field, Input } from '@misoto22/folio'\n\nexport function SignIn() {\n  return (\n    <form className=\"flex flex-col gap-4\">\n      <Field label=\"Email\" required>\n        <Input type=\"email\" />\n      </Field>\n      <Button type=\"submit\">Continue</Button>\n    </form>\n  )\n}"
   },
   "tailwind": {
     "lang": "css",
-    "code": "/* An app that already compiles Tailwind takes the token layers only, and\n   skips a second copy of the utilities. */\n@import 'tailwindcss';\n@import '@misoto22/design/tokens.css';\n@import '@misoto22/design/semantic.css';\n@import '@misoto22/design/keyframes.css';\n\n/* Generate the utilities the library's own components use. */\n@source '../node_modules/@misoto22/design/dist';\n\n@custom-variant dark (&:is([data-mode='dark'] *));"
+    "code": "/* An app that already compiles Tailwind takes the token layers only, and\n   skips a second copy of the utilities. */\n@import 'tailwindcss';\n@import '@misoto22/folio/tokens.css';\n@import '@misoto22/folio/semantic.css';\n@import '@misoto22/folio/keyframes.css';\n\n/* Generate the utilities the library's own components use. */\n@source '../node_modules/@misoto22/folio/dist';\n\n@custom-variant dark (&:is([data-mode='dark'] *));"
   },
   "theme": {
     "lang": "html",
@@ -21,6 +21,6 @@
   },
   "agent": {
     "lang": "bash",
-    "code": "# One component in full — every prop with its type and default, the exported\n# unions, the keyboard contract, the accessibility promises, the examples.\nnpx misoto22-design docs Button\n\n# It resolves parts and types too, which is what you hold when an import fails.\nnpx misoto22-design docs CardBody\n\n# Install the skill under .claude/skills/, and point AGENTS.md at it.\nnpx misoto22-design init --agents-md"
+    "code": "# One component in full — every prop with its type and default, the exported\n# unions, the keyboard contract, the accessibility promises, the examples.\nnpx folio-design docs Button\n\n# It resolves parts and types too, which is what you hold when an import fails.\nnpx folio-design docs CardBody\n\n# Install the skill under .claude/skills/, and point AGENTS.md at it.\nnpx folio-design init --agents-md"
   }
 }

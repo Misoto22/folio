@@ -1,13 +1,13 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { Button } from '@misoto22/design'
+import { Button } from '@misoto22/folio'
 import {
   ArchitectureFigure,
   DiagramCanvas,
   type CanvasView,
   type DiagramCanvasHandle,
-} from '@misoto22/design/diagrams'
+} from '@misoto22/folio/diagrams'
 
 const SPEC = {
   meta: { title: 'Request path' },

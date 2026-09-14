@@ -1,5 +1,5 @@
-import { Text } from '@misoto22/design'
-import { Portfolio, PortfolioCategories } from '@misoto22/design/website'
+import { Text } from '@misoto22/folio'
+import { Portfolio, PortfolioCategories } from '@misoto22/folio/website'
 
 /**
  * A short biography and a supporting index share one introductory composition.

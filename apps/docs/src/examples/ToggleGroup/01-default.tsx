@@ -1,6 +1,6 @@
 'use client'
 
-import { ToggleGroup, ToggleGroupItem } from '@misoto22/design'
+import { ToggleGroup, ToggleGroupItem } from '@misoto22/folio'
 
 /**
  * The same strip in both of its modes. single has radio semantics and moves one

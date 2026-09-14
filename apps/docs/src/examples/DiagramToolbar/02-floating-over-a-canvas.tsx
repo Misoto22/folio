@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { Button } from '@misoto22/design'
+import { Button } from '@misoto22/folio'
 import {
   ArchitectureFigure,
   DiagramCanvas,
@@ -9,7 +9,7 @@ import {
   DiagramToolbar,
   DiagramToolbarGroup,
   type DiagramCanvasHandle,
-} from '@misoto22/design/diagrams'
+} from '@misoto22/folio/diagrams'
 import { RiFullscreenLine, RiResetLeftLine } from '@remixicon/react'
 
 const SPEC = {

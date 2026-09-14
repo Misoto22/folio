@@ -1,17 +1,17 @@
 ---
-name: misoto22-design
-description: Builds UI with @misoto22/design — a monochrome design system of CSS tokens and 83 accessible React primitives, charts and diagrams included. Use when a project imports '@misoto22/design', '@misoto22/design/charts' '@misoto22/design/diagrams' or '@misoto22/design/website', sets data-mode / data-surface / data-radius / data-density, or uses cn(), CONTROL_BASE, or isInvalid. Also applies when adding a component, theming, plotting data, drawing an architecture, workflow, sequence, data-flow or lifecycle diagram, or fixing a form, table, dialog, or toast in such a project.
-allowed-tools: Bash(npx misoto22-design *), Bash(pnpm exec misoto22-design *), Bash(bunx misoto22-design *)
+name: folio-design
+description: Builds UI with @misoto22/folio — a monochrome design system of CSS tokens and 83 accessible React primitives, charts and diagrams included. Use when a project imports '@misoto22/folio', '@misoto22/folio/charts' '@misoto22/folio/diagrams' or '@misoto22/folio/website', sets data-mode / data-surface / data-radius / data-density, or uses cn(), CONTROL_BASE, or isInvalid. Also applies when adding a component, theming, plotting data, drawing an architecture, workflow, sequence, data-flow or lifecycle diagram, or fixing a form, table, dialog, or toast in such a project.
+allowed-tools: Bash(npx folio-design *), Bash(pnpm exec folio-design *), Bash(bunx folio-design *)
 ---
 
-# @misoto22/design
+# @misoto22/folio
 
 CSS tokens plus React 19 primitives. Components ship compiled — you import them,
 you do not copy them into the project.
 
 ```tsx
-import { Button, Field, Input } from '@misoto22/design'
-import '@misoto22/design/styles.css'
+import { Button, Field, Input } from '@misoto22/folio'
+import '@misoto22/folio/styles.css'
 ```
 
 ## Four entry points
@@ -20,9 +20,9 @@ The root entry has no dependencies a consumer has to install. Two groups live
 behind their own specifier instead, each for weight the root should not carry:
 
 ```tsx
-import { AreaChart, BarList, BigNumber } from '@misoto22/design/charts'
-import { ArchitectureFigure, DiagramCanvas } from '@misoto22/design/diagrams'
-import { SiteShell, Portfolio, CollectionIntro, SearchPalette } from '@misoto22/design/website'
+import { AreaChart, BarList, BigNumber } from '@misoto22/folio/charts'
+import { ArchitectureFigure, DiagramCanvas } from '@misoto22/folio/diagrams'
+import { SiteShell, Portfolio, CollectionIntro, SearchPalette } from '@misoto22/folio/website'
 ```
 
 Charts need a rendering engine and an animation runtime that nothing else in
@@ -57,7 +57,7 @@ One more, for surfaces that cannot read a custom property — an OpenGraph card,
 `theme-color`, a canvas:
 
 ```ts
-import { TOKENS } from '@misoto22/design/tokens'
+import { TOKENS } from '@misoto22/folio/tokens'
 ```
 
 Never for styling a component. A literal in a stylesheet is a value that stops
@@ -66,7 +66,7 @@ following the theme, and every one of these mirrors a token that does.
 ## What this project has installed
 
 ```
-!`npx misoto22-design docs --installed`
+!`npx folio-design docs --installed`
 ```
 
 That is the version resolved in this project and every component it ships. Get
@@ -75,7 +75,7 @@ exported unions, its keyboard map, its accessibility promises, its examples —
 with:
 
 ```bash
-npx misoto22-design docs Button
+npx folio-design docs Button
 ```
 
 Run that before writing against a component you have not used in this session.
@@ -116,7 +116,7 @@ you are about to do that thing, not before.
 - **Theme with the `data-*` axes**, set on any element, not just `:root`.
   `data-mode`, `data-accent`, `data-surface`, `data-radius`, `data-rules`,
   `data-type`, `data-motion`, `data-density`, `data-table-density`,
-  `data-chart-palette`. `npx misoto22-design docs --installed` prints the
+  `data-chart-palette`. `npx folio-design docs --installed` prints the
   current list; it is read out of the stylesheets rather than kept by hand here.
 - **Durations and radii come from tokens.** `duration-(--duration-fast)`,
   `rounded-(--radius)` — not `duration-150`, not `rounded-lg`.
@@ -166,11 +166,11 @@ you are about to do that thing, not before.
 
 ### Imports
 
-- **`toast` comes from `@misoto22/design`, not from `sonner`.** Render `<Toaster />`
+- **`toast` comes from `@misoto22/folio`, not from `sonner`.** Render `<Toaster />`
   once at the app root.
-- **Styles are a separate import.** `@misoto22/design/styles.css` for the whole
+- **Styles are a separate import.** `@misoto22/folio/styles.css` for the whole
   compiled sheet, or `tokens.css` + `semantic.css` + `keyframes.css` when the app
-  compiles its own Tailwind. Compositions from `@misoto22/design/website` also
+  compiles its own Tailwind. Compositions from `@misoto22/folio/website` also
   need `website.css`, plus `website-base.css` when the whole page is a website.
 
 ## Key patterns
@@ -223,6 +223,6 @@ without retyping it.
 - `Table` — `borders` [`TableBorders`]: `rows` `grid` `bordered` `bordered-grid` `none` · `density`: `comfortable` `compact`
 - `TH` / `TD` — `align` [`TableAlign`]: `start` `center` `end`
 
-For metadata and Node build scripts, `import { BRAND } from '@misoto22/design/brand'`
+For metadata and Node build scripts, `import { BRAND } from '@misoto22/folio/brand'`
 loads the canonical color mirror without React. This is a data-only subpath,
 separate from the four React entry points above.

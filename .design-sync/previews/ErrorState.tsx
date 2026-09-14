@@ -1,4 +1,4 @@
-import { ErrorState, ERROR_ACTION_CLASS } from '@misoto22/design'
+import { ErrorState, ERROR_ACTION_CLASS } from '@misoto22/folio'
 
 export function NotFound() {
   return (

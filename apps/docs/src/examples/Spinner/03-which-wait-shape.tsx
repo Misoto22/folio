@@ -5,7 +5,7 @@ import {
   SkeletonPage,
   Spinner,
   Text,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 
 /**
  * Three waits, three shapes, and the question each one answers. A Spinner is

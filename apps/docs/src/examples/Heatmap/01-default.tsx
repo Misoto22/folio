@@ -1,6 +1,6 @@
 'use client'
 
-import { Heatmap, type HeatmapCell } from '@misoto22/design/charts'
+import { Heatmap, type HeatmapCell } from '@misoto22/folio/charts'
 
 const HOURS = ['00', '03', '06', '09', '12', '15', '18', '21']
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']

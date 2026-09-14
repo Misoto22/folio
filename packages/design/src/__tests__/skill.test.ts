@@ -10,7 +10,7 @@ import { ENTRY_POINTS } from '../../agent/catalog.mjs'
 import { themeAxes } from '../../scripts/theme-axes.mjs'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..')
-const SKILL = join(ROOT, 'skills', 'misoto22-design')
+const SKILL = join(ROOT, 'skills', 'folio-design')
 
 interface PropRow {
   name: string
@@ -152,7 +152,7 @@ describe('skill structure', () => {
     const skill = readFileSync(join(SKILL, 'SKILL.md'), 'utf8')
     const frontmatter = skill.match(/^---\n([\s\S]*?)\n---/)
     expect(frontmatter).not.toBeNull()
-    expect(frontmatter?.[1]).toMatch(/^name: misoto22-design$/m)
+    expect(frontmatter?.[1]).toMatch(/^name: folio-design$/m)
     expect(frontmatter?.[1]).toMatch(/^description: \S/m)
   })
 
@@ -172,7 +172,7 @@ describe('skill structure', () => {
     const exports = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).exports
     const specifiers = Object.keys(exports)
       .filter((key) => !key.endsWith('.css') && !key.endsWith('.json'))
-      .map((key) => (key === '.' ? '@misoto22/design' : `@misoto22/design${key.slice(1)}`))
+      .map((key) => (key === '.' ? '@misoto22/folio' : `@misoto22/folio${key.slice(1)}`))
     expect(specifiers.filter((specifier) => !skill.includes(specifier))).toEqual([])
   })
 

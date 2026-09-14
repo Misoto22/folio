@@ -1,4 +1,4 @@
-import { AspectRatio, Skeleton, Text } from '@misoto22/design'
+import { AspectRatio, Skeleton, Text } from '@misoto22/folio'
 
 const POSTS = [
   { slug: 'monochrome', title: 'Why the system spends no colour' },

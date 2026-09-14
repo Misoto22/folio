@@ -1,4 +1,4 @@
-import { StatusDot } from '@misoto22/design'
+import { StatusDot } from '@misoto22/folio'
 
 export function PulsingMd() {
   return (

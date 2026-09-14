@@ -1,4 +1,4 @@
-import { Badge } from '@misoto22/design'
+import { Badge } from '@misoto22/folio'
 
 /**
  * Every tone the badge has, with the neutral default first. Leave it at neutral

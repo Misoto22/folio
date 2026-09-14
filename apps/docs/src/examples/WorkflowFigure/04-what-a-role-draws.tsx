@@ -1,4 +1,4 @@
-import { WorkflowFigure } from '@misoto22/design/diagrams'
+import { WorkflowFigure } from '@misoto22/folio/diagrams'
 
 /**
  * Four edge roles on one deploy, each paired with the variant that draws it.

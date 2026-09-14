@@ -10,7 +10,7 @@ import {
   SidebarProvider,
   type SidebarSide,
   type SidebarVariant,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiHomeLine, RiInboxLine } from '@remixicon/react'
 
 const ARRANGEMENTS: { variant: SidebarVariant; side: SidebarSide; note: string }[] = [

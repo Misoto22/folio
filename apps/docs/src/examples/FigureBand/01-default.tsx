@@ -1,4 +1,4 @@
-import { FigureBand } from '@misoto22/design'
+import { FigureBand } from '@misoto22/folio'
 
 /**
  * Four figures, which with two is one of the only counts that fits: the grid is

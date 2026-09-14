@@ -7,7 +7,7 @@ import { ARCHITECTURE } from './fixtures'
 import { ArchitectureFigure } from '../index'
 
 /**
- * Runs axe over every component in `@misoto22/design/diagrams`.
+ * Runs axe over every component in `@misoto22/folio/diagrams`.
  *
  * What it CANNOT catch is the half that matters most here: jsdom has no layout,
  * so `color-contrast` cannot run at all, and no automated rule can tell whether

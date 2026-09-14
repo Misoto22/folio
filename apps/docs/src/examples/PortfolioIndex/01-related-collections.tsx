@@ -1,5 +1,5 @@
-import { Text } from '@misoto22/design'
-import { PortfolioIndex, PortfolioRecord } from '@misoto22/design/website'
+import { Text } from '@misoto22/folio'
+import { PortfolioIndex, PortfolioRecord } from '@misoto22/folio/website'
 
 /**
  * Each tab carries its records and supporting context together.

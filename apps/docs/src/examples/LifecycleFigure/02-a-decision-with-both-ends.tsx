@@ -1,4 +1,4 @@
-import { LifecycleFigure } from '@misoto22/design/diagrams'
+import { LifecycleFigure } from '@misoto22/folio/diagrams'
 
 /**
  * A decision with both of its ends drawn. Approved sits on the rail, so its

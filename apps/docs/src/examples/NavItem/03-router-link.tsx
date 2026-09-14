@@ -1,4 +1,4 @@
-import { NavItem } from '@misoto22/design'
+import { NavItem } from '@misoto22/folio'
 import { RiHomeLine, RiShapesLine } from '@remixicon/react'
 
 /**

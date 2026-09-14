@@ -1,4 +1,4 @@
-# @misoto22/design — for agents
+# @misoto22/folio — for agents
 
 Pointers, not content. Everything below is generated from the source in this
 same tarball, so nothing here can describe a version that is not installed.
@@ -9,16 +9,16 @@ You are probably reading this because you searched `node_modules` for a filename
 you recognise. The three commands are what you came for:
 
 ```bash
-npx misoto22-design docs Button        # one component, in full
-npx misoto22-design docs --installed   # this version, and every component in it
-npx misoto22-design init --agents-md   # install the skill into this project
+npx folio-design docs Button        # one component, in full
+npx folio-design docs --installed   # this version, and every component in it
+npx folio-design init --agents-md   # install the skill into this project
 ```
 
 `docs` resolves parts and types as well as components, so `docs CardBody`,
 `docs TH` and `docs ButtonVariant` all land on the right file. When an import
 fails, ask it about the identifier you tried.
 
-Read `skills/misoto22-design/SKILL.md` in this package before writing components
+Read `skills/folio-design/SKILL.md` in this package before writing components
 against it. The names diverge from shadcn/ui in several places, and colour is
 never written as a raw class; the skill leads with both.
 
@@ -43,9 +43,9 @@ which checks the spec it was handed because a figure that ignores an edge still
 renders beautifully — `DIAGRAM_ACCENT_ON_CONTAINER`, `DIAGRAM_DIRECTION_ON_LEAF`,
 `DIAGRAM_DUPLICATE_ID`, `DIAGRAM_EDGE_NOT_ADJACENT`,
 `DIAGRAM_EDGE_UNKNOWN_NODE`. And six on the figures in
-`@misoto22/design/diagrams` — `DIAGRAM_CELL_COLLISION`, `DIAGRAM_EDGE_DANGLING`,
+`@misoto22/folio/diagrams` — `DIAGRAM_CELL_COLLISION`, `DIAGRAM_EDGE_DANGLING`,
 `DIAGRAM_LANE_UNKNOWN`, `DIAGRAM_REF_UNKNOWN`, `DIAGRAM_SPEC_MUTATED`,
-`DIAGRAM_STAGE_OUT_OF_RANGE`. `skills/misoto22-design/rules/a11y.md` tables what
+`DIAGRAM_STAGE_OUT_OF_RANGE`. `skills/folio-design/rules/a11y.md` tables what
 each one fires on; `src/lib/warn.ts` is where they are printed.
 
 Four entry points, and importing from the wrong one throws rather than renders
@@ -53,10 +53,10 @@ blank. Each `docs` file names its own on the `Import:` line.
 
 | Specifier | What ships from it |
 | --- | --- |
-| `@misoto22/design` | The primitives |
-| `@misoto22/design/charts` | Charts — needs the `recharts` and `motion` peers |
-| `@misoto22/design/diagrams` | Figures with routed edges |
-| `@misoto22/design/website` | Website compositions, with data and routes supplied by the host — styled by `website.css`, which `styles.css` does not include |
+| `@misoto22/folio` | The primitives |
+| `@misoto22/folio/charts` | Charts — needs the `recharts` and `motion` peers |
+| `@misoto22/folio/diagrams` | Figures with routed edges |
+| `@misoto22/folio/website` | Website compositions, with data and routes supplied by the host — styled by `website.css`, which `styles.css` does not include |
 
 ## You are working ON this package, in its repository
 

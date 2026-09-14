@@ -1,4 +1,4 @@
-import { Heading, Text } from '@misoto22/design'
+import { Heading, Text } from '@misoto22/folio'
 
 /**
  * The one place lead belongs: the standfirst that carries a piece, directly

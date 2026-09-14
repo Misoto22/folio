@@ -1,4 +1,4 @@
-import { Button } from '@misoto22/design'
+import { Button } from '@misoto22/folio'
 import { RiArrowRightUpLine, RiFileCopyLine, RiShareLine } from '@remixicon/react'
 
 /**

@@ -1,6 +1,6 @@
 'use client'
 
-import { Sparkline } from '@misoto22/design/charts'
+import { Sparkline } from '@misoto22/folio/charts'
 
 const ROWS = [
   { project: 'Kestrel', trend: [12, 15, 14, 19, 22, 26, 31] },

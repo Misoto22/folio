@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@misoto22/design'
+import { Button } from '@misoto22/folio'
 import { RiMoonLine, RiSunLine } from '@remixicon/react'
 import { useEffect, useState } from 'react'
 import { useMessages } from '@/i18n/useLocale'

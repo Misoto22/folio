@@ -1,4 +1,4 @@
-# design-sync notes — @misoto22/design
+# design-sync notes — @misoto22/folio
 
 Repo-specific gotchas for future syncs.
 
@@ -14,7 +14,7 @@ Repo-specific gotchas for future syncs.
 
 ## Fonts (changed 2026-09-05)
 - The faces are now **Hanken Grotesk / Newsreader / IBM Plex Mono**, matching the White Reset. The previous trio (Geist / Cormorant Garamond / JetBrains Mono) belonged to the retired warm-cream theme.
-- `scripts/vendor-fonts.mjs` copies the latin woff2 out of `@fontsource/*` into `src/styles/fonts/` and REGENERATES `src/styles/fonts.css`. The weight list lives in that script and nowhere else, so a rule can no longer point at a file nobody vendored. Re-run with `pnpm --filter @misoto22/design build:fonts`.
+- `scripts/vendor-fonts.mjs` copies the latin woff2 out of `@fontsource/*` into `src/styles/fonts/` and REGENERATES `src/styles/fonts.css`. The weight list lives in that script and nowhere else, so a rule can no longer point at a file nobody vendored. Re-run with `pnpm --filter @misoto22/folio build:fonts`.
 - `dist/styles.css` now carries the @font-face rules itself (appended by `scripts/copy-portable-css.mjs`), so a standalone consumer gets the faces from the one stylesheet. An app that loads them through `next/font` sets `--font-hanken` / `--font-newsreader` / `--font-plex-mono` and never reaches the fallback.
 
 ## Render / previews

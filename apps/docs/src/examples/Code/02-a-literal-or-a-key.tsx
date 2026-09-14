@@ -1,4 +1,4 @@
-import { Code, Kbd, Text } from '@misoto22/design'
+import { Code, Kbd, Text } from '@misoto22/folio'
 
 /**
  * The two chips a reader cannot tell apart by eye, in one sentence each. Code

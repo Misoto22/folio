@@ -1,8 +1,8 @@
 'use client'
 
 import { useRef } from 'react'
-import { Button } from '@misoto22/design'
-import { ArchitectureFigure, DiagramCanvas, type DiagramCanvasHandle } from '@misoto22/design/diagrams'
+import { Button } from '@misoto22/folio'
+import { ArchitectureFigure, DiagramCanvas, type DiagramCanvasHandle } from '@misoto22/folio/diagrams'
 import { RiAddLine, RiResetLeftLine, RiSubtractLine } from '@remixicon/react'
 
 const SPEC = {

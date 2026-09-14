@@ -1,4 +1,4 @@
-import { Select } from '@misoto22/design'
+import { Select } from '@misoto22/folio'
 
 export function Category() {
   return (

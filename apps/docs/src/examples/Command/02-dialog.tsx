@@ -9,7 +9,7 @@ import {
   CommandItem,
   CommandList,
   Kbd,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { useEffect, useState } from 'react'
 
 /**

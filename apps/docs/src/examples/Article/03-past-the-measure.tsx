@@ -1,4 +1,4 @@
-import { Article } from '@misoto22/design'
+import { Article } from '@misoto22/folio'
 
 const RELEASES = [
   { version: '0.4.0', date: '2026-09-02', components: 58, tokens: 214, size: '38.9 kB', tag: 'v0.4.0' },

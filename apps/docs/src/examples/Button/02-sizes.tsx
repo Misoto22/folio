@@ -1,4 +1,4 @@
-import { Button } from '@misoto22/design'
+import { Button } from '@misoto22/folio'
 
 /**
  * The three sizes on one variant, so the box is the only thing changing. Reach

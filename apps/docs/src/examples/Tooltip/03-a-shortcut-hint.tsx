@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Kbd, Text, Tooltip, TooltipProvider } from '@misoto22/design'
+import { Button, Kbd, Text, Tooltip, TooltipProvider } from '@misoto22/folio'
 
 /**
  * The control says what it does on the page; the tip only adds the shortcut. A

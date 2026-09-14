@@ -1,6 +1,6 @@
 'use client'
 
-import { LineChart, formatNumber, type ChartConfig } from '@misoto22/design/charts'
+import { LineChart, formatNumber, type ChartConfig } from '@misoto22/folio/charts'
 
 const data = [
   { week: 'W1', p95: 1.42, spend: 4210 },

@@ -1,4 +1,4 @@
-import { Badge, TBody, TD, TH, THead, TR, Table, Timestamp } from '@misoto22/design'
+import { Badge, TBody, TD, TH, THead, TR, Table, Timestamp } from '@misoto22/folio'
 
 const DEPLOYS = [
   { sha: 'a1b2c3d', at: '2026-09-06T04:12:00.000Z', state: 'success' as const, label: 'Deployed' },

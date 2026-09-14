@@ -6,7 +6,7 @@ import {
   Field,
   Input,
   Textarea,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 
 export function ConfirmDelete() {
   return (

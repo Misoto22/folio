@@ -1,6 +1,6 @@
 'use client'
 
-import { SankeyChart, type ChartConfig } from '@misoto22/design/charts'
+import { SankeyChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const data = {
   nodes: [

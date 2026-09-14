@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, cn } from '@misoto22/design'
+import { Button, cn } from '@misoto22/folio'
 import { RiCheckLine, RiFileCopyLine } from '@remixicon/react'
 import { useEffect, useState } from 'react'
 

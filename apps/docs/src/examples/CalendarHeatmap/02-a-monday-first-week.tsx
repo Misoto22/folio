@@ -1,6 +1,6 @@
 'use client'
 
-import { CalendarHeatmap, type CalendarHeatmapValue } from '@misoto22/design/charts'
+import { CalendarHeatmap, type CalendarHeatmapValue } from '@misoto22/folio/charts'
 
 const FROM = '2026-01-05'
 

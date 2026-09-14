@@ -12,7 +12,7 @@ import {
   Tag,
   ToggleGroup,
   ToggleGroupItem,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiRssLine, RiSearchLine } from '@remixicon/react'
 import { useMemo, useState } from 'react'
 

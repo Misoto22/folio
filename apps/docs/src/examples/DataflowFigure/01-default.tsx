@@ -1,4 +1,4 @@
-import { DataflowFigure } from '@misoto22/design/diagrams'
+import { DataflowFigure } from '@misoto22/folio/diagrams'
 
 /**
  * Two sources joining at one gate. The mono chip under each label is the

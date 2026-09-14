@@ -1,4 +1,4 @@
-import { Button, Text, Toolbar } from '@misoto22/design'
+import { Button, Text, Toolbar } from '@misoto22/folio'
 
 /**
  * A bulk-action bar, and the reason the role is group rather than toolbar. The

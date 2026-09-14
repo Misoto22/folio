@@ -1,5 +1,5 @@
 {
-  "name": "@misoto22/design",
+  "name": "@misoto22/folio",
   "version": "0.15.0",
   "private": false,
   "description": "Monochrome design system — CSS tokens and accessible React primitives",
@@ -20,7 +20,7 @@
     "README.md"
   ],
   "bin": {
-    "misoto22-design": "./bin/misoto22-design.mjs"
+    "folio-design": "./bin/folio-design.mjs"
   },
   "exports": {
     ".": {

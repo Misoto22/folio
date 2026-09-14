@@ -1,4 +1,4 @@
-import { Badge, DescriptionList, Timestamp } from '@misoto22/design'
+import { Badge, DescriptionList, Timestamp } from '@misoto22/folio'
 
 /**
  * A record seen from the front. The markup is a real dl/dt/dd, which is what

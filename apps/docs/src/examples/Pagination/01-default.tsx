@@ -1,6 +1,6 @@
 'use client'
 
-import { Pagination } from '@misoto22/design'
+import { Pagination } from '@misoto22/folio'
 import { useState } from 'react'
 
 /**

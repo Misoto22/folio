@@ -1,4 +1,4 @@
-import { FigureBand } from '@misoto22/design'
+import { FigureBand } from '@misoto22/folio'
 
 /**
  * What belongs in note, and what does not. The value and the note are two dd

@@ -8,7 +8,7 @@ import {
   SidebarItem,
   SidebarProvider,
   SidebarTrigger,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiFileTextLine, RiHomeLine } from '@remixicon/react'
 
 /**

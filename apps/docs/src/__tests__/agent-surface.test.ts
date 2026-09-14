@@ -5,7 +5,7 @@ import { getMessages } from '@/i18n/messages'
 import { LOCALES } from '@/i18n/locales'
 import { componentText, indexText } from '@/lib/agent-text'
 import { COMPONENTS } from '@/content/registry'
-import * as website from '@misoto22/design/website'
+import * as website from '@misoto22/folio/website'
 
 /**
  * The site has fallen behind the package three times, in the same way each
@@ -40,7 +40,7 @@ describe('the site keeps up with the package', () => {
     const start = index.indexOf('## Website')
     expect(start).toBeGreaterThan(-1)
     const section = index.slice(start, index.indexOf('\n## ', start + 1))
-    expect(section).toContain('@misoto22/design/website')
+    expect(section).toContain('@misoto22/folio/website')
     const missing = WEBSITE.filter((entry) => !section.includes(`/components/${entry.slug}/llms.txt`))
     expect(missing.map((entry) => entry.slug)).toEqual([])
   })

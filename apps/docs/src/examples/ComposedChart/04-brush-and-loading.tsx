@@ -1,6 +1,6 @@
 'use client'
 
-import { ComposedChart, type ChartConfig } from '@misoto22/design/charts'
+import { ComposedChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const data = Array.from({ length: 30 }, (_, index) => ({
   day: `D${index + 1}`,

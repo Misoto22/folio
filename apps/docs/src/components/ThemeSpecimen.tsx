@@ -13,7 +13,7 @@ import {
   THead,
   TR,
   Table,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 
 /**
  * One small screen, rendered once per theme.

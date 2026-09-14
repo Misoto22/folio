@@ -1,6 +1,6 @@
 'use client'
 
-import { Checkbox } from '@misoto22/design'
+import { Checkbox } from '@misoto22/folio'
 import { useState } from 'react'
 
 const JOBS = ['Ship on merge', 'Notify the channel', 'Run the smoke tests']

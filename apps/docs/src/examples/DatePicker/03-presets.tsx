@@ -1,6 +1,6 @@
 'use client'
 
-import { DatePicker, Field } from '@misoto22/design'
+import { DatePicker, Field } from '@misoto22/folio'
 
 /**
  * The rail beside the grid — off by default on a single picker and on by

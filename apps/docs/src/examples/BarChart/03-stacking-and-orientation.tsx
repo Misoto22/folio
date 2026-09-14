@@ -1,12 +1,12 @@
 'use client'
 
-import { ToggleGroup, ToggleGroupItem } from '@misoto22/design'
+import { ToggleGroup, ToggleGroupItem } from '@misoto22/folio'
 import {
   BarChart,
   type BarOrientation,
   type BarStackType,
   type ChartConfig,
-} from '@misoto22/design/charts'
+} from '@misoto22/folio/charts'
 import { useState } from 'react'
 import { ExampleControls } from '@/components/ExampleControls'
 

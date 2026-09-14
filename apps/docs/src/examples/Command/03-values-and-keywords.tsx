@@ -7,7 +7,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiFileDownloadLine, RiGitBranchLine, RiGroupLine, RiResetLeftLine } from '@remixicon/react'
 
 /**

@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiTranslate2 } from '@remixicon/react'
 import { useRouter } from 'next/navigation'
 import { usePathname } from 'next/navigation'

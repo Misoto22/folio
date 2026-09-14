@@ -1,4 +1,4 @@
-import { Badge, Separator, StatusPill } from '@misoto22/design'
+import { Badge, Separator, StatusPill } from '@misoto22/folio'
 
 /**
  * One pill for the view, badges for the rows under it. The label is an

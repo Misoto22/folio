@@ -1,6 +1,6 @@
 'use client'
 
-import { Badge, Button } from '@misoto22/design'
+import { Badge, Button } from '@misoto22/folio'
 import { RiCheckLine, RiResetLeftLine } from '@remixicon/react'
 import type { Locale } from '@/i18n/locales'
 import { getMessages } from '@/i18n/messages'

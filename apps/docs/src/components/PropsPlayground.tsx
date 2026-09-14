@@ -1,6 +1,6 @@
 'use client'
 
-import { Badge, Button, Input, Select, SelectItem, Switch, TBody, TD, TH, THead, TR, Table, cn } from '@misoto22/design'
+import { Badge, Button, Input, Select, SelectItem, Switch, TBody, TD, TH, THead, TR, Table, cn } from '@misoto22/folio'
 import { RiAddLine, RiCheckLine, RiFileCopyLine, RiResetLeftLine, RiSubtractLine } from '@remixicon/react'
 import { Component, createElement, useEffect, useId, useMemo, useState, type ReactNode } from 'react'
 import { COMPONENTS } from '@/generated/component-registry'

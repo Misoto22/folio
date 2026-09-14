@@ -1,6 +1,6 @@
 'use client'
 
-import { PieChart, type ChartConfig } from '@misoto22/design/charts'
+import { PieChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const config = { chrome: { label: 'Chrome' } } satisfies ChartConfig
 

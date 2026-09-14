@@ -1,4 +1,4 @@
-import { Input } from '@misoto22/design'
+import { Input } from '@misoto22/folio'
 
 export function Empty() {
   return (

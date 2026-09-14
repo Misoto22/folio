@@ -1,4 +1,4 @@
-import { Alert, Button } from '@misoto22/design'
+import { Alert, Button } from '@misoto22/folio'
 
 /**
  * The four tones, in the order they escalate. The tone is the message's

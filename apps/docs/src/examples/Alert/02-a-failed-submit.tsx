@@ -1,4 +1,4 @@
-import { Alert, Button, Field, Input } from '@misoto22/design'
+import { Alert, Button, Field, Input } from '@misoto22/folio'
 
 /**
  * An error that has to persist, with the way out inside it. Put the retry in

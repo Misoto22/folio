@@ -1,6 +1,6 @@
 'use client'
 
-import { Switch } from '@misoto22/design'
+import { Switch } from '@misoto22/folio'
 import { useState } from 'react'
 
 const SETTINGS = [

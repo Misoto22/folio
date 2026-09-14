@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ContactFormView, type ContactFormValues } from '@misoto22/design/website'
+import { ContactFormView, type ContactFormValues } from '@misoto22/folio/website'
 
 /**
  * The host controls every field and confirms success after its own submission work.

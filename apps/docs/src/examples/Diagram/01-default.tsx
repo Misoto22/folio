@@ -1,4 +1,4 @@
-import { Diagram } from '@misoto22/design'
+import { Diagram } from '@misoto22/folio'
 
 /**
  * A request, drawn as three ranks with the work nested inside the middle one.

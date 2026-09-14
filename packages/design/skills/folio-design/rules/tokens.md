@@ -18,7 +18,7 @@ every surface axis.
 ```
 
 The semantic layer is the one to read. It is shipped as its own entry point
-(`@misoto22/design/semantic.css`) and it is what the components themselves use.
+(`@misoto22/folio/semantic.css`) and it is what the components themselves use.
 
 | Role | Token |
 | --- | --- |

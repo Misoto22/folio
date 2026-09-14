@@ -1,6 +1,6 @@
 'use client'
 
-import { BarChart, type ChartConfig } from '@misoto22/design/charts'
+import { BarChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const config = { desktop: { label: 'Desktop' } } satisfies ChartConfig
 

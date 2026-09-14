@@ -9,7 +9,7 @@
  * per component — and ninety-two of them in one file is a file only one person can
  * be writing at a time.
  *
- * These render entirely on a server, and ship from `@misoto22/design/diagrams`
+ * These render entirely on a server, and ship from `@misoto22/folio/diagrams`
  * — see `ENTRY_POINTS`.
  */
 

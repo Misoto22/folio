@@ -1,4 +1,4 @@
-import { FigureBand, Heading, Text } from '@misoto22/design'
+import { FigureBand, Heading, Text } from '@misoto22/folio'
 
 /**
  * The same band, one step down. scale="sub" is for figures that SUPPORT the

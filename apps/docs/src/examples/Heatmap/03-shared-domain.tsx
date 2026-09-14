@@ -1,6 +1,6 @@
 'use client'
 
-import { Heatmap, formatNumber, type HeatmapCell } from '@misoto22/design/charts'
+import { Heatmap, formatNumber, type HeatmapCell } from '@misoto22/folio/charts'
 
 const SHIFTS = ['00–06', '06–12', '12–18', '18–24']
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']

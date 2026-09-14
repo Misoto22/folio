@@ -11,7 +11,7 @@ import {
   TabsTrigger,
   ToggleGroup,
   ToggleGroupItem,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiCheckLine, RiPaletteLine, RiResetLeftLine } from '@remixicon/react'
 import { useMessages } from '@/i18n/useLocale'
 import { ACCENTS, SWATCH } from './AccentProvider'

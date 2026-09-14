@@ -1,6 +1,6 @@
 'use client'
 
-import { Badge, TBody, TD, TH, THead, TR, Table, type SortDirection } from '@misoto22/design'
+import { Badge, TBody, TD, TH, THead, TR, Table, type SortDirection } from '@misoto22/folio'
 import { useState } from 'react'
 
 const ROWS = [

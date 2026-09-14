@@ -1,4 +1,4 @@
-import { SequenceFigure } from '@misoto22/design/diagrams'
+import { SequenceFigure } from '@misoto22/folio/diagrams'
 
 /**
  * What an explicit y buys. The first three calls sit 12 units apart because they

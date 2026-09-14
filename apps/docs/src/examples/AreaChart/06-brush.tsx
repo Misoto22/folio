@@ -1,6 +1,6 @@
 'use client'
 
-import { AreaChart, type ChartConfig } from '@misoto22/design/charts'
+import { AreaChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const data = Array.from({ length: 32 }, (_, index) => ({
   day: `D${index + 1}`,

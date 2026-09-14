@@ -1,4 +1,4 @@
-import { ActivityTrace, EvidenceDisclosure, EvidenceFacts, EvidencePanel, EvidenceStage, EvidenceStages } from '@misoto22/design/website'
+import { ActivityTrace, EvidenceDisclosure, EvidenceFacts, EvidencePanel, EvidenceStage, EvidenceStages } from '@misoto22/folio/website'
 
 /**
  * A recorded sample trace separates stage status, source facts and optional detail.

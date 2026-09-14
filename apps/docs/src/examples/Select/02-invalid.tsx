@@ -1,6 +1,6 @@
 'use client'
 
-import { Field, Select, SelectItem } from '@misoto22/design'
+import { Field, Select, SelectItem } from '@misoto22/folio'
 
 /**
  * The one control on this base that does not read aria-invalid. Field's error

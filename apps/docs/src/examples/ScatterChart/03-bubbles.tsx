@@ -1,6 +1,6 @@
 'use client'
 
-import { ScatterChart, type ChartConfig } from '@misoto22/design/charts'
+import { ScatterChart, type ChartConfig } from '@misoto22/folio/charts'
 
 const releases = [
   { kb: 120, ms: 340, downloads: 400 },

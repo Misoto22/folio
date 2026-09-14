@@ -1,4 +1,4 @@
-import { Steps } from '@misoto22/design'
+import { Steps } from '@misoto22/folio'
 
 /**
  * A pipeline as a rail: one thing after another, each with a noun for a name

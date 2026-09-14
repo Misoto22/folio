@@ -1,4 +1,4 @@
-import { Kbd } from '@misoto22/design'
+import { Kbd } from '@misoto22/folio'
 
 /**
  * A shortcut inside the sentence that explains it. The space between two caps

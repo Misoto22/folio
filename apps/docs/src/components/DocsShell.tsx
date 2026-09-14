@@ -9,7 +9,7 @@ import {
   SidebarInset,
   SidebarProvider,
   useSidebar,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiCloseLine, RiGithubFill, RiMenuFoldLine, RiMenuLine, RiMenuUnfoldLine, RiSearchLine } from '@remixicon/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'

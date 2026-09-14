@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Text,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 
 /**
  * The panel is positioned against the row it edits, not against the toolbar

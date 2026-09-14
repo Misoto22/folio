@@ -73,7 +73,7 @@ describe('component registry', () => {
     const website = groupedComponents().find((section) => section.group === 'Website')
     expect(website?.entries.length).toBeGreaterThan(0)
     expect(new Set(website?.entries.map((entry) => entry.entry))).toEqual(
-      new Set(['@misoto22/design/website']),
+      new Set(['@misoto22/folio/website']),
     )
   })
 })

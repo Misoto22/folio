@@ -1,4 +1,4 @@
-import { CodeBlock } from '@misoto22/design'
+import { CodeBlock } from '@misoto22/folio'
 
 /**
  * The smallest useful block: one line, a language, and the copy button. The
@@ -15,8 +15,8 @@ import { CodeBlock } from '@misoto22/design'
 export function Example() {
   return (
     <div className="flex w-full flex-col gap-3">
-      <CodeBlock code="pnpm add @misoto22/design" lang="bash" label="Install command" />
-      <CodeBlock code="pnpm --filter @misoto22/design build" lang="bash" label="Build command" />
+      <CodeBlock code="pnpm add @misoto22/folio" lang="bash" label="Install command" />
+      <CodeBlock code="pnpm --filter @misoto22/folio build" lang="bash" label="Build command" />
     </div>
   )
 }

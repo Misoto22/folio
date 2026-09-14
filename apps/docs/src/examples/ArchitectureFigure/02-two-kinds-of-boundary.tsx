@@ -1,4 +1,4 @@
-import { ArchitectureFigure } from '@misoto22/design/diagrams'
+import { ArchitectureFigure } from '@misoto22/folio/diagrams'
 
 /**
  * The two boundary kinds, one nested inside the other. A region is a solid frame

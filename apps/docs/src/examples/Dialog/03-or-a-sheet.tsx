@@ -13,7 +13,7 @@ import {
   SheetContent,
   SheetTrigger,
   Textarea,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 
 /**
  * The same modal at two lengths. A Dialog stops at 32rem by 85vh and scrolls

@@ -78,11 +78,11 @@ export function warn({ code, problem, field, fix, component }: Warning): void {
 
   console.warn(
     [
-      `[@misoto22/design] ${code}`,
+      `[@misoto22/folio] ${code}`,
       `  ${problem}`,
       `  field: ${field}`,
       `  fix:   ${fix}`,
-      `  docs:  npx misoto22-design docs ${component}`,
+      `  docs:  npx folio-design docs ${component}`,
     ].join('\n'),
   )
 }

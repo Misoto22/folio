@@ -8,7 +8,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@misoto22/design'
+} from '@misoto22/folio'
 import { RiDeleteBinLine, RiLogoutBoxRLine, RiSettings3Line } from '@remixicon/react'
 
 /**

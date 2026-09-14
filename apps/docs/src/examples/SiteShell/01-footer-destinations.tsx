@@ -1,4 +1,4 @@
-import { SiteFooter, SiteLink } from '@misoto22/design/website'
+import { SiteFooter, SiteLink } from '@misoto22/folio/website'
 
 /**
  * A publication footer groups supplied links into named navigation regions.

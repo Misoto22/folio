@@ -1,4 +1,4 @@
-import { Heading, Kbd, Text } from '@misoto22/design'
+import { Heading, Kbd, Text } from '@misoto22/folio'
 
 /**
  * The same key, printed at three steps of type. The cap is 0.8em and its

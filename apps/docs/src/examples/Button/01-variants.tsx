@@ -1,4 +1,4 @@
-import { Button } from '@misoto22/design'
+import { Button } from '@misoto22/folio'
 
 /**
  * The four variants, in the order they compete for attention. variant defaults

@@ -1,4 +1,4 @@
-import { Field, Textarea } from '@misoto22/design'
+import { Field, Textarea } from '@misoto22/folio'
 
 /**
  * The wrong state, and the reason the message repeats the rule. hint and error

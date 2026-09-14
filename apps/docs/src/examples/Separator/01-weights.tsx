@@ -1,4 +1,4 @@
-import { Separator } from '@misoto22/design'
+import { Separator } from '@misoto22/folio'
 
 /**
  * The three weights, in the order they are meant to be spent. They are ordered

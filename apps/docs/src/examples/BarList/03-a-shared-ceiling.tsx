@@ -1,6 +1,6 @@
 'use client'
 
-import { BarList, formatNumber } from '@misoto22/design/charts'
+import { BarList, formatNumber } from '@misoto22/folio/charts'
 
 const thisQuarter = [
   { name: 'Enterprise', value: 92_400 },

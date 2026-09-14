@@ -1,4 +1,4 @@
-import { Breadcrumb, Heading, Text } from '@misoto22/design'
+import { Breadcrumb, Heading, Text } from '@misoto22/folio'
 
 /**
  * The trail above the title it ends on. Start it above the current page: a

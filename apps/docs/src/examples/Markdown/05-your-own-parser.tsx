@@ -1,4 +1,4 @@
-import { Article, Markdown, parseMarkdown, type MarkdownNode } from '@misoto22/design'
+import { Article, Markdown, parseMarkdown, type MarkdownNode } from '@misoto22/folio'
 
 const CHECKLIST = `## Before 0.5.0
 

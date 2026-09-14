@@ -1,4 +1,4 @@
-import { Avatar } from '@misoto22/design'
+import { Avatar } from '@misoto22/folio'
 
 /**
  * The three fixed squares — 28px, 36px and 48px — with no image behind any of

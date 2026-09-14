@@ -1,4 +1,4 @@
-import { DescriptionList, Timestamp } from '@misoto22/design'
+import { DescriptionList, Timestamp } from '@misoto22/folio'
 
 /** An instant a fixed distance behind now, so the page reads the same whenever it is opened. */
 const ago = (ms: number) => new Date(Date.now() - ms)

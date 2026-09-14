@@ -1,4 +1,4 @@
-import { Avatar, Button } from '@misoto22/design'
+import { Avatar, Button } from '@misoto22/folio'
 
 /**
  * An account control with the avatar inside it, rather than an onClick hung on

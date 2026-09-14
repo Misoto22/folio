@@ -1,4 +1,4 @@
-import { SequenceFigure } from '@misoto22/design/diagrams'
+import { SequenceFigure } from '@misoto22/folio/diagrams'
 
 /**
  * The asynchronous half of a delivery. The enqueue is dashed because Billing

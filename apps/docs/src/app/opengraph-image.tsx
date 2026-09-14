@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og'
 import { readFile } from 'node:fs/promises'
-import { BRAND } from '@misoto22/design'
+import { BRAND } from '@misoto22/folio'
 import { getMessages } from '@/i18n/messages'
 import { BRAND_NAME } from '@/lib/brand'
 

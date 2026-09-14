@@ -1,6 +1,6 @@
 'use client'
 
-import { DatePicker, Field } from '@misoto22/design'
+import { DatePicker, Field } from '@misoto22/folio'
 
 /**
  * A trigger and a Calendar in a Popover, and deliberately not a text input with

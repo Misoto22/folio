@@ -1,4 +1,4 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent, Field, Input, Textarea } from '@misoto22/design'
+import { Tabs, TabsList, TabsTrigger, TabsContent, Field, Input, Textarea } from '@misoto22/folio'
 
 export function PostEditor() {
   return (

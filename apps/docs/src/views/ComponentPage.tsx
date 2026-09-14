@@ -3,7 +3,7 @@ import { componentCopy, componentName, groupName } from '@/i18n/content'
 import { exampleCopy, exampleTitle } from '@/i18n/examples'
 import { localePath, type Locale } from '@/i18n/locales'
 import { getMessages } from '@/i18n/messages'
-import { Alert, Badge, Kbd, Separator, TBody, TD, TH, THead, TR, Table } from '@misoto22/design'
+import { Alert, Badge, Kbd, Separator, TBody, TD, TH, THead, TR, Table } from '@misoto22/folio'
 import { RiCheckLine, RiCloseLine } from '@remixicon/react'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -54,8 +54,8 @@ export async function ComponentPage({ locale, slug }: { locale: Locale; slug: st
   const related = (entry.related ?? []).map((s) => BY_SLUG.get(s)).filter(Boolean)
 
   const subject = primary?.name ?? entry.name
-  // The specifier, not the root: `@misoto22/design/charts` and
-  // `@misoto22/design/diagrams` are separate entry points, and a root import of
+  // The specifier, not the root: `@misoto22/folio/charts` and
+  // `@misoto22/folio/diagrams` are separate entry points, and a root import of
   // AreaChart does not render a blank page — it throws. `entry.entry` is
   // emitted from the tree the directory sits in, never authored beside it.
   const importLine = `import { ${subject} } from '${entry.entry}'`
@@ -102,7 +102,7 @@ export async function ComponentPage({ locale, slug }: { locale: Locale; slug: st
             of habit gets a module-not-found error with nothing on the page to
             explain it. Every component carries the field, so this compares
             rather than tests for its presence. */}
-        {entry.entry !== '@misoto22/design' && (
+        {entry.entry !== '@misoto22/folio' && (
           <p className="m-0 flex flex-wrap items-baseline gap-2">
             <span className="eyebrow text-(--ink-3-aa)">{t.section.shipsFrom}</span>
             <code className="font-mono text-[13px] text-(--ink)">{entry.entry}</code>

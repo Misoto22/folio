@@ -1,4 +1,4 @@
-import { Progress, Text } from '@misoto22/design'
+import { Progress, Text } from '@misoto22/folio'
 
 /**
  * No value, so the bar sweeps instead of filling and aria-valuenow is dropped —

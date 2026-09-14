@@ -1,6 +1,6 @@
 'use client'
 
-import { ScrollArea, Text } from '@misoto22/design'
+import { ScrollArea, Text } from '@misoto22/folio'
 
 const SHORTCUTS = [
   ['⌘K', 'Open the palette'],
