@@ -175,7 +175,7 @@ function indexText() {
     '> Monochrome design system: portable CSS tokens and accessible React 19',
     '> primitives. Components ship compiled — import them, do not copy them.',
     '',
-    "Install: `npm install @misoto22/design`. Styles: `import '@misoto22/design/styles.css'`.",
+    "Install: `npm install @misoto22/design`. Styles: `import '@misoto22/design/styles.css'`. Website compositions add `website.css`, and `website-base.css` when the whole page is a website.",
     '',
     'One component, in full, offline:',
     '',

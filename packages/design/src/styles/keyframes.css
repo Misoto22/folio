@@ -23,6 +23,15 @@
 .m22-tabs-panel[data-state=active] { animation: m22-tab-in var(--duration-base) var(--ease-out-expo); }
 .m22-tabs-panel[hidden] { display: none; }
 @keyframes m22-tab-in { from { opacity: 0; transform: translateX(var(--tab-enter-x, 0px)); } to { opacity: 1; transform: translateX(0); } }
+/* Recharts clears the browser's SVG outline. Keep a chart's keyboard cursor as
+   visible as every other control, without asking hosts to add a local rule. In
+   the base layer, beside the one `:focus-visible` indicator it restores. */
+@layer base {
+  [data-slot='chart'] svg.recharts-surface[tabindex]:focus-visible {
+    outline: var(--focus-w) solid var(--focus);
+    outline-offset: var(--focus-off);
+  }
+}
 .m22-sheet { translate: none; --sheet-x: 0%; --sheet-y: 0%; }
 .m22-sheet[data-side=top] { --sheet-y: -100%; }
 .m22-sheet[data-side=bottom] { --sheet-y: 100%; }

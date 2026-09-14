@@ -31,6 +31,34 @@ test('site navigation is laid out against its preview rather than the window', a
   expect(languageBounds.x + languageBounds.width).toBeLessThanOrEqual(frameBounds.x + frameBounds.width)
 })
 
+/** The computed outline on whatever currently has focus, with whether it is keyboard focus. */
+const focusedOutline = (page: import('@playwright/test').Page) =>
+  page.evaluate(() => {
+    const el = document.activeElement as HTMLElement
+    const style = getComputedStyle(el)
+    return { focusVisible: el.matches(':focus-visible'), style: style.outlineStyle, offset: style.outlineOffset }
+  })
+
+// The site-wide ring used to sit outside every cascade layer, so it beat the
+// `outline-none` utility a primitive asks for and drew a clipped square around
+// the Command input. Layered, the utility wins again.
+test("a primitive's outline utility wins over the site-wide focus ring", async ({ page }) => {
+  await page.goto('/zh/components/command/')
+  const input = page.locator('[data-example="Command/01-inline"] input').first()
+  await input.scrollIntoViewIfNeeded()
+  await input.focus()
+  expect(await focusedOutline(page)).toMatchObject({ focusVisible: true, style: 'none' })
+})
+
+test('website compositions keep the site-wide focus ring', async ({ page }) => {
+  await page.goto('/patterns/collection/')
+  const filter = page.locator('[data-example="Collection/01-searchable-records"] .m22-collection-filters > button').first()
+  await filter.scrollIntoViewIfNeeded()
+  await page.keyboard.press('Tab')
+  await filter.focus()
+  expect(await focusedOutline(page)).toMatchObject({ focusVisible: true, style: 'solid', offset: '3px' })
+})
+
 test('media detail return control retains its touch target after browser rounding', async ({ page }) => {
   await page.setViewportSize({ width: 640, height: 1000 })
   await page.goto('/components/media/')

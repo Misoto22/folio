@@ -1279,6 +1279,39 @@ const ZH: Record<string, string> = {
   [fingerprint(
     "Every other child — icon, meta, shortcut — stays clear of the newly-clipped corners at every radius, the closest any of them comes to a corner's arc centre being about 7px on an 18px arc. The focus ring is unaffected too: `outline` paints outside an element's border box, which its own `overflow` never clips. `Combobox` and `SearchableMenu` render their rows through this same `CommandItem`, so both pick up the fix without a separate change; `DropdownMenu`, `ContextMenu`, `Select`, `NavItem` and `Sidebar` highlight a row with a plain background fill and carry no accent bar, so none of them shared the defect.",
   )]: '行内其余的子元素——图标、说明文字、快捷键——在任何圆角下都离新裁切的角很远，其中离圆角弧心最近的一个，在 18px 的弧上也留了约 7px 的余量。焦点环同样不受影响：`outline` 画在元素边框盒之外，不会被元素自身的 `overflow` 裁掉。`Combobox` 和 `SearchableMenu` 的行都经由同一个 `CommandItem` 渲染，所以两者都无需单独改动就一并修好；`DropdownMenu`、`ContextMenu`、`Select`、`NavItem` 和 `Sidebar` 高亮一行用的是纯背景填色，没有这根强调竖线，因此都不受此缺陷影响。',
+  [fingerprint(
+    "`styles.css` no longer carries the website compositions: import `website.css` for them, and the new `website-base.css` for a whole site's document defaults.",
+  )]: '`styles.css` 不再包含网站组合组件的样式：组合组件请 import `website.css`，整站的文档级默认样式请 import 新增的 `website-base.css`。',
+  [fingerprint(
+    'An application that wanted only the primitives received about 1,300 lines of website CSS, and some of it reached the whole document: a body font size and background, zeroed heading and paragraph margins, one focus ring on every link and control, and a restyle of every `DropdownMenu`.',
+  )]: '一个只想要基础组件的应用，会连带收到大约 1,300 行网站 CSS，其中一部分作用于整个文档：body 的字号和背景、被清零的标题与段落外边距、落在每个链接和控件上的同一种焦点环，以及对每一个 `DropdownMenu` 的重新样式化。',
+  [fingerprint(
+    "`website.css` now holds only rules scoped to a composition's classes, and its menu styling reaches only the menus the compositions open. The body, heading, paragraph and link defaults, the scrollbar gutter, the `:lang(zh)` spacing and the site-wide focus ring move to `@misoto22/design/website-base.css`.",
+  )]: '`website.css` 现在只保留限定在组合组件自身 class 上的规则，它的菜单样式也只作用于组合组件打开的菜单。body、标题、段落和链接的默认样式、滚动条槽位、`:lang(zh)` 的间距，以及全站焦点环，都移到了 `@misoto22/design/website-base.css`。',
+  [fingerprint(
+    "That ring now sits in the base layer, so a primitive's own outline utility wins over it again. Unlayered, it beat `outline-none` and drew a clipped square around the `Command` input in every host that loaded the website styles.",
+  )]: '这个焦点环现在放在 base 层里，所以基础组件自己的 outline 工具类重新胜过它。它原先不在任何层里，压过了 `outline-none`，在每个加载了网站样式的使用方中，都会在 `Command` 输入框周围画出一个被裁切的方框。',
+  [fingerprint(
+    "`website-motion.css` is removed. No component used its unprefixed classes and keyframes, and its `@keyframes pulse` shared a name with the one Tailwind's `animate-pulse` reads.",
+  )]: '`website-motion.css` 已移除。没有任何组件用到它那些不带前缀的 class 和关键帧，而它的 `@keyframes pulse` 与 Tailwind 的 `animate-pulse` 所读取的关键帧同名。',
+  [fingerprint(
+    "The chart surface's keyboard focus ring moves to `keyframes.css`, so an application on `styles.css` keeps it.",
+  )]: '图表绘图区的键盘焦点环移到了 `keyframes.css`，所以使用 `styles.css` 的应用仍然保有它。',
+  [fingerprint(
+    'To migrate a website host, add the imports it now needs beside its existing stylesheet:',
+  )]: '迁移一个网站类使用方时，在它现有的样式表旁边加上它现在需要的 import：',
+  [fingerprint(
+    "`@import '@misoto22/design/website.css';` for the compositions.",
+  )]: "`@import '@misoto22/design/website.css';`，用于组合组件。",
+  [fingerprint(
+    "`@import '@misoto22/design/website-base.css';` for the document defaults and the focus ring, when the whole page is a website.",
+  )]: "`@import '@misoto22/design/website-base.css';`，用于文档级默认样式和焦点环，前提是整个页面就是一个网站。",
+  [fingerprint(
+    'Copy any of `.route-enter`, `.panel-in`, `.sheet-in`, `.scrim-in`, `.ask-launcher` or `::highlight(ask-passage)` the host still uses into its own stylesheet.',
+  )]: '使用方仍在用的 `.route-enter`、`.panel-in`、`.sheet-in`、`.scrim-in`、`.ask-launcher` 或 `::highlight(ask-passage)`，请复制到它自己的样式表里。',
+  [fingerprint(
+    'An application that renders only the primitives needs no change.',
+  )]: '只渲染基础组件的应用无需任何改动。',
 }
 
 /** The English a translation was made from, for the orphan check. */
