@@ -49,8 +49,9 @@
  *   bin's `init` looks for the pre-rename skill and AGENTS.md section by their
  *   old names), `scripts/codemods/**` (this script and its
  *   fixtures), and build output (`dist/`, `out/`, `src/generated/`).
- *   `--package` also skips `.changeset/*.md`, which name the package a pending
- *   release was written against.
+ *   `--prefix` and `--package` also skip `.changeset/*.md`: a pending changeset
+ *   names what its release was written against, and the rename's own changeset
+ *   has to spell out the old names it replaces.
  * - Every file `.rulesync/managed-files.json` lists is harness-generated and
  *   hash-locked, so it is never edited, renamed, or counted as a leftover or a
  *   slug blocker. The run names the ones still holding an old name: rebuild
@@ -98,7 +99,7 @@ export const MODES = {
       { from: /(?<![A-Za-z0-9_])m22:palette/g, to: 'folio:palette' },
     ],
     leftover: /m22[-:]/g,
-    skip: [],
+    skip: ['.changeset/*.md'],
   },
   package: {
     rules: [

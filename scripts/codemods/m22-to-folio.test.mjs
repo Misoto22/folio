@@ -180,10 +180,11 @@ describe('the skip list', () => {
     }
   }
 
-  it('skips pending changesets only under --package', () => {
+  it('skips pending changesets under --prefix and --package, not --slug', () => {
     assert.equal(isSkipped('.changeset/brave-owls.md', 'package'), true)
-    assert.equal(isSkipped('.changeset/brave-owls.md', 'prefix'), false)
+    assert.equal(isSkipped('.changeset/brave-owls.md', 'prefix'), true)
     assert.equal(isSkipped('.changeset/brave-owls.md', 'slug'), false)
+    assert.equal(isSkipped('.changeset/config.json', 'prefix'), false)
   })
 
   it('does not skip ordinary sources', () => {

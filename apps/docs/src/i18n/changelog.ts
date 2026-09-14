@@ -53,10 +53,22 @@ const ZH: Record<string, string> = {
   )]: '`@misoto22/design` 更名为 `@misoto22/folio`，类名、`data-` 属性与自定义属性的前缀由 `m22-` 改为 `folio-`。',
   [fingerprint(
     'Every component, prop, token and entry point is unchanged; only the names below move. `@misoto22/design` receives no further releases, so upgrading is swapping the dependency and replacing the old names in imports, stylesheets and selectors.',
-  )]: '所有组件、属性、token 和入口都没有变，变的只是下表里的名字。`@misoto22/design` 不会再发布新版本，所以升级就是换掉依赖，再把 import、样式表和选择器里的旧名字替换掉。',
+  )]: '所有组件、属性、token 和入口都没有变，变的只是下面这些名字。`@misoto22/design` 不会再发布新版本，所以升级就是换掉依赖，再把 import、样式表和选择器里的旧名字替换掉。',
   [fingerprint(
-    '| Before | After | |---|---| | `@misoto22/design`, `@misoto22/design/charts`, `@misoto22/design/styles.css` … | `@misoto22/folio`, `@misoto22/folio/charts`, `@misoto22/folio/styles.css` … | | `npx misoto22-design docs Button` | `npx @misoto22/folio docs Button` | | the `misoto22-design` bin | `folio-design` | | `skills/misoto22-design/` | `skills/folio-design/` | | `.m22-*` classes and `m22-*` keyframes | `.folio-*` and `folio-*` | | `data-m22-animated`, `data-m22-article`, `data-m22-menu` | `data-folio-animated`, `data-folio-article`, `data-folio-menu` | | `--m22-media-aspect`, `--m22-media-max-block` | `--folio-media-aspect`, `--folio-media-max-block` | | the `m22:palette` event | `folio:palette` |',
-  )]: '| 之前 | 之后 | |---|---| | `@misoto22/design`、`@misoto22/design/charts`、`@misoto22/design/styles.css` … | `@misoto22/folio`、`@misoto22/folio/charts`、`@misoto22/folio/styles.css` … | | `npx misoto22-design docs Button` | `npx @misoto22/folio docs Button` | | 可执行文件 `misoto22-design` | `folio-design` | | `skills/misoto22-design/` | `skills/folio-design/` | | 类名 `.m22-*` 与关键帧 `m22-*` | `.folio-*` 与 `folio-*` | | `data-m22-animated`、`data-m22-article`、`data-m22-menu` | `data-folio-animated`、`data-folio-article`、`data-folio-menu` | | `--m22-media-aspect`、`--m22-media-max-block` | `--folio-media-aspect`、`--folio-media-max-block` | | 事件 `m22:palette` | `folio:palette` |',
+    '`@misoto22/design`, `@misoto22/design/charts`, `@misoto22/design/styles.css` … → `@misoto22/folio`, `@misoto22/folio/charts`, `@misoto22/folio/styles.css` …',
+  )]: '`@misoto22/design`、`@misoto22/design/charts`、`@misoto22/design/styles.css` … → `@misoto22/folio`、`@misoto22/folio/charts`、`@misoto22/folio/styles.css` …',
+  [fingerprint('`npx misoto22-design docs Button` → `npx @misoto22/folio docs Button`')]:
+    '`npx misoto22-design docs Button` → `npx @misoto22/folio docs Button`',
+  [fingerprint('The `misoto22-design` bin → `folio-design`')]: '可执行文件 `misoto22-design` → `folio-design`',
+  [fingerprint('`skills/misoto22-design/` → `skills/folio-design/`')]: '`skills/misoto22-design/` → `skills/folio-design/`',
+  [fingerprint('`.m22-*` classes and `m22-*` keyframes → `.folio-*` and `folio-*`')]:
+    '类名 `.m22-*` 与关键帧 `m22-*` → `.folio-*` 与 `folio-*`',
+  [fingerprint(
+    '`data-m22-animated`, `data-m22-article`, `data-m22-menu` → `data-folio-animated`, `data-folio-article`, `data-folio-menu`',
+  )]: '`data-m22-animated`、`data-m22-article`、`data-m22-menu` → `data-folio-animated`、`data-folio-article`、`data-folio-menu`',
+  [fingerprint('`--m22-media-aspect`, `--m22-media-max-block` → `--folio-media-aspect`, `--folio-media-max-block`')]:
+    '`--m22-media-aspect`、`--m22-media-max-block` → `--folio-media-aspect`、`--folio-media-max-block`',
+  [fingerprint('The `m22:palette` event → `folio:palette`')]: '事件 `m22:palette` → `folio:palette`',
   [fingerprint(
     "`npx @misoto22/folio init` moves a skill an earlier version installed at `.agents/skills/misoto22-design` or `.claude/skills/misoto22-design` to `folio-design`, and rewrites the section `--agents-md` wrote into `AGENTS.md`, so a project is not left with two copies of the skill or with instructions naming a bin that is gone.",
   )]: '`npx @misoto22/folio init` 会把旧版本装在 `.agents/skills/misoto22-design` 或 `.claude/skills/misoto22-design` 的 skill 挪到 `folio-design`，并改写 `--agents-md` 当初写进 `AGENTS.md` 的那一节，免得项目里留着两份 skill，或者留着一段指向已经不存在的可执行文件的说明。',
