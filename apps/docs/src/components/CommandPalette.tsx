@@ -21,6 +21,7 @@ import { SEARCH_TERMS } from '@/content/haystack'
 import { componentName, foundationCopy, groupName } from '@/i18n/content'
 import { localePath } from '@/i18n/locales'
 import { useLocale, useMessages } from '@/i18n/useLocale'
+import { STORAGE_KEYS } from '@/lib/storage-keys'
 
 /**
  * ⌘K, on every page.
@@ -165,7 +166,7 @@ export function CommandPalette() {
               const next = document.documentElement.dataset.mode === 'dark' ? 'light' : 'dark'
               document.documentElement.dataset.mode = next
               try {
-                localStorage.setItem('m22-mode', next)
+                localStorage.setItem(STORAGE_KEYS.mode, next)
               } catch {
                 // A private window still toggles; it just does not remember.
               }

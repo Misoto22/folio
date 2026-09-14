@@ -25,6 +25,7 @@ import { HAS_SIDEBAR, SECTIONS, SECTION_ROOT, sectionFor, type SectionId } from 
 import { localePath } from '@/i18n/locales'
 import { useLocale, useMessages } from '@/i18n/useLocale'
 import { BRAND_NAME } from '@/lib/brand'
+import { STORAGE_KEYS } from '@/lib/storage-keys'
 
 /**
  * The frame every page sits in: a fixed sidebar on a desktop, a drawer under
@@ -42,14 +43,15 @@ export function DocsShell({ children }: { children: ReactNode }) {
     // Everything this used to keep by hand — which media query makes the rail a
     // drawer, whether a closed one is `inert`, where the docked state is
     // remembered — is the component's now. `1024` is `lg`, the width the rest
-    // of this file already switches at; `m22-sidebar` is the key the shell was
-    // already writing, so a reader who had put the rail away keeps it away
-    // across this change. `shortcut={null}` because this site's chord is ⌘K and
-    // taking a second one nobody asked for is not a refactor.
+    // of this file already switches at; the key is `STORAGE_KEYS.sidebar`, and
+    // the pre-paint script copies a value saved under its legacy name forward
+    // before this mounts, so a reader who had put the rail away keeps it away.
+    // `shortcut={null}` because this site's chord is ⌘K and taking a second one
+    // nobody asked for is not a refactor.
     <SidebarProvider
       collapsible="offcanvas"
       breakpoint="lg"
-      persist="m22-sidebar"
+      persist={STORAGE_KEYS.sidebar}
       shortcut={null}
     >
       <Frame>{children}</Frame>

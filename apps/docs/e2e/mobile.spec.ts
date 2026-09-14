@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
+import { STORAGE_KEYS } from '../src/lib/storage-keys'
 import { ROUTES } from './routes'
 
 /**
@@ -185,13 +186,16 @@ const RESPONSIVE = ['/', '/components/app-shell/', '/components/table/', '/templ
 for (const theme of ['light', 'dark'] as const) {
   for (const route of RESPONSIVE) {
     test(`${theme}: ${route} has no axe violations on a phone`, async ({ page }) => {
-      await page.addInitScript((value) => {
-        try {
-          window.localStorage.setItem('m22-mode', value)
-        } catch {
-          // A storage-blocked context still gets the attribute below.
-        }
-      }, theme)
+      await page.addInitScript(
+        ({ key, value }) => {
+          try {
+            window.localStorage.setItem(key, value)
+          } catch {
+            // A storage-blocked context still gets the attribute below.
+          }
+        },
+        { key: STORAGE_KEYS.mode, value: theme },
+      )
       await page.goto(route)
       await expect(page.locator('html')).toHaveAttribute('data-mode', theme)
 
