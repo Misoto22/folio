@@ -3,11 +3,11 @@
   "files": [
     {
       "path": ".cursor/rules/misoto-harness.mdc",
-      "sha256": "32320f3f02048da9a528b4958780276ec155044a27789358106ddcb45b9f720d"
+      "sha256": "21c9588744a8882e80f3379fc76417ad6572e65f5a9c2e437d469ab9c3dc4681"
     },
     {
       "path": ".github/workflows/misoto-harness.yml",
-      "sha256": "81aa41f55b4d9bce6ec7b55fc56bebeca18c414ac38ba8ef5e8f25a00c9f830f"
+      "sha256": "858738a9c455a14ccac96ce72ac299e61339971cc27df866639bf78cb86c0bb3"
     },
     {
       "path": ".rulesync/harness-check.py",
@@ -23,7 +23,7 @@
     },
     {
       "path": ".rulesync/rules/00-generated-metadata.md",
-      "sha256": "3dd6892a7b9ef981eece16358a546588e1d0e85bb635058c311805fe809796d7"
+      "sha256": "3e2edd018abd673371b5951bb86803a2a2f780034b3c42b9020050d54cc0058a"
     },
     {
       "path": ".rulesync/rules/10-core-behavior.md",
@@ -63,15 +63,15 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "cb79d2fb96b5c4d0faaf160b87e062999ecaa374ef3fbc41f81bd04abde69e79"
+      "sha256": "3d71ee4db92e4921e68d40334681bc446ef53b3f666c00841162f572c1e462f1"
     },
     {
       "path": "CLAUDE.md",
-      "sha256": "0b44e62a3ea67b6a9cb769247ea16ad7fd413ce282c6393c8bfe4ec344d88221"
+      "sha256": "34a812eec7ad9ceac4c78f9161bfa4faf5c9da3728a1f01caaf06481a801c646"
     },
     {
       "path": "GEMINI.md",
-      "sha256": "425c43d92543a0d67cf372fe7097545d87f2fa150b2e237cbc347b023f0e2abf"
+      "sha256": "5b8c923f9fe7fddd8563f4ceab73927c755298e5bd8e3701cdd49adb374694fd"
     },
     {
       "path": "rulesync.jsonc",
@@ -79,7 +79,7 @@
     },
     {
       "path": "rulesync.lock.json",
-      "sha256": "62fc5614f5cb8ec1a7b8e8222fd514588192b77f70556decc77df128fd6fed89"
+      "sha256": "b0d0836775b55192f96b0e0587e263e5579c546c396b566f1de26a897a6a4361"
     }
   ]
 }
