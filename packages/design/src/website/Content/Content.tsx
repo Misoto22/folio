@@ -24,7 +24,7 @@ export interface StepSequenceProps extends HTMLAttributes<HTMLElement> {
 /** A process rail whose source order, counters and annotations belong to the host. */
 export function StepSequence({ spec, className, ...rest }: StepSequenceProps) {
   return (
-    <figure className={cn('m22-step-sequence', className)} role="group" aria-label={spec.label ?? spec.caption} {...rest}>
+    <figure className={cn('folio-step-sequence', className)} role="group" aria-label={spec.label ?? spec.caption} {...rest}>
       {/* The core rail, carried as ARIA roles rather than <ol>/<li>: inside
           article prose a real list takes the article's indent and item spacing.
           The anchor is filled but not announced as `aria-current` \u2014 hosts use it
@@ -36,19 +36,19 @@ export function StepSequence({ spec, className, ...rest }: StepSequenceProps) {
             role="listitem"
             key={step.n}
             data-anchor={step.anchor || undefined}
-            className="m22-sequence-step"
+            className="folio-sequence-step"
             filled={step.anchor}
             last={index === spec.steps.length - 1}
             marker={step.n}
-            markerClassName="m22-sequence-counter"
+            markerClassName="folio-sequence-counter"
             title={step.label}
             note={step.note ?? '\u00a0'}
           >
-            {step.tags && step.tags.length > 0 && <span className="m22-sequence-tags">{step.tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}</span>}
+            {step.tags && step.tags.length > 0 && <span className="folio-sequence-tags">{step.tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}</span>}
           </StepRailItem>
         ))}
       </div>
-      {spec.caption && <div className="m22-sequence-caption">{spec.caption}</div>}
+      {spec.caption && <div className="folio-sequence-caption">{spec.caption}</div>}
     </figure>
   )
 }
@@ -57,7 +57,7 @@ export type ContentTableProps = TableHTMLAttributes<HTMLTableElement>
 
 /** Keeps a rendered article table intact inside a keyboard-scrollable region. */
 export function ContentTable({ children, ...props }: ContentTableProps) {
-  return <div className="m22-content-table" tabIndex={0}><table {...props}>{children}</table></div>
+  return <div className="folio-content-table" tabIndex={0}><table {...props}>{children}</table></div>
 }
 
 export interface ExternalLinkMarkProps {
@@ -65,5 +65,5 @@ export interface ExternalLinkMarkProps {
 }
 
 export function ExternalLinkMark({ children = '↗' }: ExternalLinkMarkProps) {
-  return <span className="m22-external-link-mark" aria-hidden="true">{children}</span>
+  return <span className="folio-external-link-mark" aria-hidden="true">{children}</span>
 }

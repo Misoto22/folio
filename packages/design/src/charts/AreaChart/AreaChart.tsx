@@ -89,7 +89,7 @@ import {
 const STROKE_WIDTH = 0.8
 
 /** Every stacked area shares one id, which is what makes them stack. */
-const STACK_ID = 'm22-area-stack'
+const STACK_ID = 'folio-area-stack'
 
 /**
  * Room around the plot, so the first and last tick labels are not sliced by the

@@ -170,7 +170,7 @@ export function AppShell({
         inert={isDrawer && !open}
         // The transition is motion like any other, and the reduced-motion rule
         // in keyframes.css matches on this attribute.
-        data-m22-animated
+        data-folio-animated
         className={cn(
           'fixed inset-y-0 start-0 z-(--z-modal) flex w-60 flex-col border-e border-(--rule) bg-(--paper) transition-transform duration-(--duration-slow) ease-(--ease-out-expo)',
           // The drawer slides in from the edge reading STARTS at, so in an

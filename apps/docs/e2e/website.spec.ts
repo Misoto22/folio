@@ -4,8 +4,8 @@ test('compact records use the reading column when their optional index is absent
   await page.setViewportSize({ width: 1440, height: 1000 })
   await page.goto('/components/collection/')
   const example = page.locator('[data-example="Collection/01-searchable-records"]')
-  const row = example.locator('.m22-record-link').first()
-  const copy = row.locator('.m22-record-copy')
+  const row = example.locator('.folio-record-link').first()
+  const copy = row.locator('.folio-record-copy')
   await expect(copy.getByRole('heading', { name: 'A practice of attention' })).toBeVisible()
   const rowBounds = await row.boundingBox()
   const copyBounds = await copy.boundingBox()
@@ -18,7 +18,7 @@ test('site navigation is laid out against its preview rather than the window', a
   await page.setViewportSize({ width: 1440, height: 1000 })
   await page.goto('/components/site-navigation/')
   const frame = page.locator('[data-example="SiteNavigation/01-navigation-and-preferences"] [data-canvas="preview"]')
-  const navigation = frame.locator('.m22-site-navigation')
+  const navigation = frame.locator('.folio-site-navigation')
   const language = navigation.getByRole('button', { name: 'Language' })
   await expect(language).toBeVisible()
   // `toBeVisible` ignores clipping, and clipping is the failure: a header as
@@ -52,7 +52,7 @@ test("a primitive's outline utility wins over the site-wide focus ring", async (
 
 test('website compositions keep the site-wide focus ring', async ({ page }) => {
   await page.goto('/patterns/collection/')
-  const filter = page.locator('[data-example="Collection/01-searchable-records"] .m22-collection-filters > button').first()
+  const filter = page.locator('[data-example="Collection/01-searchable-records"] .folio-collection-filters > button').first()
   await filter.scrollIntoViewIfNeeded()
   await page.keyboard.press('Tab')
   await filter.focus()

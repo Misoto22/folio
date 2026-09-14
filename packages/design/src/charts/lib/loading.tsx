@@ -66,8 +66,8 @@ export function LoadingIndicator({ isLoading }: { isLoading: boolean }) {
       >
         <span
           aria-hidden
-          data-m22-animated
-          className="size-3 rounded-(--radius-pill) border border-(--rule-2) border-t-(--ink) motion-safe:animate-[m22-spin_0.8s_linear_infinite]"
+          data-folio-animated
+          className="size-3 rounded-(--radius-pill) border border-(--rule-2) border-t-(--ink) motion-safe:animate-[folio-spin_0.8s_linear_infinite]"
         />
         Loading
       </output>

@@ -33,7 +33,7 @@ export const NAVIGATION_ZH: Record<string, ComponentCopyZh> = {
       { hash: '9fc40436', element: '根节点', description: 'Tabs——Radix 的根节点，原样再导出。它什么都不画，却拥有一切：value 或 defaultValue，以及 activationMode。value 和 defaultValue 都不给，就没有任何标签被选中，也没有任何面板被挂载。' },
       { hash: 'b9a5c02b', element: '标签条', description: 'TabsList——那一行 role="tablist"，坐在一条发丝线上，用 scroll-slim 在自己这条轴上滚动。你不给，它就没有无障碍名称。' },
       { hash: '8f00e5d6', element: '标签', description: 'TabsTrigger，md 控件高度，标签文字只占一行。每个标签都带着那道 2px 的选中记号，在它成为选中项之前是透明的；这道记号用 -mb-px 拉到标签条自己的边框上，所以两者共用一条线，而不是叠成一道 3px 的边。' },
-      { hash: '1bfb6de4', element: '面板', description: 'TabsContent，靠 value 相等和它的标签配对。只有在它是选中项时才挂载，并且标了 data-m22-animated，所以对要求少一点动效的读者，它的入场是被直接去掉的。' },
+      { hash: '1bfb6de4', element: '面板', description: 'TabsContent，靠 value 相等和它的标签配对。只有在它是选中项时才挂载，并且标了 data-folio-animated，所以对要求少一点动效的读者，它的入场是被直接去掉的。' },
     ],
     practices: [
       ['be833d77', '根节点要给 defaultValue 或 value：两个都不给，就什么都匹配不上，每个面板都不挂载，页面渲染出来是一条标签条加一片空白，没有任何东西说明缺了什么。'],
@@ -55,7 +55,7 @@ export const NAVIGATION_ZH: Record<string, ComponentCopyZh> = {
       { hash: '811a6883', element: '标题', description: 'Radix 的 Accordion.Header，它是一个 <h3>，而且不收 level 属性。所以无论这个手风琴恰好放在哪儿，每一行都往文档大纲里加一个 h3。' },
       { hash: '9c43b954', element: '触发器', description: '那个标题里面的满宽按钮：title 靠着起始边，记号靠着末端边，py-4。展开的那个面板，名字也是由它给的。' },
       { hash: '30ab2864', element: '记号', description: '一个 16px 的加号，aria-hidden，行展开时旋转 45° 变成减号。它画出来的这个状态，对其他所有人是由触发器上的 aria-expanded 承担的。' },
-      { hash: '83fa576d', element: '面板', description: 'Radix 的 Content——一个由它的触发器命名的 role="region"，只在展开时挂载，overflow-hidden 好让量出来的高度能做动画，里面 pb-4 pe-8，这样文字停在记号那一列之前。它带着 data-m22-animated，所以对要求少一点动效的读者，展开和收起是被整个去掉的。' },
+      { hash: '83fa576d', element: '面板', description: 'Radix 的 Content——一个由它的触发器命名的 role="region"，只在展开时挂载，overflow-hidden 好让量出来的高度能做动画，里面 pb-4 pe-8，这样文字停在记号那一列之前。它带着 data-folio-animated，所以对要求少一点动效的读者，展开和收起是被整个去掉的。' },
     ],
     practices: [
       ['74ad841e', 'type="single" 要连着 collapsible 一起传：不传，就没有一个空值可以回去，于是读者展开的第一行，是一行他再也关不上的行。'],
@@ -168,7 +168,7 @@ export const NAVIGATION_ZH: Record<string, ComponentCopyZh> = {
       { hash: '7974c97e', element: '根节点', description: 'Collapsible——Radix 的根节点，拿着 open 或 defaultOpen，什么都不画。CollapsibleSection 是同一个根节点，只是触发器和面板已经组好了，多数调用处要的是它。' },
       { hash: '0cd09398', element: '触发器', description: '一个带着 aria-expanded 和 aria-controls 的普通 <button>——而且和手风琴的行不同，它外面根本没有包任何标题。这里没有任何东西会出现在文档大纲里。' },
       { hash: '7006c188', element: '记号', description: '一个旋转 180° 的尖角，特意选来和手风琴的加号分开：这里展开的是同一件东西的更多部分，而手风琴的一行打开的是一个独立的答案。' },
-      { hash: 'df0f0348', element: '面板', description: 'Radix 的 Content，收起时卸载，按量出来的 --radix-collapsible-content-height 做动画，所以一组很长的和一组很短的用时一样。它是一个光秃秃的 div：没有 region role，也没有自己的名字，这一点同样和手风琴不同。它和散着用的 CollapsibleContent 都带着 data-m22-animated，所以在 prefers-reduced-motion 下两者是一致的，而不是只有其中一个遵守。' },
+      { hash: 'df0f0348', element: '面板', description: 'Radix 的 Content，收起时卸载，按量出来的 --radix-collapsible-content-height 做动画，所以一组很长的和一组很短的用时一样。它是一个光秃秃的 div：没有 region role，也没有自己的名字，这一点同样和手风琴不同。它和散着用的 CollapsibleContent 都带着 data-folio-animated，所以在 prefers-reduced-motion 下两者是一致的，而不是只有其中一个遵守。' },
     ],
     practices: [
       ['47980845', '这一段真的是一个段落时，自己给触发器套一个标题：Accordion 把每个触发器都包进 <h3>，而这里是刻意一个都不包——所以一个由 CollapsibleSection 搭起来的页面，按标题导航时没有任何东西可以停。'],

@@ -22,10 +22,10 @@ export function MediaMasthead({ eyebrow, title, description, headingLevel = 1, c
   const Heading = `h${headingLevel}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
   return (
-    <header className={cn('m22-media-masthead', className)} {...rest}>
-      {eyebrow && <p className="m22-media-eyebrow">{eyebrow}</p>}
-      <Heading className="m22-media-masthead-title">{title}</Heading>
-      {description && <p className="m22-media-description">{description}</p>}
+    <header className={cn('folio-media-masthead', className)} {...rest}>
+      {eyebrow && <p className="folio-media-eyebrow">{eyebrow}</p>}
+      <Heading className="folio-media-masthead-title">{title}</Heading>
+      {description && <p className="folio-media-description">{description}</p>}
     </header>
   )
 }
@@ -42,16 +42,16 @@ export interface PhotographFeatureProps extends Omit<HTMLAttributes<HTMLElement>
 /** A photograph and an editorial introduction, with the original image ratio. */
 export function PhotographFeature({ image, title, eyebrow, description, caption, action, className, ...rest }: PhotographFeatureProps) {
   return (
-    <section className={cn('m22-photograph-feature', className)} {...rest}>
-      <div className="m22-photograph-feature-copy">
-        {eyebrow && <p className="m22-media-eyebrow">{eyebrow}</p>}
-        <h2 className="m22-photograph-feature-title">{title}</h2>
-        {description && <div className="m22-media-description">{description}</div>}
-        {action && <div className="m22-photograph-feature-action">{action}</div>}
+    <section className={cn('folio-photograph-feature', className)} {...rest}>
+      <div className="folio-photograph-feature-copy">
+        {eyebrow && <p className="folio-media-eyebrow">{eyebrow}</p>}
+        <h2 className="folio-photograph-feature-title">{title}</h2>
+        {description && <div className="folio-media-description">{description}</div>}
+        {action && <div className="folio-photograph-feature-action">{action}</div>}
       </div>
-      <figure className="m22-photograph-feature-figure">
-        <div className="m22-photograph-feature-image">{image}</div>
-        {caption && <figcaption className="m22-photograph-feature-caption">{caption}</figcaption>}
+      <figure className="folio-photograph-feature-figure">
+        <div className="folio-photograph-feature-image">{image}</div>
+        {caption && <figcaption className="folio-photograph-feature-caption">{caption}</figcaption>}
       </figure>
     </section>
   )
@@ -67,10 +67,10 @@ export interface MediaCollectionProps extends HTMLAttributes<HTMLDivElement> {
 /** Page-level gallery composition; the host owns its filters and collection. */
 export function MediaCollection({ masthead, controls, collectionId, footer, children, className, ...rest }: MediaCollectionProps) {
   return (
-    <div className={cn('m22-media-gallery-page', className)} {...rest}>
+    <div className={cn('folio-media-gallery-page', className)} {...rest}>
       {masthead}
-      {controls && <div className="m22-media-container">{controls}</div>}
-      <section id={collectionId} className="m22-media-gallery-content">{children}</section>
+      {controls && <div className="folio-media-container">{controls}</div>}
+      <section id={collectionId} className="folio-media-gallery-content">{children}</section>
       {footer}
     </div>
   )
@@ -86,9 +86,9 @@ export interface MediaGalleryProps extends HTMLAttributes<HTMLUListElement> {
 /** Level mounts keep unlike aspect ratios aligned without cropping the prints. */
 export function MediaGallery({ children, emptyTitle, emptyAction, className, ...rest }: MediaGalleryProps) {
   return (
-    <div className="m22-media-container">
+    <div className="folio-media-container">
       {emptyTitle ? <EmptyState title={emptyTitle} action={emptyAction} /> : (
-        <ul role="list" className={cn('m22-media-gallery', className)} {...rest}>{children}</ul>
+        <ul role="list" className={cn('folio-media-gallery', className)} {...rest}>{children}</ul>
       )}
     </div>
   )
@@ -105,13 +105,13 @@ export interface MediaGalleryItemProps extends Omit<HTMLAttributes<HTMLLIElement
 
 export function MediaGalleryItem({ children, title, index, location, orientation, className, ...rest }: MediaGalleryItemProps) {
   return (
-    <li className={cn('m22-media-gallery-item', className)} {...rest}>
+    <li className={cn('folio-media-gallery-item', className)} {...rest}>
       <figure>
-        <Slot className="m22-media-gallery-link" data-photo-orientation={orientation}>{children}</Slot>
-        <figcaption className="m22-media-gallery-caption">
-          {index != null && <span className="m22-media-gallery-index" aria-hidden="true">{index}</span>}
-          <span className="m22-media-gallery-title">{title}</span>
-          {location && <span className="m22-media-gallery-location">{location}</span>}
+        <Slot className="folio-media-gallery-link" data-photo-orientation={orientation}>{children}</Slot>
+        <figcaption className="folio-media-gallery-caption">
+          {index != null && <span className="folio-media-gallery-index" aria-hidden="true">{index}</span>}
+          <span className="folio-media-gallery-title">{title}</span>
+          {location && <span className="folio-media-gallery-location">{location}</span>}
         </figcaption>
       </figure>
     </li>
@@ -126,17 +126,17 @@ export interface MediaGallerySkeletonProps {
 export function MediaGallerySkeleton({ label, count = 6 }: MediaGallerySkeletonProps) {
   return (
     <SkeletonPage label={label} aria-label={label}>
-      <header className="m22-media-masthead">
+      <header className="folio-media-masthead">
         <SkeletonLine className="w-24" />
         <SkeletonBlock className="mt-4 h-9 w-[min(560px,90%)]" />
         <SkeletonBlock className="mt-2.5 h-9 w-[min(380px,70%)]" />
       </header>
-      <div className="m22-media-container"><SkeletonLine className="h-11 w-full" /></div>
-      <section data-loading-content className="m22-media-gallery-content">
+      <div className="folio-media-container"><SkeletonLine className="h-11 w-full" /></div>
+      <section data-loading-content className="folio-media-gallery-content">
         <MediaGallery>
           {Array.from({ length: count }, (_, index) => (
             <li key={index}>
-              <SkeletonBlock className="m22-media-gallery-mount" />
+              <SkeletonBlock className="folio-media-gallery-mount" />
               <SkeletonLine className="mt-3 w-3/4" />
             </li>
           ))}
@@ -170,24 +170,24 @@ export function MediaDetailLayout({ title, titleId, headingLevel = 1, category, 
   const Heading = `h${headingLevel}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
   return (
-    <div className="m22-media-detail-page">
-      <article className={cn('m22-media-detail', className)} aria-labelledby={titleId} data-photo-detail {...rest}>
-        <header className="m22-media-index-bar">
+    <div className="folio-media-detail-page">
+      <article className={cn('folio-media-detail', className)} aria-labelledby={titleId} data-photo-detail {...rest}>
+        <header className="folio-media-index-bar">
           <Button asChild variant="ghost">{backLink}</Button>
-          {index && <span className="m22-media-index">{index}</span>}
+          {index && <span className="folio-media-index">{index}</span>}
         </header>
-        <div className="m22-media-spread" data-photo-spread={orientation === 'landscape' ? 'wide' : 'tall'}>
-          <div className="m22-media-well" data-photo-media>{media}</div>
-          <aside className="m22-media-ledger" aria-label={notesLabel} data-photo-ledger>
-            <div className="m22-media-ledger-narrative">
-              <div className="m22-media-ledger-lead">
-                {category && <p className="m22-media-eyebrow">{category}</p>}
-                <Heading id={titleId} className="m22-media-detail-title">{title}</Heading>
+        <div className="folio-media-spread" data-photo-spread={orientation === 'landscape' ? 'wide' : 'tall'}>
+          <div className="folio-media-well" data-photo-media>{media}</div>
+          <aside className="folio-media-ledger" aria-label={notesLabel} data-photo-ledger>
+            <div className="folio-media-ledger-narrative">
+              <div className="folio-media-ledger-lead">
+                {category && <p className="folio-media-eyebrow">{category}</p>}
+                <Heading id={titleId} className="folio-media-detail-title">{title}</Heading>
               </div>
               {light}
-              {actions && <div className="m22-media-actions" data-photo-actions>{actions}</div>}
+              {actions && <div className="folio-media-actions" data-photo-actions>{actions}</div>}
             </div>
-            <div className="m22-media-ledger-data">{metadata}{location}</div>
+            <div className="folio-media-ledger-data">{metadata}{location}</div>
           </aside>
         </div>
         {pager}
@@ -202,7 +202,7 @@ export interface MediaMetadataProps extends HTMLAttributes<HTMLDListElement> {
 }
 
 export function MediaMetadata({ items, className, ...rest }: MediaMetadataProps) {
-  return <DescriptionList items={items} className={cn('m22-media-metadata', className)} data-photo-specs {...rest} />
+  return <DescriptionList items={items} className={cn('folio-media-metadata', className)} data-photo-specs {...rest} />
 }
 
 export interface MediaPagerProps extends HTMLAttributes<HTMLElement> {
@@ -213,7 +213,7 @@ export interface MediaPagerProps extends HTMLAttributes<HTMLElement> {
 
 export function MediaPager({ label, previous, next, className, ...rest }: MediaPagerProps) {
   if (!previous && !next) return null
-  return <nav aria-label={label} className={cn('m22-media-pager', className)} data-photo-pager {...rest}>{previous || <span />}{next || <span />}</nav>
+  return <nav aria-label={label} className={cn('folio-media-pager', className)} data-photo-pager {...rest}>{previous || <span />}{next || <span />}</nav>
 }
 
 export interface MediaPagerItemProps {
@@ -226,15 +226,15 @@ export interface MediaPagerItemProps {
 
 export function MediaPagerItem({ link, direction, label, title, image }: MediaPagerItemProps) {
   return (
-    <Slot className="m22-media-pager-link" data-direction={direction}>
+    <Slot className="folio-media-pager-link" data-direction={direction}>
       {/** Slot composes the host link while retaining its routing behavior. */}
       {replaceSlotContent(link, <>
-        {image && direction === 'previous' && <span className="m22-media-pager-image">{image}</span>}
-        <span className="m22-media-pager-copy">
-          <span className="m22-media-pager-label">{label}</span>{' '}
-          <strong className="m22-media-pager-title">{title}</strong>
+        {image && direction === 'previous' && <span className="folio-media-pager-image">{image}</span>}
+        <span className="folio-media-pager-copy">
+          <span className="folio-media-pager-label">{label}</span>{' '}
+          <strong className="folio-media-pager-title">{title}</strong>
         </span>
-        {image && direction === 'next' && <span className="m22-media-pager-image">{image}</span>}
+        {image && direction === 'next' && <span className="folio-media-pager-image">{image}</span>}
       </>)}
     </Slot>
   )
@@ -245,7 +245,7 @@ export interface MediaThumbnailStripProps extends HTMLAttributes<HTMLElement> {
 }
 
 export function MediaThumbnailStrip({ heading, children, className, ...rest }: MediaThumbnailStripProps) {
-  return <section className={cn('m22-media-thumbnails', className)} data-photo-related {...rest}><h2>{heading}</h2><div className="m22-media-thumbnail-list">{children}</div></section>
+  return <section className={cn('folio-media-thumbnails', className)} data-photo-related {...rest}><h2>{heading}</h2><div className="folio-media-thumbnail-list">{children}</div></section>
 }
 
 export interface MediaThumbnailProps {
@@ -253,7 +253,7 @@ export interface MediaThumbnailProps {
 }
 
 export function MediaThumbnail({ children }: MediaThumbnailProps) {
-  return <Slot className="m22-media-thumbnail">{children}</Slot>
+  return <Slot className="folio-media-thumbnail">{children}</Slot>
 }
 
 export interface MediaLightNoteLine {
@@ -270,7 +270,7 @@ export interface MediaLightNoteProps {
 
 /** The host supplies observations and formatted labels; this is presentation only. */
 export function MediaLightNote({ label, lines }: MediaLightNoteProps) {
-  return <div className="m22-media-light"><Badge tone="outline">{label}</Badge>{lines.map((line) => <div className="m22-media-light-line" key={line.id}>{line.icon}<span>{line.text}</span>{line.detail && <span className="m22-media-light-detail">{line.detail}</span>}</div>)}</div>
+  return <div className="folio-media-light"><Badge tone="outline">{label}</Badge>{lines.map((line) => <div className="folio-media-light-line" key={line.id}>{line.icon}<span>{line.text}</span>{line.detail && <span className="folio-media-light-detail">{line.detail}</span>}</div>)}</div>
 }
 
 export interface MediaMapSectionProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
@@ -283,7 +283,7 @@ export interface MediaMapSectionProps extends Omit<HTMLAttributes<HTMLElement>, 
 }
 
 export function MediaMapSection({ title, hint, aliasId, map, preview, className, ...rest }: MediaMapSectionProps) {
-  return <section className={cn('m22-media-map-section', className)} {...rest}><div className="m22-media-container">{aliasId && <span id={aliasId} className="m22-media-anchor" aria-hidden="true" />}<header><h2>{title}</h2>{hint && <p>{hint}</p>}</header><div className="m22-media-map-grid">{map}{preview}</div></div></section>
+  return <section className={cn('folio-media-map-section', className)} {...rest}><div className="folio-media-container">{aliasId && <span id={aliasId} className="folio-media-anchor" aria-hidden="true" />}<header><h2>{title}</h2>{hint && <p>{hint}</p>}</header><div className="folio-media-map-grid">{map}{preview}</div></div></section>
 }
 
 export interface MediaMapFrameProps extends HTMLAttributes<HTMLDivElement> {
@@ -294,7 +294,7 @@ export interface MediaMapFrameProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export function MediaMapFrame({ label, hint, navigation, compact = false, children, className, ...rest }: MediaMapFrameProps) {
-  return <div className={cn('m22-media-map-frame', compact && 'm22-media-map-frame-compact', className)} {...rest}>{label && <span className="m22-media-map-label">{label}</span>}<div className="m22-media-map-stage">{children}{hint && <div className="m22-media-map-hint">{hint}</div>}{navigation && <div className="m22-media-map-navigation">{navigation}</div>}</div></div>
+  return <div className={cn('folio-media-map-frame', compact && 'folio-media-map-frame-compact', className)} {...rest}>{label && <span className="folio-media-map-label">{label}</span>}<div className="folio-media-map-stage">{children}{hint && <div className="folio-media-map-hint">{hint}</div>}{navigation && <div className="folio-media-map-navigation">{navigation}</div>}</div></div>
 }
 
 export interface MediaMapNavigationProps {
@@ -312,7 +312,7 @@ export type MediaMapCanvasProps = ComponentPropsWithRef<'div'>
 
 /** A sized provider container. Map creation, themes and geographic math stay in the host. */
 export function MediaMapCanvas({ className, ...rest }: MediaMapCanvasProps) {
-  return <div className={cn('m22-media-map-canvas', className)} {...rest} />
+  return <div className={cn('folio-media-map-canvas', className)} {...rest} />
 }
 
 export interface MediaMapPreviewProps {
@@ -325,7 +325,7 @@ export interface MediaMapPreviewProps {
 }
 
 export function MediaMapPreview({ title, image, action, place, coordinates, children }: MediaMapPreviewProps) {
-  return <aside className="m22-media-map-preview"><div className="m22-media-map-preview-image">{image}{action && <div className="m22-media-map-preview-action">{action}</div>}</div><div className="m22-media-map-preview-copy"><h3>{title}</h3>{place && <p className="m22-media-map-place">{place}</p>}{coordinates && <div className="m22-media-map-coordinates">{coordinates}</div>}{children}</div></aside>
+  return <aside className="folio-media-map-preview"><div className="folio-media-map-preview-image">{image}{action && <div className="folio-media-map-preview-action">{action}</div>}</div><div className="folio-media-map-preview-copy"><h3>{title}</h3>{place && <p className="folio-media-map-place">{place}</p>}{coordinates && <div className="folio-media-map-coordinates">{coordinates}</div>}{children}</div></aside>
 }
 
 export interface MediaMapArea {
@@ -342,11 +342,11 @@ export interface MediaMapAreaListProps {
 
 export function MediaMapAreaList({ items, value, onValueChange }: MediaMapAreaListProps) {
   return (
-    <div className="m22-media-map-areas">
+    <div className="folio-media-map-areas">
       {items.map((item) => (
-        <Button key={item.id} variant="ghost" aria-pressed={value === item.id} onClick={() => onValueChange(item.id)} className="m22-media-map-area">
-          <span className="m22-media-map-area-name"><span aria-hidden="true" />{item.label}</span>{' '}
-          <span className="m22-media-map-area-count">{item.count}</span>
+        <Button key={item.id} variant="ghost" aria-pressed={value === item.id} onClick={() => onValueChange(item.id)} className="folio-media-map-area">
+          <span className="folio-media-map-area-name"><span aria-hidden="true" />{item.label}</span>{' '}
+          <span className="folio-media-map-area-count">{item.count}</span>
         </Button>
       ))}
     </div>
@@ -360,7 +360,7 @@ export interface MediaMapMarkerProps extends Omit<Extract<ButtonProps, { href?: 
 
 /** A keyboard-operable 44px marker for a host's map-provider portal. */
 export function MediaMapMarker({ label, active = false, className, ...rest }: MediaMapMarkerProps) {
-  return <Button {...rest} variant="ghost" iconOnly aria-label={label} aria-pressed={active} className={cn('m22-media-map-marker', className)} style={{ width: 44, height: 44, ...rest.style }}><MediaMapPin active={active} /></Button>
+  return <Button {...rest} variant="ghost" iconOnly aria-label={label} aria-pressed={active} className={cn('folio-media-map-marker', className)} style={{ width: 44, height: 44, ...rest.style }}><MediaMapPin active={active} /></Button>
 }
 
 export interface MediaMapPinProps {
@@ -368,9 +368,9 @@ export interface MediaMapPinProps {
 }
 
 export function MediaMapPin({ active = false }: MediaMapPinProps) {
-  return <span className="m22-media-map-pin" data-active={active || undefined} aria-hidden="true"><span /></span>
+  return <span className="folio-media-map-pin" data-active={active || undefined} aria-hidden="true"><span /></span>
 }
 
 export function MediaMapSkeleton() {
-  return <div className="m22-media-map-skeleton m22-media-container" aria-hidden="true"><SkeletonBlock className="m22-media-map-canvas" /></div>
+  return <div className="folio-media-map-skeleton folio-media-container" aria-hidden="true"><SkeletonBlock className="folio-media-map-canvas" /></div>
 }

@@ -21,10 +21,10 @@ describe('StepSequence', () => {
     const items = within(rail).getAllByRole('listitem')
     expect(items).toHaveLength(3)
     // The counters are the host's, not a recount from one.
-    expect([...rail.querySelectorAll('.m22-sequence-counter')].map((marker) => marker.textContent)).toEqual(['00', '01', '02'])
+    expect([...rail.querySelectorAll('.folio-sequence-counter')].map((marker) => marker.textContent)).toEqual(['00', '01', '02'])
     expect(within(rail).getByText('on the base branch')).toBeInTheDocument()
     const chip = within(rail).getByText('squash')
-    expect(chip.parentElement).toHaveClass('m22-sequence-tags')
+    expect(chip.parentElement).toHaveClass('folio-sequence-tags')
     expect(within(rail).getByText('Preflight marks every step RUN or SKIP.')).toBeInTheDocument()
   })
 
@@ -34,8 +34,8 @@ describe('StepSequence', () => {
     const [anchor, plain] = screen.getAllByRole('listitem')
     expect(anchor).toHaveAttribute('data-anchor', 'true')
     expect(plain).not.toHaveAttribute('data-anchor')
-    expect(anchor!.querySelector('.m22-sequence-counter')!.className).toContain('bg-(--accent)')
-    expect(plain!.querySelector('.m22-sequence-counter')!.className).not.toContain('bg-(--accent)')
+    expect(anchor!.querySelector('.folio-sequence-counter')!.className).toContain('bg-(--accent)')
+    expect(plain!.querySelector('.folio-sequence-counter')!.className).not.toContain('bg-(--accent)')
     // Hosts mark a terminal or preflight step for emphasis; "current step" would be untrue.
     expect(screen.getByRole('group').querySelector('[aria-current]')).toBeNull()
   })
@@ -45,13 +45,13 @@ describe('StepSequence', () => {
     const { container: site } = render(<StepSequence spec={{ steps: [{ n: '1', label: 'Collect', anchor: true }, { n: '2', label: 'Review' }] }} />)
 
     const coreMarkers = [...core.querySelectorAll('li > span.rounded-full')].map((marker) => marker.className)
-    const siteMarkers = [...site.querySelectorAll('.m22-sequence-counter')].map((marker) => marker.className.replace(' m22-sequence-counter', ''))
+    const siteMarkers = [...site.querySelectorAll('.folio-sequence-counter')].map((marker) => marker.className.replace(' folio-sequence-counter', ''))
     expect(siteMarkers).toEqual(coreMarkers)
     expect(site.querySelector('[role="list"]')!.className).toBe(core.querySelector('ol')!.className)
   })
 
   it('keeps list semantics as roles, so article prose does not restyle the rail', () => {
-    const { container } = render(<div data-m22-article><StepSequence spec={SPEC} /></div>)
+    const { container } = render(<div data-folio-article><StepSequence spec={SPEC} /></div>)
 
     expect(container.querySelector('ol, ul, li')).toBeNull()
     expect(screen.getByRole('list')).toBeInTheDocument()
@@ -71,6 +71,6 @@ describe('StepSequence', () => {
     const item = within(rail).getByRole('listitem')
     expect(item.textContent).toContain('Only ')
     expect(item.querySelector(':scope > span.w-px')).toBeNull()
-    expect(rail.querySelector('.m22-sequence-tags')).toBeNull()
+    expect(rail.querySelector('.folio-sequence-tags')).toBeNull()
   })
 })

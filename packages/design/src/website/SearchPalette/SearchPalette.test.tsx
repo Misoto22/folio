@@ -32,7 +32,7 @@ describe('SearchPalette', () => {
     expect(within(dialog).getByRole('combobox', { name: 'Query' })).toHaveFocus()
     // One dialog and one scrim: the palette is CommandDialog, not a second modal around it.
     expect(screen.getAllByRole('dialog')).toHaveLength(1)
-    expect(document.querySelectorAll('[data-m22-animated]')).toHaveLength(2)
+    expect(document.querySelectorAll('[data-folio-animated]')).toHaveLength(2)
   })
 
   it('uses externally filtered results and selects with the keyboard', async () => {

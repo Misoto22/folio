@@ -262,7 +262,7 @@ export const DISPLAY = [
       {
         element: 'Halo',
         description:
-          'A second ring of the same colour on the m22-halo keyframes, present only while pulse is true. A separate element rather than a box-shadow, because a shadow in this system is never blurred.',
+          'A second ring of the same colour on the folio-halo keyframes, present only while pulse is true. A separate element rather than a box-shadow, because a shadow in this system is never blurred.',
       },
     ],
     practices: [

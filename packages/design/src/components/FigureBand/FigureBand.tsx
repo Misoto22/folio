@@ -52,7 +52,7 @@ export function FigureBand({
   }[columns]
 
   return (
-    <div className="m22-figure-band @container w-full">
+    <div className="folio-figure-band @container w-full">
       <dl
         aria-label={label}
         className={cn(

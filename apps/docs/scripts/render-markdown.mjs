@@ -141,7 +141,7 @@ const render = (tex, displayMode) => {
   // takes none of the article's block rhythm, so the wrapper is swapped for a
   // real block element rather than talked out of being inline with CSS.
   if (!displayMode) return html
-  return `<div class="m22-math">${html.replace(/^<span class="katex">/, '').replace(/<\/span>$/, '')}</div>`
+  return `<div class="folio-math">${html.replace(/^<span class="katex">/, '').replace(/<\/span>$/, '')}</div>`
 }
 
 /**
@@ -175,7 +175,7 @@ export function createRenderer({ highlighter }) {
   }
 
   // A wide table scrolls inside its own box rather than pushing the page.
-  md.renderer.rules.table_open = () => '<div class="m22-table-scroll"><table>'
+  md.renderer.rules.table_open = () => '<div class="folio-table-scroll"><table>'
   md.renderer.rules.table_close = () => '</table></div>'
 
   /** The fences that are a COMPONENT rather than code, and what to call them. */
@@ -190,7 +190,7 @@ export function createRenderer({ highlighter }) {
         figures.push({ kind: lang, spec: JSON.parse(token.content) })
         // A marker rather than markup: the caller splits on it and renders the
         // real component in the gap.
-        return `<!--m22-figure:${figures.length - 1}-->`
+        return `<!--folio-figure:${figures.length - 1}-->`
       } catch {
         // A malformed spec is a content bug, and it should be visible in the
         // page rather than swallowed into an empty gap.
@@ -220,7 +220,7 @@ export function createRenderer({ highlighter }) {
 
     const blocks = []
     let cursor = 0
-    const pattern = /<!--m22-figure:(\d+)-->/g
+    const pattern = /<!--folio-figure:(\d+)-->/g
     let match
     while ((match = pattern.exec(html)) !== null) {
       const before = html.slice(cursor, match.index).trim()

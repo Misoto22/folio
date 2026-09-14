@@ -10,19 +10,19 @@
    one place, at the bottom.
    ========================================================================== */
 
-.m22-tabs-list { position: relative; isolation: isolate; }
-.m22-tabs-list[data-swipe] { touch-action: pan-y; user-select: none; }
-.m22-tabs-list[data-dragging] { cursor: grabbing; }
-.m22-tabs-list[data-orientation=horizontal][data-measured]::before { content: ''; position: absolute; z-index: 0; pointer-events: none; left: 0; top: calc(var(--tab-y) + var(--tab-height) - 2px); width: var(--tab-width); height: 2px; background: var(--accent); transform: translateX(calc(var(--tab-x) + var(--tab-drag-x, 0px))); transition: transform var(--duration-base) var(--ease-out-expo), width var(--duration-base) var(--ease-out-expo); }
-.m22-tabs-list [role=tab] { position: relative; z-index: 1; }
+.folio-tabs-list { position: relative; isolation: isolate; }
+.folio-tabs-list[data-swipe] { touch-action: pan-y; user-select: none; }
+.folio-tabs-list[data-dragging] { cursor: grabbing; }
+.folio-tabs-list[data-orientation=horizontal][data-measured]::before { content: ''; position: absolute; z-index: 0; pointer-events: none; left: 0; top: calc(var(--tab-y) + var(--tab-height) - 2px); width: var(--tab-width); height: 2px; background: var(--accent); transform: translateX(calc(var(--tab-x) + var(--tab-drag-x, 0px))); transition: transform var(--duration-base) var(--ease-out-expo), width var(--duration-base) var(--ease-out-expo); }
+.folio-tabs-list [role=tab] { position: relative; z-index: 1; }
 /* Keep the focus treatment inside the scrolling strip so no outline is clipped. */
-.m22-tabs-list [role=tab]:focus { outline: none; }
-.m22-tabs-list [role=tab]:focus-visible { outline: none; background-color: var(--paper-2); box-shadow: inset 0 0 0 1px var(--rule-2); border-radius: 4px; }
-.m22-tabs-list[data-orientation=horizontal][data-measured] [role=tab][data-state=active] { border-bottom-color: transparent; }
-.m22-tabs-list[data-dragging]::before { transition-duration: 0ms; }
-.m22-tabs-panel[data-state=active] { animation: m22-tab-in var(--duration-base) var(--ease-out-expo); }
-.m22-tabs-panel[hidden] { display: none; }
-@keyframes m22-tab-in { from { opacity: 0; transform: translateX(var(--tab-enter-x, 0px)); } to { opacity: 1; transform: translateX(0); } }
+.folio-tabs-list [role=tab]:focus { outline: none; }
+.folio-tabs-list [role=tab]:focus-visible { outline: none; background-color: var(--paper-2); box-shadow: inset 0 0 0 1px var(--rule-2); border-radius: 4px; }
+.folio-tabs-list[data-orientation=horizontal][data-measured] [role=tab][data-state=active] { border-bottom-color: transparent; }
+.folio-tabs-list[data-dragging]::before { transition-duration: 0ms; }
+.folio-tabs-panel[data-state=active] { animation: folio-tab-in var(--duration-base) var(--ease-out-expo); }
+.folio-tabs-panel[hidden] { display: none; }
+@keyframes folio-tab-in { from { opacity: 0; transform: translateX(var(--tab-enter-x, 0px)); } to { opacity: 1; transform: translateX(0); } }
 /* Recharts clears the browser's SVG outline. Keep a chart's keyboard cursor as
    visible as every other control, without asking hosts to add a local rule. In
    the base layer, beside the one `:focus-visible` indicator it restores. */
@@ -32,21 +32,21 @@
     outline-offset: var(--focus-off);
   }
 }
-.m22-sheet { translate: none; --sheet-x: 0%; --sheet-y: 0%; }
-.m22-sheet[data-side=top] { --sheet-y: -100%; }
-.m22-sheet[data-side=bottom] { --sheet-y: 100%; }
-.m22-sheet[data-side=start] { --sheet-x: -100%; }
-.m22-sheet[data-side=end] { --sheet-x: 100%; }
-.m22-sheet[data-side=start]:dir(rtl) { --sheet-x: 100%; }
-.m22-sheet[data-side=end]:dir(rtl) { --sheet-x: -100%; }
-.m22-sheet[data-state=open] { animation: m22-sheet-in var(--duration-base) var(--ease-out-expo); }
-.m22-sheet[data-state=closed] { animation: m22-sheet-out var(--duration-fast) var(--ease); }
-@keyframes m22-sheet-in { from { transform: translate(var(--sheet-x), var(--sheet-y)); } to { transform: translate(0, 0); } }
-@keyframes m22-sheet-out { from { transform: translate(0, 0); } to { transform: translate(var(--sheet-x), var(--sheet-y)); } }
+.folio-sheet { translate: none; --sheet-x: 0%; --sheet-y: 0%; }
+.folio-sheet[data-side=top] { --sheet-y: -100%; }
+.folio-sheet[data-side=bottom] { --sheet-y: 100%; }
+.folio-sheet[data-side=start] { --sheet-x: -100%; }
+.folio-sheet[data-side=end] { --sheet-x: 100%; }
+.folio-sheet[data-side=start]:dir(rtl) { --sheet-x: 100%; }
+.folio-sheet[data-side=end]:dir(rtl) { --sheet-x: -100%; }
+.folio-sheet[data-state=open] { animation: folio-sheet-in var(--duration-base) var(--ease-out-expo); }
+.folio-sheet[data-state=closed] { animation: folio-sheet-out var(--duration-fast) var(--ease); }
+@keyframes folio-sheet-in { from { transform: translate(var(--sheet-x), var(--sheet-y)); } to { transform: translate(0, 0); } }
+@keyframes folio-sheet-out { from { transform: translate(0, 0); } to { transform: translate(var(--sheet-x), var(--sheet-y)); } }
 
 /* A surface arriving in place — a panel, a menu, a tab's contents. Short and
    small: the page did not change, only part of it. */
-@keyframes m22-panel-in {
+@keyframes folio-panel-in {
   from {
     opacity: 0;
     transform: translateY(4px);
@@ -63,7 +63,7 @@
    rather than as a flicker: four pixels of travel over 130ms is technically
    motion and perceptually nothing, which is what "the menu has no animation"
    turned out to mean. */
-@keyframes m22-pop-in {
+@keyframes folio-pop-in {
   from {
     opacity: 0;
     transform: scale(0.96) translateY(-2px);
@@ -76,7 +76,7 @@
 
 /* And leaving. A panel that vanishes on the frame the pointer lands elsewhere
    reads as a bug in the page rather than as a thing that closed. */
-@keyframes m22-pop-out {
+@keyframes folio-pop-out {
   from {
     opacity: 1;
     transform: none;
@@ -89,7 +89,7 @@
 
 /* A page arriving. Longer travel than a panel, because more of the view is
    being replaced. */
-@keyframes m22-route-in {
+@keyframes folio-route-in {
   from {
     opacity: 0;
     transform: translateY(12px);
@@ -101,7 +101,7 @@
 }
 
 /* An overlay's ground. No travel — a scrim does not slide, it appears. */
-@keyframes m22-fade-in {
+@keyframes folio-fade-in {
   from {
     opacity: 0;
   }
@@ -110,7 +110,7 @@
   }
 }
 
-@keyframes m22-fade-out {
+@keyframes folio-fade-out {
   from {
     opacity: 1;
   }
@@ -120,7 +120,7 @@
 }
 
 /* A toast entering from the edge it is docked to. */
-@keyframes m22-slide-in-right {
+@keyframes folio-slide-in-right {
   from {
     opacity: 0;
     transform: translateX(12px);
@@ -133,7 +133,7 @@
 
 /* The system's "working" pulse — a dimming, not a shimmer. A skeleton that
    shimmers implies a light source the White Reset does not have. */
-@keyframes m22-pulse {
+@keyframes folio-pulse {
   0% {
     opacity: 0.6;
   }
@@ -147,7 +147,7 @@
 
 /* The determinate/indeterminate bar's sweep. Travels 1.6× its own width so the
    bar clears the track completely at each end. */
-@keyframes m22-sweep {
+@keyframes folio-sweep {
   0% {
     transform: translateX(-100%);
   }
@@ -158,14 +158,14 @@
 
 /* The spinner. A rotation, and only a rotation — the arc that makes it read as
    a spinner is drawn by the component's own conic gradient, not animated. */
-@keyframes m22-spin {
+@keyframes folio-spin {
   to {
     transform: rotate(360deg);
   }
 }
 
 /* The three-dot "thinking" run, staggered by delay at the call site. */
-@keyframes m22-bounce-dot {
+@keyframes folio-bounce-dot {
   0%,
   80%,
   100% {
@@ -179,7 +179,7 @@
 }
 
 /* A live indicator's halo. Grows and dissolves; never loops a hard edge. */
-@keyframes m22-halo {
+@keyframes folio-halo {
   0% {
     transform: scale(1);
     opacity: 0.55;
@@ -198,7 +198,7 @@
    animates to its REAL height rather than to a guessed max-height — which is
    what makes a long answer open at the same speed as a short one instead of
    sitting still for half the duration. */
-@keyframes m22-accordion-down {
+@keyframes folio-accordion-down {
   from {
     height: 0;
   }
@@ -207,7 +207,7 @@
   }
 }
 
-@keyframes m22-accordion-up {
+@keyframes folio-accordion-up {
   from {
     height: var(--radix-accordion-content-height);
   }
@@ -218,7 +218,7 @@
 
 /* The same idea for a lone disclosure. Radix publishes the measured height as
    --radix-collapsible-content-height. */
-@keyframes m22-collapsible-down {
+@keyframes folio-collapsible-down {
   from {
     height: 0;
   }
@@ -227,7 +227,7 @@
   }
 }
 
-@keyframes m22-collapsible-up {
+@keyframes folio-collapsible-up {
   from {
     height: var(--radix-collapsible-content-height);
   }
@@ -240,13 +240,13 @@
    Two rules, and the argument behind them matters more than the CSS does.
 
    This began as one opt-in rule: a surface that animated carried
-   `data-m22-animated`, and that attribute was what got cancelled. It was
+   `data-folio-animated`, and that attribute was what got cancelled. It was
    forgotten four times — Accordion's panel, CollapsibleSection's panel,
    SheetContent's slide, AppShell's drawer — by four authors across four
    components. A mechanism four people independently fail to remember is not
    being failed by its authors; it is failing them. The other half of the old
-   selector, `[class*='m22-anim']`, matched nothing whatsoever: Tailwind emits
-   `animate-[m22-collapsible-down_…]`, which contains no `m22-anim`, so half
+   selector, `[class*='folio-anim']`, matched nothing whatsoever: Tailwind emits
+   `animate-[folio-collapsible-down_…]`, which contains no `folio-anim`, so half
    the kill switch had never once fired and nothing anywhere said so.
 
    So the GUARANTEE is now the universal rule below, deliberately the well-worn
@@ -273,7 +273,7 @@
    reset's least obvious detail and the reason it is written this way wherever
    it appears.
 
-   `[data-m22-animated]` stays, and is no longer load-bearing. It is a
+   `[data-folio-animated]` stays, and is no longer load-bearing. It is a
    component asserting that its motion is decorative, and it goes further than
    the floor above by removing the animation outright rather than running an
    instant frame of it. Read it as documentation with teeth. Do NOT read it as
@@ -294,7 +294,7 @@
     scroll-behavior: auto !important;
   }
 
-  [data-m22-animated] {
+  [data-folio-animated] {
     animation: none !important;
   }
 }

@@ -96,7 +96,7 @@ describe('AppShell drawer', () => {
     render(shell)
 
     expect(screen.getByRole('complementary', { name: 'Sidebar' })).toHaveAttribute(
-      'data-m22-animated',
+      'data-folio-animated',
     )
   })
 })

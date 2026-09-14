@@ -38,7 +38,7 @@ export const NAVIGATION = [
       {
         element: 'Panel',
         description:
-          'TabsContent, paired to its tab by matching value. Mounted only while it is the selected one, and marked data-m22-animated so its entrance is dropped for a reader who asked for less motion.',
+          'TabsContent, paired to its tab by matching value. Mounted only while it is the selected one, and marked data-folio-animated so its entrance is dropped for a reader who asked for less motion.',
       },
     ],
     practices: [
@@ -115,7 +115,7 @@ export const NAVIGATION = [
       {
         element: 'Panel',
         description:
-          'Radix’s Content — a role="region" labelled by its trigger, mounted only while open, overflow-hidden so its measured height can animate, with pb-4 pe-8 inside so the text stops short of the marker’s column. It carries data-m22-animated, so the open and close are dropped outright for a reader who asked for less motion.',
+          'Radix’s Content — a role="region" labelled by its trigger, mounted only while open, overflow-hidden so its measured height can animate, with pb-4 pe-8 inside so the text stops short of the marker’s column. It carries data-folio-animated, so the open and close are dropped outright for a reader who asked for less motion.',
       },
     ],
     practices: [
@@ -497,7 +497,7 @@ export const NAVIGATION = [
       {
         element: 'Panel',
         description:
-          'Radix’s Content, unmounted while closed and animating on the measured --radix-collapsible-content-height, so a long group and a short one take the same time. A bare div: no region role and no name of its own, again unlike an accordion’s. Both this and the loose CollapsibleContent carry data-m22-animated, so the two agree under prefers-reduced-motion rather than only one of them honouring it.',
+          'Radix’s Content, unmounted while closed and animating on the measured --radix-collapsible-content-height, so a long group and a short one take the same time. A bare div: no region role and no name of its own, again unlike an accordion’s. Both this and the loose CollapsibleContent carry data-folio-animated, so the two agree under prefers-reduced-motion rather than only one of them honouring it.',
       },
     ],
     practices: [

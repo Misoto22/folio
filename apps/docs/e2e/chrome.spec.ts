@@ -66,7 +66,7 @@ for (const path of ['/components/', '/zh/components/', '/components/site-navigat
     await expect(masthead).toBeVisible()
     // Thumbnails mount after hydration; without the example on the page this
     // would pass by measuring nothing.
-    await expect(page.locator('.m22-site-navigation').first()).toBeAttached()
+    await expect(page.locator('.folio-site-navigation').first()).toBeAttached()
 
     const cover = await masthead.evaluate((header) => {
       const box = header.getBoundingClientRect()
@@ -75,7 +75,7 @@ for (const path of ['/components/', '/zh/components/', '/components/site-navigat
       // Hit-testing alone passes the index: its thumbnails are `inert` and
       // `pointer-events: none`, so a header drawn over the masthead from one of
       // them is skipped by `elementFromPoint` while being all a reader sees.
-      for (const example of document.querySelectorAll('.m22-site-navigation')) {
+      for (const example of document.querySelectorAll('.folio-site-navigation')) {
         const r = example.getBoundingClientRect()
         if (r.left < box.right && r.right > box.left && r.top < box.bottom && r.bottom > box.top) {
           return example.className

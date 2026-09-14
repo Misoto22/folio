@@ -150,11 +150,11 @@ export function Select({
         collisionPadding={8}
           position="popper"
           sideOffset={6}
-          data-m22-animated
+          data-folio-animated
           className={cn(
             'z-(--z-dropdown) max-h-72 min-w-(--radix-select-trigger-width) overflow-hidden rounded-(--radius-lg) border border-(--panel-border) bg-(--panel-bg) shadow-(--panel-lift) panel-blur',
             contentClassName,
-            'data-[state=open]:animate-[m22-pop-in_var(--duration-fast)_var(--ease-out-expo)] data-[state=closed]:animate-[m22-pop-out_var(--duration-fast)_var(--ease)] origin-(--radix-popper-transform-origin)',
+            'data-[state=open]:animate-[folio-pop-in_var(--duration-fast)_var(--ease-out-expo)] data-[state=closed]:animate-[folio-pop-out_var(--duration-fast)_var(--ease)] origin-(--radix-popper-transform-origin)',
           )}
         >
           <SelectPrimitive.ScrollUpButton className="flex h-6 items-center justify-center text-(--ink-3-aa)">

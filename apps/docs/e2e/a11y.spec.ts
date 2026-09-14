@@ -50,7 +50,7 @@ async function setTheme(page: Page, theme: (typeof THEMES)[number]) {
 /**
  * Resolves once nothing on the page is still moving.
  *
- * axe reads COMPUTED colour, and `m22-panel-in` opens at `opacity: 0`
+ * axe reads COMPUTED colour, and `folio-panel-in` opens at `opacity: 0`
  * (`packages/design/src/styles/keyframes.css`). A sweep that starts the instant
  * the tab is clicked therefore measures the panel's text part-way through its
  * fade: `--ink-3-aa` is `#5c5c5c`, axe read `#8f8f8f`, and the contrast failure
@@ -67,7 +67,7 @@ async function setTheme(page: Page, theme: (typeof THEMES)[number]) {
  * count is left out. And an element with nothing running resolves an empty
  * `Promise.all` immediately, which is also the reduced-motion case: the media
  * query at the foot of `keyframes.css` sets `animation: none` on
- * `[data-m22-animated]`, so there is no animation to find and no wait to serve.
+ * `[data-folio-animated]`, so there is no animation to find and no wait to serve.
  */
 async function settle(page: Page) {
   await page.evaluate(async () => {

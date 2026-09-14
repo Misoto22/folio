@@ -21,15 +21,15 @@ export interface ConversationLayoutProps extends HTMLAttributes<HTMLDivElement> 
 
 /** A reading-width conversation with a separate, sticky evidence rail. */
 export function ConversationLayout({ evidence, children, className, ...rest }: ConversationLayoutProps) {
-  return <div className={cn('m22-conversation-layout', className)} {...rest}>
-    {children}<div className="m22-conversation-layout__evidence">{evidence}</div>
+  return <div className={cn('folio-conversation-layout', className)} {...rest}>
+    {children}<div className="folio-conversation-layout__evidence">{evidence}</div>
   </div>
 }
 
 export interface ConversationFactsProps extends HTMLAttributes<HTMLDListElement> { items: DescriptionListItem[] }
 
 export function ConversationFacts({ items, className, ...rest }: ConversationFactsProps) {
-  return <DescriptionList items={items} layout="stacked" divided={false} className={cn('m22-conversation-facts', className)} {...rest} />
+  return <DescriptionList items={items} layout="stacked" divided={false} className={cn('folio-conversation-facts', className)} {...rest} />
 }
 
 export interface ConversationSuggestion {
@@ -47,10 +47,10 @@ export interface ConversationSuggestionsProps extends HTMLAttributes<HTMLDivElem
 }
 
 export function ConversationSuggestions({ label, items, className, ...rest }: ConversationSuggestionsProps) {
-  return <div className={cn('m22-conversation-suggestions', className)} {...rest}>
+  return <div className={cn('folio-conversation-suggestions', className)} {...rest}>
     <Text size="xs" tone="muted">{label}</Text>
     <ul>{items.map((item) => <li key={item.id} data-wide-only={item.wideOnly || undefined}>
-      <Button variant="ghost" className="m22-conversation-suggestions__action" disabled={item.disabled} onClick={item.onSelect}>
+      <Button variant="ghost" className="folio-conversation-suggestions__action" disabled={item.disabled} onClick={item.onSelect}>
         <span>{item.label}</span><RiArrowRightLine size={16} aria-hidden />
       </Button>
     </li>)}</ul>
@@ -77,13 +77,13 @@ export interface ConversationThreadProps extends HTMLAttributes<HTMLElement> {
 
 /** Host owns turns and folding; this composition owns their hierarchy and controls. */
 export function ConversationThread({ label, intro, summary, controls = [], composer, proposal, hasTurns, children, className, ...rest }: ConversationThreadProps) {
-  return <section aria-label={label} className={cn('m22-conversation-thread', className)} {...rest}>
-    {intro && <div className="m22-conversation-thread__intro">
+  return <section aria-label={label} className={cn('folio-conversation-thread', className)} {...rest}>
+    {intro && <div className="folio-conversation-thread__intro">
       <Heading level={2}>{intro.title}</Heading><Text className="mt-5">{intro.description}</Text>
       <ConversationSuggestions label={intro.suggestionsLabel} items={intro.suggestions} />
     </div>}
     {hasTurns && <>
-      <div className="m22-conversation-thread__controls">
+      <div className="folio-conversation-thread__controls">
         <Text size="xs" tone="muted">{summary}</Text>
         <div>{controls.map((control) => {
           const Icon = control.kind === 'reset' ? RiRestartLine : control.kind === 'expand' ? RiArrowDownSLine : RiArrowRightSLine
@@ -92,8 +92,8 @@ export function ConversationThread({ label, intro, summary, controls = [], compo
       </div>
       <ConversationLog>{children}</ConversationLog>
     </>}
-    <div className="m22-conversation-thread__composer" data-sticky={hasTurns || undefined}>
-      {proposal && <div className="m22-conversation-thread__proposal">{proposal}</div>}{composer}
+    <div className="folio-conversation-thread__composer" data-sticky={hasTurns || undefined}>
+      {proposal && <div className="folio-conversation-thread__proposal">{proposal}</div>}{composer}
     </div>
   </section>
 }
@@ -101,7 +101,7 @@ export function ConversationThread({ label, intro, summary, controls = [], compo
 export interface ConversationLogProps extends HTMLAttributes<HTMLDivElement> { compact?: boolean }
 
 export function ConversationLog({ compact, className, ...rest }: ConversationLogProps) {
-  return <div role="log" aria-live="polite" className={cn('m22-conversation-log', className)} data-compact={compact || undefined} {...rest} />
+  return <div role="log" aria-live="polite" className={cn('folio-conversation-log', className)} data-compact={compact || undefined} {...rest} />
 }
 
 export interface QuestionComposerProps extends Omit<HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
@@ -127,16 +127,16 @@ export interface QuestionComposerProps extends Omit<HTMLAttributes<HTMLFormEleme
 
 /** A controlled, labelled composer. Request limits and sending remain host concerns. */
 export function QuestionComposer({ id, label, hideLabel, value, onValueChange, onSubmit, inputRef, placeholder, maxLength, disabled, submitDisabled, pending, submitLabel, hint, hideHint, counter, actions, compact, className, ...rest }: QuestionComposerProps) {
-  return <form autoComplete="off" className={cn('m22-question-composer', className)} data-compact={compact || undefined} onSubmit={(event) => { event.preventDefault(); onSubmit() }} {...rest}>
-    <div className="m22-question-composer__row">
-      <Field htmlFor={id} label={<span className={hideLabel ? 'sr-only' : undefined}>{label}</span>} className="m22-question-composer__field">
+  return <form autoComplete="off" className={cn('folio-question-composer', className)} data-compact={compact || undefined} onSubmit={(event) => { event.preventDefault(); onSubmit() }} {...rest}>
+    <div className="folio-question-composer__row">
+      <Field htmlFor={id} label={<span className={hideLabel ? 'sr-only' : undefined}>{label}</span>} className="folio-question-composer__field">
         <Input ref={inputRef} id={id} name="question" value={value} onChange={(event) => onValueChange(event.target.value)} placeholder={placeholder} maxLength={maxLength} disabled={disabled} />
       </Field>
       <Button type="submit" loading={pending} disabled={submitDisabled} keycap={compact ? undefined : '↵'}>{submitLabel}</Button>
     </div>
-    {(hint || counter || actions) && <div className="m22-question-composer__footer">
+    {(hint || counter || actions) && <div className="folio-question-composer__footer">
       {hint && <Text size="xs" tone="muted" className={hideHint ? 'sr-only' : undefined}>{hint}</Text>}
-      {counter != null && <Text as="span" size="xs" tone="muted" className="m22-question-composer__counter">{counter}</Text>}
+      {counter != null && <Text as="span" size="xs" tone="muted" className="folio-question-composer__counter">{counter}</Text>}
       {actions}
     </div>}
   </form>
@@ -152,14 +152,14 @@ export interface ConversationTurnProps extends Omit<HTMLAttributes<HTMLElement>,
 }
 
 export function ConversationTurn({ title, metadata, expanded, onToggle, bodyId, preview, children, className, ...rest }: ConversationTurnProps) {
-  return <article className={cn('m22-conversation-turn', className)} {...rest}>
+  return <article className={cn('folio-conversation-turn', className)} {...rest}>
     {metadata}
     <Collapsible open={expanded} onOpenChange={onToggle}>
       <Heading level={3} size="sub">
-        <CollapsibleTrigger asChild><Button variant="ghost" className="m22-conversation-turn__toggle" aria-controls={bodyId}><span>{title}</span><RiArrowRightSLine size={16} aria-hidden /></Button></CollapsibleTrigger>
+        <CollapsibleTrigger asChild><Button variant="ghost" className="folio-conversation-turn__toggle" aria-controls={bodyId}><span>{title}</span><RiArrowRightSLine size={16} aria-hidden /></Button></CollapsibleTrigger>
       </Heading>
-      {!expanded && <Text size="sm" tone="muted" className="m22-conversation-turn__preview">{preview}</Text>}
-      <CollapsibleContent id={bodyId}><div className="m22-conversation-turn__body">{children}</div></CollapsibleContent>
+      {!expanded && <Text size="sm" tone="muted" className="folio-conversation-turn__preview">{preview}</Text>}
+      <CollapsibleContent id={bodyId}><div className="folio-conversation-turn__body">{children}</div></CollapsibleContent>
     </Collapsible>
   </article>
 }
@@ -167,7 +167,7 @@ export function ConversationTurn({ title, metadata, expanded, onToggle, bodyId, 
 export interface ConversationQuoteProps extends HTMLAttributes<HTMLElement> { label: string; compact?: boolean }
 
 export function ConversationQuote({ label, compact, children, className, ...rest }: ConversationQuoteProps) {
-  return <figure className={cn('m22-conversation-quote', className)} data-compact={compact || undefined} {...rest}>
+  return <figure className={cn('folio-conversation-quote', className)} data-compact={compact || undefined} {...rest}>
     <Text as="figcaption" size="xs" tone="muted">{label}</Text><blockquote>{children}</blockquote>
   </figure>
 }
@@ -175,22 +175,22 @@ export function ConversationQuote({ label, compact, children, className, ...rest
 export interface ConversationAnswerProps extends HTMLAttributes<HTMLDivElement> { question: ReactNode; questionLabel: string; quote?: ReactNode }
 
 export function ConversationAnswer({ question, questionLabel, quote, children, className, ...rest }: ConversationAnswerProps) {
-  return <div className={cn('m22-conversation-answer', className)} {...rest}>
-    {quote}<Text size="xs" tone="muted">{questionLabel}</Text><Text tone="strong" size="lead" className="m22-conversation-answer__question">{question}</Text>{children}
+  return <div className={cn('folio-conversation-answer', className)} {...rest}>
+    {quote}<Text size="xs" tone="muted">{questionLabel}</Text><Text tone="strong" size="lead" className="folio-conversation-answer__question">{question}</Text>{children}
   </div>
 }
 
 /** Trusted React nodes from the host's sanitized answer parser, never raw model HTML. */
 export function ConversationProse({ className, ...rest }: HTMLAttributes<HTMLDivElement>) {
-  return <Article as="div" className={cn('m22-conversation-prose', className)} {...rest} />
+  return <Article as="div" className={cn('folio-conversation-prose', className)} {...rest} />
 }
 
 /** Model-generated headings are prose labels, so they do not alter the page outline. */
 export function ConversationAnswerHeading({ lead, className, ...rest }: HTMLAttributes<HTMLParagraphElement> & { lead?: boolean }) {
-  return <p className={cn('m22-conversation-prose__heading', className)} data-lead={lead || undefined} {...rest} />
+  return <p className={cn('folio-conversation-prose__heading', className)} data-lead={lead || undefined} {...rest} />
 }
 
-export function StreamingCaret() { return <span aria-hidden="true" className="m22-conversation-caret" /> }
+export function StreamingCaret() { return <span aria-hidden="true" className="folio-conversation-caret" /> }
 
 export interface ConversationSource {
   id: string
@@ -206,9 +206,9 @@ export interface ConversationSourcesProps extends HTMLAttributes<HTMLDivElement>
 
 export function ConversationSources({ label, count, items, className, ...rest }: ConversationSourcesProps) {
   if (items.length === 0) return null
-  return <div className={cn('m22-conversation-sources', className)} {...rest}>
-    <div className="m22-conversation-sources__header"><Text size="xs" tone="muted">{label}</Text><Text size="xs" tone="muted">{count}</Text></div>
-    <ul>{items.map((item) => <li key={item.id}><Button asChild variant="ghost" className="m22-conversation-sources__link" data-highlighted={item.highlighted || undefined}>
+  return <div className={cn('folio-conversation-sources', className)} {...rest}>
+    <div className="folio-conversation-sources__header"><Text size="xs" tone="muted">{label}</Text><Text size="xs" tone="muted">{count}</Text></div>
+    <ul>{items.map((item) => <li key={item.id}><Button asChild variant="ghost" className="folio-conversation-sources__link" data-highlighted={item.highlighted || undefined}>
       {replaceSlotContent(item.link, <><Text as="span" size="xs" tone="muted" aria-hidden>{item.index}</Text><span><Text as="span" size="sm" tone="strong">{item.title}</Text>{item.detail && <Text as="span" size="xs" tone="muted">{item.detail}</Text>}</span><Text as="span" size="xs" tone="muted">{item.kind}</Text></>)}
     </Button></li>)}</ul>
   </div>
@@ -226,11 +226,11 @@ export interface ActionProposalProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export function ActionProposal({ label, destination, detail, approveLabel, dismissLabel, onApprove, onDismiss, approvalAttributes, className, ...rest }: ActionProposalProps) {
-  return <div role="group" aria-label={label} className={cn('m22-action-proposal', className)} {...rest}>
+  return <div role="group" aria-label={label} className={cn('folio-action-proposal', className)} {...rest}>
     <Text size="xs" tone="muted">{label}</Text>
-    <div className="m22-action-proposal__actions">
-      <Button variant="ghost" className="m22-action-proposal__action" aria-label={approveLabel} onClick={onApprove} {...approvalAttributes}><span>{destination}</span><span>{detail && <Text as="span" size="xs" tone="muted" className="m22-action-proposal__detail">{detail}</Text>}<RiArrowRightLine size={16} aria-hidden /></span></Button>
-      <Button variant="ghost" className="m22-action-proposal__action" onClick={onDismiss}>{dismissLabel}<RiCloseLine size={16} aria-hidden /></Button>
+    <div className="folio-action-proposal__actions">
+      <Button variant="ghost" className="folio-action-proposal__action" aria-label={approveLabel} onClick={onApprove} {...approvalAttributes}><span>{destination}</span><span>{detail && <Text as="span" size="xs" tone="muted" className="folio-action-proposal__detail">{detail}</Text>}<RiArrowRightLine size={16} aria-hidden /></span></Button>
+      <Button variant="ghost" className="folio-action-proposal__action" onClick={onDismiss}>{dismissLabel}<RiCloseLine size={16} aria-hidden /></Button>
     </div>
   </div>
 }
@@ -238,7 +238,7 @@ export function ActionProposal({ label, destination, detail, approveLabel, dismi
 export interface ConversationLauncherProps extends ButtonHTMLAttributes<HTMLButtonElement> { visible: boolean; buttonRef?: Ref<HTMLButtonElement> }
 
 export function ConversationLauncher({ visible, buttonRef, className, children, ...rest }: ConversationLauncherProps) {
-  return <Button asChild variant="secondary" className={cn('m22-conversation-launcher', className)}><button ref={buttonRef} inert={!visible} data-revealed={visible} {...rest}><RiChat3Line size={18} aria-hidden />{children}</button></Button>
+  return <Button asChild variant="secondary" className={cn('folio-conversation-launcher', className)}><button ref={buttonRef} inert={!visible} data-revealed={visible} {...rest}><RiChat3Line size={18} aria-hidden />{children}</button></Button>
 }
 
 export type ConversationDockCorner = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right'
@@ -265,17 +265,17 @@ export interface ConversationDockProps extends HTMLAttributes<HTMLElement> {
 /** The host supplies placement, dismissal and stream state; the dock draws them. */
 export function ConversationDock({ label, open, card, corner, dragging, moving, panelRef, logRef, roomLink, closeLabel, onClose, onHeaderPointerDown, handles, proposal, notice, composer, children, className, ...rest }: ConversationDockProps) {
   return <>
-    {open && !card && <div className="m22-conversation-dock__scrim" aria-hidden onClick={onClose} />}
-    <aside ref={panelRef} aria-label={label} inert={!open} data-open={open} data-card={card} data-corner={corner} data-dragging={dragging || undefined} data-moving={moving || undefined} className={cn('m22-conversation-dock', className)} {...rest}>
+    {open && !card && <div className="folio-conversation-dock__scrim" aria-hidden onClick={onClose} />}
+    <aside ref={panelRef} aria-label={label} inert={!open} data-open={open} data-card={card} data-corner={corner} data-dragging={dragging || undefined} data-moving={moving || undefined} className={cn('folio-conversation-dock', className)} {...rest}>
       {handles}
-      <header onPointerDown={onHeaderPointerDown} className="m22-conversation-dock__header">
+      <header onPointerDown={onHeaderPointerDown} className="folio-conversation-dock__header">
         <Text as="span" size="xs" tone="muted"><RiSparklingLine size={14} aria-hidden />{label}</Text>
         <div><Button asChild variant="ghost">{roomLink}</Button><Button variant="ghost" iconOnly aria-label={closeLabel} onClick={onClose}><RiArrowDownSLine size={16} aria-hidden /></Button></div>
       </header>
-      <div ref={logRef} className="m22-conversation-dock__log">{children}</div>
-      {proposal && <div className="m22-conversation-dock__proposal">{proposal}</div>}
-      {notice && <Text role="status" size="xs" className="m22-conversation-dock__notice">{notice}</Text>}
-      <div className="m22-conversation-dock__composer">{composer}</div>
+      <div ref={logRef} className="folio-conversation-dock__log">{children}</div>
+      {proposal && <div className="folio-conversation-dock__proposal">{proposal}</div>}
+      {notice && <Text role="status" size="xs" className="folio-conversation-dock__notice">{notice}</Text>}
+      <div className="folio-conversation-dock__composer">{composer}</div>
     </aside>
   </>
 }
@@ -283,7 +283,7 @@ export function ConversationDock({ label, open, card, corner, dragging, moving, 
 export interface ConversationDockWelcomeProps extends HTMLAttributes<HTMLDivElement> { lead: ReactNode; suggestionsLabel: string; suggestions: ConversationSuggestion[] }
 
 export function ConversationDockWelcome({ lead, suggestionsLabel, suggestions, className, ...rest }: ConversationDockWelcomeProps) {
-  return <div className={cn('m22-conversation-dock-welcome', className)} {...rest}><Text size="lead" tone="strong">{lead}</Text><ConversationSuggestions label={suggestionsLabel} items={suggestions} /></div>
+  return <div className={cn('folio-conversation-dock-welcome', className)} {...rest}><Text size="lead" tone="strong">{lead}</Text><ConversationSuggestions label={suggestionsLabel} items={suggestions} /></div>
 }
 
 export interface ConversationResizeHandleProps {
@@ -299,7 +299,7 @@ export interface ConversationResizeHandleProps {
 export function ConversationResizeHandle({ axis, side, label, dragging, onStart, onNudge }: ConversationResizeHandleProps) {
   const growKey = { top: 'ArrowUp', bottom: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight' }[side]
   const shrinkKey = { top: 'ArrowDown', bottom: 'ArrowUp', left: 'ArrowRight', right: 'ArrowLeft' }[side]
-  return <div role="separator" aria-orientation={axis === 'size-vertical' ? 'horizontal' : 'vertical'} aria-label={label} tabIndex={0} data-side={side} data-dragging={dragging || undefined} className="m22-conversation-resize" onPointerDown={(event) => onStart(axis, event)} onKeyDown={(event) => {
+  return <div role="separator" aria-orientation={axis === 'size-vertical' ? 'horizontal' : 'vertical'} aria-label={label} tabIndex={0} data-side={side} data-dragging={dragging || undefined} className="folio-conversation-resize" onPointerDown={(event) => onStart(axis, event)} onKeyDown={(event) => {
     if (event.key === growKey) onNudge(axis, 32)
     else if (event.key === shrinkKey) onNudge(axis, -32)
     else return
@@ -324,7 +324,7 @@ export function SelectionToolbar({ label, actions, floating, toolbarRef, classNa
   const enabled = actions.map((action, index) => action.disabled ? -1 : index).filter((index) => index !== -1)
   const selected = actions.findIndex((action) => action.id === activeId && !action.disabled)
   const activeIndex = selected >= 0 ? selected : (enabled[0] ?? -1)
-  return <div ref={toolbarRef} role="toolbar" aria-label={label} data-m22-animated data-floating={floating} className={cn('m22-selection-toolbar', className)} {...rest} onKeyDown={(event) => {
+  return <div ref={toolbarRef} role="toolbar" aria-label={label} data-folio-animated data-floating={floating} className={cn('folio-selection-toolbar', className)} {...rest} onKeyDown={(event) => {
     rest.onKeyDown?.(event)
     if (event.defaultPrevented || enabled.length === 0) return
     const current = controls.current.findIndex((control) => control === document.activeElement)

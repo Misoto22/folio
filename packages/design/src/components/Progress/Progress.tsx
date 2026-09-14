@@ -77,7 +77,7 @@ export function Progress({
       >
         {indeterminate ? (
           <span
-            data-m22-animated
+            data-folio-animated
             // A quarter-width bar travelling the track. `transform` only, so it
             // runs on the compositor and never triggers layout. `rtl:-scale-x-100`
             // mirrors the whole motion rather than needing a second keyframe:
@@ -91,7 +91,7 @@ export function Progress({
             // Still, it is a quarter of the track at the inline start — the
             // same answer Spinner gives, where a ring that has stopped turning
             // still reads as unfinished because it is not a whole circle.
-            className="absolute inset-y-0 start-0 w-1/4 rounded-(--radius-pill) bg-(--accent) rtl:-scale-x-100 motion-safe:animate-[m22-sweep_1.4s_var(--ease)_infinite]"
+            className="absolute inset-y-0 start-0 w-1/4 rounded-(--radius-pill) bg-(--accent) rtl:-scale-x-100 motion-safe:animate-[folio-sweep_1.4s_var(--ease)_infinite]"
           />
         ) : (
           <ProgressPrimitive.Indicator

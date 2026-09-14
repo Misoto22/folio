@@ -94,7 +94,7 @@ export function SkeletonPage({ label, children, className, ...rest }: SkeletonPa
     <div
       role="status"
       aria-busy="true"
-      data-m22-animated
+      data-folio-animated
       className={cn('animate-pulse motion-reduce:animate-none', className)}
       {...rest}
     >

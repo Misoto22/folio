@@ -1,6 +1,6 @@
-.m22-action-menu { inline-size: 15rem; max-inline-size: calc(100vw - 1rem); max-block-size: min(32rem, var(--radix-dropdown-menu-content-available-height)); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
-.m22-action-menu-item { min-block-size: 44px; }
-.m22-scroll-control { transition: opacity var(--duration-fast) var(--ease); }
-.m22-scroll-control-hidden { opacity: 0; pointer-events: none; }
-@media (prefers-reduced-motion: reduce) { .m22-scroll-control { transition: none; } }
-[data-motion='none'] .m22-scroll-control { transition: none; }
+.folio-action-menu { inline-size: 15rem; max-inline-size: calc(100vw - 1rem); max-block-size: min(32rem, var(--radix-dropdown-menu-content-available-height)); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.folio-action-menu-item { min-block-size: 44px; }
+.folio-scroll-control { transition: opacity var(--duration-fast) var(--ease); }
+.folio-scroll-control-hidden { opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .folio-scroll-control { transition: none; } }
+[data-motion='none'] .folio-scroll-control { transition: none; }

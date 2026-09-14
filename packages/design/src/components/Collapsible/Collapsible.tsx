@@ -28,9 +28,9 @@ export function CollapsibleContent({
 }: ComponentProps<typeof CollapsiblePrimitive.Content>) {
   return (
     <CollapsiblePrimitive.Content
-      data-m22-animated
+      data-folio-animated
       className={cn(
-        'overflow-hidden data-[state=closed]:animate-[m22-collapsible-up_var(--duration-base)_var(--ease)] data-[state=open]:animate-[m22-collapsible-down_var(--duration-base)_var(--ease)]',
+        'overflow-hidden data-[state=closed]:animate-[folio-collapsible-up_var(--duration-base)_var(--ease)] data-[state=open]:animate-[folio-collapsible-down_var(--duration-base)_var(--ease)]',
         className,
       )}
       {...props}
@@ -79,8 +79,8 @@ export function CollapsibleSection({
         />
       </CollapsiblePrimitive.Trigger>
       <CollapsiblePrimitive.Content
-        data-m22-animated
-        className="overflow-hidden text-sm leading-relaxed text-(--ink-2) data-[state=closed]:animate-[m22-collapsible-up_var(--duration-base)_var(--ease)] data-[state=open]:animate-[m22-collapsible-down_var(--duration-base)_var(--ease)]"
+        data-folio-animated
+        className="overflow-hidden text-sm leading-relaxed text-(--ink-2) data-[state=closed]:animate-[folio-collapsible-up_var(--duration-base)_var(--ease)] data-[state=open]:animate-[folio-collapsible-down_var(--duration-base)_var(--ease)]"
       >
         <div className="pb-3">{children}</div>
       </CollapsiblePrimitive.Content>

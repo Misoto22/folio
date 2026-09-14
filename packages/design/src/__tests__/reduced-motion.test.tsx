@@ -34,8 +34,8 @@ const COMPONENT_TEXT = COMPONENT_SOURCES.map((file) => readFileSync(file, 'utf8'
  * Only the quoted string literals — which is where a class list lives and a
  * bare JSX attribute does not. Checking a `[class*='…']` needle against the
  * whole file is what a first pass at this test did, and it passed on the very
- * selector it was written to catch: `data-m22-animated` contains the substring
- * `m22-anim`, so the dead selector looked alive.
+ * selector it was written to catch: `data-folio-animated` contains the substring
+ * `folio-anim`, so the dead selector looked alive.
  */
 const CLASS_LITERALS = (COMPONENT_TEXT.match(/'[^'\n]*'|"[^"\n]*"/g) ?? []).join('\n')
 
@@ -109,8 +109,8 @@ describe('prefers-reduced-motion', () => {
   })
 
   it('names no selector that matches nothing in the package', () => {
-    // `[class*='m22-anim']` sat here for months matching zero elements:
-    // Tailwind emits `animate-[m22-collapsible-down_…]`, which does not contain
+    // `[class*='folio-anim']` sat here for months matching zero elements:
+    // Tailwind emits `animate-[folio-collapsible-down_…]`, which does not contain
     // the substring. A dead selector in a kill switch is indistinguishable
     // from a live one until someone reads the built CSS.
     const dead = rulesIn(reducedMotionBlock())
@@ -127,15 +127,15 @@ describe('prefers-reduced-motion', () => {
   })
 
   it('leaves no animated component without its marker', () => {
-    // The enumeration that would have caught all four. `data-m22-animated` is
+    // The enumeration that would have caught all four. `data-folio-animated` is
     // an assertion that a surface's motion is decorative; a file that reaches
     // for a system keyframe and does not make it has forgotten, not decided.
     const unmarked = COMPONENT_SOURCES.filter((file) => {
       const text = readFileSync(file, 'utf8')
-      return text.includes('animate-[m22-') && !text.includes('data-m22-animated')
+      return text.includes('animate-[folio-') && !text.includes('data-folio-animated')
     }).map((file) => file.slice(SRC.length + 1))
 
-    expect(unmarked, 'add data-m22-animated to the animated element').toEqual([])
+    expect(unmarked, 'add data-folio-animated to the animated element').toEqual([])
   })
 
   it('marks the animated panel of every disclosure this package composes', () => {
@@ -174,16 +174,16 @@ describe('prefers-reduced-motion', () => {
 
     for (const [name, { container }] of cases) {
       // Read the attribute rather than selecting on it: jsdom's selector
-      // engine does not parse the unescaped `[` inside `animate-[m22-…`, and
+      // engine does not parse the unescaped `[` inside `animate-[folio-…`, and
       // returns an empty list rather than an error.
       const animated = [...container.querySelectorAll('*')].filter((element) =>
-        (element.getAttribute('class') ?? '').includes('animate-[m22-'),
+        (element.getAttribute('class') ?? '').includes('animate-[folio-'),
       )
 
       expect(animated.length, `${name} renders no element on a system keyframe`).toBeGreaterThan(0)
       expect(
-        animated.filter((element) => !element.hasAttribute('data-m22-animated')).length,
-        `${name} animates an element that carries no data-m22-animated`,
+        animated.filter((element) => !element.hasAttribute('data-folio-animated')).length,
+        `${name} animates an element that carries no data-folio-animated`,
       ).toBe(0)
     }
   })

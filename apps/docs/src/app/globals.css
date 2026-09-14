@@ -116,10 +116,10 @@
    and the loop jumps every time it wraps.
 
    Reversed under `dir="rtl"`, so it travels the way the page reads. The band is
-   decoration and says so with `data-m22-animated`, which is what the reduced
+   decoration and says so with `data-folio-animated`, which is what the reduced
    motion block in the package's keyframe layer removes outright — a reader who
    asked for less motion gets a still row of components, not a faster one. */
-@keyframes m22-docs-marquee {
+@keyframes folio-docs-marquee {
   from {
     transform: translateX(0);
   }
@@ -128,7 +128,7 @@
   }
 }
 
-[dir='rtl'] .m22-marquee {
+[dir='rtl'] .folio-marquee {
   animation-direction: reverse;
 }
 

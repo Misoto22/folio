@@ -29,7 +29,7 @@ describe('metric controls', () => {
   it('keeps the placeholder plot out of the accessibility tree, under a section-level heading', () => {
     render(<MetricsEmptyState title="Nothing yet" description="Visits fill the chart." />)
     const status = screen.getByRole('status')
-    expect(status.querySelector('.m22-metrics-empty__plot')).toHaveAttribute('aria-hidden', 'true')
+    expect(status.querySelector('.folio-metrics-empty__plot')).toHaveAttribute('aria-hidden', 'true')
     expect(within(status).getByRole('heading', { level: 3, name: 'Nothing yet' })).toBeInTheDocument()
   })
 })
@@ -45,7 +45,7 @@ describe('MetricsList', () => {
 
     const list = screen.getByLabelText('Countries')
     expect(list.tagName).toBe('DL')
-    expect(list).toHaveClass('m22-metrics-list')
+    expect(list).toHaveClass('folio-metrics-list')
     expect(within(list).getAllByRole('term').map((term) => term.textContent)).toEqual(['Australia', 'New Zealand'])
     expect(within(list).getAllByRole('definition').map((value) => value.textContent)).toEqual(['61.2%', '38.8%'])
     // Every pair keeps its own row wrapper, which is what the row styles target.
@@ -66,8 +66,8 @@ describe('metric values', () => {
     const { container } = render(<p><MetricValue segments={[{ text: '12.4' }, { text: 'k', unit: true }]} /></p>)
 
     expect(container.textContent).toBe('12.4k')
-    expect(screen.getByText('k')).toHaveClass('m22-metric-unit')
-    expect(screen.getByText('12.4')).not.toHaveClass('m22-metric-unit')
+    expect(screen.getByText('k')).toHaveClass('folio-metric-unit')
+    expect(screen.getByText('12.4')).not.toHaveClass('folio-metric-unit')
   })
 
   it('draws direction as decoration and leaves the judgement to the words', () => {

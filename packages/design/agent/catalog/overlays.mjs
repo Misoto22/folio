@@ -364,7 +364,7 @@ export const OVERLAYS = [
       },
       {
         kind: 'dont',
-        text: 'Do not re-declare the travel in className. The panel carries data-m22-animated, which removes its transform outright under reduced motion; a second transform of your own only gets the universal floor, so it still arrives — a hundredth of a millisecond later, from wherever you put it.',
+        text: 'Do not re-declare the travel in className. The panel carries data-folio-animated, which removes its transform outright under reduced motion; a second transform of your own only gets the universal floor, so it still arrives — a hundredth of a millisecond later, from wherever you put it.',
       },
       {
         kind: 'dont',

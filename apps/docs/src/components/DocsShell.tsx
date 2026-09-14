@@ -296,7 +296,7 @@ function Frame({ children }: { children: ReactNode }) {
             <Button
               size="sm"
               variant="secondary"
-              onClick={() => document.dispatchEvent(new CustomEvent('m22:palette'))}
+              onClick={() => document.dispatchEvent(new CustomEvent('folio:palette'))}
               className="gap-2 text-(--ink-3-aa) sm:w-56 sm:justify-start max-sm:border-transparent max-sm:px-2"
             >
               <RiSearchLine size={14} aria-hidden />

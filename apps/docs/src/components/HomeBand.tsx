@@ -285,11 +285,11 @@ function Specimen({ tile }: { tile: Tile }) {
 function Row({ tiles, seconds, reverse }: { tiles: Tile[]; seconds: number; reverse?: boolean }) {
   return (
     <div
-      className="m22-marquee flex w-max motion-safe:animate-[m22-docs-marquee_var(--m22-marquee-duration)_linear_infinite]"
-      data-m22-animated
+      className="folio-marquee flex w-max motion-safe:animate-[folio-docs-marquee_var(--folio-marquee-duration)_linear_infinite]"
+      data-folio-animated
       style={
         {
-          '--m22-marquee-duration': `${seconds}s`,
+          '--folio-marquee-duration': `${seconds}s`,
           animationDirection: reverse ? 'reverse' : undefined,
         } as CSSProperties
       }

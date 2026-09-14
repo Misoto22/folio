@@ -20,12 +20,12 @@ export interface MediaLightboxProps {
 /** A print and its controlled, focus-trapped full-screen dialog. */
 export function MediaLightbox({ open, onOpenChange, title, triggerLabel, closeLabel, aspectRatio, media, expandedMedia = media }: MediaLightboxProps) {
   const ratio = Number.isFinite(aspectRatio) && aspectRatio > 0 ? aspectRatio : 1.5
-  const style = { '--m22-media-aspect': ratio } as CSSProperties
+  const style = { '--folio-media-aspect': ratio } as CSSProperties
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="ghost" aria-label={triggerLabel} className="m22-media-frame" style={style} data-photo-frame>
+        <Button variant="ghost" aria-label={triggerLabel} className="folio-media-frame" style={style} data-photo-frame>
           {media}
         </Button>
       </DialogTrigger>
@@ -37,13 +37,13 @@ export function MediaLightbox({ open, onOpenChange, title, triggerLabel, closeLa
         aria-describedby={undefined}
         data-photo-lightbox
         data-mode="dark"
-        className="m22-media-lightbox translate-x-0 translate-y-0"
+        className="folio-media-lightbox translate-x-0 translate-y-0"
         style={style}
         onClick={(event) => { if (event.target === event.currentTarget) onOpenChange(false) }}
       >
-        <div className="m22-media-lightbox-stage">{expandedMedia}</div>
-        <DialogClose asChild><Button variant="secondary" iconOnly aria-label={closeLabel} className="m22-media-lightbox-close"><RiCloseLine size={18} aria-hidden="true" /></Button></DialogClose>
-        <p className="m22-media-lightbox-caption" aria-hidden="true">{title}</p>
+        <div className="folio-media-lightbox-stage">{expandedMedia}</div>
+        <DialogClose asChild><Button variant="secondary" iconOnly aria-label={closeLabel} className="folio-media-lightbox-close"><RiCloseLine size={18} aria-hidden="true" /></Button></DialogClose>
+        <p className="folio-media-lightbox-caption" aria-hidden="true">{title}</p>
       </DialogContent>
     </Dialog>
   )

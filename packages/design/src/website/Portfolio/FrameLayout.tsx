@@ -32,7 +32,7 @@ function FrameLayout({ children }: { children: ReactNode }) {
     measure()
     return () => { observer.disconnect(); grid.removeEventListener('load', measure, true) }
   }, [children])
-  return <div ref={ref}>{Children.map(children, child => <div className="m22-frame-layout-item">{child}</div>)}</div>
+  return <div ref={ref}>{Children.map(children, child => <div className="folio-frame-layout-item">{child}</div>)}</div>
 }
 
 export default FrameLayout
