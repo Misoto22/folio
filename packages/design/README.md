@@ -118,7 +118,7 @@ Copilot, Gemini CLI, OpenCode, Cline, Zed and Warp all read — and to
 and finds this one without any configuration:
 
 ```bash
-npx skills add Misoto22/misoto22-design
+npx skills add Misoto22/folio
 ```
 
 The skill is progressive: its name and description are about 110 tokens and are

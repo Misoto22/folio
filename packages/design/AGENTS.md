@@ -25,7 +25,7 @@ never written as a raw class; the skill leads with both.
 `init` writes it to `.agents/skills/` — the path Codex, Cursor, Copilot, Gemini
 CLI, OpenCode, Cline, Zed and Warp share — and to `.claude/skills/` when the
 project already has one. For anything else, `npx skills add
-Misoto22/misoto22-design` finds this skill with no configuration.
+Misoto22/folio` finds this skill with no configuration.
 
 Some misuse fails silently, so the components say so in development:
 `FIELD_CONTROL_NOT_LABELLABLE` when a wrapper takes the label instead of the

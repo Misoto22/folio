@@ -143,7 +143,7 @@
   "packageManager": "pnpm@11.9.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Misoto22/misoto22-design.git",
+    "url": "git+https://github.com/Misoto22/folio.git",
     "directory": "packages/design"
   },
   "keywords": [
@@ -157,7 +157,7 @@
   ],
   "homepage": "https://ui.misoto22.com",
   "bugs": {
-    "url": "https://github.com/Misoto22/misoto22-design/issues"
+    "url": "https://github.com/Misoto22/folio/issues"
   },
   "publishConfig": {
     "access": "public"
