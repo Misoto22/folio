@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
+import { STORAGE_KEYS } from '@/lib/storage-keys'
 
 /**
  * The axes a theme is made of, beyond the accent.
@@ -134,8 +135,8 @@ export const PRESETS: ThemePreset[] = [
   },
 ]
 
-const STORAGE_KEY = 'm22-theme'
-const ACCENT_KEY = 'm22-accent'
+const STORAGE_KEY = STORAGE_KEYS.theme
+const ACCENT_KEY = STORAGE_KEYS.accent
 
 interface ThemeContextValue {
   theme: ThemeState
