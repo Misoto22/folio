@@ -1252,6 +1252,15 @@ const ZH: Record<string, string> = {
   [fingerprint(
     "The row-header column gets its width from a `colgroup` rather than from a cell, because fixed layout only ever reads a column's width off a cell in the table's first row, and that row's own corner cell is `sr-only` — `position: absolute` — so a width placed there was never seen. A `col` is read regardless of which cell in the column, or which row, is hidden.",
   )]: '行标题列的宽度来自一个 `colgroup`，而不是某个单元格，因为固定布局只会从表格第一行里的某个单元格读取列宽，而那一行自己的角落单元格是 `sr-only` 的——`position: absolute`——放在那里的宽度从来不会被看到。`col` 则不管列里哪个单元格、或者哪一行被隐藏，都照样会被读到。',
+  [fingerprint(
+    '`SiteNavigation` takes its width from its containing block, so a transformed or contained frame keeps the whole masthead inside it.',
+  )]: '`SiteNavigation` 现在按包含块取宽度，于是放在做了变换或包含的框里时，整条页头都会留在框内。',
+  [fingerprint(
+    "The header pinned itself to `window.innerWidth` so that an overlay's scroll lock could not change its width in a WebView. That is right against the viewport and wrong anywhere else: under an ancestor with a `transform` or `contain: layout` — a device preview, an embedded console, a documentation card — a fixed header is laid out against that ancestor, and a window-wide width pushed its links and preferences out past the frame's edge.",
+  )]: '页头原先把自己的宽度钉在 `window.innerWidth` 上，好让浮层的滚动锁定不会在 WebView 里改变它的宽度。这对视口是对的，换到别处就错了：祖先元素带有 `transform` 或 `contain: layout` 时——设备预览、嵌入式控制台、文档里的示例卡片——fixed 页头是相对那个祖先来布局的，而一个与窗口同宽的宽度，把它的链接和偏好设置推出了框的边缘。',
+  [fingerprint(
+    "It now pins a width only when the stylesheet's `inline-size: 100%` already resolves to the viewport, and otherwise leaves the width to the containing block.",
+  )]: '现在只有当样式表里的 `inline-size: 100%` 本来就解析为视口宽度时，它才会钉住宽度；否则就把宽度交给包含块。',
 }
 
 /** The English a translation was made from, for the orphan check. */

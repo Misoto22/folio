@@ -14,6 +14,23 @@ test('compact records use the reading column when their optional index is absent
   expect(copyBounds!.width).toBeGreaterThan(rowBounds!.width / 2)
 })
 
+test('site navigation is laid out against its preview rather than the window', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 })
+  await page.goto('/patterns/site-navigation/')
+  const frame = page.locator('[data-example="SiteNavigation/01-navigation-and-preferences"] [data-canvas="preview"]')
+  const navigation = frame.locator('.m22-site-navigation')
+  const language = navigation.getByRole('button', { name: 'Language' })
+  await expect(language).toBeVisible()
+  // `toBeVisible` ignores clipping, and clipping is the failure: a header as
+  // wide as the window pushed its links and preferences past the card's edge.
+  const frameBounds = (await frame.boundingBox())!
+  const navigationBounds = (await navigation.boundingBox())!
+  const languageBounds = (await language.boundingBox())!
+  expect(navigationBounds.x).toBeGreaterThanOrEqual(frameBounds.x - 1)
+  expect(navigationBounds.x + navigationBounds.width).toBeLessThanOrEqual(frameBounds.x + frameBounds.width + 1)
+  expect(languageBounds.x + languageBounds.width).toBeLessThanOrEqual(frameBounds.x + frameBounds.width)
+})
+
 test('media detail return control retains its touch target after browser rounding', async ({ page }) => {
   await page.setViewportSize({ width: 640, height: 1000 })
   await page.goto('/patterns/media/')

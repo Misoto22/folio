@@ -162,7 +162,15 @@ export function ExampleCanvas({ exampleKey, html, snippet, previewHeight }: Exam
               so it flipped above this card whenever the card sat low on the
               screen — and it never saw the direction and density set here. */}
           <OverlayContainer container={frame}>
-            <div className="flex w-full max-w-full justify-center">
+            {/* `contain-layout` makes the example's own box the containing block
+                for FIXED descendants. Without it a component that pins itself
+                to the window — `SiteNavigation`'s opaque header — left the card,
+                took the top of the viewport at the masthead's own z-index, and
+                painted over the site's navigation. On this wrapper, not on the
+                frame: the frame is the popovers' collision boundary, and with
+                it also their containing block floating-ui shifted open panels
+                hundreds of pixels out of the card. */}
+            <div className="flex w-full max-w-full justify-center contain-layout">
               <ExampleControlsSlot value={controls}>
                 <Example />
               </ExampleControlsSlot>
