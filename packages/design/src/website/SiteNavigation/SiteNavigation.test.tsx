@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { NavigationSearchTrigger, PreferenceMenu, SiteNavigation } from './SiteNavigation'
 
 describe('SiteNavigation', () => {
@@ -26,6 +26,48 @@ describe('SiteNavigation', () => {
   })
 })
 
+describe('SiteNavigation width', () => {
+  // jsdom has no layout, so the boxes the header compares are supplied: its
+  // own unpinned box, and the box of the probe it fixes to the body.
+  let laidOut = 0
+  let viewport = 0
+  let client = 0
+  const innerWidth = Object.getOwnPropertyDescriptor(window, 'innerWidth')
+  const masthead = () => render(<SiteNavigation brand={<a href="/">Portfolio</a>} label="Primary" openLabel="Open menu" closeLabel="Close menu" links={[]} />).container.querySelector('header')!
+
+  beforeEach(() => {
+    Object.defineProperty(window, 'innerWidth', { configurable: true, value: 1440 })
+    Object.defineProperty(document.documentElement, 'clientWidth', { configurable: true, get: () => client })
+    vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (this: HTMLElement) {
+      const width = this.tagName === 'HEADER' ? laidOut : viewport
+      return { x: 0, y: 0, top: 0, left: 0, right: width, bottom: 0, width, height: 0, toJSON: () => ({}) }
+    })
+  })
+  afterEach(() => {
+    vi.restoreAllMocks()
+    Reflect.deleteProperty(document.documentElement, 'clientWidth')
+    if (innerWidth) Object.defineProperty(window, 'innerWidth', innerWidth)
+    document.body.removeAttribute('data-scroll-locked')
+  })
+
+  it('pins the viewport width, less the scrollbar, when laid out against the viewport', () => {
+    client = viewport = laidOut = 1425
+    expect(masthead().style.getPropertyValue('inline-size')).toBe('1425px')
+  })
+  it('leaves the width to a containing block that is not the viewport', () => {
+    client = viewport = 1425
+    laidOut = 640
+    expect(masthead().style.getPropertyValue('inline-size')).toBe('')
+  })
+  it('keeps the unlocked width through a resize while an overlay holds the scroll lock', () => {
+    client = viewport = laidOut = 1425
+    const header = masthead()
+    document.body.setAttribute('data-scroll-locked', '1')
+    client = viewport = laidOut = 1440
+    fireEvent(window, new Event('resize'))
+    expect(header.style.getPropertyValue('inline-size')).toBe('1425px')
+  })
+})
 
 describe('PreferenceMenu focus and scroll behavior', () => {
   const menu = () => <PreferenceMenu label="Appearance" value="system" onValueChange={() => {}} icon={<span>Theme</span>} options={[{ value: 'system', label: 'System' }, { value: 'light', label: 'Light' }]} />

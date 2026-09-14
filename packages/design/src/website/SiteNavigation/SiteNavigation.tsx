@@ -41,6 +41,26 @@ export function PreferenceMenu({ label, value, onValueChange, icon, disabled, op
   return <DropdownMenu modal={false}><DropdownMenuTrigger asChild onPointerDownCapture={() => { keyboardInteraction.current = false }} onKeyDownCapture={() => { keyboardInteraction.current = true }}><Button variant="ghost" iconOnly aria-label={label} disabled={disabled}>{icon}</Button></DropdownMenuTrigger><DropdownMenuContent align="end" aria-label={label} onPointerDownCapture={() => { keyboardInteraction.current = false }} onKeyDownCapture={() => { keyboardInteraction.current = true }} onCloseAutoFocus={event => { if (!keyboardInteraction.current) event.preventDefault() }}><DropdownMenuLabel>{label}</DropdownMenuLabel><MenuPrimitive.RadioGroup value={value} onValueChange={onValueChange}>{options.map(option => <MenuPrimitive.RadioItem key={option.value} value={option.value} className="m22-site-preference-item"><span>{option.label}</span>{option.icon}<MenuPrimitive.ItemIndicator className="m22-site-preference-indicator" aria-hidden><RiCheckLine size={14} /></MenuPrimitive.ItemIndicator></MenuPrimitive.RadioItem>)}</MenuPrimitive.RadioGroup></DropdownMenuContent></DropdownMenu>
 }
 
+/**
+ * Whether a fixed element's containing block is the viewport.
+ *
+ * A transform, filter or `contain: layout` on any ancestor takes that role
+ * instead, and the list differs between engines, so the element is
+ * compared with a probe fixed to the body rather than checked against a list.
+ * `documentElement.clientWidth` cannot stand in for the probe: with a stable
+ * scrollbar gutter Chromium reports the full window while laying fixed boxes
+ * out beside the gutter.
+ */
+function isLaidOutAgainstViewport(element: HTMLElement): boolean {
+  const probe = document.createElement('div')
+  probe.style.cssText = 'position:fixed;inset:0 0 auto;inline-size:100%;visibility:hidden;pointer-events:none'
+  document.body.append(probe)
+  const own = element.getBoundingClientRect()
+  const viewport = probe.getBoundingClientRect()
+  probe.remove()
+  return Math.abs(own.left - viewport.left) <= 1 && Math.abs(own.top - viewport.top) <= 1 && Math.abs(own.width - viewport.width) <= 1
+}
+
 export interface SiteNavigationProps {
   brand: ReactNode
   links: SiteNavigationItem[]
@@ -59,6 +79,8 @@ export interface SiteNavigationProps {
 export function SiteNavigation({ brand, links, actions, footer, label, openLabel, closeLabel, overlay = false, navigationKey }: SiteNavigationProps) {
   const header = useRef<HTMLElement>(null)
   useEffect(() => {
+    const node = header.current
+    if (!node) return
     // Overlay scroll locks change the viewport's available layout width in
     // WebViews. Keep the unlocked width until an actual window resize.
     let gutter = window.innerWidth - document.documentElement.clientWidth
@@ -66,7 +88,11 @@ export function SiteNavigation({ brand, links, actions, footer, label, openLabel
       if (!document.body.hasAttribute('data-scroll-locked')) {
         gutter = window.innerWidth - document.documentElement.clientWidth
       }
-      header.current?.style.setProperty('inline-size', `${window.innerWidth - gutter}px`)
+      // Pin only against the viewport. Under an ancestor that contains fixed
+      // descendants the stylesheet's 100% is that ancestor's width, and the
+      // window's overflows it.
+      node.style.removeProperty('inline-size')
+      if (isLaidOutAgainstViewport(node)) node.style.setProperty('inline-size', `${window.innerWidth - gutter}px`)
     }
     measure()
     window.addEventListener('resize', measure)
