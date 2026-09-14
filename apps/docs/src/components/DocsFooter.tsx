@@ -13,7 +13,7 @@ import changelog from '@/generated/changelog.json'
 /** The version on the front of the changelog — the package's newest release. */
 const VERSION = (changelog as { version: string }[])[0]?.version ?? ''
 
-const REPO = 'https://github.com/Misoto22/misoto22-design'
+const REPO = 'https://github.com/Misoto22/folio'
 const NPM = 'https://www.npmjs.com/package/@misoto22/design'
 
 /**

@@ -190,7 +190,7 @@ function initTargets(args) {
     if (!wanted || !AGENT_DIRS[wanted]) {
       fail(
         `Unknown --agent "${wanted ?? ''}". Known: ${Object.keys(AGENT_DIRS).join(', ')}.\n` +
-          'For any other agent, `npx skills add Misoto22/misoto22-design` covers ~70 of them.',
+          'For any other agent, `npx skills add Misoto22/folio` covers ~70 of them.',
       )
     }
     return [AGENT_DIRS[wanted]]
