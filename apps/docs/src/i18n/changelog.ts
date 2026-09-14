@@ -49,6 +49,15 @@ const ZH: Record<string, string> = {
   [fingerprint("The portable `website.css` entry and compiled stylesheet share the canonical tokens. Offline documentation includes every family and its server and client exports.")]: "独立的 `website.css` 与编译后的完整样式共用同一套设计变量。离线文档覆盖所有新增组件组及其服务端、客户端导出。",
   // ─── unreleased ───
   [fingerprint(
+    "`StepSequence` now draws the core `Steps` rail, and `ClipboardButton` shares `CodeBlock`'s copy state, including what a refused clipboard write does.",
+  )]: '`StepSequence` 现在直接用核心 `Steps` 的流程轨道绘制，`ClipboardButton` 也与 `CodeBlock` 共用同一套复制状态，包括剪贴板写入被拒绝时的处理。',
+  [fingerprint(
+    'The website rail was a second implementation of the same figure — marker, connector, name and note — at its own sizes. It now renders through the same internal rail item as `Steps`, so its markers are the core 2rem circles with sans counters and the anchor no longer sets its label in medium weight. Host counters, tags, the caption, `data-anchor` and the ARIA list roles that keep article prose from restyling it are unchanged, and the anchor is still not announced as the current step.',
+  )]: '网站版流程轨道原本是同一种图形的第二套实现——标记、连接线、名称和注释——而且尺寸自成一套。现在它与 `Steps` 通过同一个内部轨道条目渲染，所以标记变成核心的 2rem 圆形、编号改用无衬线字体，锚点步骤的名称也不再使用中等字重。应用提供的编号、标签、说明文字、`data-anchor`，以及让文章正文样式不去改写它的 ARIA 列表角色都保持不变，锚点仍然不会被播报为当前步骤。',
+  [fingerprint(
+    'Both copy controls confirm for 1600ms from the latest accepted write. A refused write now clears any confirmation still showing instead of leaving it up, and names the refusal once in development as `CLIPBOARD_WRITE_REJECTED`.',
+  )]: '两个复制控件都会从最近一次被浏览器接受的写入起确认 1600 毫秒。写入被拒绝时，现在会清除仍在显示的确认状态，而不是继续显示成功；在开发环境中还会以 `CLIPBOARD_WRITE_REJECTED` 提示一次原因。',
+  [fingerprint(
     '`CalendarHeatmap` — a year of daily readings as a week-by-week grid, built from the dates rather than from the order of the array.',
   )]: '`CalendarHeatmap`——一年的每日读数，画成一周一列的网格，而且是按日期搭出来的，不是按数组顺序。',
   [fingerprint(
