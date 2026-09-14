@@ -30,3 +30,19 @@ describe('CommandItem icon', () => {
     expect(container.querySelector('svg')).not.toBeNull()
   })
 })
+
+/**
+ * The active row's leading accent bar is an absolutely-positioned `::before`,
+ * which a rounded parent does not clip on its own — only `overflow-hidden` on
+ * the row makes the bar follow `--radius-row` instead of sticking out past it
+ * at a large radius. Asserting the class rather than a rendered geometry is
+ * what the rest of this file already does for the icon prop, and it is the
+ * one guarantee that survives a Tailwind class reorder.
+ */
+describe('CommandItem accent bar', () => {
+  it('clips the row to its own radius, so the bar cannot outgrow a rounded corner', () => {
+    const { container } = palette(<CommandItem>Settings</CommandItem>)
+    const item = container.querySelector('[cmdk-item]')
+    expect(item?.className).toContain('overflow-hidden')
+  })
+})
