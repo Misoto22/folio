@@ -17,12 +17,16 @@ test.describe('locales', () => {
     await page.goto('/components/button/')
     await expect(page.getByRole('heading', { name: 'Button', level: 1 })).toBeVisible()
     await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+    await expect(page).toHaveTitle(`Button · ${BRAND_NAME.en}`)
   })
 
   test('Chinese renders the editorial layer in Chinese', async ({ page }) => {
     await page.goto('/zh/components/button/')
     await ready(page)
     await expect(page.locator('html')).toHaveAttribute('lang', 'zh-Hans')
+    // The Chinese name in the tab too, and only once: the zh layout's template
+    // replaces the root one rather than stacking on it.
+    await expect(page).toHaveTitle(`Button · ${BRAND_NAME.zh}`)
     // The summary, the "when to reach for it" note and the section headings.
     await expect(page.getByText('这套系统的动作')).toBeVisible()
     await expect(page.getByRole('heading', { name: '示例' })).toBeVisible()
