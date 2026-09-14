@@ -11,7 +11,7 @@ export function Tabs({ value, defaultValue, onValueChange, swipe = true, orienta
   const [internal, setInternal] = useState(defaultValue)
   const current = value ?? internal
   const change = (next: string) => { if (value === undefined) setInternal(next); onValueChange?.(next) }
-  return <MotionContext.Provider value={{ value: current, change, swipe: swipe && orientation === 'horizontal', automatic: activationMode === 'automatic' }}><TabsPrimitive.Root {...rest} activationMode={activationMode} orientation={orientation} value={current} onValueChange={change} className={cn('m22-tabs', className)} /></MotionContext.Provider>
+  return <MotionContext.Provider value={{ value: current, change, swipe: swipe && orientation === 'horizontal', automatic: activationMode === 'automatic' }}><TabsPrimitive.Root {...rest} activationMode={activationMode} orientation={orientation} value={current} onValueChange={change} className={cn('folio-tabs', className)} /></MotionContext.Provider>
 }
 
 /**
@@ -42,7 +42,7 @@ export function TabsList({ className, ref: forwardedRef, onPointerDown, onPointe
     const measure = () => {
       const active = element.querySelector<HTMLElement>('[role=tab][data-state=active]')
       if (!active) return
-      if (previousX.current !== undefined && previousX.current !== active.offsetLeft) element.closest<HTMLElement>('.m22-tabs')?.style.setProperty('--tab-enter-x', active.offsetLeft > previousX.current ? '16px' : '-16px')
+      if (previousX.current !== undefined && previousX.current !== active.offsetLeft) element.closest<HTMLElement>('.folio-tabs')?.style.setProperty('--tab-enter-x', active.offsetLeft > previousX.current ? '16px' : '-16px')
       previousX.current = active.offsetLeft
       element.style.setProperty('--tab-x', `${active.offsetLeft}px`)
       element.style.setProperty('--tab-y', `${active.offsetTop}px`)
@@ -114,7 +114,7 @@ export function TabsList({ className, ref: forwardedRef, onPointerDown, onPointe
         // content exactly one pixel taller than the box, which is enough for a
         // vertical scrollbar to appear beside a row of tabs that has nothing
         // to scroll.
-        'm22-tabs-list flex items-center overflow-x-auto overflow-y-hidden gap-1 border-b border-(--rule-2) scroll-slim',
+        'folio-tabs-list flex items-center overflow-x-auto overflow-y-hidden gap-1 border-b border-(--rule-2) scroll-slim',
         className,
       )}
       {...rest}
@@ -151,11 +151,11 @@ export function TabsContent({ className, onTouchStart, onTouchEnd, onTouchCancel
   const start = useRef<{ x: number; y: number } | null>(null)
   return (
     <TabsPrimitive.Content
-      data-m22-animated
+      data-folio-animated
       onTouchStart={event => {
         onTouchStart?.(event)
         start.current = null
-        if (!motion?.swipe || event.defaultPrevented || event.touches.length !== 1 || (event.target as HTMLElement).closest('.m22-tabs') !== event.currentTarget.closest('.m22-tabs') || (event.target as HTMLElement).closest('a,button,input,textarea,select,pre,code,[contenteditable=true],[data-no-swipe]')) return
+        if (!motion?.swipe || event.defaultPrevented || event.touches.length !== 1 || (event.target as HTMLElement).closest('.folio-tabs') !== event.currentTarget.closest('.folio-tabs') || (event.target as HTMLElement).closest('a,button,input,textarea,select,pre,code,[contenteditable=true],[data-no-swipe]')) return
         const touch = event.touches[0]
         if (touch) start.current = { x: touch.clientX, y: touch.clientY }
       }}
@@ -167,7 +167,7 @@ export function TabsContent({ className, onTouchStart, onTouchEnd, onTouchCancel
         const dx = event.changedTouches[0].clientX - origin.x
         const dy = event.changedTouches[0].clientY - origin.y
         if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.5) return
-        const list = event.currentTarget.closest('.m22-tabs')?.querySelector('[role=tablist]')
+        const list = event.currentTarget.closest('.folio-tabs')?.querySelector('[role=tablist]')
         if (!list) return
         const tabs = Array.from(list.querySelectorAll<HTMLElement>('[role=tab]:not([disabled])'))
         const index = tabs.findIndex(tab => tab.dataset.state === 'active')
@@ -180,7 +180,7 @@ export function TabsContent({ className, onTouchStart, onTouchEnd, onTouchCancel
         }
       }}
       onTouchCancel={event => { start.current = null; onTouchCancel?.(event) }}
-      className={cn('m22-tabs-panel pt-5', className)}
+      className={cn('folio-tabs-panel pt-5', className)}
       {...rest}
     />
   )

@@ -1,43 +1,43 @@
-.m22-record-section { scroll-margin-block-start: var(--scroll-offset); }
-.m22-record-section__header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding-block-end: 1rem; border-block-end: 1px solid var(--rule-hard); }
-.m22-career-record { display: grid; gap: 1rem; border-block-end: 1px solid var(--rule); padding-block: clamp(2rem, 3.5vw, 3rem); }
-.m22-career-record__dates { display: flex; flex-wrap: wrap; align-items: baseline; gap: 1rem; }
-.m22-career-record__dates dl, .m22-career-record__dates dd { margin: 0; }
-.m22-career-record__dates dl { display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
-.m22-career-record__dates dd { font-variant-numeric: tabular-nums; }
-.m22-career-record__body { min-inline-size: 0; }
-.m22-career-record__description { margin-block: 1.25rem 0; max-inline-size: var(--measure-record); padding-inline-start: 1.25rem; list-style: disc; }
-.m22-career-record__description > li + li { margin-block-start: .5rem; }
-.m22-career-record__tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-block: 1.25rem 0; list-style: none; padding: 0; }
-.m22-career-record__mark { display: none; }
-.m22-career-record__mark img { inline-size: 4rem; block-size: 4rem; object-fit: contain; }
-.m22-profile-section, .m22-profile-narrative { padding-block: clamp(3rem, 6vw, 5rem); }
-.m22-profile-section__header { display: flex; flex-direction: column; gap: 1rem; margin-block-end: clamp(2rem, 4vw, 3rem); }
-.m22-profile-narrative { display: grid; gap: 2rem; }
-.m22-profile-figure { margin: 0; padding-block: clamp(2rem, 5vw, 4rem); }
-.m22-profile-figure__image { overflow: hidden; border-radius: var(--radius); }
-.m22-profile-figure__image img { display: block; inline-size: 100%; block-size: auto; }
-.m22-profile-skills__group { display: grid; gap: 1rem; border-block-end: 1px solid var(--rule); padding-block: 1.5rem; }
-.m22-profile-skills__group:first-child { border-block-start: 1px solid var(--rule-hard); }
-.m22-profile-skills__items { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; list-style: none; margin: 0; padding: 0; }
-.m22-profile-skills__items > li { display: inline-flex; align-items: center; gap: .5rem; }
-.m22-profile-skill__icon { display: inline-flex; }
-.m22-profile-skill__icon:empty { display: none; }
-.m22-profile-skill__icon [data-artwork='dark'] { display: none; }
-[data-mode='dark'] .m22-profile-skill__icon[data-has-dark] [data-artwork='light'] { display: none; }
-[data-mode='dark'] .m22-profile-skill__icon[data-has-dark] [data-artwork='dark'] { display: inline-flex; }
-[data-mode='dark'] .m22-profile-skill__icon[data-invert]:not([data-has-dark]) img { filter: invert(1); }
-.m22-profile-interests { display: grid; gap: 2rem; }
-.m22-profile-interests article { border-block-start: 1px solid var(--rule); padding-block-start: 1.5rem; }
-.m22-timeline { border-block-start: 1px solid var(--rule-hard); }
-.m22-timeline__item { min-inline-size: 0; }
+.folio-record-section { scroll-margin-block-start: var(--scroll-offset); }
+.folio-record-section__header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding-block-end: 1rem; border-block-end: 1px solid var(--rule-hard); }
+.folio-career-record { display: grid; gap: 1rem; border-block-end: 1px solid var(--rule); padding-block: clamp(2rem, 3.5vw, 3rem); }
+.folio-career-record__dates { display: flex; flex-wrap: wrap; align-items: baseline; gap: 1rem; }
+.folio-career-record__dates dl, .folio-career-record__dates dd { margin: 0; }
+.folio-career-record__dates dl { display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
+.folio-career-record__dates dd { font-variant-numeric: tabular-nums; }
+.folio-career-record__body { min-inline-size: 0; }
+.folio-career-record__description { margin-block: 1.25rem 0; max-inline-size: var(--measure-record); padding-inline-start: 1.25rem; list-style: disc; }
+.folio-career-record__description > li + li { margin-block-start: .5rem; }
+.folio-career-record__tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-block: 1.25rem 0; list-style: none; padding: 0; }
+.folio-career-record__mark { display: none; }
+.folio-career-record__mark img { inline-size: 4rem; block-size: 4rem; object-fit: contain; }
+.folio-profile-section, .folio-profile-narrative { padding-block: clamp(3rem, 6vw, 5rem); }
+.folio-profile-section__header { display: flex; flex-direction: column; gap: 1rem; margin-block-end: clamp(2rem, 4vw, 3rem); }
+.folio-profile-narrative { display: grid; gap: 2rem; }
+.folio-profile-figure { margin: 0; padding-block: clamp(2rem, 5vw, 4rem); }
+.folio-profile-figure__image { overflow: hidden; border-radius: var(--radius); }
+.folio-profile-figure__image img { display: block; inline-size: 100%; block-size: auto; }
+.folio-profile-skills__group { display: grid; gap: 1rem; border-block-end: 1px solid var(--rule); padding-block: 1.5rem; }
+.folio-profile-skills__group:first-child { border-block-start: 1px solid var(--rule-hard); }
+.folio-profile-skills__items { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; list-style: none; margin: 0; padding: 0; }
+.folio-profile-skills__items > li { display: inline-flex; align-items: center; gap: .5rem; }
+.folio-profile-skill__icon { display: inline-flex; }
+.folio-profile-skill__icon:empty { display: none; }
+.folio-profile-skill__icon [data-artwork='dark'] { display: none; }
+[data-mode='dark'] .folio-profile-skill__icon[data-has-dark] [data-artwork='light'] { display: none; }
+[data-mode='dark'] .folio-profile-skill__icon[data-has-dark] [data-artwork='dark'] { display: inline-flex; }
+[data-mode='dark'] .folio-profile-skill__icon[data-invert]:not([data-has-dark]) img { filter: invert(1); }
+.folio-profile-interests { display: grid; gap: 2rem; }
+.folio-profile-interests article { border-block-start: 1px solid var(--rule); padding-block-start: 1.5rem; }
+.folio-timeline { border-block-start: 1px solid var(--rule-hard); }
+.folio-timeline__item { min-inline-size: 0; }
 @media (min-width: 768px) {
-  .m22-career-record { grid-template-columns: 11rem minmax(0, 1fr) 4rem; column-gap: clamp(2rem, 4vw, 3.5rem); }
-  .m22-career-record__dates, .m22-career-record__dates dl { display: block; }
-  .m22-career-record__dates dd + dt + dd { margin-block-start: .5rem; }
-  .m22-career-record__dates > dl + * { margin-block-start: 1rem; }
-  .m22-career-record__mark { display: block; justify-self: end; }
-  .m22-profile-narrative { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(3rem, 7vw, 6rem); }
-  .m22-profile-skills__group { grid-template-columns: minmax(10rem, 3fr) minmax(0, 9fr); gap: 2rem; }
-  .m22-profile-interests { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .folio-career-record { grid-template-columns: 11rem minmax(0, 1fr) 4rem; column-gap: clamp(2rem, 4vw, 3.5rem); }
+  .folio-career-record__dates, .folio-career-record__dates dl { display: block; }
+  .folio-career-record__dates dd + dt + dd { margin-block-start: .5rem; }
+  .folio-career-record__dates > dl + * { margin-block-start: 1rem; }
+  .folio-career-record__mark { display: block; justify-self: end; }
+  .folio-profile-narrative { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(3rem, 7vw, 6rem); }
+  .folio-profile-skills__group { grid-template-columns: minmax(10rem, 3fr) minmax(0, 9fr); gap: 2rem; }
+  .folio-profile-interests { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }

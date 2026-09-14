@@ -73,7 +73,7 @@ function blocksFor(css: string, selector: string): string[] {
     .map(([, , body]) => body!)
 }
 
-const classesIn = (list: string[]) => new Set(list.flatMap((selector) => selector.match(/\.m22-[\w-]+/g) ?? []))
+const classesIn = (list: string[]) => new Set(list.flatMap((selector) => selector.match(/\.folio-[\w-]+/g) ?? []))
 
 /** The site-wide ring, in either spelling it has had. */
 const isSiteRing = (selector: string) => /^:(is|where)\(a, button, input, textarea, select, summary, \[tabindex\]\):focus-visible$/.test(selector)
@@ -103,7 +103,7 @@ describe('the CSS entries', () => {
   it('sets no document defaults from the core stylesheet', () => {
     expect(blocksFor(core, 'body')).toEqual([])
     expect(selectors(core).filter(isSiteRing)).toEqual([])
-    expect(selectors(core).filter((selector) => selector.includes('[data-m22-menu]'))).toEqual([])
+    expect(selectors(core).filter((selector) => selector.includes('[data-folio-menu]'))).toEqual([])
     // Tailwind's preflight resets headings to `inherit`; the website's 400 is a
     // choice about a page, and does not belong to an application's headings.
     expect(blocksFor(core, 'h1').filter((body) => /font-weight:\s*400/.test(body))).toEqual([])
@@ -116,7 +116,7 @@ describe('the CSS entries', () => {
   it('scopes every website.css rule to a composition class', () => {
     // `:root` holds the one custom property the compositions share, which is
     // inert until a rule reads it.
-    const unscoped = selectors(website).filter((selector) => selector !== ':root' && !/\.m22-/.test(selector))
+    const unscoped = selectors(website).filter((selector) => selector !== ':root' && !/\.folio-/.test(selector))
     expect(unscoped).toEqual([])
   })
 
@@ -137,7 +137,7 @@ describe('the CSS entries', () => {
   it('leaves utilities in charge wherever a website rule is not scoped to a composition', () => {
     expect(rules(base).length).toBeGreaterThan(0)
     expect(rules(base).filter((rule) => !rule.within.includes('@layer base')).map((rule) => rule.selector)).toEqual([])
-    const unlayeredUnscoped = rules(website).filter((rule) => !layered(rule) && rule.selector !== ':root' && !/\.m22-/.test(rule.selector))
+    const unlayeredUnscoped = rules(website).filter((rule) => !layered(rule) && rule.selector !== ':root' && !/\.folio-/.test(rule.selector))
     expect(unlayeredUnscoped.map((rule) => rule.selector)).toEqual([])
   })
 
@@ -154,6 +154,6 @@ describe('the CSS entries', () => {
       .filter((file) => file.endsWith('.css'))
       .flatMap((file) => [...readFileSync(join(STYLES, file), 'utf8').matchAll(/@keyframes\s+([\w-]+)/g)].map(([, name]) => `${file}: ${name}`))
     expect(names.length).toBeGreaterThan(0)
-    expect(names.filter((entry) => !/: m22-/.test(entry))).toEqual([])
+    expect(names.filter((entry) => !/: folio-/.test(entry))).toEqual([])
   })
 })

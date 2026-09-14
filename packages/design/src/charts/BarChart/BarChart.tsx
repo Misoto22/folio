@@ -83,7 +83,7 @@ const GROW_DURATION = 0.5
 /** How long each bar waits behind the one before it. */
 const GROW_STAGGER = 0.05
 
-const STACK_ID = 'm22-bar-stack'
+const STACK_ID = 'folio-bar-stack'
 
 /**
  * Room around the plot, so the first and last tick labels are not sliced by the

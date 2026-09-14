@@ -62,7 +62,7 @@ Everything here applies to `packages/design/src/diagrams` too — see
   by the words, or by both.
 - **44px is the pointer-target floor** for anything a finger has to hit.
 - **Motion is gated behind `motion-safe`**, and every animated element carries
-  `data-m22-animated` so the one reduced-motion rule in `keyframes.css` can
+  `data-folio-animated` so the one reduced-motion rule in `keyframes.css` can
   reach it.
 
 ## Documentation

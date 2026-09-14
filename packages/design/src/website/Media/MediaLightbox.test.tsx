@@ -44,7 +44,7 @@ describe('MediaLightbox', () => {
   it('preserves intrinsic dimensions and safely handles an invalid aspect ratio', () => {
     render(<Viewer aspectRatio={Number.NaN} />)
     const print = screen.getByRole('button', { name: 'Enlarge photograph' })
-    expect(print.style.getPropertyValue('--m22-media-aspect')).toBe('1.5')
+    expect(print.style.getPropertyValue('--folio-media-aspect')).toBe('1.5')
     expect(within(print).getByRole('img')).toHaveAttribute('width', '800')
     expect(within(print).getByRole('img')).toHaveAttribute('height', '1200')
   })

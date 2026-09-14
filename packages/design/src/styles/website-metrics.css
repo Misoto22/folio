@@ -1,15 +1,15 @@
-.m22-metrics-range { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.25rem; border-block: 1px solid var(--rule); padding-block: 1rem; margin-block-start: 2rem; }
-.m22-metrics-section { padding-block: clamp(3rem, 6vw, 5rem); }
-.m22-metrics-section__header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem; padding-block-end: 1rem; margin-block-end: 1.5rem; border-block-end: 1px solid var(--rule-hard); }
-.m22-metrics-panel { min-inline-size: 0; }
-.m22-metrics-panel > header { margin-block-end: 1.25rem; }
-.m22-metrics-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3rem; }
-.m22-metrics-list { margin: 0; }
-.m22-metrics-list > div { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding-block: .75rem; border-block-end: 1px solid var(--rule); }
-.m22-metrics-list dt { display: inline-flex; align-items: center; gap: .75rem; min-inline-size: 0; }
-.m22-metrics-list dd { margin: 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.m22-metrics-empty{display:grid;grid-template-columns:minmax(9rem,14rem) minmax(0,1fr);align-items:center;gap:1.5rem;min-block-size:13rem;border-block:1px solid var(--rule);padding:1.25rem 0}.m22-metrics-empty__plot{position:relative;display:flex;align-items:end;gap:.375rem;block-size:6rem;padding:.625rem;border-inline-start:1px solid var(--rule);border-block-end:1px solid var(--rule)}.m22-metrics-empty__plot span{display:block;inline-size:100%;background:var(--rule-2)}.m22-metrics-empty__plot span:nth-child(1){block-size:18%}.m22-metrics-empty__plot span:nth-child(2){block-size:34%}.m22-metrics-empty__plot span:nth-child(3){block-size:23%}.m22-metrics-empty__plot span:nth-child(4){block-size:48%}
-.m22-metric-unit { margin-inline-start: .1875rem; color: var(--ink-3-aa); font-size: var(--fs-item); }
-@media (min-width: 768px) { .m22-metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem 3.5rem; } }
-@media (max-width: 520px) { .m22-metrics-empty{grid-template-columns:1fr}.m22-metrics-empty__plot{max-inline-size:12rem} }
-@media (min-width: 1100px) { .m22-metrics-grid[data-columns='4'] { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; } }
+.folio-metrics-range { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.25rem; border-block: 1px solid var(--rule); padding-block: 1rem; margin-block-start: 2rem; }
+.folio-metrics-section { padding-block: clamp(3rem, 6vw, 5rem); }
+.folio-metrics-section__header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem; padding-block-end: 1rem; margin-block-end: 1.5rem; border-block-end: 1px solid var(--rule-hard); }
+.folio-metrics-panel { min-inline-size: 0; }
+.folio-metrics-panel > header { margin-block-end: 1.25rem; }
+.folio-metrics-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3rem; }
+.folio-metrics-list { margin: 0; }
+.folio-metrics-list > div { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding-block: .75rem; border-block-end: 1px solid var(--rule); }
+.folio-metrics-list dt { display: inline-flex; align-items: center; gap: .75rem; min-inline-size: 0; }
+.folio-metrics-list dd { margin: 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.folio-metrics-empty{display:grid;grid-template-columns:minmax(9rem,14rem) minmax(0,1fr);align-items:center;gap:1.5rem;min-block-size:13rem;border-block:1px solid var(--rule);padding:1.25rem 0}.folio-metrics-empty__plot{position:relative;display:flex;align-items:end;gap:.375rem;block-size:6rem;padding:.625rem;border-inline-start:1px solid var(--rule);border-block-end:1px solid var(--rule)}.folio-metrics-empty__plot span{display:block;inline-size:100%;background:var(--rule-2)}.folio-metrics-empty__plot span:nth-child(1){block-size:18%}.folio-metrics-empty__plot span:nth-child(2){block-size:34%}.folio-metrics-empty__plot span:nth-child(3){block-size:23%}.folio-metrics-empty__plot span:nth-child(4){block-size:48%}
+.folio-metric-unit { margin-inline-start: .1875rem; color: var(--ink-3-aa); font-size: var(--fs-item); }
+@media (min-width: 768px) { .folio-metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem 3.5rem; } }
+@media (max-width: 520px) { .folio-metrics-empty{grid-template-columns:1fr}.folio-metrics-empty__plot{max-inline-size:12rem} }
+@media (min-width: 1100px) { .folio-metrics-grid[data-columns='4'] { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; } }

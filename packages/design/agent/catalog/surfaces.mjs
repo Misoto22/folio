@@ -22,7 +22,7 @@ export const SURFACES = [
         element: 'The column',
         required: true,
         description:
-          'Whatever as names — article, section or div — tagged data-m22-article, which is what every rule in article.css is scoped to. A 46rem measure and no inline margins of its own, so it sits wherever its parent puts it.',
+          'Whatever as names — article, section or div — tagged data-folio-article, which is what every rule in article.css is scoped to. A 46rem measure and no inline margins of its own, so it sits wherever its parent puts it.',
       },
       {
         element: 'Blocks',
@@ -43,7 +43,7 @@ export const SURFACES = [
       {
         element: 'Wide blocks',
         description:
-          'figure, table and .m22-wide are the three things allowed out of the measure, because a six-column table and an image with a subject in it are both unreadable at 46rem.',
+          'figure, table and .folio-wide are the three things allowed out of the measure, because a six-column table and an image with a subject in it are both unreadable at 46rem.',
       },
     ],
     practices: [
@@ -57,7 +57,7 @@ export const SURFACES = [
       },
       {
         kind: 'do',
-        text: 'Have the pipeline wrap a wide table in .m22-table-scroll. A table is allowed out of the measure and has nothing of its own to scroll inside, so eight columns push the whole page sideways instead.',
+        text: 'Have the pipeline wrap a wide table in .folio-table-scroll. A table is allowed out of the measure and has nothing of its own to scroll inside, so eight columns push the whole page sideways instead.',
       },
       {
         kind: 'do',

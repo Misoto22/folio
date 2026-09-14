@@ -1,39 +1,39 @@
 /* Shared interaction density and focus treatment for public reading surfaces. */
-.m22-collection-controls { gap: .75rem 1.25rem; padding-block: .75rem; }
-.m22-collection-filters { gap: .25rem; }
-.m22-collection-filters>button { min-inline-size: 44px; min-block-size: 34px; padding: .375rem .625rem; font-size: .8125rem; border-radius: var(--radius-sm); }
-.m22-collection-search { gap: .5rem; flex: 0 1 16rem; max-inline-size: 18rem; padding: 0 .625rem; border: 1px solid var(--rule); border-radius: var(--radius-sm); background: var(--paper); }
-.m22-collection-search:focus-within { border-color: var(--website-focus); }
-.m22-collection-search>svg { flex: none; color: var(--ink-3-aa); }
-.m22-collection-search input { min-inline-size: 0; min-block-size: 34px; block-size: 34px; flex: 1; padding: 0; border: 0; border-radius: 0; background: transparent; font-size: .8125rem; box-shadow: none; }
-.m22-collection-search input:focus,.m22-collection-search input:focus-visible { outline: none; box-shadow: none; }
-.m22-collection-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
-.m22-collection-search>button { min-inline-size: 28px; min-block-size: 28px; inline-size: 28px; block-size: 28px; }
-.m22-reference-link { display: inline-flex; align-items: center; gap: .375rem; min-block-size: 32px; max-inline-size: 100%; padding: .25rem 0; font-family: var(--sans); font-size: .8125rem; color: var(--ink-2); text-decoration: none; }
-.m22-reference-link>span { overflow-wrap: anywhere; }
-.m22-reference-link>svg { flex: none; }
-.m22-reference-link:hover>span { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rule-2); }
-.m22-reference-link:focus-visible { outline: 1px solid var(--rule-2); outline-offset: 2px; border-radius: 2px; }
-.m22-command-tabs [role=tab] { min-block-size: 34px; padding: .375rem .625rem; font-size: .75rem; }
-:is(.m22-command-tabs,.m22-command-snippet) [role=group] { padding: .625rem .75rem; }
-:is(.m22-command-tabs,.m22-command-snippet) pre { font-size: .78125rem; line-height: 1.6; }
-:is(.m22-command-tabs [role=tabpanel],.m22-command-snippet) button { min-inline-size: 28px; min-block-size: 28px; inline-size: 28px; block-size: 28px; }
-.m22-command-tabs [role=tabpanel] { padding-block-start: .75rem; }
-.m22-record[data-variant=compact] .m22-record-link { padding-block: 1rem; gap: 1rem; }
-.m22-record[data-variant=compact] :is(h2,h3) { font-family: var(--sans); font-size: .875rem; margin-block-start: 0; }
-.m22-record[data-variant=compact] .m22-record-summary { font-size: .8125rem; margin-block-start: .375rem; line-height: 1.7; }
-@media (max-width: 640px) { .m22-collection-search { flex-basis: auto; inline-size: 100%; max-inline-size: none; } }
+.folio-collection-controls { gap: .75rem 1.25rem; padding-block: .75rem; }
+.folio-collection-filters { gap: .25rem; }
+.folio-collection-filters>button { min-inline-size: 44px; min-block-size: 34px; padding: .375rem .625rem; font-size: .8125rem; border-radius: var(--radius-sm); }
+.folio-collection-search { gap: .5rem; flex: 0 1 16rem; max-inline-size: 18rem; padding: 0 .625rem; border: 1px solid var(--rule); border-radius: var(--radius-sm); background: var(--paper); }
+.folio-collection-search:focus-within { border-color: var(--website-focus); }
+.folio-collection-search>svg { flex: none; color: var(--ink-3-aa); }
+.folio-collection-search input { min-inline-size: 0; min-block-size: 34px; block-size: 34px; flex: 1; padding: 0; border: 0; border-radius: 0; background: transparent; font-size: .8125rem; box-shadow: none; }
+.folio-collection-search input:focus,.folio-collection-search input:focus-visible { outline: none; box-shadow: none; }
+.folio-collection-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.folio-collection-search>button { min-inline-size: 28px; min-block-size: 28px; inline-size: 28px; block-size: 28px; }
+.folio-reference-link { display: inline-flex; align-items: center; gap: .375rem; min-block-size: 32px; max-inline-size: 100%; padding: .25rem 0; font-family: var(--sans); font-size: .8125rem; color: var(--ink-2); text-decoration: none; }
+.folio-reference-link>span { overflow-wrap: anywhere; }
+.folio-reference-link>svg { flex: none; }
+.folio-reference-link:hover>span { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rule-2); }
+.folio-reference-link:focus-visible { outline: 1px solid var(--rule-2); outline-offset: 2px; border-radius: 2px; }
+.folio-command-tabs [role=tab] { min-block-size: 34px; padding: .375rem .625rem; font-size: .75rem; }
+:is(.folio-command-tabs,.folio-command-snippet) [role=group] { padding: .625rem .75rem; }
+:is(.folio-command-tabs,.folio-command-snippet) pre { font-size: .78125rem; line-height: 1.6; }
+:is(.folio-command-tabs [role=tabpanel],.folio-command-snippet) button { min-inline-size: 28px; min-block-size: 28px; inline-size: 28px; block-size: 28px; }
+.folio-command-tabs [role=tabpanel] { padding-block-start: .75rem; }
+.folio-record[data-variant=compact] .folio-record-link { padding-block: 1rem; gap: 1rem; }
+.folio-record[data-variant=compact] :is(h2,h3) { font-family: var(--sans); font-size: .875rem; margin-block-start: 0; }
+.folio-record[data-variant=compact] .folio-record-summary { font-size: .8125rem; margin-block-start: .375rem; line-height: 1.7; }
+@media (max-width: 640px) { .folio-collection-search { flex-basis: auto; inline-size: 100%; max-inline-size: none; } }
 @media (pointer: coarse) {
-  .m22-collection-filters>button,.m22-collection-search input,.m22-reference-link,.m22-command-tabs [role=tab] { min-block-size: 44px; }
-  .m22-collection-search>button,:is(.m22-command-tabs [role=tabpanel],.m22-command-snippet) button { min-inline-size: 44px; min-block-size: 44px; }
-  :is(.m22-command-tabs [role=tabpanel],.m22-command-snippet) div:has(>button[aria-label]) { padding-block: 0; }
+  .folio-collection-filters>button,.folio-collection-search input,.folio-reference-link,.folio-command-tabs [role=tab] { min-block-size: 44px; }
+  .folio-collection-search>button,:is(.folio-command-tabs [role=tabpanel],.folio-command-snippet) button { min-inline-size: 44px; min-block-size: 44px; }
+  :is(.folio-command-tabs [role=tabpanel],.folio-command-snippet) div:has(>button[aria-label]) { padding-block: 0; }
 }
-.m22-selection-toolbar { animation: m22-fade-in var(--duration-fast) var(--ease); }
+.folio-selection-toolbar { animation: folio-fade-in var(--duration-fast) var(--ease); }
 /* The site-wide ring that reads this colour lives in `website-base.css`; the
    scoped rules below read it too. */
 :root { --website-focus: color-mix(in srgb, var(--ink) 60%, var(--paper)); }
-.m22-site-navigation-inner { min-block-size: 3.75rem; }
-.m22-site-navigation .m22-navigation-search {
+.folio-site-navigation-inner { min-block-size: 3.75rem; }
+.folio-site-navigation .folio-navigation-search {
   min-block-size: 34px;
   block-size: 34px;
   inline-size: clamp(9rem, 14vw, 12rem);
@@ -42,50 +42,50 @@
   border-radius: var(--radius-sm);
   font-size: .8125rem;
 }
-.m22-navigation-search kbd { border: 0; background: transparent; padding: 0; }
-.m22-site-navigation button:focus-visible { outline-color: var(--website-focus); outline-offset: 2px; }
-.m22-site-navigation button:focus:not(:focus-visible) { outline: none; }
-.m22-site-navigation .m22-navigation-search:focus-visible { outline: none; background: var(--paper-2); box-shadow: inset 0 0 0 1px var(--website-focus); }
-.m22-question-card form { padding: .375rem; border-radius: var(--radius-md); align-items: center; gap: .375rem; }
-.m22-question-card form:focus-within { border-color: var(--website-focus); box-shadow: 0 2px 8px color-mix(in srgb, var(--ink) 5%, transparent); }
-.m22-question-card form>button { border-radius: 50%; inline-size: 44px; min-inline-size: 44px; block-size: 44px; min-block-size: 44px; }
-.m22-question-card form>button:disabled { background: var(--paper-2); color: var(--ink-3-aa); opacity: 1; border-color: var(--rule); }
-.m22-question-card form input:focus,
-.m22-question-card form input:focus-visible { outline: none; box-shadow: none; border: 0; }
-.m22-question-card form input { border-radius: 0; }
-.m22-selection-toolbar { gap: 0; padding: .25rem; border-color: var(--rule-2); border-radius: var(--radius-md); box-shadow: 0 4px 16px color-mix(in srgb, var(--ink) 9%, transparent); }
-.m22-selection-toolbar > button,
-.m22-selection-toolbar > button:first-child { min-block-size: 34px; background: transparent; color: var(--ink-2); border: 0; border-radius: var(--radius-sm); padding: .375rem .75rem; font-family: var(--sans); font-size: .8125rem; font-weight: 400; }
-.m22-selection-toolbar > button + button { border-inline-start: 1px solid var(--rule); border-start-start-radius: 0; border-end-start-radius: 0; }
-.m22-selection-toolbar > button:hover { background: var(--paper-2); color: var(--ink); }
+.folio-navigation-search kbd { border: 0; background: transparent; padding: 0; }
+.folio-site-navigation button:focus-visible { outline-color: var(--website-focus); outline-offset: 2px; }
+.folio-site-navigation button:focus:not(:focus-visible) { outline: none; }
+.folio-site-navigation .folio-navigation-search:focus-visible { outline: none; background: var(--paper-2); box-shadow: inset 0 0 0 1px var(--website-focus); }
+.folio-question-card form { padding: .375rem; border-radius: var(--radius-md); align-items: center; gap: .375rem; }
+.folio-question-card form:focus-within { border-color: var(--website-focus); box-shadow: 0 2px 8px color-mix(in srgb, var(--ink) 5%, transparent); }
+.folio-question-card form>button { border-radius: 50%; inline-size: 44px; min-inline-size: 44px; block-size: 44px; min-block-size: 44px; }
+.folio-question-card form>button:disabled { background: var(--paper-2); color: var(--ink-3-aa); opacity: 1; border-color: var(--rule); }
+.folio-question-card form input:focus,
+.folio-question-card form input:focus-visible { outline: none; box-shadow: none; border: 0; }
+.folio-question-card form input { border-radius: 0; }
+.folio-selection-toolbar { gap: 0; padding: .25rem; border-color: var(--rule-2); border-radius: var(--radius-md); box-shadow: 0 4px 16px color-mix(in srgb, var(--ink) 9%, transparent); }
+.folio-selection-toolbar > button,
+.folio-selection-toolbar > button:first-child { min-block-size: 34px; background: transparent; color: var(--ink-2); border: 0; border-radius: var(--radius-sm); padding: .375rem .75rem; font-family: var(--sans); font-size: .8125rem; font-weight: 400; }
+.folio-selection-toolbar > button + button { border-inline-start: 1px solid var(--rule); border-start-start-radius: 0; border-end-start-radius: 0; }
+.folio-selection-toolbar > button:hover { background: var(--paper-2); color: var(--ink); }
 /* The menus the compositions open, and no others. A menu portals to <body>, so
    it cannot be scoped by an ancestor; it carries its composition's class
    instead, and a host's own DropdownMenu keeps the primitive's look. */
-:is(.m22-action-menu, .m22-site-preference-menu)[data-m22-menu] { padding: .375rem; border-color: var(--rule); border-radius: var(--radius-md); background: var(--paper); box-shadow: 0 4px 20px color-mix(in srgb, var(--ink) 8%, transparent); backdrop-filter: none; }
-:is(.m22-action-menu, .m22-site-preference-menu)[data-m22-menu]:focus { outline: none; }
-:is(.m22-action-menu, .m22-site-preference-menu)[data-m22-menu] [role='menuitem'],
-.m22-site-preference-item { min-block-size: 36px; font-family: var(--sans); font-size: .8125rem; font-weight: 400; border-radius: var(--radius-sm); }
-.m22-portfolio-index [role='tab'] > span { color: var(--ink-3-aa); background: transparent; border: 0; font-family: var(--sans); font-size: .75rem; font-weight: 400; font-variant-numeric: tabular-nums; }
-.m22-portfolio-image[data-natural] .m22-portfolio-image-frame { aspect-ratio: auto; background: transparent; }
-.m22-portfolio-image[data-natural] img { position: static; display: block; inline-size: 100%; block-size: auto; object-fit: contain; }
-.m22-portfolio-list[data-variant='thumbnails'] > div,
-.m22-portfolio-list[data-variant='frames'] > div { align-items: start; }
+:is(.folio-action-menu, .folio-site-preference-menu)[data-folio-menu] { padding: .375rem; border-color: var(--rule); border-radius: var(--radius-md); background: var(--paper); box-shadow: 0 4px 20px color-mix(in srgb, var(--ink) 8%, transparent); backdrop-filter: none; }
+:is(.folio-action-menu, .folio-site-preference-menu)[data-folio-menu]:focus { outline: none; }
+:is(.folio-action-menu, .folio-site-preference-menu)[data-folio-menu] [role='menuitem'],
+.folio-site-preference-item { min-block-size: 36px; font-family: var(--sans); font-size: .8125rem; font-weight: 400; border-radius: var(--radius-sm); }
+.folio-portfolio-index [role='tab'] > span { color: var(--ink-3-aa); background: transparent; border: 0; font-family: var(--sans); font-size: .75rem; font-weight: 400; font-variant-numeric: tabular-nums; }
+.folio-portfolio-image[data-natural] .folio-portfolio-image-frame { aspect-ratio: auto; background: transparent; }
+.folio-portfolio-image[data-natural] img { position: static; display: block; inline-size: 100%; block-size: auto; object-fit: contain; }
+.folio-portfolio-list[data-variant='thumbnails'] > div,
+.folio-portfolio-list[data-variant='frames'] > div { align-items: start; }
 @media (max-width: 599px) {
-  .m22-site-navigation .m22-navigation-search { inline-size: auto; }
-  .m22-collection-intro { padding-block-start: 6rem; }
+  .folio-site-navigation .folio-navigation-search { inline-size: auto; }
+  .folio-collection-intro { padding-block-start: 6rem; }
 }
 @media (max-width: 40rem) {
   /* Safari zooms a page when the field it focuses is under 16px. Keep the
      surrounding compact composition, but make the editable text legible. */
-  .m22-collection-search input,
-  .m22-question-card form input { font-size: 1rem; }
+  .folio-collection-search input,
+  .folio-question-card form input { font-size: 1rem; }
 }
 @media (max-width: 359px) {
-  .m22-site-navigation .m22-navigation-search { inline-size: 44px; }
+  .folio-site-navigation .folio-navigation-search { inline-size: 44px; }
 }
 @media (pointer: coarse) {
-  .m22-site-navigation .m22-navigation-search,
-  .m22-selection-toolbar > button,
-  :is(.m22-action-menu, .m22-site-preference-menu)[data-m22-menu] [role='menuitem'],
-  .m22-site-preference-item { min-block-size: 44px; }
+  .folio-site-navigation .folio-navigation-search,
+  .folio-selection-toolbar > button,
+  :is(.folio-action-menu, .folio-site-preference-menu)[data-folio-menu] [role='menuitem'],
+  .folio-site-preference-item { min-block-size: 44px; }
 }

@@ -64,7 +64,7 @@ export const FEEDBACK_ZH: Record<string, ComponentCopyZh> = {
       ['d68d65f8', '哪怕只有一条，也要用 SkeletonPage 把形状包起来。role、aria-busy 和脉冲全长在外框上，所以散着用的零件是 aria-hidden、不出声、也完全不动的——一个永远不会有下文的灰矩形。'],
       ['6d63a623', '每一个 Skeleton 都要给出它所替代的那个东西的高度。基础组件会退回一行高，所以忘了给尺寸的块并不是看不见——它是一根 12px 的条，而那个位置马上要落下一块 160px 的板，页面就按这个差值跳一下。'],
       ['bbfb762e', '接替骨架屏的东西要么自己播报，要么接过焦点。这里的 aria-busy 从来不会翻成 false——外框是被卸载，不是被更新——所以等待的结束，就是唯一在说话的那个东西消失了。'],
-      ['ae7ab93b', '不要给零件加 animate-pulse。外框已经在动 opacity，子元素上再来一层会和它相乘，于是这个零件的节奏和它所在的形状对不上。理由不在减少动效那一头：keyframes.css 里那条规则是加在 animation-duration 和 transition-duration 上的通用下限，手写的 Tailwind 动画和别的一样会被压掉。data-m22-animated 是组件在声明自己的动效只是装饰，不是把动效取消掉的那个机制。'],
+      ['c188f539', '不要给零件加 animate-pulse。外框已经在动 opacity，子元素上再来一层会和它相乘，于是这个零件的节奏和它所在的形状对不上。理由不在减少动效那一头：keyframes.css 里那条规则是加在 animation-duration 和 transition-duration 上的通用下限，手写的 Tailwind 动画和别的一样会被压掉。data-folio-animated 是组件在声明自己的动效只是装饰，不是把动效取消掉的那个机制。'],
       ['7d5adf97', '不要把一个 SkeletonPage 套进另一个里。每一个都是带着自己那句 sr-only 的 role="status" 区域，所以由两段骨架拼起来的页面，会为同一次等待播报两条加载消息、标记两个区域忙碌。'],
       ['10e768e3', '不要把一份骨架原样搬到另一个页面。无论它替的是什么，SkeletonCircle 都是 36px、SkeletonLine 都是 12px 高，所以照抄过来的头像位和标题位，在真内容落地的那一刻就是两次必然发生的重排。'],
     ],

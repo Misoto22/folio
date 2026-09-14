@@ -272,7 +272,7 @@ export const FOUNDATIONS: FoundationPage[] = [
     summary: 'One curve, three durations, and a reduced-motion rule that is not optional.',
     intro: [
       'One easing curve for the whole system. Three durations: --fast for a state flip, --mid for a panel, --slow for something the size of a page. A component that needs a fourth is usually doing two things.',
-      'Every animation in the package is gated behind motion-safe, and the keyframe layer carries one reduced-motion rule that stops anything marked data-m22-animated. A reader who asked for less motion gets the end state, not a faster version of the same move.',
+      'Every animation in the package is gated behind motion-safe, and the keyframe layer carries one reduced-motion rule that stops anything marked data-folio-animated. A reader who asked for less motion gets the end state, not a faster version of the same move.',
     ],
     categories: [{ key: 'motion', title: 'Motion tokens' }],
   },

@@ -6,7 +6,7 @@ const fill = (container: HTMLElement) =>
   container.querySelector<HTMLElement>('[role="progressbar"] > div')
 
 const sweep = (container: HTMLElement) =>
-  container.querySelector<HTMLElement>('[role="progressbar"] [data-m22-animated]')
+  container.querySelector<HTMLElement>('[role="progressbar"] [data-folio-animated]')
 
 describe('Progress max', () => {
   it('paints the fraction of max it announces', () => {

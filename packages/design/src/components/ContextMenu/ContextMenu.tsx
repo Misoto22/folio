@@ -69,10 +69,10 @@ export function ContextMenuContent({
       <ContextMenuPrimitive.Content
         collisionBoundary={container ?? undefined}
         collisionPadding={8}
-        data-m22-animated
+        data-folio-animated
         className={cn(
           'z-(--z-dropdown) min-w-44 rounded-(--radius-lg) border border-(--panel-border) bg-(--panel-bg) p-1.5 shadow-(--panel-lift) panel-blur',
-          'data-[state=open]:animate-[m22-pop-in_var(--duration-fast)_var(--ease-out-expo)] data-[state=closed]:animate-[m22-pop-out_var(--duration-fast)_var(--ease)] origin-(--radix-popper-transform-origin)',
+          'data-[state=open]:animate-[folio-pop-in_var(--duration-fast)_var(--ease-out-expo)] data-[state=closed]:animate-[folio-pop-out_var(--duration-fast)_var(--ease)] origin-(--radix-popper-transform-origin)',
           className,
         )}
         {...rest}

@@ -75,9 +75,9 @@ export function SheetContent({
   return (
     <DialogPrimitive.Portal container={container ?? undefined}>
       <DialogPrimitive.Overlay
-        data-m22-animated
+        data-folio-animated
         className={cn(
-          'inset-0 z-(--z-overlay) bg-(--scrim) data-[state=open]:animate-[m22-fade-in_var(--duration-fast)_var(--ease)] data-[state=closed]:animate-[m22-fade-out_var(--duration-fast)_var(--ease)]',
+          'inset-0 z-(--z-overlay) bg-(--scrim) data-[state=open]:animate-[folio-fade-in_var(--duration-fast)_var(--ease)] data-[state=closed]:animate-[folio-fade-out_var(--duration-fast)_var(--ease)]',
           container ? 'absolute' : 'fixed',
         )}
       />
@@ -90,9 +90,9 @@ export function SheetContent({
         // reduced-motion block in keyframes.css for what the marker now means:
         // documentation with teeth, over a universal floor that no longer
         // depends on anyone remembering it.
-        data-m22-animated
+        data-folio-animated
         className={cn(
-          'm22-sheet fixed z-(--z-modal) flex flex-col overflow-y-auto border-(--panel-border) bg-(--panel-bg) p-6 shadow-(--panel-lift) panel-blur scroll-slim',
+          'folio-sheet fixed z-(--z-modal) flex flex-col overflow-y-auto border-(--panel-border) bg-(--panel-bg) p-6 shadow-(--panel-lift) panel-blur scroll-slim',
           SIDE[side],
           // Docked to the container's edge, and capped by its box — the widths
           // above are read against the viewport and would overflow a frame.

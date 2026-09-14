@@ -87,10 +87,10 @@ export function CommandPalette() {
     // The header's search button asks for the palette by name rather than
     // faking a ⌘K: a synthetic KeyboardEvent is not trusted, cannot be
     // prevented meaningfully, and reached every other ⌘K listener on the page.
-    document.addEventListener('m22:palette', onRequest)
+    document.addEventListener('folio:palette', onRequest)
     return () => {
       document.removeEventListener('keydown', onKey, true)
-      document.removeEventListener('m22:palette', onRequest)
+      document.removeEventListener('folio:palette', onRequest)
     }
   }, [])
 

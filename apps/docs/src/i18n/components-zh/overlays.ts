@@ -132,7 +132,7 @@ export const OVERLAYS_ZH: Record<string, ComponentCopyZh> = {
       ['c181285f', '内容又宽又矮时用 top 或 bottom——一条筛选栏、一个日期区间。start 和 end 是一列 24rem 的窄栏，硬塞一张表格进去，它会折成一条带子。'],
       ['6ec6d620', '边名写 start 和 end，别去伸手拿 left 和 right：每条边都有自己那串字面类名，各自带着自己的 rtl: 变体，所以 end 在英文里从右边进来、在阿拉伯语里从左边进来，不需要第二条代码路径。'],
       ['493b6686', '取消的那个控件要用 SheetClose 包住，好让关闭走 Radix——用自己那个 setState 关掉的抽屉，会把焦点留在一个已经不在页面上的面板里。'],
-      ['f179b2e1', '别在 className 里把这段位移再声明一遍。面板带着 data-m22-animated，在减少动效下它的 transform 是被整个去掉的；而你自己加的第二个 transform 只吃得到那条通用兜底，所以它照样会到——晚百分之一毫秒，从你写的那个位置。'],
+      ['ad4431c7', '别在 className 里把这段位移再声明一遍。面板带着 data-folio-animated，在减少动效下它的 transform 是被整个去掉的；而你自己加的第二个 transform 只吃得到那条通用兜底，所以它照样会到——晚百分之一毫秒，从你写的那个位置。'],
       ['b05665a7', '元素本身没有定位的 OverlayContainer，会把抽屉停靠到错的那个盒子上：一旦指定 container，面板就从 fixed 切成 absolute，于是一个没有定位的 container 把它送到的是最近那个有定位的祖先，而不是那个框。'],
       ['3293770e', '它是一个模态对话框，所以后面的页面被锁住滚动、指针也是惰性的：需要读者一边看页面一边调的筛选面板，不该住在这里。那是 Popover 的活，或者干脆在布局里开一栏。'],
     ],

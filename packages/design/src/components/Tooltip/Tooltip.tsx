@@ -62,10 +62,10 @@ export function Tooltip({
         collisionPadding={8}
           side={side}
           sideOffset={sideOffset}
-          data-m22-animated
+          data-folio-animated
           className={cn(
             'z-(--z-toast) max-w-64 rounded-(--radius) bg-(--feature-surface) px-2.5 py-1.5 font-mono text-[11px] leading-snug text-(--on-feature)',
-            'data-[state=delayed-open]:animate-[m22-fade-in_var(--duration-fast)_var(--ease)]',
+            'data-[state=delayed-open]:animate-[folio-fade-in_var(--duration-fast)_var(--ease)]',
           )}
         >
           {content}

@@ -51,9 +51,9 @@ export function StatusDot({
       <span className={cn('absolute inset-0 rounded-full', TONE[tone])} />
       {pulse && (
         <span
-          data-m22-animated
+          data-folio-animated
           className={cn(
-            'absolute inset-0 rounded-full motion-safe:animate-[m22-halo_2.4s_ease-out_infinite]',
+            'absolute inset-0 rounded-full motion-safe:animate-[folio-halo_2.4s_ease-out_infinite]',
             TONE[tone],
           )}
         />

@@ -62,7 +62,7 @@ describe('SheetContent under reduced motion', () => {
         <SheetContent title="Filters">Body</SheetContent>
       </Sheet>,
     )
-    expect(screen.getByRole('dialog')).toHaveAttribute('data-m22-animated')
+    expect(screen.getByRole('dialog')).toHaveAttribute('data-folio-animated')
   })
 
   it('is the same marker the scrim already carried', () => {
@@ -72,7 +72,7 @@ describe('SheetContent under reduced motion', () => {
       </Sheet>,
     )
     // Both halves of one overlay, or the reduced-motion rule reaches half of it.
-    expect(baseElement.querySelectorAll('[data-m22-animated]').length).toBeGreaterThanOrEqual(2)
+    expect(baseElement.querySelectorAll('[data-folio-animated]').length).toBeGreaterThanOrEqual(2)
   })
 })
 

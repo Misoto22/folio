@@ -8,9 +8,9 @@ const RELEASES = [
 
 /**
  * Three things are allowed out of the 46rem measure, because they are unreadable
- * inside it: a figure, a table, and anything the pipeline marks m22-wide. A
+ * inside it: a figure, a table, and anything the pipeline marks folio-wide. A
  * table has nothing of its own to scroll in, so six columns push the whole PAGE
- * sideways unless the table is wrapped in m22-table-scroll — have the pipeline
+ * sideways unless the table is wrapped in folio-table-scroll — have the pipeline
  * do that wrapping rather than hoping the content stays narrow. Drag the table
  * below sideways and the column around it stays put. Note the heading depth
  * too: h5 and h6 are set as mono eyebrows rather than as smaller headings, so a
@@ -25,7 +25,7 @@ export function Example() {
         The table is wider than the column it sits in, which is the point: it
         scrolls inside its own wrapper instead of taking the page with it.
       </p>
-      <div className="m22-table-scroll">
+      <div className="folio-table-scroll">
         <table>
           <caption>Published releases</caption>
           <thead>

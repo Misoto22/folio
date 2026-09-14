@@ -431,7 +431,7 @@ const FOUNDATIONS_ZH: Record<string, FoundationCopy> = {
     summary: '一条曲线，三档时长，以及一条不可选的减少动效规则。',
     intro: [
       '整套系统一条缓动曲线。三档时长：--fast 用于状态翻转，--mid 用于面板，--slow 用于页面大小的东西。需要第四档的组件，通常是在做两件事。',
-      '包里每一个动画都挡在 motion-safe 后面，动效层还带一条减少动效规则，会停掉任何标了 data-m22-animated 的东西。要求少一点动效的读者拿到的是终态，而不是同一段动作的快进版。',
+      '包里每一个动画都挡在 motion-safe 后面，动效层还带一条减少动效规则，会停掉任何标了 data-folio-animated 的东西。要求少一点动效的读者拿到的是终态，而不是同一段动作的快进版。',
     ],
     categories: { motion: { title: '动效 token' } },
   },

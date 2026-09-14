@@ -20,7 +20,7 @@ export function ClipboardButton({ text, getText, copyLabel, copiedLabel, classNa
   const { copied, copy } = useClipboardCopy('ClipboardButton')
 
   return (
-    <Button variant="ghost" size="sm" onClick={() => void copy(getText ?? text ?? '')} aria-label={copied ? copiedLabel : copyLabel} className={cn('m22-clipboard-button', className)}>
+    <Button variant="ghost" size="sm" onClick={() => void copy(getText ?? text ?? '')} aria-label={copied ? copiedLabel : copyLabel} className={cn('folio-clipboard-button', className)}>
       {copied ? <RiCheckLine size={14} aria-hidden="true" /> : <RiFileCopyLine size={14} aria-hidden="true" />}
       <span aria-live="polite">{copied ? copiedLabel : copyLabel}</span>
     </Button>
@@ -42,12 +42,12 @@ export interface CodePanelProps {
 export function CodePanel({ languageLabel, preProps, framed = true, copyLabel, copiedLabel, children }: CodePanelProps) {
   const pre = useRef<HTMLPreElement>(null)
   const content = <>
-    <div className="m22-code-panel-head" data-code-panel-head>
+    <div className="folio-code-panel-head" data-code-panel-head>
       <span>{languageLabel}</span>
       <ClipboardButton getText={() => (pre.current?.innerText ?? pre.current?.textContent ?? '').replace(/\n$/, '')} copyLabel={copyLabel} copiedLabel={copiedLabel} />
     </div>
-    <pre {...preProps} ref={pre} className={cn('m22-code-panel-pre', preProps?.className)} tabIndex={0}>{children}</pre>
+    <pre {...preProps} ref={pre} className={cn('folio-code-panel-pre', preProps?.className)} tabIndex={0}>{children}</pre>
   </>
 
-  return framed ? <figure className="m22-code-panel" data-code-panel>{content}</figure> : content
+  return framed ? <figure className="folio-code-panel" data-code-panel>{content}</figure> : content
 }

@@ -139,7 +139,7 @@ export function Pagination({
         {indicator.ready && (
           <span
             aria-hidden
-            data-m22-animated
+            data-folio-animated
             className="absolute rounded-(--radius-pill) bg-(--accent) transition-[transform,width] duration-(--duration-base) ease-(--ease-out-expo) motion-reduce:transition-none"
             style={{
               transform: `translate(${indicator.offset}px, ${indicator.top}px)`,

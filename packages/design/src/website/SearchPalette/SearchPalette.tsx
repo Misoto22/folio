@@ -78,7 +78,7 @@ export function SearchPalette({
       {detail
         ? <SearchDetail {...field} detail={detail} labels={labels} onClose={close} onContentLinkClick={onContentLinkClick} />
         : <SearchResults {...field} label={label} groups={groups} emptyLabel={emptyLabel} closeLabel={labels.close} onClose={close} />}
-      <CommandFooter className="m22-search-palette__footer">
+      <CommandFooter className="folio-search-palette__footer">
         {!detail && <CommandHint keys={['↑', '↓']}>{labels.navigate}</CommandHint>}
         <CommandHint keys={['↵']}>{labels.select}</CommandHint>
         <CommandHint keys={['esc']}>{detail ? labels.back : labels.close}</CommandHint>
@@ -107,22 +107,22 @@ interface SearchResultsProps extends SearchFieldProps {
 function SearchResults({ input, inputLabel, placeholder, query, onQueryChange, onClose, label, groups, emptyLabel, closeLabel }: SearchResultsProps) {
   return (
     <>
-      <div className="m22-search-palette__search">
+      <div className="folio-search-palette__search">
         <CommandInput ref={input} aria-label={inputLabel} placeholder={placeholder} value={query} onValueChange={onQueryChange} autoComplete="off" spellCheck={false} />
-        <Button variant="ghost" iconOnly aria-label={closeLabel} onClick={onClose} className="m22-search-palette__close"><RiCloseLine size={18} aria-hidden /></Button>
+        <Button variant="ghost" iconOnly aria-label={closeLabel} onClick={onClose} className="folio-search-palette__close"><RiCloseLine size={18} aria-hidden /></Button>
       </div>
       <CommandList label={label}>
         <CommandEmpty>{emptyLabel}</CommandEmpty>
         {groups.map((group) => (
-          <CommandGroup key={group.id} heading={<span className="m22-search-palette__heading">{group.label}</span>}>
+          <CommandGroup key={group.id} heading={<span className="folio-search-palette__heading">{group.label}</span>}>
             {group.items.map((item) => (
               <CommandItem
-                key={item.id} value={item.id} icon={item.icon} onSelect={item.onSelect} className="m22-search-palette__item"
-                meta={item.meta ? <span className="m22-search-palette__meta">{item.meta}</span> : undefined}
+                key={item.id} value={item.id} icon={item.icon} onSelect={item.onSelect} className="folio-search-palette__item"
+                meta={item.meta ? <span className="folio-search-palette__meta">{item.meta}</span> : undefined}
               >
-                <span className="m22-search-palette__result">
+                <span className="folio-search-palette__result">
                   <span>{item.title}</span>
-                  {item.description && <span className="m22-search-palette__description">{item.description}</span>}
+                  {item.description && <span className="folio-search-palette__description">{item.description}</span>}
                 </span>
               </CommandItem>
             ))}
@@ -156,7 +156,7 @@ function keepFromList(event: KeyboardEvent<HTMLElement>) {
 function SearchDetail({ input, inputLabel, placeholder, query, onQueryChange, onClose, detail, labels, onContentLinkClick }: SearchDetailProps) {
   return (
     <>
-      <form className="m22-search-palette__input" onKeyDown={keepFromList} onSubmit={(event) => {
+      <form className="folio-search-palette__input" onKeyDown={keepFromList} onSubmit={(event) => {
         event.preventDefault()
         if (query.trim() && !detail.submitDisabled) detail.onSubmit()
       }}>
@@ -165,7 +165,7 @@ function SearchDetail({ input, inputLabel, placeholder, query, onQueryChange, on
         <Badge>{detail.label}</Badge>
         <Button variant="ghost" iconOnly aria-label={labels.close} onClick={onClose}><RiCloseLine size={18} aria-hidden /></Button>
       </form>
-      <div className="m22-search-palette__detail" aria-live="polite" onKeyDown={keepFromList} onClick={(event) => {
+      <div className="folio-search-palette__detail" aria-live="polite" onKeyDown={keepFromList} onClick={(event) => {
         if ((event.target as HTMLElement).closest('a')) onContentLinkClick?.()
       }}>{detail.content}</div>
     </>
@@ -179,6 +179,6 @@ export interface SearchExcerptProps {
 /** Render query highlights as text, never as consumer-supplied HTML. */
 export function SearchExcerpt({ segments }: SearchExcerptProps) {
   return <>{segments.map((segment, index) => segment.highlighted
-    ? <mark className="m22-search-palette__highlight" key={index}>{segment.text}</mark>
+    ? <mark className="folio-search-palette__highlight" key={index}>{segment.text}</mark>
     : segment.text)}</>
 }

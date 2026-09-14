@@ -118,17 +118,17 @@ export function DialogContent({
   return (
     <DialogPrimitive.Portal container={container ?? undefined}>
       <DialogPrimitive.Overlay
-        data-m22-animated
+        data-folio-animated
         className={cn(
-          'inset-0 z-(--z-overlay) bg-(--scrim) data-[state=open]:animate-[m22-fade-in_var(--duration-fast)_var(--ease)] data-[state=closed]:animate-[m22-fade-out_var(--duration-fast)_var(--ease)]',
+          'inset-0 z-(--z-overlay) bg-(--scrim) data-[state=open]:animate-[folio-fade-in_var(--duration-fast)_var(--ease)] data-[state=closed]:animate-[folio-fade-out_var(--duration-fast)_var(--ease)]',
           container ? 'absolute' : 'fixed',
         )}
       />
       <DialogPrimitive.Content
-        data-m22-animated
+        data-folio-animated
         className={cn(
           'fixed left-1/2 top-1/2 z-(--z-modal) max-h-[85vh] w-[min(92vw,32rem)] -translate-x-1/2 -translate-y-1/2 overflow-auto rounded-(--radius-lg) border border-(--panel-border) bg-(--panel-bg) p-6 shadow-(--panel-lift) panel-blur scroll-slim',
-          'data-[state=open]:animate-[m22-panel-in_var(--duration-base)_var(--ease)] data-[state=closed]:animate-[m22-fade-out_var(--duration-fast)_var(--ease)]',
+          'data-[state=open]:animate-[folio-panel-in_var(--duration-base)_var(--ease)] data-[state=closed]:animate-[folio-fade-out_var(--duration-fast)_var(--ease)]',
           // Against the container's box rather than the viewport's, and capped
           // by it: 92vw inside a 400px frame is not a cap at all.
           container && 'absolute max-h-[calc(100%-2rem)] max-w-[calc(100%-2rem)]',

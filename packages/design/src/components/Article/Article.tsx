@@ -86,7 +86,7 @@ export function Article({ html, as: Comp = 'article', className, children, ...re
 
     return (
       <Comp
-        data-m22-article
+        data-folio-article
         className={className}
         dangerouslySetInnerHTML={{ __html: html }}
         {...rest}
@@ -95,7 +95,7 @@ export function Article({ html, as: Comp = 'article', className, children, ...re
   }
 
   return (
-    <Comp data-m22-article className={className} {...rest}>
+    <Comp data-folio-article className={className} {...rest}>
       {children}
     </Comp>
   )

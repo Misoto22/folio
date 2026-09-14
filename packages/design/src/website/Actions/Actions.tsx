@@ -36,8 +36,8 @@ export function ActionMenu({ label, icon, items, open, onOpenChange, side = 'bot
   return (
     <DropdownMenu open={open} onOpenChange={onOpenChange} modal={false}>
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
-      <DropdownMenuContent align={align} side={side} sideOffset={8} collisionPadding={8} className="m22-action-menu" onEscapeKeyDown={(event) => event.stopPropagation()}>
-        {items.map((item) => <div key={item.id}>{item.separatorBefore && <DropdownMenuSeparator />}<DropdownMenuItem icon={item.icon} className="m22-action-menu-item" onSelect={(event) => { if (item.keepOpen) event.preventDefault(); item.onSelect() }}>{item.label}</DropdownMenuItem></div>)}
+      <DropdownMenuContent align={align} side={side} sideOffset={8} collisionPadding={8} className="folio-action-menu" onEscapeKeyDown={(event) => event.stopPropagation()}>
+        {items.map((item) => <div key={item.id}>{item.separatorBefore && <DropdownMenuSeparator />}<DropdownMenuItem icon={item.icon} className="folio-action-menu-item" onSelect={(event) => { if (item.keepOpen) event.preventDefault(); item.onSelect() }}>{item.label}</DropdownMenuItem></div>)}
       </DropdownMenuContent>
     </DropdownMenu>
   )
@@ -51,5 +51,5 @@ export interface ScrollControlProps {
 
 /** Page position belongs to the host; visibility and a safe tab stop belong here. */
 export function ScrollControl({ label, visible, onActivate }: ScrollControlProps) {
-  return <FloatingIconButton position="end" label={label} onClick={onActivate} disabled={!visible} tabIndex={visible ? 0 : -1} aria-hidden={!visible || undefined} className={cn('m22-scroll-control', !visible && 'm22-scroll-control-hidden')}><RiArrowUpLine size={18} aria-hidden="true" /></FloatingIconButton>
+  return <FloatingIconButton position="end" label={label} onClick={onActivate} disabled={!visible} tabIndex={visible ? 0 : -1} aria-hidden={!visible || undefined} className={cn('folio-scroll-control', !visible && 'folio-scroll-control-hidden')}><RiArrowUpLine size={18} aria-hidden="true" /></FloatingIconButton>
 }

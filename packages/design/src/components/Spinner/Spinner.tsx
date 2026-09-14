@@ -80,9 +80,9 @@ export function Spinner({
       {...rest}
     >
       <span
-        data-m22-animated
+        data-folio-animated
         className={cn(
-          'inline-block rounded-full border-solid motion-safe:animate-[m22-spin_0.7s_linear_infinite]',
+          'inline-block rounded-full border-solid motion-safe:animate-[folio-spin_0.7s_linear_infinite]',
           SIZE[size],
           TONE[tone],
           className,

@@ -16,14 +16,14 @@ describe('Spinner', () => {
 
   it('draws the ring in the inherited colour when tone is current', () => {
     const { container } = render(<Spinner tone="current" label={null} />)
-    expect(container.querySelector('[data-m22-animated]')?.className).toContain('border-t-current')
+    expect(container.querySelector('[data-folio-animated]')?.className).toContain('border-t-current')
   })
 })
 
 describe('Spinner className', () => {
   it('sizes the ring rather than an invisible box around it', () => {
     const { container } = render(<Spinner className="size-8" label={null} />)
-    const ring = container.querySelector('[data-m22-animated]')
+    const ring = container.querySelector('[data-folio-animated]')
 
     // className used to land on the outer inline-flex wrapper while SIZE and
     // TONE went on the inner span, so <Spinner className="size-8" /> grew the
@@ -34,7 +34,7 @@ describe('Spinner className', () => {
 
   it('lets a caller recolour the ring the same way', () => {
     const { container } = render(<Spinner className="border-t-(--danger)" label={null} />)
-    const ring = container.querySelector('[data-m22-animated]')
+    const ring = container.querySelector('[data-folio-animated]')
 
     expect(ring?.className).toContain('border-t-(--danger)')
     expect(ring?.className).not.toContain('border-t-(--ink)')

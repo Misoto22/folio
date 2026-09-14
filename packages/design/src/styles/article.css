@@ -6,7 +6,7 @@
    pipeline produced. There is no component to hang a class on, so the contract
    has to be the element names themselves.
 
-   Scoped to `[data-m22-article]`, which the `Article` component writes. Nothing
+   Scoped to `[data-folio-article]`, which the `Article` component writes. Nothing
    here leaks: a page that does not opt in is untouched.
 
    Inside one, these rules BEAT a component's utilities, and that is the
@@ -30,7 +30,7 @@
    stylesheet is three prose stylesheets that drift.
    ========================================================================== */
 
-[data-m22-article] {
+[data-folio-article] {
   /* A measure, not a width. A narrower column still wins, and a figure or a
      table opts out of it explicitly below. */
   max-width: var(--w-reading);
@@ -46,7 +46,7 @@
    the same five steps every other surface climbs, which is what makes a post
    and a component page read as one publication. */
 
-[data-m22-article] :is(h1, h2, h3, h4, h5, h6) {
+[data-folio-article] :is(h1, h2, h3, h4, h5, h6) {
   margin: 0;
   color: var(--ink);
   font-family: var(--font-heading, var(--serif));
@@ -55,20 +55,20 @@
   /* An anchored heading has to clear the masthead it scrolls under. */
   scroll-margin-top: var(--scroll-offset);
 }
-[data-m22-article] h1 {
+[data-folio-article] h1 {
   font-size: var(--fs-title);
   letter-spacing: -0.02em;
 }
-[data-m22-article] h2 {
+[data-folio-article] h2 {
   font-size: var(--fs-heading);
 }
-[data-m22-article] h3 {
+[data-folio-article] h3 {
   font-size: var(--fs-sub);
 }
-[data-m22-article] h4 {
+[data-folio-article] h4 {
   font-size: var(--fs-item);
 }
-[data-m22-article] :is(h5, h6) {
+[data-folio-article] :is(h5, h6) {
   font-family: var(--mono);
   font-size: 11px;
   font-weight: 400;
@@ -83,34 +83,34 @@
    follows rather than to what it interrupts.
 
    The reset uses `:where()`, and that is the load-bearing part. A plain
-   `[data-m22-article] p { margin: 0 }` is specificity 0,1,1 and outranks
-   `[data-m22-article] > * + *` at 0,1,0 — so the reset silently won and every
+   `[data-folio-article] p { margin: 0 }` is specificity 0,1,1 and outranks
+   `[data-folio-article] > * + *` at 0,1,0 — so the reset silently won and every
    paragraph in the article lost its spacing, which is exactly the defect this
    replaces. `:where()` contributes nothing, so the reset and the rhythm sit at
    the same weight and source order decides, which is what a reset is for. */
 
-[data-m22-article] :where(*) {
+[data-folio-article] :where(*) {
   margin: 0;
 }
-[data-m22-article] > * + * {
+[data-folio-article] > * + * {
   margin-block-start: 1.25em;
 }
 /* `:is()` takes the specificity of its heaviest argument, so these two land at
    0,1,1 and win over the general rule above whatever their order. */
-[data-m22-article] > :is(h1, h2, h3, h4, h5, h6) {
+[data-folio-article] > :is(h1, h2, h3, h4, h5, h6) {
   margin-block-start: 2.25em;
 }
-[data-m22-article] > :is(h1, h2, h3, h4, h5, h6) + * {
+[data-folio-article] > :is(h1, h2, h3, h4, h5, h6) + * {
   margin-block-start: 0.75em;
 }
-[data-m22-article] > :first-child {
+[data-folio-article] > :first-child {
   margin-block-start: 0;
 }
 
 /* The opening paragraph carries the piece. Marked, not guessed: an author
    writes `<p class="lead">` (or a pipeline emits it), rather than the
    stylesheet deciding that whatever came first is a standfirst. */
-[data-m22-article] p.lead {
+[data-folio-article] p.lead {
   font-size: var(--fs-item);
   line-height: 1.6;
   color: var(--ink);
@@ -118,7 +118,7 @@
 
 /* ─── Inline ─────────────────────────────────────────────────────────────── */
 
-[data-m22-article] a {
+[data-folio-article] a {
   color: var(--ink);
   /* Extend the hit area without changing the surrounding line box. */
   padding-block: max(0px, calc((var(--control-h-md) - 1.25em) / 2));
@@ -127,26 +127,26 @@
   text-underline-offset: 4px;
   transition: text-decoration-color var(--fast) var(--ease);
 }
-[data-m22-article] a:hover {
+[data-folio-article] a:hover {
   text-decoration-color: var(--ink);
 }
-[data-m22-article] strong {
+[data-folio-article] strong {
   color: var(--ink);
   font-weight: 500;
 }
-[data-m22-article] em {
+[data-folio-article] em {
   font-style: italic;
 }
-[data-m22-article] mark {
+[data-folio-article] mark {
   background: var(--accent-muted);
   color: var(--ink);
   padding-inline: 0.2em;
 }
-[data-m22-article] abbr[title] {
+[data-folio-article] abbr[title] {
   text-decoration: underline dotted var(--rule-2);
   text-underline-offset: 3px;
 }
-[data-m22-article] :is(sub, sup) {
+[data-folio-article] :is(sub, sup) {
   font-size: 0.75em;
   line-height: 0;
 }
@@ -156,32 +156,32 @@
    filled circle at whatever size the font decides, and this system's only
    filled circle is a status dot. */
 
-[data-m22-article] :is(ul, ol) {
+[data-folio-article] :is(ul, ol) {
   padding-inline-start: 1.4em;
 }
-[data-m22-article] :is(ul, ol) :is(ul, ol) {
+[data-folio-article] :is(ul, ol) :is(ul, ol) {
   margin-block-start: 0.4em;
 }
-[data-m22-article] li + li {
+[data-folio-article] li + li {
   margin-block-start: 0.4em;
 }
 /* A paragraph or a fence nested inside a list item is still a block. */
-[data-m22-article] li > * + * {
+[data-folio-article] li > * + * {
   margin-block-start: 0.6em;
 }
-[data-m22-article] li::marker {
+[data-folio-article] li::marker {
   color: var(--ink-3-aa);
   font-size: 0.9em;
 }
-[data-m22-article] ul {
+[data-folio-article] ul {
   list-style: none;
   padding-inline-start: 1.15em;
 }
-[data-m22-article] ul > li {
+[data-folio-article] ul > li {
   position: relative;
 }
 /* A hairline dash, which is the marker the rest of the system uses. */
-[data-m22-article] ul > li::before {
+[data-folio-article] ul > li::before {
   content: '';
   position: absolute;
   inset-inline-start: -1.15em;
@@ -193,13 +193,13 @@
 /* A task list already has its own marker — the checkbox. Both spellings,
    because a pipeline may wrap the input in a label and `:has()` is what makes
    the rule work either way. */
-[data-m22-article] ul > li:has(input[type='checkbox'])::before {
+[data-folio-article] ul > li:has(input[type='checkbox'])::before {
   content: none;
 }
-[data-m22-article] li:has(input[type='checkbox']) {
+[data-folio-article] li:has(input[type='checkbox']) {
   padding-inline-start: 0;
 }
-[data-m22-article] input[type='checkbox'] {
+[data-folio-article] input[type='checkbox'] {
   accent-color: var(--accent);
   margin-inline-end: 0.5em;
   /* A published checklist REPORTS state; it does not collect it. Disabled at
@@ -207,16 +207,16 @@
      is a hint that it is unavailable, not that it is unticked. */
   opacity: 1;
 }
-[data-m22-article] li:has(input[type='checkbox']) label {
+[data-folio-article] li:has(input[type='checkbox']) label {
   display: inline;
   cursor: default;
 }
 
-[data-m22-article] dt {
+[data-folio-article] dt {
   color: var(--ink);
   font-weight: 500;
 }
-[data-m22-article] dd {
+[data-folio-article] dd {
   margin-block-end: 0.75em;
   padding-inline-start: 1em;
   border-inline-start: 1px solid var(--rule);
@@ -225,7 +225,7 @@
 /* ─── Quotation ────────────────────────────────────────────────────────────
    A rule and a change of face, not italics and not a giant quote mark. */
 
-[data-m22-article] blockquote {
+[data-folio-article] blockquote {
   padding-inline-start: 1.25em;
   border-inline-start: 2px solid var(--rule-hard);
   color: var(--ink);
@@ -233,10 +233,10 @@
   font-size: var(--fs-item);
   line-height: 1.55;
 }
-[data-m22-article] blockquote p + p {
+[data-folio-article] blockquote p + p {
   margin-block-start: 0.6em;
 }
-[data-m22-article] blockquote cite {
+[data-folio-article] blockquote cite {
   display: block;
   margin-block-start: 0.75em;
   color: var(--ink-3-aa);
@@ -250,7 +250,7 @@
    An inline span is a chip; a block is a plate. Neither is a second surface
    colour — both sit on the one elevated step the system has. */
 
-[data-m22-article] code {
+[data-folio-article] code {
   background: var(--stone);
   border-radius: var(--radius-sm);
   padding: 0.15em 0.4em;
@@ -258,7 +258,7 @@
   font-family: var(--mono);
   font-size: 0.85em;
 }
-[data-m22-article] pre {
+[data-folio-article] pre {
   padding: 1rem 1.125rem;
   overflow-x: auto;
   background: var(--paper-2);
@@ -269,7 +269,7 @@
   scrollbar-width: thin;
   scrollbar-color: var(--rule-2) transparent;
 }
-[data-m22-article] pre code {
+[data-folio-article] pre code {
   background: none;
   border-radius: 0;
   padding: 0;
@@ -280,20 +280,20 @@
    These are the three things allowed out of the measure: a table with six
    columns and an image with a subject in it are both unreadable at 46rem. */
 
-[data-m22-article] :is(figure, table, .m22-wide) {
+[data-folio-article] :is(figure, table, .folio-wide) {
   width: 100%;
   max-width: none;
 }
-[data-m22-article] > figure {
+[data-folio-article] > figure {
   margin-block-start: 2em;
 }
-[data-m22-article] :is(img, video) {
+[data-folio-article] :is(img, video) {
   display: block;
   max-width: 100%;
   height: auto;
   border-radius: var(--radius);
 }
-[data-m22-article] figcaption {
+[data-folio-article] figcaption {
   margin-block-start: 0.75em;
   color: var(--ink-3-aa);
   font-family: var(--mono);
@@ -302,17 +302,17 @@
   line-height: 1.6;
 }
 
-[data-m22-article] .m22-table-scroll {
+[data-folio-article] .folio-table-scroll {
   overflow-x: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--rule-2) transparent;
 }
-[data-m22-article] table {
+[data-folio-article] table {
   border-collapse: collapse;
   font-size: 0.9375rem;
   text-align: start;
 }
-[data-m22-article] th {
+[data-folio-article] th {
   padding: 0.65em 1.25em 0.65em 0;
   border-block-end: 1px solid var(--rule-hard);
   color: var(--ink-3-aa);
@@ -324,25 +324,25 @@
   text-align: start;
   white-space: nowrap;
 }
-[data-m22-article] td {
+[data-folio-article] td {
   padding: 0.65em 1.25em 0.65em 0;
   border-block-end: 1px solid var(--rule);
   color: var(--ink-2);
   vertical-align: baseline;
 }
-[data-m22-article] :is(th, td):last-child {
+[data-folio-article] :is(th, td):last-child {
   padding-inline-end: 0;
 }
 
-[data-m22-article] > hr {
+[data-folio-article] > hr {
   margin-block-start: 2.5em;
 }
-[data-m22-article] hr {
+[data-folio-article] hr {
   border: 0;
   border-block-start: 1px solid var(--rule);
 }
 
-[data-m22-article] kbd {
+[data-folio-article] kbd {
   border: 1px solid var(--rule-2);
   border-radius: var(--radius-sm);
   padding: 0.1em 0.4em;
@@ -357,11 +357,11 @@
    allowed to scroll, because a long equation is the one block that genuinely
    cannot wrap. */
 
-[data-m22-article] math {
+[data-folio-article] math {
   color: var(--ink);
   font-size: 1.05em;
 }
-[data-m22-article] .m22-math {
+[data-folio-article] .folio-math {
   /* `overflow-x: auto` alone turns the OTHER axis into `auto` too, which drew
      a vertical scrollbar down the side of every formula. */
   overflow-x: auto;
@@ -372,7 +372,7 @@
 }
 /* A block-level `math` is not affected by the container's `text-align`, so it
    is centred the way any block is: by its own margins. */
-[data-m22-article] math[display='block'] {
+[data-folio-article] math[display='block'] {
   display: block;
   width: fit-content;
   margin-inline: auto;
@@ -381,15 +381,15 @@
 /* ─── Footnotes ────────────────────────────────────────────────────────────
    Ruled off and set small: they are apparatus, not the piece. */
 
-[data-m22-article] > .footnotes {
+[data-folio-article] > .footnotes {
   margin-block-start: 3em;
 }
-[data-m22-article] .footnotes {
+[data-folio-article] .footnotes {
   padding-block-start: 1.5em;
   border-block-start: 1px solid var(--rule);
   font-size: 0.875rem;
 }
-[data-m22-article] .footnotes h2 {
+[data-folio-article] .footnotes h2 {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.2em;
@@ -401,7 +401,7 @@
    inside a block of text has to be distinguishable from the text without
    relying on colour, and ink on --ink-2 is 2.14:1 — well under the 3:1 that
    would let colour carry it alone. */
-[data-m22-article] .footnote-backref {
+[data-folio-article] .footnote-backref {
   /* The glyph is the affordance; a name is not. */
   font-size: 0.9em;
 }

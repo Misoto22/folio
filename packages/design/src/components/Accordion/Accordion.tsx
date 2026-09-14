@@ -52,8 +52,8 @@ export function AccordionItem({ title, children, className, ...rest }: Accordion
         </AccordionPrimitive.Trigger>
       </AccordionPrimitive.Header>
       <AccordionPrimitive.Content
-        data-m22-animated
-        className="overflow-hidden text-sm leading-relaxed text-(--ink-2) data-[state=closed]:animate-[m22-accordion-up_var(--duration-base)_var(--ease)] data-[state=open]:animate-[m22-accordion-down_var(--duration-base)_var(--ease)]"
+        data-folio-animated
+        className="overflow-hidden text-sm leading-relaxed text-(--ink-2) data-[state=closed]:animate-[folio-accordion-up_var(--duration-base)_var(--ease)] data-[state=open]:animate-[folio-accordion-down_var(--duration-base)_var(--ease)]"
       >
         <div className="pb-4 pe-8">{children}</div>
       </AccordionPrimitive.Content>

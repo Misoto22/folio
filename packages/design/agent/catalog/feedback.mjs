@@ -124,7 +124,7 @@ export const FEEDBACK = [
       },
       {
         kind: 'dont',
-        text: 'Do not add animate-pulse to a part. The frame already animates opacity and a second ramp on a child multiplies with it, so the part beats at a rate the shape around it does not. Reduced motion is not the reason it is wrong: the rule in keyframes.css is a universal floor on animation-duration and transition-duration, so a hand-written Tailwind animation is clamped along with everything else. data-m22-animated is a component asserting its motion is decorative, not the mechanism that does the cancelling.',
+        text: 'Do not add animate-pulse to a part. The frame already animates opacity and a second ramp on a child multiplies with it, so the part beats at a rate the shape around it does not. Reduced motion is not the reason it is wrong: the rule in keyframes.css is a universal floor on animation-duration and transition-duration, so a hand-written Tailwind animation is clamped along with everything else. data-folio-animated is a component asserting its motion is decorative, not the mechanism that does the cancelling.',
       },
       {
         kind: 'dont',

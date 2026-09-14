@@ -471,9 +471,9 @@ export function Sidebar({
           type="button"
           aria-label={scrimLabel}
           onClick={() => setOpen(false)}
-          data-m22-animated
+          data-folio-animated
           className={cn(
-            'inset-0 z-(--z-scrim) bg-(--scrim) animate-[m22-fade-in_var(--duration-fast)_var(--ease)]',
+            'inset-0 z-(--z-scrim) bg-(--scrim) animate-[folio-fade-in_var(--duration-fast)_var(--ease)]',
             contained ? 'absolute' : 'fixed',
           )}
         />

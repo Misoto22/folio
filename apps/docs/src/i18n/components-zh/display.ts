@@ -114,7 +114,7 @@ export const DISPLAY_ZH: Record<string, ComponentCopyZh> = {
     anatomy: [
       { hash: '1b754356', element: '外盒', description: '整个东西所在的那个 aria-hidden <span>——md 下 8px 见方，sm 下 7px，inline-grid 且 shrink-0，所以无论旁边的标签有多长，它在 flex 行里都保持是个圆。' },
       { hash: '10349e94', element: '点', description: '一个绝对定位的实心圆，颜色取 --ok、--warn、--danger 或 --ink-3-aa。它是这个组件里 tone 唯一够得到的部分。' },
-      { hash: '764f6f83', element: '光晕', description: '同色的第二圈环，跑 m22-halo 那组 keyframes，只在 pulse 为 true 时存在。它是一个独立元素而不是 box-shadow，因为这套系统里的阴影从来不带模糊。' },
+      { hash: 'fff169bd', element: '光晕', description: '同色的第二圈环，跑 folio-halo 那组 keyframes，只在 pulse 为 true 时存在。它是一个独立元素而不是 box-shadow，因为这套系统里的阴影从来不带模糊。' },
     ],
     practices: [
       ['63db455b', '任何已经尘埃落定的东西都要 pulse={false}。它默认是 true，所以一个表示构建已完成、或者今天不会再变的点，会顶着一圈宣称此刻正在发生什么的光晕。'],

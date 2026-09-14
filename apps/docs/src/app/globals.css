@@ -29,6 +29,11 @@
    library component still gets generated for this site. */
 @source '../../../../packages/design/src';
 
+/* The Chinese changelog quotes class names from before the Folio prefix as
+   history, and automatic detection would compile them into live rules. The
+   package's own CHANGELOG.md is excluded the same way in its entry. */
+@source not '../i18n/changelog.ts';
+
 @custom-variant dark (&:is([data-mode='dark'] *));
 
 @theme {
@@ -116,10 +121,10 @@
    and the loop jumps every time it wraps.
 
    Reversed under `dir="rtl"`, so it travels the way the page reads. The band is
-   decoration and says so with `data-m22-animated`, which is what the reduced
+   decoration and says so with `data-folio-animated`, which is what the reduced
    motion block in the package's keyframe layer removes outright — a reader who
    asked for less motion gets a still row of components, not a faster one. */
-@keyframes m22-docs-marquee {
+@keyframes folio-docs-marquee {
   from {
     transform: translateX(0);
   }
@@ -128,7 +133,7 @@
   }
 }
 
-[dir='rtl'] .m22-marquee {
+[dir='rtl'] .folio-marquee {
   animation-direction: reverse;
 }
 
