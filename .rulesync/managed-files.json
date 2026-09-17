@@ -3,11 +3,11 @@
   "files": [
     {
       "path": ".cursor/rules/misoto-harness.mdc",
-      "sha256": "21c9588744a8882e80f3379fc76417ad6572e65f5a9c2e437d469ab9c3dc4681"
+      "sha256": "4cd650d643a5227e6c39df4cbf39009ac71f7e5e80d02206f09d4e8724070a9c"
     },
     {
       "path": ".github/workflows/misoto-harness.yml",
-      "sha256": "858738a9c455a14ccac96ce72ac299e61339971cc27df866639bf78cb86c0bb3"
+      "sha256": "61ea2bc6d6d39be50cba525859e0a7a200e4617dfbd946e8e8e49da30ef3fbd7"
     },
     {
       "path": ".rulesync/harness-check.py",
@@ -23,7 +23,7 @@
     },
     {
       "path": ".rulesync/rules/00-generated-metadata.md",
-      "sha256": "3e2edd018abd673371b5951bb86803a2a2f780034b3c42b9020050d54cc0058a"
+      "sha256": "e0ab5ef2715b00471ded102a1dff3dace56740af829e9847b9e234b6e3521314"
     },
     {
       "path": ".rulesync/rules/10-core-behavior.md",
@@ -32,6 +32,10 @@
     {
       "path": ".rulesync/rules/10-core-code-review.md",
       "sha256": "f2dfb378610434a8c45fbbc823c1ed92b3545c1249790c3a25b1ba6c0e35f205"
+    },
+    {
+      "path": ".rulesync/rules/10-core-delivery-ci.md",
+      "sha256": "ba914dca0c4a5830030f307f4d5775012f79a6b191dc2e135c6ff31b8f52f2ab"
     },
     {
       "path": ".rulesync/rules/10-core-git.md",
@@ -43,7 +47,7 @@
     },
     {
       "path": ".rulesync/rules/10-core-naming.md",
-      "sha256": "2c3bf504418565f651eed9a2c1fe360052a3552616cb492cd060178c80e7cc37"
+      "sha256": "bc94c66631762e9e2d3a928fe09d97a1f74548fe43510fee5dfab5c5165eb032"
     },
     {
       "path": ".rulesync/rules/10-core-security.md",
@@ -59,19 +63,19 @@
     },
     {
       "path": ".rulesync/shared-rules.json",
-      "sha256": "ca01e3897d6d5a3caf95b421adf2b1ce098563c61d93778bd960178d00bc7679"
+      "sha256": "5ad53ee10e974c7f863a3d691c8edecc07c077478de6335b2c5b2e68d498145f"
     },
     {
       "path": "AGENTS.md",
-      "sha256": "3d71ee4db92e4921e68d40334681bc446ef53b3f666c00841162f572c1e462f1"
+      "sha256": "b2e2dd911a53ca04713a24fb1bf3eb0166e50ecfb3ff6f7568d5417fd7f8c45c"
     },
     {
       "path": "CLAUDE.md",
-      "sha256": "34a812eec7ad9ceac4c78f9161bfa4faf5c9da3728a1f01caaf06481a801c646"
+      "sha256": "db808282df123f4c1164ea06bfa147c25a4f50ea410a1d53bcb4d26486dfafb1"
     },
     {
       "path": "GEMINI.md",
-      "sha256": "5b8c923f9fe7fddd8563f4ceab73927c755298e5bd8e3701cdd49adb374694fd"
+      "sha256": "041ca48f11b92b9c6db39ff0b6be82f44e546cb9f51fce8d502c65457417fd0f"
     },
     {
       "path": "rulesync.jsonc",
@@ -79,7 +83,7 @@
     },
     {
       "path": "rulesync.lock.json",
-      "sha256": "b0d0836775b55192f96b0e0587e263e5579c546c396b566f1de26a897a6a4361"
+      "sha256": "b9c4100ca5d8d0ef75ac49d10a130d4586be46bcdc26e63ebb9c4aa86b137198"
     }
   ]
 }
