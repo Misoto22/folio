@@ -339,10 +339,10 @@ async function main() {
   writeFileSync(join(OUT, 'posts.json'), JSON.stringify(posts, null, 2))
 
   // ─── Changelog ───
-  // The PACKAGE's file first — that is the one changesets writes, and the one
-  // that ships to npm — then the repository root's, which holds the
-  // hand-written pre-changeset history and nothing since. Reading only the root
-  // is what froze this page at 0.1.0 while two releases went out.
+  // The PACKAGE's file first — that is the one release-please writes, and the
+  // one that ships to npm — then the repository root's, which holds the
+  // hand-written pre-1.0 history and nothing since. Reading only the root is
+  // what froze this page at 0.1.0 while two releases went out.
   writeFileSync(
     join(OUT, 'changelog.json'),
     JSON.stringify(

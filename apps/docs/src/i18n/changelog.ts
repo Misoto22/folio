@@ -15,33 +15,28 @@ import type { Locale } from './locales'
  * it no longer has a translation for. That is the right failure. `api.ts` pairs
  * a hash with each entry and a test enforces it, because a doc comment is
  * edited by the same person in the same commit; a changelog line is not, and a
- * build that fails on every changeset would be a build people route around.
+ * build that failed on every release would be a build people route around.
  *
- * `changelog.test.ts` therefore gates two things and not a third. It fails on
- * an ORPHAN — a translation whose English exists neither in the changelog nor
- * in a pending `.changeset/*.md`, which is certainly a mistake rather than a
- * backlog — and on the LATEST release being short a line, because a release the
- * page leads with reading half in English is worse than one that reads wholly
- * in English. An older release missing a line is neither; it falls back and
- * stays readable.
+ * `changelog.test.ts` therefore gates two things and not coverage. It fails on
+ * an ORPHAN — a translation whose English the changelog does not say and the
+ * release tool will not write, which is certainly a mistake rather than a
+ * backlog — and on a release-please SECTION HEADING having no line here, which
+ * is the one string in an entry chosen by the tool and not by an author, and so
+ * the one that can be translated before it is first printed. A release entry
+ * missing its line is neither; it falls back and stays readable.
  *
- * THE CHANGESET HALF OF THAT IS WHAT MAKES A RELEASE POSSIBLE AT ALL, and it is
- * the case the original design did not anticipate. `CHANGELOG.md` is written by
- * the Version Packages pull request, so the strings first exist there and this
- * file is first found wanting on that pull request's `verify` — which, since the
- * release App opens it, is a check that runs and blocks the auto-merge. A
- * missing line is therefore a release that does not happen, rather than one that
- * happens half in English. But a translation written BEFORE the bump has no
- * changelog entry behind it yet and would read as an orphan, and it cannot be
- * parked on the release branch either: the changesets action force-pushes
- * `changeset-release/main` and rebuilds it from scratch whenever `main` moves.
+ * THERE IS NO LONGER A WINDOW TO TRANSLATE IN ADVANCE, and that is the change
+ * release-please made here. Under changesets the English of a release existed
+ * in `.changeset/*.md` for days before the bump, so this file could be written
+ * ahead of the entry — and had to be, because `verify` on the Version Packages
+ * pull request demanded it and an untranslated entry stopped the release at its
+ * last step. release-please writes an entry from the title of a pull request
+ * that has already merged: the English and the release arrive together, so
+ * nothing can be translated in advance and nothing needs to be.
  *
- * A translation written before its release ships is not an orphan — it is
- * early, and the changeset is the proof, because `.changeset/*.md` holds
- * exactly the text `changeset version` is about to turn into changelog entries.
- * So translate a release from its changesets, onto `main`, before the bump.
- * Text in no release and in no changeset is still an orphan, which is what
- * keeps this a gate. See `docs/releasing.md`.
+ * So a release entry is translated after it ships, by adding its English here,
+ * and until then the Chinese page shows that line in English. See
+ * `docs/releasing.md`.
  */
 const ZH: Record<string, string> = {
   [fingerprint("Add reusable website compositions for navigation, portfolios, archives, reading, media, forms, search, metrics and conversations.")]: "新增网站组合组件，涵盖导航、作品集、内容列表、阅读页、媒体、表单、搜索、统计和对话界面。",
@@ -1095,6 +1090,17 @@ const ZH: Record<string, string> = {
   [fingerprint('The indicator measured with `getBoundingClientRect`, which reports visual pixels, and positioned with `transform`, which is interpreted in the element\'s own coordinate space. Inside anything zoomed or scaled — a thumbnail, a device preview — the two disagreed by exactly the scale factor and the pill sat short of its segment. It now accumulates layout offsets up to the strip instead.')]:
     '指示器用 `getBoundingClientRect` 测量——它返回的是视觉像素——却用 `transform` 定位，而后者是在元素自身的坐标系里解释的。在任何被 zoom 或 scale 过的东西里面——一张缩略图、一个设备预览——两者恰好差了一个缩放系数，药丸就落在它那一段的前面。现在改成向上累加布局偏移到那条strip为止。',
   // ─── Section headings ───
+  // release-please writes the first seven; `changelog.test.ts` reads that list
+  // out of `release-please-config.json` and fails if one of them has no line
+  // here. The rest are the headings changesets and the hand-written history
+  // left in the file, which release-please prepends above rather than replaces.
+  [fingerprint('Features')]: '新增功能',
+  [fingerprint('Bug Fixes')]: '问题修复',
+  [fingerprint('Performance')]: '性能',
+  [fingerprint('Reverts')]: '回滚',
+  [fingerprint('Documentation')]: '文档',
+  [fingerprint('Refactoring')]: '重构',
+  [fingerprint('⚠ BREAKING CHANGES')]: '⚠ 破坏性变更',
   [fingerprint('Minor Changes')]: '次要变更',
   [fingerprint('Patch Changes')]: '补丁变更',
   [fingerprint('Changed')]: '变更',

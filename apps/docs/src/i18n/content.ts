@@ -662,6 +662,6 @@ export const PAGE_ZH = {
   changelog: {
     title: '更新日志',
     summary:
-      '每一个对使用者可见的改动都随一个 changeset 一起发布，所以这些话是做这个改动的人在他理解它的那一刻写下的，而不是一个月后从提交标题里拼回来的。',
+      '每一条记录都来自发布它的那个 pull request 的 Conventional Commit 标题，所以一个版本里写的就是合并进去的东西——用的是合并它的那个人当时的措辞，而不是事后另写的一份总结。',
   },
 } as const

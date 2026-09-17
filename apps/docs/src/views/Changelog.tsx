@@ -42,17 +42,17 @@ const RELEASES = changelog as Release[]
  * documentation changelog does within two releases.
  *
  * An entry is a headline, an optional body, and the pull request it shipped in.
- * The body is rendered as the small document it is rather than joined into one
- * paragraph: a changeset that lists five changes is five lines, and flattening
- * them was what made this page unreadable at the length it had reached.
+ * release-please writes one line per merged pull request, so a release-please
+ * entry has no body; the bodies below belong to the entries changesets wrote,
+ * which stay in the file because release-please prepends above them.
  *
- * THE HEADLINES ARE THE PAGE and the bodies are folded under them. The entries
- * here carry their reasoning, which is the reason to read one and the reason
+ * THE HEADLINES ARE THE PAGE and those bodies are folded under them. The older
+ * entries carry their reasoning, which is the reason to read one and the reason
  * the page could not be scanned: 0.9.0 is two and a half thousand words, and a
  * reader looking for the version that changed `Sidebar` was reading an essay
  * about line boxes on the way past. Folding keeps the argument and gives back
- * the index; `DESIGN-CHANGELOG-001` is what keeps the headline short enough for
- * that index to be worth having.
+ * the index — and a pull-request title, which is what an entry is now, is short
+ * enough that the index needs nothing else done to it.
  */
 export function Changelog({ locale }: { locale: Locale }) {
   const t = getMessages(locale)
@@ -64,7 +64,7 @@ export function Changelog({ locale }: { locale: Locale }) {
         title={copy?.title ?? t.nav.changelog}
         summary={
           copy?.summary ??
-          'Every consumer-visible change ships with a changeset, so these words were written by whoever made the change at the moment they understood it — not reconstructed from commit subjects a month later.'
+          'Entries come from the Conventional Commit titles of the pull requests that shipped them, so a release says exactly what merged into it — in the words of the person who merged it, not a summary written afterwards.'
         }
         crumbs={[{ label: copy?.title ?? t.nav.changelog }]}
       />

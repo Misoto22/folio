@@ -11,7 +11,7 @@ inputs:
   registry-url:
     description: >-
       Registry to write into `.npmrc`. Only the publishing job needs this; it is
-      what points `changeset publish` at npmjs.
+      what points `pnpm publish` at npmjs.
     required: false
     default: ''
   scope:

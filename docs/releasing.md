@@ -1,61 +1,87 @@
 # Releasing
 
 `@misoto22/folio` is published to **npmjs** as a public package under the
-`@misoto22` scope. Versioning is driven by changesets, so the changelog is
-written by whoever made the change, at the moment they understood it — rather
-than reconstructed from commit subjects a month later.
+`@misoto22` scope. Versioning is driven by **release-please**, so the version
+number and the changelog are both derived from what merged: the Conventional
+Commit subject of every pull request since the last tag.
 
 ## Shipping a change
 
-```bash
-pnpm changeset          # pick the packages, the bump, and write one sentence
-git add .changeset
+Write the pull-request title as a Conventional Commit and merge it. That is the
+whole of it — there is no file to write beside the change, and nothing to
+remember at release time.
+
+```
+feat(button): add a loading state      → next minor
+fix(sidebar): stop the rail collapsing → next patch
+feat(tokens)!: drop the m22 prefix     → next major
+chore(deps): bump eslint               → no release
 ```
 
-Commit that file with the change itself, and translate its sentences into
-`apps/docs/src/i18n/changelog.ts` in the same pull request — see below for why
-that is part of shipping rather than a courtesy.
+The title is the changelog entry, verbatim, so write it as one: lowercase,
+imperative, and about what changed rather than about the diff. The
+`pr-title / pr-title` check enforces the grammar and `main` requires it, because
+this repository squash-merges — the title becomes the commit subject, and the
+commit subject is the only input release-please has.
 
-Everything after the merge is automatic. On `main`, the release workflow opens a
-**Version Packages** pull request that collects every pending changeset, bumps
-the version and folds the sentences into `CHANGELOG.md`; it queues that pull
-request for auto-merge, and the merge starts the `main` run that publishes to
-npmjs, deploys the site and pushes the tag. Nobody clicks anything.
+Everything after the merge is automatic. On `main`, the `release` job opens or
+updates **`chore(main): release folio X.Y.Z`**, a pull request holding the
+version bump and the changelog entries it has accumulated. Merging that pull
+request writes `packages/design/package.json` and `packages/design/CHANGELOG.md`,
+tags `vX.Y.Z`, publishes the GitHub Release, and the push that merge makes runs
+`publish`, which sends the tarball to npmjs. Nobody clicks anything but merge.
 
-A change to the documentation site, to CI, or to a test needs no changeset;
-`@misoto22/folio-docs` is in the `ignore` list because it is deployed, not
-versioned.
+A release pull request that is left open simply accumulates: the next merge to
+`main` rewrites it with the new commits folded in and the version recomputed. So
+a release happens when you merge it, not on a schedule.
 
-The `changeset` job in `.github/workflows/pr.yml` enforces exactly that split: a
-pull request touching `packages/design/src` outside `__tests__` fails until it
-carries a changeset, and everything else passes untouched. A refactor there that
-no consumer can observe is waived with the `skip-changeset` label, so the
-exception is a visible act rather than an omission nobody noticed.
+### Which types produce a release
 
-The same job checks the changeset's shape, through `node .changeset/shape.mjs`.
-A changeset's first paragraph is the changelog entry — one sentence, under 160
-characters — and everything below a blank line is detail. `DESIGN-CHANGELOG-001`
-is the rule; the reason is that the entries here carry their reasoning, which is
-what makes them worth reading and what cost the changelog its index: 0.9.0 ran
-to 2,685 words at a median of 161 an entry, against an ecosystem norm of 10 to
-25. The documentation site folds the detail under the entry rather than cutting
-it, so the page can be scanned and the argument is still there for whoever wants
-it.
+| In the title | Bump | In the changelog under |
+|---|---|---|
+| `feat:` | minor | Features |
+| `!` or a `BREAKING CHANGE:` footer | major | ⚠ BREAKING CHANGES |
+| `fix:` | patch | Bug Fixes |
+| `perf:` | patch | Performance |
+| `revert:` | patch | Reverts |
+| `docs:` | patch | Documentation |
+| `refactor:` | patch | Refactoring |
+| `chore:`, `ci:`, `build:`, `test:`, `style:` | none | not listed |
 
-Note what the gate is *not* protecting against. Two branches can never contest a
-version number, because neither one writes one — a changeset names a bump kind
-in a randomly named file, and `release.yml` computes the number afterwards, once,
-under a `concurrency` group of one. What parallel work actually loses is the
-sentence: a library change merged without a changeset still ships, folded into
-whatever version the next changeset produces, and the `CHANGELOG` then describes
-a release that quietly did more than it says.
+Two things decide whether a merge releases anything at all, and both have to be
+true. The commit has to touch a file under `packages/design/` — that is the one
+path in the manifest, so a change to the docs site or to CI is invisible to
+release-please however it is titled — and it has to land in a listed section.
+A release pull request whose changelog would be empty is not opened, which is
+why a run of `chore:` merges produces nothing rather than a version with no
+entries in it.
+
+### The Chinese changelog
+
+`apps/docs/src/i18n/changelog.ts` keys each translation by the fingerprint of
+its English, and `changelog.test.ts` gates two things: no ORPHAN — a translation
+whose English nothing says and nothing will write — and a line for every section
+heading release-please can emit, which it reads out of
+`release-please-config.json`.
+
+It no longer demands a translation for the release itself, and that is a
+deliberate loosening. Under changesets a release's English existed in
+`.changeset/*.md` for days before the bump, so it could be translated in
+advance — and had to be, because the gate ran on the Version Packages pull
+request and an untranslated entry stopped the release at its last step, twice in
+one day. release-please writes the entry from a title that has already merged:
+there is no window in which the English exists and the release has not happened.
+An entry with no Chinese renders in English on the Chinese page, and is
+translated afterwards.
 
 ### What a publish is gated on
 
-`publish` is a job in `.github/workflows/release.yml` that `needs: [verify,
-browser]`, so the full pull-request gate — lint, typecheck, tests, both builds,
-the size and tree-shaking budget, and the axe, keyboard and RTL suite in a real
-browser — runs to green before anything reaches the registry.
+`publish` is a job in `.github/workflows/release.yml` that
+`needs: [verify, browser, release]`, so the full pull-request gate — lint,
+typecheck, tests, both builds, the size and tree-shaking budget, and the axe,
+keyboard and RTL suite in a real browser — runs to green before anything reaches
+the registry. `release` itself needs the same two, so a tag is not cut from a
+tree those gates have not seen either.
 
 That ordering is the point. `publish` used to be its own workflow triggered by
 the same push, which meant it raced the checks rather than waiting for them: it
@@ -63,65 +89,47 @@ finished in a minute and a quarter while the browser suite was still six minutes
 from done. A version that fails the a11y suite cannot be recalled, because npm
 does not let a version number be reused.
 
-### Who opens the Version Packages pull request, and why it matters
+`publish` runs only when `needs.release.outputs.releases_created == 'true'` —
+the plural. The singular `release_created` is the ROOT path's output and this
+manifest has no root path; its one package is `packages/design`, so the root
+outputs are empty on every run, including the runs that released.
 
-It is opened, and merged, by a **GitHub App installation token** rather than by
-the workflow's own `GITHUB_TOKEN`. That is the whole reason the release needs no
-person in it.
+### Who opens the release pull request, and why it matters
+
+It is opened by the **`misoto22-release-bot` GitHub App**, through the fleet's
+reusable `Misoto22/ci/.github/workflows/release.yml`, rather than by the
+workflow's own `GITHUB_TOKEN`.
 
 GitHub fires no workflows for events from a run's own `GITHUB_TOKEN` — the guard
-that stops a workflow triggering itself. A version pull request opened with it
-therefore arrives carrying no checks at all, and under the `main` ruleset below,
-which requires three, it reads `BLOCKED` forever. Every release before `0.9.0`
-was cut by hand around that: pushing the Chinese changelog onto
-`changeset-release/main` (`0.6.1`, `0.7.0`), closing and reopening the pull
-request (`0.6.0`), or approving its queued runs (`0.8.0`) — three different
-workarounds for one missing signature.
+that stops a workflow triggering itself. A release pull request opened with it
+would arrive carrying no checks at all, and under the `main` ruleset below it
+would read `BLOCKED` forever; the tag and Release it later created would start
+no `publish`. Every release before `0.9.0` was cut by hand around exactly that:
+pushing onto the release branch, closing and reopening the pull request, or
+approving its queued runs — three workarounds for one missing signature.
 
 An App installation token is a different actor, so its events start workflows
-normally. The pull request arrives with its own `verify`, `browser` and
-`changeset` runs, `gh pr merge --auto --squash` queues it, and it merges the
-moment they go green.
+normally.
 
 | Where | What it holds |
 |---|---|
 | npmjs → the package → Settings → Trusted Publisher | repository and workflow filename — see below |
-| Repository → Settings → Secrets → Actions | `MISOTO_RELEASE_APP_ID`, `MISOTO_RELEASE_APP_PRIVATE_KEY` |
-| 1Password `01 Personal Development` | the App's ID and private key, the human-held originals |
+| Repository → Settings → Variables → Actions | `APP_CLIENT_ID` |
+| Repository → Settings → Secrets → Actions | `APP_PRIVATE_KEY` |
+| 1Password `01 Personal Development` | the App's client ID and private key, the human-held originals |
 
-The App is registered under Henry's account with two permissions and no more —
-**Contents: read and write** and **Pull requests: read and write** — and is
-installed on this repository alone. Its token is minted per run and expires in
-an hour, so like the npm side there is nothing standing to leak.
-
-> [!IMPORTANT]
-> `actions/checkout` is handed the same token, and that is load-bearing rather
-> than tidiness. Checkout persists whatever token it is given as an
-> `http.extraheader`, and that header outranks the `.netrc` the changesets
-> action writes from its own env — so a checkout with the default token pushes
-> the version branch as `github-actions[bot]` however the action is configured,
-> and the pull request arrives with no checks again.
-
-> [!IMPORTANT]
-> **The Chinese changelog goes in with the change, not with the release.**
-> `DESIGN-I18N-001`, and `changelog.test.ts` asks for it on the branch that
-> writes the changeset — `verify` runs on every pull request, so a changeset
-> with no Chinese is red immediately, in front of the person who can answer.
->
-> It was not always asked there, and the difference is the whole rule. The test
-> used to read the RELEASED changelog, which on a feature branch is the previous
-> release and is therefore always translated; a pull request adding a changeset
-> and no Chinese went green, merged, and only then held the release, because the
-> strings first reach `CHANGELOG.md` on the Version Packages pull request. 0.9.0
-> stopped that way twice in one day, at 42 strings and at 4, and each time
-> somebody had to go and find out why. The gate was in the right workflow and
-> pointed at the wrong text.
+The App is installed on this repository and its token is minted per job, scoped
+to this repository alone, expiring after an hour and revoked in a post step — so
+like the npm side there is nothing standing to leak.
 
 > [!NOTE]
-> `--auto` is a queue, not a bypass. It merges only once every check the ruleset
-> requires has passed. `gh pr merge --admin` is a different thing entirely, is
-> refused outright by `guard-git.py` in the misoto22 dev plugin, and has never
-> been used to cut a release here.
+> The reusable workflow deliberately sets no `X-GitHub-Api-Version`. Under API
+> version 2026-03-10 the pull-request payload no longer carries
+> `merge_commit_sha`, so release-please logs "Pull request should have been
+> merged", creates no tag and no release, and still exits 0
+> ([release-please#2898](https://github.com/googleapis/release-please/issues/2898)).
+> Its "Verify the tag exists" step is the defence against that: a green job with
+> nothing to show for it.
 
 ## What protects `main`
 
@@ -130,11 +138,11 @@ branch-protection screen:
 
 | Rule | Why |
 |---|---|
-| Pull request required, squash only, zero approvals | A solo repository gains nothing from self-approval, but everything from the changes arriving as a reviewable unit with CI attached. |
-| `verify / verify`, `browser / browser`, `changeset` must pass | The two gates that read the tree, plus the one that reads the pull request's manners. |
+| Pull request required, squash only, zero approvals | A solo repository gains nothing from self-approval, but everything from the changes arriving as a reviewable unit with CI attached. Squash-only is also what makes the title the commit subject, which is what release-please reads. |
+| `verify / verify`, `browser / browser`, `pr-title / pr-title` must pass | The two gates that read the tree, plus the one that reads the title the version will be computed from. |
 | Branch must be up to date before merging | See below — this is the load-bearing one. |
 | No force-push, no deletion | `main` is what the registry and the site are cut from. |
-| Repository admin may bypass | Present and unused. Nothing in the release path needs it — the version pull request carries its own checks and merges through the ordinary gate. `--admin` is refused by a hook anyway. |
+| Repository admin may bypass | Present and unused. Nothing in the release path needs it — the release pull request carries its own checks and merges through the ordinary gate. `--admin` is refused by a hook anyway. |
 
 **Up-to-date is the one that earns its keep with parallel work.** Two branches
 can each be green against the `main` of an hour ago and still be broken
@@ -144,13 +152,11 @@ second one to rebase onto the first and re-run the suite against the tree that
 will actually exist. The cost is a rebase per collision; the alternative is
 discovering the collision on `main`, after publish.
 
-That rule applies to the version pull request too, and it resolves itself:
-`changesets/action` rebuilds `changeset-release/main` from the current `main` on
-every release run and force-pushes it, so a version pull request that fell
-behind is replaced by one that has not, with fresh checks. The visible effect is
-that merging feature pull requests faster than the checks take restarts the
-release rather than cutting several — it ships once the merges stop, which is
-the batching behaviour back by a different door.
+That rule applies to the release pull request too, and `always-update: true` in
+`release-please-config.json` is what resolves it: every push to `main` re-renders
+the release branch from the current `main`, so a release pull request that fell
+behind is replaced by one that has not, with fresh checks. The visible cost is a
+`verify` and a `browser` run per push to `main`.
 
 > [!NOTE]
 > A **merge queue** is the automated form of that rule — it builds the combined
@@ -160,6 +166,20 @@ the batching behaviour back by a different door.
 > ever moves to an organization, replace the up-to-date requirement with a merge
 > queue and add a `merge_group:` trigger to `pr.yml` — without that trigger the
 > required checks never report and the queue stalls until it times out.
+
+## The configuration
+
+| File | What it decides |
+|---|---|
+| `release-please-config.json` | `release-type: node`, the one package `packages/design`, the six changelog sections, `include-component-in-tag: false` so the tag is `vX.Y.Z` and not `folio-vX.Y.Z`, and `always-update: true` |
+| `.release-please-manifest.json` | The version release-please believes is current. It is the file to edit if a version is ever cut by hand. |
+
+`bootstrap-sha` is also set, and it is temporary. The tags this repository
+carries are `@misoto22/design@…` and `@misoto22/folio@0.16.0`, none of which
+release-please recognises as `v0.16.0`, so without it the first run would walk
+the entire history and write a changelog of every commit ever made. It pins the
+walk to the commit this migration branched from. **Remove it after the first
+release-please release**, once a real `v…` tag exists for the walk to stop at.
 
 ## Consuming it
 
@@ -180,7 +200,7 @@ repository, in 1Password, or on anyone's laptop, so there is nothing to leak,
 rotate, or discover expired on a Friday.
 
 The App private key above is not a counter-example. It cannot publish anything —
-its two permissions reach this repository's contents and pull requests and
+its permissions reach this repository's contents, pull requests and issues and
 nothing else — and the registry would not accept it if it tried. The two
 credentials answer different questions: who may write to this repository, and
 who may publish this package.
@@ -191,11 +211,13 @@ configuration error:
 
 | Where | What it says |
 |---|---|
-| `.github/workflows/release.yml` | `permissions: id-token: write` |
-| npmjs → the package → Settings → Trusted Publisher | repository `Misoto22/folio`, workflow `release.yml` |
+| `.github/workflows/release.yml` | `permissions: id-token: write` on the `publish` job |
+| npmjs → the package → Settings → Trusted Publisher | repository `Misoto22/folio`, workflow `release.yml`, no environment |
 
 Renaming the workflow file, or moving the publish into a different one, breaks
-publishing until the npmjs side is updated to match.
+publishing until the npmjs side is updated to match. That is why the
+release-please caller is a job inside `release.yml` rather than a
+`release-please.yml` of its own, which is how most of the fleet arranges it.
 
 ### The one time a token is needed
 
@@ -222,17 +244,19 @@ publish, not as standing infrastructure.
 | `404` from the registry | The trusted publisher does not match this workflow run. Check the repository name, the workflow filename, and that `id-token: write` is still granted. |
 | `ERR_PNPM_OTP_NON_INTERACTIVE` | A token is being used instead of OIDC, and it does not bypass 2FA. CI has no terminal to type a code into. |
 | `402 Payment Required` | `publishConfig.access` — npm treats a scoped package as private unless told `public`, and a private package needs a paid account. |
+| A tag and a Release exist, but nothing on npm | `publish` was skipped or failed. Check its `if` against the `release` job's `releases_created` output, then re-run the job — the tag is already there, so nothing else needs redoing. |
 
 ## Tags
 
-`changesets/action` decides whether anything shipped by parsing the publish
-CLI's human-readable output, and does not recognise the current CLI's wording —
-so after a successful publish it reports nothing and pushes no tags. The
-workflow therefore runs `changeset tag` itself, which reads the version out of
-`package.json` rather than out of a log line, and skips tags that already exist.
+Tags are `vX.Y.Z`, pushed by release-please as part of creating the GitHub
+Release, and both are created by the App rather than by `GITHUB_TOKEN` — which
+is what lets the `publish` job run at all.
 
-If a release ever appears on the registry with no matching tag, that step is
-where to look.
+The older tags stay where they are. `@misoto22/design@0.2.0` through
+`0.15.0` and `@misoto22/folio@0.16.0` name the releases changesets cut, four of
+them at commits that are not on `main` and three at versions the registry never
+served. They are history, not a scheme: nothing reads them, and a published tag
+is not moved.
 
 ## Pre-1.0
 
@@ -241,3 +265,10 @@ break. The package is treated as if that convention did not apply — a removed
 or renamed export, a changed default, or a token that no longer resolves is a
 `major`, and the `CHANGELOG` says so. The version number is cheap; a consumer
 discovering a silent break is not.
+
+> [!IMPORTANT]
+> release-please does not know that convention. A `!` in a pull-request title
+> below 1.0.0 takes the package to `1.0.0`, not to `0.17.0` — there is no
+> pre-major mode configured here. A breaking change that is not meant to declare
+> the API stable needs the version chosen deliberately, with a `Release-As:`
+> footer in the commit body.

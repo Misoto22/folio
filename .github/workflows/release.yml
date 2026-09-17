@@ -1,10 +1,17 @@
 # What happens to `main`. Everything that leaves this repository leaves from
 # here: the documentation site to Cloudflare Pages, the package to npmjs.
 #
+# The version is decided by release-please rather than by a file somebody
+# remembered to write: it reads the Conventional Commit subjects since the last
+# tag, opens a release pull request, and on merge writes the version, the
+# changelog, the tag and the GitHub Release. `publish` then hangs off that.
+#
 # The name is load-bearing. npmjs matches a trusted publisher on the caller
 # workflow's filename, so renaming this file stops publishing until the npmjs
 # side is updated to match — and npm validates neither half when you save it,
-# so the failure arrives as a 404 at publish time. See docs/releasing.md.
+# so the failure arrives as a 404 at publish time. That is also why the
+# release-please caller is a job in this file rather than a workflow of its
+# own. See docs/releasing.md.
 name: Release
 
 on:
@@ -16,8 +23,9 @@ on:
 #
 # This protects a run that has STARTED. GitHub keeps only one queued run per
 # group, so a run still waiting its turn is superseded by the next push — which
-# is harmless here, because the later commit carries the same bumped version and
-# the same built site, and publishes both.
+# is harmless here, because the later commit is a superset: it deploys the same
+# site from a newer tree, and release-please recomputes the release pull request
+# from the whole history rather than from the one commit that started the run.
 concurrency:
   group: release
   cancel-in-progress: false
@@ -102,12 +110,37 @@ jobs:
           print('ui.misoto22.com ->', found[0]['status'])
           "
 
+  # Decides the next version and opens "chore(main): release folio X.Y.Z".
+  # Merging that pull request writes `packages/design/package.json` and
+  # `packages/design/CHANGELOG.md`, tags `vX.Y.Z` and publishes the GitHub
+  # Release — and the tag event is what the `publish` job below hangs off.
+  #
+  # Gated on the same two checks as everything else here, because a release
+  # this repository cannot recall is cut from whatever `main` holds: npm does
+  # not let a version number be reused.
+  release:
+    needs: [verify, browser]
+    uses: Misoto22/ci/.github/workflows/release.yml@168697c01c8c24ce02a24a4e7b7b773e65c5cefe # v0.2.0
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    with:
+      app-client-id: ${{ vars.APP_CLIENT_ID }}
+    secrets:
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
+
   # Deliberately a job in this file rather than a reusable workflow: npmjs
   # matches the trusted publisher on the caller, and keeping the publish here
   # means `job_workflow_ref` and `workflow_ref` name the same file, with nothing
   # to get out of step.
   publish:
-    needs: [verify, browser]
+    needs: [verify, browser, release]
+    # `releases_created` and not `release_created`. The singular output is the
+    # ROOT path's, and this manifest has no root path — its one package is
+    # `packages/design` — so the root outputs are empty on every run, including
+    # the runs that released. The plural is the manifest-wide answer.
+    if: needs.release.outputs.releases_created == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -115,41 +148,16 @@ jobs:
       # the whole reason no npm credential is stored anywhere.
       #
       # Nothing else is granted, because nothing else uses this token. The
-      # version commit, the pull request and the tags are all written with the
-      # App installation token minted below, for the reason that step explains.
+      # version commit, the pull request, the tag and the GitHub Release are all
+      # written by the release bot in the job above, under its own App token.
+      contents: read
       id-token: write
     steps:
-      # WHO opens the version pull request decides whether it can ever be
-      # merged. GitHub fires no workflows for events from a run's own
-      # `GITHUB_TOKEN` — the guard that stops a workflow triggering itself — so
-      # a pull request opened with it arrives carrying no checks at all, and
-      # the `main` ruleset requires three. It then sits `BLOCKED` until a person
-      # pushes a commit onto it, reopens it, or approves its runs by hand.
-      #
-      # An App installation token is a different actor and its events start
-      # workflows normally. It is here for that alone, not for extra reach: so
-      # that the pull request this job opens can pass the same gate this job is
-      # itself subject to, and merge without a person in the loop.
-      - name: Mint an installation token for the release App
-        id: app-token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
-        with:
-          app-id: ${{ secrets.MISOTO_RELEASE_APP_ID }}
-          private-key: ${{ secrets.MISOTO_RELEASE_APP_PRIVATE_KEY }}
-
-      # Changesets reads the history to work out what has been released.
-      #
-      # Checked out with the App's token rather than the run's own, and that is
-      # load-bearing rather than tidiness: `actions/checkout` persists whatever
-      # it is given as an `extraheader`, and that header outranks the `.netrc`
-      # the changesets action writes from its own env. Hand this step the
-      # default token and the version branch is pushed as `github-actions[bot]`
-      # however the action is configured — which is exactly the push that
-      # starts no workflows.
+      # The release commit itself: release-please tags the commit that merged
+      # its pull request, which on this push event is `github.sha`. So the
+      # version read below is the one that was just tagged, rather than one a
+      # later push moved on from.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 0
-          token: ${{ steps.app-token.outputs.token }}
 
       - uses: ./.github/actions/setup
         with:
@@ -162,101 +170,40 @@ jobs:
           registry-url: https://registry.npmjs.org
           scope: '@misoto22'
 
-      # Opens (or updates) a "Version Packages" pull request while changesets
-      # are pending, and publishes once that PR is merged and none are left.
-      # `pnpm release` builds the package before publishing it.
-      #
-      # Held at v1 on purpose. v2 renames every input and reports published
-      # packages through a file instead of by parsing stdout — which would let
-      # the tag step below go away — but no bundle in v2 mentions OIDC or
-      # `ACTIONS_ID_TOKEN_REQUEST_URL`, and v1's does. Until a release has
-      # actually gone out over OIDC, the publish path is not the place to find
-      # out what changed.
-      - name: Version or publish
-        id: changesets
-        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1
-        with:
-          version: pnpm version-packages
-          publish: pnpm release
-          commit: 'chore(release): version packages'
-          title: 'chore(release): version packages'
-        env:
-          # The only credential here, and it is not an npm one: this opens the
-          # version pull request. Publishing authenticates through OIDC against
-          # the trusted publisher configured on the package, so there is no
-          # NPM_TOKEN to leak, rotate or expire.
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+      - name: Build the design package
+        run: pnpm build:design
 
-      # Queue the merge rather than wait for someone to notice the pull request
-      # went green. `--auto` is a queue and not a bypass: it merges only once
-      # every check the ruleset requires has passed, so a version pull request
-      # that fails `verify` — a release entry with no Chinese translation is
-      # how that happens — stays open, unmerged, and visible.
-      #
-      # The merge is an App event as well, so it starts the `main` run that
-      # publishes. That is the second half of why the token matters: with this
-      # run's own token the merge would land on `main` and nothing would follow.
-      - name: Merge the version pull request once it is green
-        if: steps.changesets.outputs.pullRequestNumber != ''
+      - name: Publish @misoto22/folio
         env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          PR: ${{ steps.changesets.outputs.pullRequestNumber }}
-        run: gh pr merge "$PR" --auto --squash --repo "$GITHUB_REPOSITORY"
+          # Attaches the provenance attestation to the published tarball. It is
+          # what `id-token: write` above is spent on besides the publish itself.
+          NPM_CONFIG_PROVENANCE: 'true'
+        run: pnpm --filter @misoto22/folio publish --access public --no-git-checks
 
-      # The action decides whether anything shipped by PARSING the publish CLI's
-      # human-readable output, and does not recognise this CLI version's
-      # wording — so after a successful publish it reported nothing and pushed
-      # no tags. This step reads the facts instead of a parse of them.
-      #
-      # There are two facts, and getting either wrong is how this repository
-      # ended up with five tags of which four name commits that are not on
-      # `main` and three name versions the registry has never served.
-      - name: Tag what was published
+      # A publish is not readable the instant it returns: `0.5.0` went out, the
+      # old tag step asked, npm said no, and the same query answered yes less
+      # than a minute later. So the job does not call itself done on the CLI's
+      # exit code alone — it asks the registry, because the registry is what a
+      # consumer will ask.
+      - name: Confirm the registry serves it
         run: |
           set -euo pipefail
 
-          # WHICH COMMIT. `changesets/action` leaves the working tree on
-          # whichever branch it last touched, and on a version run that is
-          # `changeset-release/main` with the bump already applied. Tagging from
-          # there names a commit that the squash merge is about to discard.
-          # Tag the commit this run is actually for.
-          git checkout --quiet "$GITHUB_SHA"
-
-          # The name is read rather than written here: the package was renamed
-          # once, and a hard-coded name asks the registry about the old one and
-          # silently stops tagging.
+          # Read rather than hard-coded: the package was renamed once, and a
+          # literal name here would ask the registry about the old one and
+          # report a green publish of nothing.
           name=$(node -p "require('./packages/design/package.json').name")
           version=$(node -p "require('./packages/design/package.json').version")
 
-          # WHETHER TO TAG AT ALL. A version run bumps `package.json` without
-          # publishing anything, so `package.json` alone cannot answer this —
-          # ask the registry. A tag is owed only once it serves this version.
-          #
-          # Ask more than once. A publish is not readable the instant it
-          # returns: `0.5.0` went out, this step asked, npm said no, and the
-          # same query answered yes less than a minute later — so a single
-          # check turns registry lag into a silently missing tag, which is the
-          # failure this whole step exists to stop. Six tries at ten seconds is
-          # far longer than propagation takes and still bounded.
           published=""
           for _ in 1 2 3 4 5 6; do
             published=$(npm view "${name}@${version}" version 2>/dev/null || true)
             [ "$published" = "$version" ] && break
             sleep 10
           done
+
           if [ "$published" != "$version" ]; then
-            echo "${name}@${version} is not on the registry — nothing to tag."
-            exit 0
+            echo "::error title=Publish not visible::${name}@${version} is not on the registry a minute after publishing."
+            exit 1
           fi
-
-          # Idempotent: `changeset tag` skips tags that already exist. It will
-          # not MOVE one, so a tag left behind at the wrong commit by the bug
-          # above stays wrong — say so rather than reporting a clean run.
-          existing=$(git rev-list -n 1 "${name}@${version}" 2>/dev/null || true)
-          if [ -n "$existing" ] && [ "$existing" != "$GITHUB_SHA" ]; then
-            echo "::warning::${name}@${version} already tags ${existing}, not ${GITHUB_SHA}. Left as it is; a published release tag is not moved by CI."
-          fi
-
-          pnpm exec changeset tag
-          git push origin --tags
-          echo "tagged: ${name}@${version}"
+          echo "published: ${name}@${version}"
