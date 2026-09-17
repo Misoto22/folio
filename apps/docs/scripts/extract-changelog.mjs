@@ -3,12 +3,15 @@
  * renders.
  *
  * A tolerant parser rather than a Markdown library, and deliberately: the file
- * has two shapes and both are headings, bullets and paragraphs. Pulling in a
- * Markdown pipeline to read two heading levels would be a dependency and a
- * sanitiser for no reading the page could not already do.
+ * has three shapes and all of them are headings, bullets and paragraphs.
+ * Pulling in a Markdown pipeline to read two heading levels would be a
+ * dependency and a sanitiser for no reading the page could not already do.
  *
- * The two shapes:
+ * The three shapes, newest first:
  *
+ *   release-please  `## [0.17.0](…/compare/…) (2026-09-18)`, `### Features`,
+ *               and one bullet per commit carrying the attribution at the END:
+ *               `… ([#120](…/issues/120)) ([abc1234](…/commit/…))`.
  *   changesets  `## 0.3.0`, `### Minor Changes`, and one bullet per changeset
  *               carrying `[#21](…) [`sha`](…) Thanks [@who](…)! - ` before the
  *               first word, then an indented body that is itself a small
@@ -16,16 +19,23 @@
  *   hand-written  the pre-1.0 history, `## 0.1.0 — 2026-09-05` with `### Added`
  *               and flat bullets.
  *
- * Both are read, package file first, so the page shows every release rather
- * than whichever file somebody remembered to point at. That is the defect this
- * replaces: the generator read the repository ROOT changelog, which stopped at
- * 0.1.0 the moment changesets took over and started writing the package one —
- * so the site's "what's new" silently froze two releases ago.
+ * All three are read, and the older two are read because the file still holds
+ * them: release-please prepends, so every entry written under changesets stays
+ * exactly where it is and would otherwise drop off the page the day the first
+ * release-please entry lands.
  *
- * The attribution prefix is lifted out of the sentence and kept as data. It is
- * useful (the pull request is where the argument is) and it is not a sentence
- * opener; leaving it inline meant every entry on the page began with the same
- * eleven words of boilerplate before saying anything.
+ * Both files are read, package file first, so the page shows every release
+ * rather than whichever file somebody remembered to point at. That is the
+ * defect this replaces: the generator read the repository ROOT changelog, which
+ * stopped at 0.1.0 the moment the package file took over — so the site's
+ * "what's new" silently froze two releases ago.
+ *
+ * The attribution is lifted out of the sentence and kept as data, whichever end
+ * of the line it sits at. It is useful (the pull request is where the argument
+ * is) and it is not part of the sentence; leaving the changesets form inline
+ * meant every entry began with the same eleven words of boilerplate before
+ * saying anything, and leaving release-please's inline ends every entry with
+ * two bare parenthesised links.
  *
  * Anything it does not recognise becomes a paragraph, so a future entry cannot
  * silently vanish from the page.
@@ -33,23 +43,63 @@
 import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
 
-/** `## 0.2.0 — 2026-09-05` → `{ version, date }`; changesets omits the date. */
+/**
+ * The version a `## …` heading names, and the date beside it if it carries one.
+ *
+ * Three heading shapes, one per tool that has written this file:
+ *
+ *   `## [0.17.0](…/compare/v0.16.0...v0.17.0) (2026-09-18)`  release-please
+ *   `## 0.3.0`                                               changesets
+ *   `## 0.1.0 — 2026-09-05`                                  hand-written
+ *
+ * release-please's compare link is dropped rather than kept. The page links
+ * each entry to the pull request that shipped it, which is where the argument
+ * is; a diff of four hundred files under the version number is not something a
+ * reader of a changelog asked for.
+ */
 function parseVersionHeading(line) {
   const text = line.replace(/^##\s+/, '').trim()
-  const [version, date] = text.split(/\s+[—–-]\s+/)
-  return { version: version?.trim() ?? text, date: date?.trim() }
+
+  const linked = /^\[([^\]]+)\]\([^)]*\)\s*/.exec(text)
+  const leading = linked ?? /^(\S+)\s*/.exec(text)
+  const version = leading?.[1]?.trim() ?? text
+  const rest = leading ? text.slice(leading[0].length).trim() : ''
+
+  // `— 2026-09-05` (hand-written) and `(2026-09-18)` (release-please).
+  const date = /^[—–-]\s*(.+)$/.exec(rest)?.[1] ?? /^\((.+)\)$/.exec(rest)?.[1]
+  return { version: version || text, date: date?.trim() }
 }
 
 /**
- * `[#21](url) [`sha`](url) Thanks [@who](url)! - Real sentence.`
- *  → `{ text: 'Real sentence.', pr: 21, prUrl: url }`
+ * The entry's sentence, with its attribution lifted out and kept as data.
+ *
+ * Two shapes, at opposite ends of the line, because the file holds entries from
+ * two release tools:
+ *
+ *   changesets      `[#21](url) [`sha`](url) Thanks [@who](url)! - Real sentence.`
+ *   release-please  `Real sentence. ([#21](url)) ([abc1234](url))`
+ *
+ * Both name the same thing and neither is part of the sentence. The commit link
+ * release-please adds is dropped: it and the pull-request link point at one
+ * change, and the page has one slot for it.
+ *
+ * A commit that reached `main` without a pull request has the commit link and
+ * no `#N`, so the number is optional and the sentence is still cleaned.
  */
 function liftAttribution(text) {
-  const pattern =
+  const prefix =
     /^\[#(\d+)\]\(([^)]+)\)\s*(?:\[`[^`]+`\]\([^)]+\)\s*)?(?:Thanks\s+\[@[^\]]+\]\([^)]+\)!)?\s*-\s*/
-  const match = pattern.exec(text)
-  if (!match) return { text }
-  return { text: text.slice(match[0].length), pr: Number(match[1]), prUrl: match[2] }
+  const prefixed = prefix.exec(text)
+  if (prefixed) {
+    return { text: text.slice(prefixed[0].length), pr: Number(prefixed[1]), prUrl: prefixed[2] }
+  }
+
+  const suffix = /\s*(?:\(\[#(\d+)\]\(([^)]+)\)\)\s*)?\(\[[0-9a-f]{7,40}\]\([^)]+\)\)\s*$/
+  const suffixed = suffix.exec(text)
+  if (!suffixed) return { text }
+  const sentence = text.slice(0, suffixed.index).trim()
+  if (!suffixed[1]) return { text: sentence }
+  return { text: sentence, pr: Number(suffixed[1]), prUrl: suffixed[2] }
 }
 
 /** Release dates, from the tags the release workflow pushed. Absent is fine. */
