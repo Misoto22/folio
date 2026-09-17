@@ -55,7 +55,7 @@ Monochrome design system — CSS tokens and accessible React primitives
 <tr><td><b>Package</b></td><td>React 19 · Radix UI · Tailwind CSS 4.3 · <code>tsup</code></td></tr>
 <tr><td><b>Docs site</b></td><td>Next.js 16.3 · TypeScript 6.0 · <code>react-live</code> · static export</td></tr>
 <tr><td><b>Testing</b></td><td><code>vitest</code> · Playwright + <code>axe-core</code> (E2E) · esbuild size budget</td></tr>
-<tr><td><b>Release</b></td><td>Changesets · npm (<code>@misoto22/folio</code>)</td></tr>
+<tr><td><b>Release</b></td><td>release-please · npm (<code>@misoto22/folio</code>)</td></tr>
 <tr><td><b>Deploy</b></td><td>Cloudflare Pages (<code>folio-design</code>)</td></tr>
 </table>
 
@@ -194,11 +194,15 @@ arranged for one sequential pass.
 
 ### Release
 
-Every consumer-visible change ships with a changeset. Pushing to `main` opens a
-version pull request that collects the pending ones, and merging it publishes.
+The pull-request title is the release. Write it as a Conventional Commit and
+merge it; `release-please` reads the subjects that reached `main`, opens a
+release pull request holding the version bump and the changelog, and merging
+that tags, publishes the GitHub Release and sends the package to npm.
 
-```bash
-pnpm changeset
+```
+feat(button): add a loading state      → next minor
+fix(sidebar): stop the rail collapsing → next patch
+feat(tokens)!: drop the m22 prefix     → next major
 ```
 
 Below `1.0.0` this package is still treated as if SemVer's guarantees held: a
@@ -212,10 +216,12 @@ removed export, a changed default, or a token that no longer resolves is a
 Two entry points, named after what triggers them, over two shared definitions:
 
 ```
-pr.yml       on: pull_request   →  verify → browser
-release.yml  on: push to main   →  verify → browser → deploy · publish
-                                              ↑         ↑        ↑
-                        verify.yml · browser.yml   Cloudflare   npmjs
+pr-title.yml on: pull_request_target  →  pr-title
+pr.yml       on: pull_request         →  verify → browser
+release.yml  on: push to main         →  verify → browser → deploy · release → publish
+                                                     ↑         ↑        ↑         ↑
+                               verify.yml · browser.yml   Cloudflare  release-  npmjs
+                                                                       please
 ```
 
 `verify.yml` is lint, typecheck, tests, both builds and the size and
@@ -226,8 +232,13 @@ deploys or publishes that they have not both passed.
 
 `deploy` uploads the exact directory `verify` built to the `folio-design`
 Cloudflare Pages project and smoke-tests the deployed routes;
-`ui.misoto22.com` is a proxied CNAME onto it. `publish` is the npm half — see
-[docs/releasing.md](docs/releasing.md).
+`ui.misoto22.com` is a proxied CNAME onto it. `release` opens and maintains the
+release pull request, and `publish` sends the tarball to npmjs when that pull
+request merges — see [docs/releasing.md](docs/releasing.md).
+
+`pr-title.yml` calls the fleet's shared Conventional Commit check. It is its own
+file because it triggers on `pull_request_target`, which a fork's pull request
+needs and which nothing that checks out a branch may use.
 
 ---
 
