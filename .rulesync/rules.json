@@ -131,7 +131,7 @@
       "level": "MUST",
       "scope": "project",
       "owner": "Misoto22/folio",
-      "status": "active",
+      "status": "deprecated",
       "since": "0.9.0",
       "statement": "Write the changelog entry as a changeset's first paragraph — one sentence, under 160 characters — and put the reasoning below a blank line, where the documentation site folds it away.",
       "rationale": "The reasoning is why an entry here is worth reading, but unfolded it cost the changelog its index: 0.9.0 ran to 2,685 words with a median entry of 161 against an ecosystem norm of 10 to 25.",
@@ -151,6 +151,40 @@
           "check": "node .changeset/shape.mjs, run by the changeset job in .github/workflows/pr.yml",
           "blocking": true
         }
+      ],
+      "replacement": "DESIGN-CHANGELOG-002"
+    },
+    {
+      "id": "DESIGN-CHANGELOG-002",
+      "name": "Write the pull-request title as the changelog entry",
+      "level": "MUST",
+      "scope": "project",
+      "owner": "Misoto22/folio",
+      "status": "active",
+      "since": "0.16.1",
+      "statement": "Title every pull request as a Conventional Commit whose description reads as its changelog entry — lowercase, imperative, and about what changed rather than the diff — because release-please writes the entry from the squash-merged title.",
+      "rationale": "release-please derives both the version and the changelog from the squash-merged pull-request title, which is the only input it has, so a title written for the diff ships as an entry nobody can read.",
+      "sources": [
+        {
+          "type": "policy",
+          "ref": "docs/releasing.md"
+        },
+        {
+          "type": "policy",
+          "ref": "release-please-config.json"
+        }
+      ],
+      "enforcement": [
+        {
+          "kind": "ci",
+          "check": "pr-title / pr-title, required on main, lints the title against Conventional Commits",
+          "blocking": true
+        },
+        {
+          "kind": "review",
+          "check": "Changelog wording review of the pull-request title",
+          "blocking": false
+        }
       ]
     },
     {
@@ -159,7 +193,7 @@
       "level": "MUST",
       "scope": "project",
       "owner": "Misoto22/folio",
-      "status": "active",
+      "status": "deprecated",
       "since": "0.9.0",
       "statement": "Translate a changeset's sentences into `apps/docs/src/i18n/changelog.ts` in the pull request that writes the changeset, not in the release that publishes it.",
       "rationale": "The documentation changelog is gated, and under auto-merge an untranslated entry stops the release rather than shipping half in English — so a translation deferred is a publish halted at the last step, twice on the day this rule was written.",
@@ -178,6 +212,40 @@
           "kind": "test",
           "check": "changelog.test.ts covers the changesets that are about to become one, run by verify on every pull request",
           "blocking": true
+        }
+      ],
+      "replacement": "DESIGN-I18N-002"
+    },
+    {
+      "id": "DESIGN-I18N-002",
+      "name": "Translate released changelog entries after they ship",
+      "level": "SHOULD",
+      "scope": "project",
+      "owner": "Misoto22/folio",
+      "status": "active",
+      "since": "0.16.1",
+      "statement": "After a release ships, add the Chinese for its new changelog entries to `apps/docs/src/i18n/changelog.ts`, keyed by the fingerprint of the English; until then the Chinese page shows those entries in English.",
+      "rationale": "release-please writes an entry from a title that has already merged, so no window exists to translate before the release; an untranslated entry falls back to readable English rather than halting the release.",
+      "sources": [
+        {
+          "type": "policy",
+          "ref": "docs/releasing.md"
+        },
+        {
+          "type": "policy",
+          "ref": "apps/docs/src/i18n/changelog.ts"
+        }
+      ],
+      "enforcement": [
+        {
+          "kind": "test",
+          "check": "changelog.test.ts rejects orphaned translations and untranslated release-please section headings, run by verify on every pull request",
+          "blocking": true
+        },
+        {
+          "kind": "review",
+          "check": "Post-release translation review",
+          "blocking": false
         }
       ]
     }

@@ -3,11 +3,15 @@
   "files": [
     {
       "path": ".cursor/rules/misoto-harness.mdc",
-      "sha256": "4cd650d643a5227e6c39df4cbf39009ac71f7e5e80d02206f09d4e8724070a9c"
+      "sha256": "c68f3e879aa6a12f2cebe900fede1a4120212cfa946c5d03c6f08d37fbbbc43b"
     },
     {
       "path": ".github/workflows/misoto-harness.yml",
-      "sha256": "61ea2bc6d6d39be50cba525859e0a7a200e4617dfbd946e8e8e49da30ef3fbd7"
+      "sha256": "f2f4cad1cc3fecd090316100094e46c462fc561a66c7d1434ee060810ca0e29f"
+    },
+    {
+      "path": ".rulesync/.gitignore",
+      "sha256": "48ee48ed6535ef119ad3c17a0f1246e9986213206c3ccf51e152ff3d2747b6d3"
     },
     {
       "path": ".rulesync/harness-check.py",
@@ -23,7 +27,7 @@
     },
     {
       "path": ".rulesync/rules/00-generated-metadata.md",
-      "sha256": "e0ab5ef2715b00471ded102a1dff3dace56740af829e9847b9e234b6e3521314"
+      "sha256": "c5f6541d485e05fbfea268d984904eaae7f2097c4f2404193a95ae80b60997c2"
     },
     {
       "path": ".rulesync/rules/10-core-behavior.md",
@@ -67,15 +71,15 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "b2e2dd911a53ca04713a24fb1bf3eb0166e50ecfb3ff6f7568d5417fd7f8c45c"
+      "sha256": "1e4a55199c4fe091340e40a60966282388756dd3debbbd8cf471142c1596ebaa"
     },
     {
       "path": "CLAUDE.md",
-      "sha256": "db808282df123f4c1164ea06bfa147c25a4f50ea410a1d53bcb4d26486dfafb1"
+      "sha256": "dc99af0e79d457df2652f0f06f21da47152ae6bee21383abd768e01d5b31e70b"
     },
     {
       "path": "GEMINI.md",
-      "sha256": "041ca48f11b92b9c6db39ff0b6be82f44e546cb9f51fce8d502c65457417fd0f"
+      "sha256": "d319998fa65ddf523b741a99c10dd86e3c14dbfe9b4d59d955cf12f71d13b8b5"
     },
     {
       "path": "rulesync.jsonc",
@@ -83,7 +87,7 @@
     },
     {
       "path": "rulesync.lock.json",
-      "sha256": "b9c4100ca5d8d0ef75ac49d10a130d4586be46bcdc26e63ebb9c4aa86b137198"
+      "sha256": "0844f1e7a0f03735036477a2ca7e428cb0199c306fe684c29cd3d30dcfa6a88f"
     }
   ]
 }
