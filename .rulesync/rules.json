@@ -48,7 +48,8 @@
       "enforcement": [
         {
           "kind": "test",
-          "check": "Repository-owned DESIGN-TOKEN-001 test gate",
+          "path": "packages/design/src/tokens/brand.test.ts",
+          "check": "Asserts the TypeScript BRAND constants equal the canonical values in styles/tokens.css, so a token changed in one source and not the other fails the test run",
           "blocking": true
         }
       ]
@@ -95,8 +96,9 @@
       ],
       "enforcement": [
         {
-          "kind": "test",
-          "check": "Repository-owned DESIGN-TEST-001 test gate",
+          "kind": "ci",
+          "path": ".github/workflows/verify.yml",
+          "check": "Runs pnpm lint, pnpm build:design, pnpm typecheck, pnpm test and pnpm build:docs on every pull request and release, and fails the run when any of them fails",
           "blocking": true
         }
       ]
@@ -147,9 +149,9 @@
       ],
       "enforcement": [
         {
-          "kind": "ci",
-          "check": "node .changeset/shape.mjs, run by the changeset job in .github/workflows/pr.yml",
-          "blocking": true
+          "kind": "review",
+          "check": "The changeset mechanism (.changeset/shape.mjs) no longer exists; release-please writes entries from pull-request titles. A reviewer confirms any changelog-facing text still leads with one sentence under 160 characters",
+          "blocking": false
         }
       ]
     },
@@ -175,9 +177,9 @@
       ],
       "enforcement": [
         {
-          "kind": "test",
-          "check": "changelog.test.ts covers the changesets that are about to become one, run by verify on every pull request",
-          "blocking": true
+          "kind": "review",
+          "check": "changelog.test.ts no longer demands a translation per pending entry (untranslated entries fall back to English); a reviewer checks that a pull request adding changelog-facing English also adds its Chinese to apps/docs/src/i18n/changelog.ts",
+          "blocking": false
         }
       ]
     }
