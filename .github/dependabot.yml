@@ -12,5 +12,13 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    # Each pull request runs verify and three browser shards: keep the weekly batch to one
+    # grouped minor-and-patch bump plus at most two majors.
+    open-pull-requests-limit: 3
+    groups:
+      npm-minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
     commit-message:
       prefix: "build(deps)"
