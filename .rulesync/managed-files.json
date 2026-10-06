@@ -3,7 +3,7 @@
   "files": [
     {
       "path": ".cursor/rules/misoto-harness.mdc",
-      "sha256": "a5d1455cca349197204729acaa19ef492535d6eebdec16e8b22fcc757c1f3330"
+      "sha256": "3c365017434b67b42a3509adbc36b91dcc8ee6712ed695d709324a973d2f05b2"
     },
     {
       "path": ".github/workflows/misoto-harness.yml",
@@ -15,7 +15,7 @@
     },
     {
       "path": ".rulesync/harness-check.py",
-      "sha256": "ccdb7b9465fd855dc56a8e83960601402948dbd55b9f823652f7f73302a85512"
+      "sha256": "260bcc368e942a5a53217d825036b2161f244820c88e7da1fbbf5df8b91df890"
     },
     {
       "path": ".rulesync/package.json",
@@ -31,7 +31,7 @@
     },
     {
       "path": ".rulesync/rules/00-generated-metadata.md",
-      "sha256": "596a282f991756af4acee5091f29ed4d5faff2f4a434d5ec7104bb62663f6cf5"
+      "sha256": "604066de3bb3b2b059a3e9daa5e2a38f9b7c728989eae15d1f47f66a4426215a"
     },
     {
       "path": ".rulesync/rules/10-core-architecture.md",
@@ -87,15 +87,15 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "64916e764a5d7e846760f20a2f4bae922827cfb29657bf4ac729ff7b9201a19a"
+      "sha256": "81416bf832cbe586467e321f91b32a25f041c969cd529f3107faf5473aed0627"
     },
     {
       "path": "CLAUDE.md",
-      "sha256": "0a531acfab80867094a7b4a0e2630f877c0c8c5fdf64ec792d20b7dcc57681d4"
+      "sha256": "b6c32f0e3f9567e96c2ec5d8210ce8e2c7212b5bf0ebb8bf148028c39bf05ad8"
     },
     {
       "path": "GEMINI.md",
-      "sha256": "b38aa35aa92ca9327ea016dcbfde158b2427b2feaf11ac6402d92bbbd08474c8"
+      "sha256": "00ab4f09f8125165a2d734eca849f0435887fb74b055c4d0f5507b3d9c3f9beb"
     },
     {
       "path": "rulesync.jsonc",
@@ -103,7 +103,7 @@
     },
     {
       "path": "rulesync.lock.json",
-      "sha256": "f18d856d6106b3073a01f624e2c513ef4771486c6489c436cca3b0ff7cdde563"
+      "sha256": "5cfcd06cca0988074d2efd0bf120aa9b3045c5ce53f2885dcedee649aaf32a8c"
     }
   ]
 }
