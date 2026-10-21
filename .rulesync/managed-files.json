@@ -3,7 +3,7 @@
   "files": [
     {
       "path": ".cursor/rules/misoto-harness.mdc",
-      "sha256": "3c365017434b67b42a3509adbc36b91dcc8ee6712ed695d709324a973d2f05b2"
+      "sha256": "fa8fc4f29c3981e531d599316c2d272a2bcface5c72d6babe1847af9934061b0"
     },
     {
       "path": ".github/workflows/misoto-harness.yml",
@@ -31,7 +31,7 @@
     },
     {
       "path": ".rulesync/rules/00-generated-metadata.md",
-      "sha256": "604066de3bb3b2b059a3e9daa5e2a38f9b7c728989eae15d1f47f66a4426215a"
+      "sha256": "b1446b8450580153df34d75afe21bfbafa86660689da748d4feec4261b5fc843"
     },
     {
       "path": ".rulesync/rules/10-core-architecture.md",
@@ -87,15 +87,15 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "81416bf832cbe586467e321f91b32a25f041c969cd529f3107faf5473aed0627"
+      "sha256": "0be8304c3db43cd0aeb03beb5b7f253e846d2c68d213cc7277740ed97a0dfa41"
     },
     {
       "path": "CLAUDE.md",
-      "sha256": "b6c32f0e3f9567e96c2ec5d8210ce8e2c7212b5bf0ebb8bf148028c39bf05ad8"
+      "sha256": "fc885e6ad66a35538c02d219507c85668dff5dad4d1a07417a3e6153b52e311d"
     },
     {
       "path": "GEMINI.md",
-      "sha256": "00ab4f09f8125165a2d734eca849f0435887fb74b055c4d0f5507b3d9c3f9beb"
+      "sha256": "b581bc33d9b86690c6a4fd4fdb28d6e06ea709317e16efe67dae55b20e71663b"
     },
     {
       "path": "rulesync.jsonc",
@@ -103,7 +103,7 @@
     },
     {
       "path": "rulesync.lock.json",
-      "sha256": "5cfcd06cca0988074d2efd0bf120aa9b3045c5ce53f2885dcedee649aaf32a8c"
+      "sha256": "ef8c16e0ff907747f4460ec239304a0b0936c0e6cae8ddddd54e07d02ae5d81c"
     }
   ]
 }
