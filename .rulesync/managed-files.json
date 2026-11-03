@@ -3,7 +3,7 @@
   "files": [
     {
       "path": ".cursor/rules/misoto-harness.mdc",
-      "sha256": "3c365017434b67b42a3509adbc36b91dcc8ee6712ed695d709324a973d2f05b2"
+      "sha256": "38914a983cf32bf526839e3913a5c8aa6ce56bd9211cafddeb1a59e5bc868134"
     },
     {
       "path": ".github/workflows/misoto-harness.yml",
@@ -19,11 +19,11 @@
     },
     {
       "path": ".rulesync/package.json",
-      "sha256": "0b72ee561f1652c23ec3abbca3404d5fe6aa5538a9b92be9cc0c4454869c7333"
+      "sha256": "be9d02ee88e1a62c4bf626e5274fda5045d8cfc4e57a942c2e2345e01c615457"
     },
     {
       "path": ".rulesync/pnpm-lock.yaml",
-      "sha256": "00ed108a2cdc12c2e518e09d8ceeec45e4e00aea724d0518111d1a5be7898f7a"
+      "sha256": "03af5daa256f12388e7b787907b0822a9a65c510c07e955cdefa2e84f78e4789"
     },
     {
       "path": ".rulesync/pnpm-workspace.yaml",
@@ -31,7 +31,7 @@
     },
     {
       "path": ".rulesync/rules/00-generated-metadata.md",
-      "sha256": "604066de3bb3b2b059a3e9daa5e2a38f9b7c728989eae15d1f47f66a4426215a"
+      "sha256": "4d1879b3030f601d4d2526a4b3ad60d1300a3d5fe14ece6ef3978625c0e36155"
     },
     {
       "path": ".rulesync/rules/10-core-architecture.md",
@@ -87,23 +87,23 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "81416bf832cbe586467e321f91b32a25f041c969cd529f3107faf5473aed0627"
+      "sha256": "fe1af3ee4bd625cc224eb44ae06bb07d628a4a4fea3f9e8dc4abf697d12d22cd"
     },
     {
       "path": "CLAUDE.md",
-      "sha256": "b6c32f0e3f9567e96c2ec5d8210ce8e2c7212b5bf0ebb8bf148028c39bf05ad8"
+      "sha256": "45bffc2e073850ddf00f8bc2fed88d11be010fe5d6685b1bb1b60d44354908a8"
     },
     {
       "path": "GEMINI.md",
-      "sha256": "00ab4f09f8125165a2d734eca849f0435887fb74b055c4d0f5507b3d9c3f9beb"
+      "sha256": "35b2b26eec92c116d03dbcdcaeff1416dba1c672602ef1c1de31324cf15fbed2"
     },
     {
       "path": "rulesync.jsonc",
-      "sha256": "53c6d849bc32123ae93d79147c3787be03ca608c222aa16c24fd8414c2de470d"
+      "sha256": "64630ff9921d1bfb04e435fe73f3a6ab97fb39bfe5531fe35de2b1e1de7ea0c3"
     },
     {
       "path": "rulesync.lock.json",
-      "sha256": "5cfcd06cca0988074d2efd0bf120aa9b3045c5ce53f2885dcedee649aaf32a8c"
+      "sha256": "f34d36a80fa4dc8bc93f6482a248005884cddb9c324026a6805e7efafb059bfe"
     }
   ]
 }
