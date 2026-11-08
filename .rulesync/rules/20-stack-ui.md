@@ -8,6 +8,5 @@ scope: stack
 
 # Interfaces
 
-- **[HAR-UI-001] MUST — Layered interfaces.** Build UI in layers: design tokens, then primitives that take only tokens, then sections made of primitives, then screens or pages made of sections. Each layer uses only the one below, and every platform reads the same token source rather than a hand copy.
-- **[HAR-UI-002] MUST — No raw style values.** Outside the token layer, never write a raw colour, radius, spacing, type size, font, duration, or opacity; add or map a token instead, and keep any literal check at or below its recorded baseline.
-- **[HAR-A11Y-001] MUST — Readable contrast.** Keep text and essential icons at WCAG 2.2 AA contrast (4.5:1 for body text, 3:1 for large text and interface parts) in light and dark appearance, and keep the repository's contrast checks passing.
+- **[HAR-UI-003] MUST — No raw style values.** Outside the token layer, never write a raw colour, radius, spacing, type size, font, duration, or opacity; add or map a token instead. (gated)
+- **[HAR-A11Y-001] MUST — Readable contrast.** Keep text and essential icons at WCAG 2.2 AA contrast (4.5:1 for body text, 3:1 for large text and interface parts) in light and dark appearance, and keep the repository's contrast checks passing. (gated)
