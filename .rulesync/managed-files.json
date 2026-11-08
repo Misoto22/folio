@@ -3,19 +3,19 @@
   "files": [
     {
       "path": ".cursor/rules/misoto-harness.mdc",
-      "sha256": "e291779e0356d56d08305ae1f2250651e93eb1ef56f74988b3a7ff4fd1e909ac"
+      "sha256": "2f01259eab9c6d804fd23bb8c41ea60ac7cce75ff0c824bfc13d05cbd2f5b414"
     },
     {
       "path": ".github/workflows/misoto-harness.yml",
-      "sha256": "100f36482152631a820ef00ef5847b6c13efbe5b1fd7cecf4f28a8347f25511d"
+      "sha256": "cd0d62b991bebababe2de7e71d820811ebbc3009debf7208a0d426f113356c7f"
     },
     {
       "path": ".rulesync/.gitignore",
       "sha256": "48ee48ed6535ef119ad3c17a0f1246e9986213206c3ccf51e152ff3d2747b6d3"
     },
     {
-      "path": ".rulesync/harness-check.py",
-      "sha256": "470a124180699588757f1ed933638e689fc67d621c9de673e261ffa0de516b19"
+      "path": ".rulesync/checker.json",
+      "sha256": "10a4d84ccc98fedfedfa29f21c27dd97c0ea92bd69ff1f94a4fdcea29f125b9a"
     },
     {
       "path": ".rulesync/package.json",
@@ -31,71 +31,71 @@
     },
     {
       "path": ".rulesync/rules/00-generated-metadata.md",
-      "sha256": "a78489dd79a82b2426ce554724dca6b4bd1ad984c4567530a73ffe14b4d9032d"
+      "sha256": "262c7757f44c1b7d9cba951e00a8689dc5670bed788c2b703a5cae26ece3fa34"
     },
     {
       "path": ".rulesync/rules/10-core-architecture.md",
-      "sha256": "e591113940189769f4afdd72f2dca764c6a871ef16ae98f5541e1a547aac6371"
+      "sha256": "7e25f09a9a81431ca00505169cb453a2c309690662ad5cb857dc105cd34be8e0"
     },
     {
       "path": ".rulesync/rules/10-core-behavior.md",
-      "sha256": "f10ddf1af4a69721955c6b18e160069d6f5858647a7650d883ba9727fa5a1ed3"
+      "sha256": "ead0fda43cb86d40e47557e8e4180073e048c99f85c9ce3a50c5fbc42e8010e3"
     },
     {
       "path": ".rulesync/rules/10-core-code-review.md",
-      "sha256": "f2dfb378610434a8c45fbbc823c1ed92b3545c1249790c3a25b1ba6c0e35f205"
+      "sha256": "c035c0b146e7788daa7c0cb2d2025ff013d097d1b262b868ebff954be0d26f80"
     },
     {
       "path": ".rulesync/rules/10-core-delivery-ci.md",
-      "sha256": "32bab49032f9152d97e12ef072ec020108f60b63a33d1fd54b0b6104ad60edf4"
+      "sha256": "b57650c8c242229625cf625a11e3c1b1f2211cdc8f8552032225c7c7f0f4c83a"
     },
     {
       "path": ".rulesync/rules/10-core-dependencies.md",
-      "sha256": "bcc879a3c98c114fdd580a72456f37a8b9dd963b38e8c1f8898c9422c62de960"
+      "sha256": "77ec36401e082930cc276bf66bac77f4d0583db31f8cca05b4cbdc5725227d71"
     },
     {
       "path": ".rulesync/rules/10-core-git.md",
-      "sha256": "d9a304cefb8027fb08b7bb29e49b633039df6048802e4bdff8bd029f1b29ebd5"
+      "sha256": "94ced4c78e0a0e1e6846f0d71d6d7ea182ed5abae88ad18b60c03208adb8368f"
     },
     {
       "path": ".rulesync/rules/10-core-governance.md",
-      "sha256": "31cbedc57372600057e9cf4ad2f7948a8e899e1f9d66cfa2f47e9dc270b2e0f3"
+      "sha256": "2984d2836147da721ee11832517c23c1fc64de2f40698f3d228807abbae6501a"
     },
     {
       "path": ".rulesync/rules/10-core-naming.md",
-      "sha256": "bc94c66631762e9e2d3a928fe09d97a1f74548fe43510fee5dfab5c5165eb032"
+      "sha256": "4e4f7d34cdf0a1d4645451d532a402f7e9b0ce60e0d3ae85e89311c587f67a99"
     },
     {
       "path": ".rulesync/rules/10-core-security.md",
-      "sha256": "8143456468bfae48ef9a51803387a0718f574688ac096b8cd63774792a565ef8"
+      "sha256": "ebb905b015edfa1961e73658817c65f7e01269d4049788be8c7f8c4086d44493"
     },
     {
       "path": ".rulesync/rules/10-core-testing.md",
-      "sha256": "960e61208998cb0b861cf62376c92f7768238728a631176867ff1558a5a4fe66"
+      "sha256": "e2cfbe4bf0638138e309987ad0454c8353848edbf0615258a83a6fe08c87d71a"
     },
     {
       "path": ".rulesync/rules/20-stack-typescript.md",
-      "sha256": "de6642c9d49260570981b3b1f6d65d80ca32c8bf0aa81b54d0772ebcb3ebf2ce"
+      "sha256": "95c86b2cebc6a6f0eec09eb2ea7b38d4cae1d18efd13c76dfbff7a9dd2d2f827"
     },
     {
       "path": ".rulesync/rules/20-stack-ui.md",
-      "sha256": "01201e91bad4f4a00080c4c67dd2c02b9209827929be45d2aa78d22a22a47189"
+      "sha256": "b1dda9a201d21c06b01e4e437e1b3f51a57282dc3e99f482334445aa21f48c51"
     },
     {
       "path": ".rulesync/shared-rules.json",
-      "sha256": "f564b98503656751a274a3fd66b14b62b1ffa4f4bcd69bc42dbc5e7acb1486bd"
+      "sha256": "c23b3be8ae252bb12f33d79ef79d4108d6771a6c4927ac7f4c3dc0fa38848609"
     },
     {
       "path": "AGENTS.md",
-      "sha256": "1f492f94619d686a6298f8cc613e8b5ff65e669b8249cdd28b9f1c5dbd38fdb9"
+      "sha256": "73de110b172a8fe19067ab2e7bd1ee109fadafcda15e44a9d3c7c9b0fab545a2"
     },
     {
       "path": "CLAUDE.md",
-      "sha256": "c45e3fc293e5c203d68a5db3ab8337d475a2a35ccf842200703a5965ce1d7be3"
+      "sha256": "4f5fa277b865e55699d42738651eac2e4eb49bae0697315a263a292dd5cc571d"
     },
     {
       "path": "GEMINI.md",
-      "sha256": "073fde6b930461e84ff14dc2766b79c12cfe04cb63e109d2581c0f0102ffd2af"
+      "sha256": "2a6bb850fd2f0aee811872370cafcb38b981ecca69181d08c6e8982c9a397e7e"
     },
     {
       "path": "rulesync.jsonc",
@@ -103,7 +103,7 @@
     },
     {
       "path": "rulesync.lock.json",
-      "sha256": "ffe5fe28b1d28f172839937174f9a9c15975f7c952c137df60de2b9623be25b5"
+      "sha256": "c7d90a0994b7339622e6e0a133862b7a43c9c28039c23fb71467b412d821120e"
     }
   ]
 }
