@@ -278,5 +278,21 @@ export const WEBSITE = [
         "text": "Do not put service credentials, routing logic or backend models inside presentation components."
       }
     ]
+  },
+  {
+    "name": "Workbench",
+    "group": "Website",
+    "summary": "Section rhythm, hero, cards, entries, timeline, mosaic and scroll reveal for the Workbench preset.",
+    "when": "Lay a portfolio page on one 12-column grid with two-tone headings, and apply WORKBENCH_THEME on the root.",
+    "practices": [
+      {
+        "kind": "do",
+        "text": "Wrap each section in WorkbenchSection so headings and content share the same columns."
+      },
+      {
+        "kind": "dont",
+        "text": "Do not hide content until JavaScript runs; Reveal only hides elements that start below the fold after hydration."
+      }
+    ]
   }
 ].map((entry) => ({ ...entry, kind: 'pattern' }))

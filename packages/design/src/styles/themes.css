@@ -47,6 +47,7 @@
        cobalt     8.05    9.21    7.86            8.41   10.23    8.27
        plum       8.49    9.55    8.12            8.74   10.43    8.41
        moss       5.80    8.30    7.24            8.76   11.32    9.06
+       ember      5.46    6.34    5.47            7.81    8.86    7.31
 
    `--accent-foreground` resolves to `--paper`, so paper printed ON the accent
    fill is the mark column read the other way up. */
@@ -94,6 +95,16 @@
   --red-soft: rgba(86, 107, 82, 0.1);
 }
 
+/* A burnt orange for the Workbench preset: it marks a link or the current
+   state and nothing else, so it can carry heat without competing with the
+   photographs it sits beside. The lowest-contrast mark after moss; its
+   ink is a step darker so a link on a stone panel still clears AA. */
+[data-accent='ember'] {
+  --clay: #b8430a;
+  --clay-ink: #a83c08;
+  --red-soft: rgba(184, 67, 10, 0.1);
+}
+
 /* Re-derives the chain, on any element that names an accent.
 
    A `var()` is substituted where it is DECLARED, not where it is read:
@@ -117,6 +128,8 @@
   --accent-foreground: var(--on-red);
   --accent-on-dark: var(--red);
   --accent-on-muted: var(--red-ink);
+  --action: var(--red);
+  --action-foreground: var(--on-red);
 }
 
 /* On the dark ground the same hues have to come UP to clear AA, not down. An
@@ -159,6 +172,30 @@
   --clay: #9cb597;
   --clay-ink: #b8cbb3;
   --red-soft: rgba(156, 181, 151, 0.14);
+}
+[data-mode='dark'][data-accent='ember'],
+[data-mode='dark'] [data-accent='ember'] {
+  --clay: #f08a4b;
+  --clay-ink: #f29a62;
+  --red-soft: rgba(240, 138, 75, 0.14);
+}
+
+/* ─── Action ───────────────────────────────────────────────────────────────
+   What the primary button is filled with. By default it is the accent, which
+   is what law 7 asks for. `ink` takes the primary action back to the page's
+   own ink while the accent keeps marking links and the current state — the
+   Workbench preset's split, where a burnt-orange button would be the loudest
+   thing on a page of photographs. Declared after the accent block so it wins
+   on the same element, and re-derived on it for the same reason that block
+   is: a `var()` resolves where it is written. Ink and paper already swap in
+   dark mode, so this axis needs no dark block of its own. */
+[data-action='accent'] {
+  --action: var(--accent);
+  --action-foreground: var(--accent-foreground);
+}
+[data-action='ink'] {
+  --action: var(--ink);
+  --action-foreground: var(--paper);
 }
 
 /* ─── Surface ──────────────────────────────────────────────────────────────
@@ -232,6 +269,40 @@
   /* The same construction on cool's hue, 258.4°, at C 0.0091. */
   --rule: rgba(240, 244, 250, 0.14);
   --rule-2: rgba(240, 244, 250, 0.26);
+}
+
+/* Linen, the Workbench ground. Unlike `warm` and `cool` it also moves the
+   three text steps, because the preset's warmth is carried by the ink as much
+   as by the paper: a neutral #101010 on a linen ground reads as a cold page
+   with a tinted background. The text steps keep the root's ladder — ink,
+   a secondary step, and an AA floor — measured on every linen ground:
+   light ink 14.33 / 13.60 / 12.42, --ink-2 8.13 / 7.72 / 7.05, --ink-3-aa
+   6.15 / 5.84 / 5.33 against paper / paper-2 / stone; dark ink 15.57 /
+   14.44 / 13.15, --ink-2 9.67 / 8.96 / 8.16, --ink-3-aa 7.18 / 6.66 / 6.07.
+   Rules are the ink itself at the root's two weights, so a hairline stays
+   the colour of the type it separates. */
+[data-surface='linen'] {
+  --paper: #f7f7f4;
+  --paper-2: #f2f1ed;
+  --stone: #e8e7e2;
+  --rule: rgba(38, 37, 30, 0.1);
+  --rule-2: rgba(38, 37, 30, 0.2);
+  --ink: #26251e;
+  --ink-2: #4d4b44;
+  --ink-3: rgba(38, 37, 30, 0.55);
+  --ink-3-aa: #5f5d55;
+}
+[data-mode='dark'][data-surface='linen'],
+[data-mode='dark'] [data-surface='linen'] {
+  --paper: #14130f;
+  --paper-2: #1c1b17;
+  --stone: #25231e;
+  --rule: rgba(236, 235, 230, 0.14);
+  --rule-2: rgba(236, 235, 230, 0.26);
+  --ink: #ecebe6;
+  --ink-2: #bdbbb3;
+  --ink-3: rgba(236, 235, 230, 0.55);
+  --ink-3-aa: #a3a199;
 }
 
 /* Glass, and the one place this system allows a blur.
@@ -338,6 +409,28 @@
 [data-type='bookish'] {
   --font-sans: var(--serif);
   --font-heading: var(--serif);
+}
+
+/* ─── Voice ────────────────────────────────────────────────────────────────
+   How loud the page speaks, which the type axis does not decide: that axis
+   picks a FACE and leaves the ramp alone. `quiet` is the Workbench setting —
+   page titles at roughly two-thirds of the ramp, display type at a regular
+   weight rather than a light one, and labels set as sentence-case sans in
+   place of tracked mono capitals. Body, record and item steps do not move, so
+   a quiet page keeps its hierarchy; only its top two steps come down. */
+[data-voice='display'] {
+  --display-scale: 1;
+  --display-weight: 300;
+  --label-font: var(--font-mono);
+  --label-case: uppercase;
+  --label-tracking-scale: 1;
+}
+[data-voice='quiet'] {
+  --display-scale: 0.62;
+  --display-weight: 400;
+  --label-font: var(--font-sans);
+  --label-case: none;
+  --label-tracking-scale: 0;
 }
 
 /* ─── Motion ───────────────────────────────────────────────────────────────

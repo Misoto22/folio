@@ -63,12 +63,14 @@ not just `:root`. An unset axis is the default.
 | Attribute | Values | Unset means |
 | --- | --- | --- |
 | `data-mode` | `light` `dark` | follows the app |
-| `data-accent` | `clay` `cobalt` `forest` `moss` `plum` | ink |
-| `data-surface` | `warm` `cool` `glass` | paper |
+| `data-accent` | `clay` `cobalt` `ember` `forest` `moss` `plum` | ink |
+| `data-action` | `ink` | accent |
+| `data-surface` | `warm` `cool` `glass` `linen` | paper |
 | `data-radius` | `sharp` `round` | the default ladder |
 | `data-rules` | `quiet` `firm` | hairline |
 | `data-type` | `grotesk` `bookish` | editorial |
 | `data-motion` | `still` `snappy` | calm |
+| `data-voice` | `quiet` | display |
 | `data-density` | `compact` | comfortable |
 
 ```tsx

@@ -33,6 +33,7 @@ export const ACCENTS: AccentOption[] = [
   { id: 'cobalt', name: 'Cobalt', note: 'The most conventional software blue that still clears AA on paper.' },
   { id: 'moss', name: 'Moss', note: 'A green-grey with the chroma taken out, for a dense working screen.' },
   { id: 'plum', name: 'Plum', note: 'A darker chroma for a brand that wants presence without heat.' },
+  { id: 'ember', name: 'Ember', note: 'A burnt orange for links and the current state, warm enough to sit beside photographs.' },
 ]
 
 /**

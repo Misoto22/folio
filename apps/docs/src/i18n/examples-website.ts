@@ -19,5 +19,6 @@ export const WEBSITE_EXAMPLES_ZH: Record<string, ExampleCopy> = {
   'Content/01-a-documented-process': { hash: '79a534ee', title: "带代码的操作流程", zh: "步骤序列和代码面板共用同一阅读区域。步骤顺序和高亮代码节点由应用传入，复制操作使用实际渲染的源码文本。" },
   'Actions/01-a-record-action-menu': { hash: '03b6e5a3', title: "条目操作菜单", zh: "无障碍操作菜单将每个选项交给应用回调处理。此条目的已读状态在本地更改，菜单负责焦点管理与关闭。" },
   'Conversation/01-a-local-conversation': { hash: '8a8f8037', title: "本地对话示例", zh: "应用管理问题和已渲染的回答节点，组件负责它们的阅读顺序。这个本地示例只记录问题，不会调用助手服务。" },
+  'Workbench/01-portfolio-sections': { hash: 'cdd24010', title: "作品集分区", zh: "双色开篇和两个分区放在同一套 12 栏网格上，并处于 Workbench 预设之中。每个分区的标题占前四栏、内容占其余八栏，因此它们的边缘在整页上对齐。" },
   'Evidence/01-a-recorded-trace': { hash: '9ff99b7b', title: "已记录的活动证据", zh: "示例活动记录将阶段状态、来源资料和可展开的详情分开呈现。标签和测量值由应用传入，不从装饰性进度中推断。" },
 }

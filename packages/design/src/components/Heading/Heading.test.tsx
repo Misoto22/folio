@@ -58,11 +58,12 @@ describe('Heading', () => {
   })
 
   it('keeps the label step off the serif ladder', () => {
-    // Levels five and six are the mono kicker, not a small serif heading —
-    // three steps down, a serif heading is indistinguishable from bold prose.
+    // Levels five and six are the kicker, not a small serif heading — three
+    // steps down, a serif heading is indistinguishable from bold prose. The
+    // kicker's face is the voice axis's `--label-font` (mono unless quieted).
     render(<Heading level={5}>Metadata</Heading>)
     const className = screen.getByText('Metadata').className
-    expect(className).toContain('font-mono')
+    expect(className).toContain('font-(family-name:--label-font)')
     expect(className).not.toContain('font-heading')
   })
 

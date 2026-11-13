@@ -80,15 +80,18 @@
    eyebrow   → the uppercase kicker ("01 / COMPONENTS")
    mono-meta → inline numeric / timing / metadata labels (not uppercased) */
 @utility eyebrow {
-  font-family: var(--font-mono);
+  font-family: var(--label-font);
   font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
+  text-transform: var(--label-case);
+  letter-spacing: calc(0.2em * var(--label-tracking-scale));
 }
 @utility mono-meta {
-  font-family: var(--font-mono);
+  /* The label face from the voice axis: mono by default, the sans under a
+     quiet voice. Numbers stay aligned either way through tabular figures. */
+  font-family: var(--label-font);
   font-size: 11px;
-  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: calc(0.08em * var(--label-tracking-scale));
 }
 
 /* ─── Scroll surfaces ───

@@ -20,11 +20,11 @@
   .folio-portfolio-intro { max-inline-size: var(--w-page); margin-inline: auto; padding: clamp(7.5rem, 11vw, 10rem) var(--page-pad) clamp(3rem, 7vw, 5rem); display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, .85fr); align-items: stretch; gap: clamp(3rem, 7vw, 7rem); }
   .folio-portfolio-intro-copy { display: flex; flex-direction: column; align-items: start; }
   .folio-portfolio-byline { display: flex; align-items: center; gap: 1.25rem; }
-  .folio-portfolio-byline h1 { font-weight: 300; font-size: clamp(2.7rem, 5vw, 4rem); }
+  .folio-portfolio-byline h1 { font-weight: var(--display-weight); font-size: clamp(2.7rem, 5vw, 4rem); }
   .folio-portfolio-monogram { display: grid; place-items: center; inline-size: 44px; block-size: 44px; flex: none; border: 1px solid var(--rule); border-radius: var(--radius-pill); color: var(--ink-3-aa); font-family: var(--mono); font-size: .7rem; }
   .folio-portfolio-biography { max-inline-size: 35em; margin-block-start: 2rem; font-size: 1.05rem; line-height: 1.85; color: var(--ink-2); text-wrap: pretty; }
   .folio-portfolio-facts { display: flex; flex-wrap: wrap; gap: .5rem 1.75rem; margin-block: 1.5rem 3rem; }
-  .folio-portfolio-intro blockquote { margin: auto 0 0; padding-block-start: 1.5rem; border-block-start: 1px solid var(--rule); inline-size: 100%; font-family: var(--serif); font-size: 1.125rem; line-height: 1.7; color: var(--ink-3-aa); }
+  .folio-portfolio-intro blockquote { margin: auto 0 0; padding-block-start: 1.5rem; border-block-start: 1px solid var(--rule); inline-size: 100%; font-family: var(--font-heading); font-size: 1.125rem; line-height: 1.7; color: var(--ink-3-aa); }
   .folio-portfolio-feature { min-inline-size: 0; }
   .folio-portfolio-index { max-inline-size: var(--w-page); margin-inline: auto; padding: 1rem var(--page-pad) clamp(5rem, 9vw, 8rem); }
   .folio-portfolio-columns { display: grid; grid-template-columns: minmax(0, 1fr) 19rem; gap: clamp(3rem, 5vw, 5rem); align-items: start; padding-block-start: 1.5rem; }
@@ -36,7 +36,7 @@
   .folio-portfolio-image-frame img { object-fit: cover; }
   .folio-portfolio-image[data-size='feature'] .folio-portfolio-image-frame { aspect-ratio: 1; }
   .folio-portfolio-image[data-size='thumbnail'] .folio-portfolio-image-frame { aspect-ratio: 3 / 2; }
-  .folio-portfolio-image figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .5rem; padding-block-start: .625rem; color: var(--ink); font-family: var(--serif); font-size: .9375rem; line-height: 1.4; }
+  .folio-portfolio-image figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .5rem; padding-block-start: .625rem; color: var(--ink); font-family: var(--font-heading); font-size: .9375rem; line-height: 1.4; }
   .folio-portfolio-image figcaption > [aria-hidden] { font-family: var(--mono); font-size: .7rem; color: var(--ink-3-aa); }
   .folio-portfolio-image figcaption small { flex-basis:100%; margin-inline-start:0; text-align:start; color: var(--ink-3-aa); font-family: var(--sans); font-size: .75rem; }
   .folio-portfolio-record { display: grid; gap: 1.5rem; }
@@ -56,7 +56,7 @@
   .folio-portfolio-list > h2, .folio-portfolio-categories h2 { margin: 0 0 1rem; font-family: var(--sans); font-size: .85rem; color: var(--ink-3-aa); font-weight: 500; }
   .folio-portfolio-categories dl { margin: 0; }
   .folio-portfolio-categories dl > div { display: flex; justify-content: space-between; align-items: center; gap: 1rem; border-block-end: 1px solid var(--rule); padding-block: .35rem; }
-  .folio-portfolio-categories dt { font-family: var(--serif); font-size: 1.125rem; }
+  .folio-portfolio-categories dt { font-family: var(--font-heading); font-size: 1.125rem; }
   .folio-portfolio-categories dt a { display: flex; align-items: center; min-block-size: 44px; }
   .folio-portfolio-categories dd { margin: 0; font-family: var(--mono); font-size: .75rem; color: var(--ink-3-aa); }
   @media (max-width: 1023px) {

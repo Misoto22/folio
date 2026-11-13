@@ -108,7 +108,7 @@ describe('agent catalog', () => {
     //
     // The count is written out on purpose. Adding a component means changing it,
     // which is the moment to look at the import list.
-    expect(entries).toHaveLength(115)
+    expect(entries).toHaveLength(116)
     const runs = entries
       .map((entry) => entry.group)
       .filter((group, index, all) => group !== all[index - 1])

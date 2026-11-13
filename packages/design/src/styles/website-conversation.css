@@ -32,7 +32,7 @@
 .folio-conversation-turn__body { max-inline-size: 64ch; padding-block-start: .75rem; }
 .folio-conversation-turn__preview { max-inline-size: 64ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .folio-conversation-quote { margin: 0 0 1.5rem; border-inline-start: 1px solid var(--rule-2); padding-inline-start: 1.25rem; }
-.folio-conversation-quote > blockquote { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; margin: .5rem 0 0; font-family: var(--font-heading); font-weight: 300; font-style: italic; font-size: 1rem; line-height: 1.6; color: var(--ink-2); }
+.folio-conversation-quote > blockquote { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; margin: .5rem 0 0; font-family: var(--font-heading); font-weight: var(--display-weight); font-style: italic; font-size: 1rem; line-height: 1.6; color: var(--ink-2); }
 .folio-conversation-quote[data-compact] { margin-block-end: 1rem; padding-inline-start: .875rem; }
 .folio-conversation-quote[data-compact] > blockquote { -webkit-line-clamp: 3; font-size: .875rem; }
 .folio-conversation-answer__question { margin-block: .375rem 1rem; font-family: var(--font-heading); }

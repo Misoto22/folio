@@ -19,7 +19,7 @@
   }
   .folio-site-navigation[data-overlay]::before { content: ''; position: absolute; inset: 0 0 -3rem; z-index: -1; pointer-events: none; background: linear-gradient(color-mix(in srgb, var(--photo-scrim) 45%, transparent), transparent); }
   .folio-site-navigation-inner { max-inline-size: var(--w-page); padding-inline: var(--page-pad); margin-inline: auto; min-block-size: 4.25rem; display: flex; align-items: center; gap: 2rem; }
-  .folio-site-wordmark { font-family: var(--serif); font-size: 1.4rem; letter-spacing: -.025em; white-space: nowrap; }
+  .folio-site-wordmark { font-family: var(--font-heading); font-size: 1.4rem; letter-spacing: -.025em; white-space: nowrap; }
   .folio-site-wordmark a { display: inline-flex; align-items: center; min-block-size: 44px; }
   .folio-site-navigation-desktop { margin-inline-start: auto; }
   .folio-site-navigation-desktop ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 1.6rem; }

@@ -32,7 +32,7 @@ const BASE =
   'inline-flex items-center justify-center gap-(--control-gap) rounded-(--radius) font-sans transition-[opacity,color,border-color,background-color] duration-(--duration-fast) ease-(--ease-out-expo) disabled:opacity-(--disabled-opacity) disabled:pointer-events-none aria-disabled:opacity-(--disabled-opacity) aria-disabled:pointer-events-none'
 
 const VARIANT: Record<ButtonVariant, string> = {
-  primary: 'bg-(--accent) text-(--accent-foreground) border border-(--accent) hover:opacity-85',
+  primary: 'bg-(--action) text-(--action-foreground) border border-(--action) hover:opacity-85',
   secondary: 'border border-(--rule-2) text-(--ink) bg-transparent hover:border-(--ink)',
   ghost: 'border border-transparent text-(--ink-2) hover:text-(--ink) hover:bg-(--stone)',
   /* The one place chroma is allowed on a control, and only because the action

@@ -39,7 +39,7 @@ export function Badge({ children, tone = 'neutral', className, ...rest }: BadgeP
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-(--radius-sm) border px-2.5 py-1 font-mono text-xs tracking-wide',
+        'inline-flex items-center gap-1.5 rounded-(--radius-sm) border px-2.5 py-1 font-(family-name:--label-font) text-xs tracking-[calc(0.025em*var(--label-tracking-scale))]',
         TONE[tone],
         className,
       )}

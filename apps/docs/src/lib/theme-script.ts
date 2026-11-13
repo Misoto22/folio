@@ -43,7 +43,7 @@ export const THEME_SCRIPT = `
     // Every other axis, restored the same way and for the same reason: a theme
     // applied on hydration is a theme the reader watches being applied.
     var theme = JSON.parse(read(keys.theme) || '{}')
-    var defaults = { surface: 'paper', radius: 'soft', rules: 'hairline', type: 'editorial', motion: 'calm', density: 'comfortable', chartPalette: 'mono' }
+    var defaults = { surface: 'paper', action: 'accent', radius: 'soft', rules: 'hairline', type: 'editorial', motion: 'calm', voice: 'display', density: 'comfortable', chartPalette: 'mono' }
     for (var axis in defaults) {
       if (theme[axis] && theme[axis] !== defaults[axis]) root.dataset[axis] = theme[axis]
     }

@@ -279,14 +279,28 @@
 
 }
 
+/* Display voice. How loud a page's display type and labels are, read by the
+   website compositions instead of literal values so the voice axis in
+   `themes.css` can quiet them. Declared on the root only — never on a fluid
+   frame — so an axis set on an ancestor is not reset inside one. */
+:root {
+  --display-scale: 1;
+  --display-weight: 300;
+  --label-font: var(--font-mono);
+  --label-case: uppercase;
+  --label-tracking-scale: 1;
+}
+
 /* The fluid ramp, computed wherever `--fluid` is set.
    `[data-fluid-frame]` must sit INSIDE the element carrying `container-type`:
    a container query unit resolves against an ANCESTOR container, never against
    the element that declares the container itself. */
 :root,
 [data-fluid-frame] {
-  --fs-title: clamp(2.5rem, calc(4.6 * var(--fluid)), 3.375rem); /* page h1        40 → 54px */
-  --fs-lead: clamp(1.875rem, calc(3 * var(--fluid)), 2.625rem); /* band heading   30 → 42px */
+  /* `--display-scale` is the voice axis's lever on the two display steps; at
+     1 they are the ramp as drawn. */
+  --fs-title: calc(clamp(2.5rem, calc(4.6 * var(--fluid)), 3.375rem) * var(--display-scale, 1)); /* page h1        40 → 54px */
+  --fs-lead: calc(clamp(1.875rem, calc(3 * var(--fluid)), 2.625rem) * var(--display-scale, 1)); /* band heading   30 → 42px */
   --fs-heading: clamp(1.5rem, calc(2.1 * var(--fluid)), 1.8125rem); /* record title   24 → 29px */
   --fs-sub: clamp(1.3125rem, calc(1.7 * var(--fluid)), 1.5625rem); /* card sub-head  21 → 25px */
   --fs-item: clamp(1.125rem, calc(1.35 * var(--fluid)), 1.25rem); /* in-card title  18 → 20px */

@@ -18,8 +18,8 @@
 
 .folio-media-detail-page { min-block-size: 100svh; }
 .folio-media-masthead { padding-block: clamp(4.5rem, 8vw, 6.5rem) clamp(1.75rem, 3.5vw, 2.75rem); }
-.folio-media-eyebrow { margin: 0; color: var(--secondary-text); font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase; }
-.folio-media-masthead-title { max-inline-size: 22ch; margin: 0.75rem 0 0; color: var(--foreground); font-family: var(--font-heading); font-size: clamp(2rem, 3.4vw, 2.875rem); font-weight: 300; letter-spacing: -0.034em; line-height: 1.04; text-wrap: balance; }
+.folio-media-eyebrow { margin: 0; color: var(--secondary-text); font-family: var(--label-font); font-size: 0.625rem; letter-spacing: calc(0.16em * var(--label-tracking-scale)); text-transform: var(--label-case); }
+.folio-media-masthead-title { max-inline-size: 22ch; margin: 0.75rem 0 0; color: var(--foreground); font-family: var(--font-heading); font-size: clamp(2rem, 3.4vw, 2.875rem); font-weight: var(--display-weight); letter-spacing: -0.034em; line-height: 1.04; text-wrap: balance; }
 .folio-media-description { max-inline-size: 52ch; margin-block: 1.25rem 0; color: var(--foreground-muted); font-size: 1rem; line-height: 1.7; }
 .folio-media-gallery-content { padding-block: clamp(2.25rem, 4vw, 3.5rem) clamp(4rem, 9vw, 8rem); }
 .folio-media-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2.75rem, 5.5vw, 4.5rem) 1.5rem; margin: 0; padding: 0; list-style: none; }
@@ -33,13 +33,13 @@
 .folio-media-pager-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
 .folio-media-gallery-caption { display: grid; grid-template-columns: 2rem minmax(0, 1fr); align-items: baseline; gap: 0.25rem 0.625rem; padding-block-start: 0.875rem; }
 .folio-media-gallery-index,
-.folio-media-gallery-location { overflow: hidden; color: var(--secondary-text); font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.1em; text-overflow: ellipsis; white-space: nowrap; }
+.folio-media-gallery-location { overflow: hidden; color: var(--secondary-text); font-family: var(--label-font); font-size: 0.625rem; letter-spacing: calc(0.1em * var(--label-tracking-scale)); text-overflow: ellipsis; white-space: nowrap; }
 .folio-media-gallery-location { grid-column: 2; letter-spacing: 0.14em; }
-.folio-media-gallery-title { display: -webkit-box; overflow: hidden; color: var(--foreground); font-family: var(--font-heading); font-size: 0.9375rem; font-weight: 300; line-height: 1.22; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.folio-media-gallery-title { display: -webkit-box; overflow: hidden; color: var(--foreground); font-family: var(--font-heading); font-size: 0.9375rem; font-weight: var(--display-weight); line-height: 1.22; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .folio-media-gallery-mount { block-size: auto; aspect-ratio: 1; }
 
 .folio-photograph-feature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: clamp(2rem, 6vw, 6rem); padding-block: clamp(3rem, 8vw, 7rem); }
-.folio-photograph-feature-title { margin-block: 1rem; color: var(--foreground); font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 4rem); font-weight: 300; letter-spacing: -0.035em; line-height: 1.08; }
+.folio-photograph-feature-title { margin-block: 1rem; color: var(--foreground); font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 4rem); font-weight: var(--display-weight); letter-spacing: -0.035em; line-height: 1.08; }
 .folio-photograph-feature-action { margin-block-start: 2rem; }
 .folio-photograph-feature-figure { min-inline-size: 0; margin: 0; }
 .folio-photograph-feature-image img { display: block; inline-size: 100%; block-size: auto; object-fit: contain; }
@@ -48,7 +48,7 @@
 .folio-media-detail { padding-block: clamp(2rem, 5vw, 4.5rem) clamp(4rem, 8vw, 7rem); }
 .folio-media-index-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block-end: 1rem; border-block-end: 1px solid var(--border-subtle); }
 .folio-media-index-bar > :is(a, button) { min-inline-size: 44.25px; min-block-size: 44.25px; }
-.folio-media-index { color: var(--foreground-muted); font-family: var(--font-mono); font-size: 0.6875rem; font-variant-numeric: tabular-nums; letter-spacing: 0.13em; }
+.folio-media-index { color: var(--foreground-muted); font-family: var(--label-font); font-size: 0.6875rem; font-variant-numeric: tabular-nums; letter-spacing: calc(0.13em * var(--label-tracking-scale)); }
 .folio-media-spread { display: grid; grid-template-columns: minmax(0, 1fr) clamp(20rem, 29vw, 27rem); align-items: start; gap: clamp(1.5rem, 3.5vw, 4.5rem); padding-block: clamp(1.5rem, 3.5vw, 3.75rem); }
 .folio-media-well { display: flex; min-inline-size: 0; align-items: flex-start; }
 .folio-media-frame {
@@ -76,7 +76,7 @@
 .folio-media-metadata > div { display: flex; align-items: baseline; justify-content: space-between; gap: 1.25rem; padding-block: 0.6875rem; border-block-end: 1px solid var(--border-subtle); }
 .folio-media-metadata > div:first-child { padding-block-start: 0.6875rem; }
 .folio-media-metadata > div:last-child { padding-block-end: 0.6875rem; border-block-end: 1px solid var(--border-subtle); }
-.folio-media-metadata dt { flex: none; color: var(--secondary-text); font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; }
+.folio-media-metadata dt { flex: none; color: var(--secondary-text); font-family: var(--label-font); font-size: 0.625rem; letter-spacing: calc(0.14em * var(--label-tracking-scale)); text-transform: var(--label-case); }
 .folio-media-metadata dd { min-inline-size: 0; margin: 0; color: var(--foreground); font-family: var(--font-mono); font-size: 0.78125rem; text-align: end; overflow-wrap: anywhere; }
 .folio-media-light { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; padding-block: 1.1rem; border-block-end: 1px solid var(--border-subtle); }
 .folio-media-light-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; color: var(--foreground-muted); font-family: var(--font-mono); font-size: 0.6875rem; }
@@ -117,7 +117,7 @@
 .folio-media-lightbox-close { position: absolute; inset-block-start: 1rem; inset-inline-end: 1rem; color: var(--on-dark); border-color: color-mix(in srgb, var(--on-dark) 40%, transparent); }
 .folio-media-lightbox-close:hover { border-color: var(--on-dark); }
 .folio-media-lightbox-close:focus-visible { outline: 2px solid var(--on-dark); outline-offset: 3px; }
-.folio-media-lightbox-caption { position: absolute; inset-block-end: 1.25rem; inset-inline: 1.25rem; overflow: hidden; margin: 0; color: var(--on-dark); font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.13em; text-transform: uppercase; text-overflow: ellipsis; white-space: nowrap; pointer-events: none; }
+.folio-media-lightbox-caption { position: absolute; inset-block-end: 1.25rem; inset-inline: 1.25rem; overflow: hidden; margin: 0; color: var(--on-dark); font-family: var(--label-font); font-size: 0.6875rem; letter-spacing: calc(0.13em * var(--label-tracking-scale)); text-transform: var(--label-case); text-overflow: ellipsis; white-space: nowrap; pointer-events: none; }
 
 .folio-media-pager { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-block-start: clamp(2rem, 4vw, 3.5rem); border-block-start: 1px solid var(--border-color); border-block-end: 1px solid var(--border-subtle); }
 .folio-media-pager-link { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); min-block-size: 44px; align-items: center; gap: 1rem; padding-block: 1.125rem; padding-inline-end: 1.5rem; color: inherit; text-decoration: none; }
@@ -127,10 +127,10 @@
 .folio-media-pager-link[data-direction='next'] .folio-media-pager-copy { text-align: end; }
 .folio-media-pager-image { position: relative; display: block; block-size: 3.25rem; overflow: hidden; background: var(--background-elevated); }
 .folio-media-pager-image img { object-fit: contain; }
-.folio-media-pager-label { display: block; color: var(--secondary-text); font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase; }
-.folio-media-pager-title { display: block; overflow: hidden; margin-block-start: 0.3125rem; color: var(--foreground); font-family: var(--font-heading); font-size: 1.0625rem; font-weight: 300; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+.folio-media-pager-label { display: block; color: var(--secondary-text); font-family: var(--label-font); font-size: 0.625rem; letter-spacing: calc(0.16em * var(--label-tracking-scale)); text-transform: var(--label-case); }
+.folio-media-pager-title { display: block; overflow: hidden; margin-block-start: 0.3125rem; color: var(--foreground); font-family: var(--font-heading); font-size: 1.0625rem; font-weight: var(--display-weight); line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
 .folio-media-thumbnails { padding-block-start: clamp(1.5rem, 3vw, 2.5rem); border-block-start: 1px solid var(--border-subtle); }
-.folio-media-thumbnails h2 { margin-block: 0 0.75rem; color: var(--foreground-muted); font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 400; letter-spacing: 0.13em; text-transform: uppercase; }
+.folio-media-thumbnails h2 { margin-block: 0 0.75rem; color: var(--foreground-muted); font-family: var(--label-font); font-size: 0.6875rem; font-weight: 400; letter-spacing: calc(0.13em * var(--label-tracking-scale)); text-transform: var(--label-case); }
 .folio-media-thumbnail-list { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(0.4rem, 1vw, 0.8rem); }
 .folio-media-thumbnail { position: relative; min-inline-size: 44px; min-block-size: 44px; aspect-ratio: 1; overflow: hidden; background: var(--background-elevated); }
 .folio-media-thumbnail img { object-fit: contain; }
@@ -171,7 +171,7 @@
 .folio-media-map-pin[data-active] > span,
 .folio-media-map-marker:hover .folio-media-map-pin > span { transform: scale(1.3); }
 .folio-media-map-frame-compact { display: grid; gap: 0.75rem; margin-block-start: 1.5rem; }
-.folio-media-map-label { color: var(--secondary-text); font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; }
+.folio-media-map-label { color: var(--secondary-text); font-family: var(--label-font); font-size: 0.625rem; letter-spacing: calc(0.14em * var(--label-tracking-scale)); text-transform: var(--label-case); }
 .folio-media-map-frame-compact .folio-media-map-stage { block-size: 9.375rem; }
 .folio-media-map-frame-compact .folio-media-map-stage img { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
 .folio-media-map-frame-compact .folio-media-map-pin { position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%); }
