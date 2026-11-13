@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.17.1](https://github.com/Misoto22/folio/compare/v0.17.0...v0.17.1) (2026-11-13)
+
+
+### Bug Fixes
+
+* **website:** quiet the Workbench dividers, selection fills and body weight ([#154](https://github.com/Misoto22/folio/issues/154)) ([48595ba](https://github.com/Misoto22/folio/commit/48595ba1f643d82e31185e065da8f4050650d217))
+
 ## [0.17.0](https://github.com/Misoto22/folio/compare/v0.16.0...v0.17.0) (2026-11-13)
 
 
