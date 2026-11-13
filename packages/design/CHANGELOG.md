@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.17.0](https://github.com/Misoto22/folio/compare/v0.16.0...v0.17.0) (2026-11-13)
+
+
+### Features
+
+* **website:** add the Workbench theme preset and compositions ([#152](https://github.com/Misoto22/folio/issues/152)) ([d93c9e5](https://github.com/Misoto22/folio/commit/d93c9e54f99ad1514af75fc0db7b63d5ae40abbd))
+
 ## 0.16.0
 
 ### Minor Changes
