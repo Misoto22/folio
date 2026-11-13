@@ -20,7 +20,7 @@
 .folio-media-collection__copy h3 a { font: inherit; white-space: normal; text-align: start; }
 .folio-media-collection__metadata { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; }
 .folio-music-section { min-inline-size: 0; }
-.folio-music-section__header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .75rem; padding-block-end: 1rem; border-block-end: 1px solid var(--rule-hard); }
+.folio-music-section__header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .75rem; padding-block-end: 1rem; border-block-end: 1px solid var(--rule-divider); }
 .folio-music-section__collections { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 clamp(2rem, 5vw, 5rem); }
 @media (min-width: 640px) { .folio-media-row { gap: 1rem; }.folio-media-collection { grid-template-columns: 9rem minmax(0, 1fr); }.folio-media-collection__copy { padding-inline: 1.5rem; } }
 @media (min-width: 768px) { .folio-media-feature { grid-template-columns: minmax(15rem, 5fr) minmax(0, 7fr); }.folio-music-section__collections { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

@@ -37,7 +37,7 @@
   color: var(--ink-2);
   font-family: var(--sans);
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: var(--body-weight);
   line-height: 1.75;
 }
 

@@ -181,11 +181,12 @@
 }
 
 /* ─── Action ───────────────────────────────────────────────────────────────
-   What the primary button is filled with. By default it is the accent, which
-   is what law 7 asks for. `ink` takes the primary action back to the page's
-   own ink while the accent keeps marking links and the current state — the
-   Workbench preset's split, where a burnt-orange button would be the loudest
-   thing on a page of photographs. Declared after the accent block so it wins
+   What the large solid fills are made of: the primary button, a segmented
+   control's selected pill, an active filter chip, the current page. By
+   default they are the accent, which is what law 7 asks for. `ink` takes them
+   back to the page's own ink while the accent keeps marking links and small
+   chosen states — the Workbench preset's split, where a burnt-orange block
+   would be the loudest thing on a page of photographs. Declared after the accent block so it wins
    on the same element, and re-derived on it for the same reason that block
    is: a `var()` resolves where it is written. Ink and paper already swap in
    dark mode, so this axis needs no dark block of its own. */
@@ -383,6 +384,9 @@
 [data-rules='quiet'] {
   --rule: #f4f2ee;
   --rule-2: #e8e5df;
+  /* Quiet leans on space and the surface steps, so the heavy ink divider
+     between sections goes entirely rather than dimming to a hairline. */
+  --rule-divider: transparent;
 }
 [data-mode='dark'][data-rules='quiet'],
 [data-mode='dark'] [data-rules='quiet'] {
@@ -424,6 +428,7 @@
   --label-font: var(--font-mono);
   --label-case: uppercase;
   --label-tracking-scale: 1;
+  --body-weight: 300;
 }
 [data-voice='quiet'] {
   --display-scale: 0.62;
@@ -431,6 +436,7 @@
   --label-font: var(--font-sans);
   --label-case: none;
   --label-tracking-scale: 0;
+  --body-weight: 400;
 }
 
 /* ─── Motion ───────────────────────────────────────────────────────────────

@@ -69,10 +69,12 @@
      writes the next panel. */
   --accent-on-muted: var(--red-ink);
 
-  /* The fill of the one primary action on a screen. It follows the accent
-     unless `data-action` says otherwise: a preset that keeps its accent for
-     links and the current state can hand the primary button back to ink,
-     without a checked box or the current page losing the accent. */
+  /* The SOLID fill of a primary action or a chosen option — the primary
+     button, the sliding pill of a segmented control, the active filter chip,
+     the current page. It follows the accent unless `data-action` says
+     otherwise: a preset that keeps its accent for links can hand these large
+     fills back to ink, while small marks (a checked box, a switch, a slider's
+     range) keep the accent. */
   --action: var(--accent);
   --action-foreground: var(--accent-foreground);
 

@@ -86,14 +86,14 @@ describe('Tag', () => {
   it('keeps the active look, removable or not', () => {
     const { rerender } = render(<Tag active>Rust</Tag>)
     const look = screen.getByText('Rust').className
-    expect(look).toContain('bg-(--accent)')
+    expect(look).toContain('bg-(--action)')
 
     rerender(
       <Tag active onRemove={() => {}} removeLabel="Remove Rust filter">
         Rust
       </Tag>,
     )
-    expect(screen.getByText('Rust').className).toContain('bg-(--accent)')
+    expect(screen.getByText('Rust').className).toContain('bg-(--action)')
   })
 
   it('makes the chip itself the filter control rather than asking for a wrapper', () => {

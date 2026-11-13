@@ -1,5 +1,5 @@
 .folio-record-section { scroll-margin-block-start: var(--scroll-offset); }
-.folio-record-section__header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding-block-end: 1rem; border-block-end: 1px solid var(--rule-hard); }
+.folio-record-section__header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding-block-end: 1rem; border-block-end: 1px solid var(--rule-divider); }
 .folio-career-record { display: grid; gap: 1rem; border-block-end: 1px solid var(--rule); padding-block: clamp(2rem, 3.5vw, 3rem); }
 .folio-career-record__dates { display: flex; flex-wrap: wrap; align-items: baseline; gap: 1rem; }
 .folio-career-record__dates dl, .folio-career-record__dates dd { margin: 0; }
@@ -18,7 +18,7 @@
 .folio-profile-figure__image { overflow: hidden; border-radius: var(--radius); }
 .folio-profile-figure__image img { display: block; inline-size: 100%; block-size: auto; }
 .folio-profile-skills__group { display: grid; gap: 1rem; border-block-end: 1px solid var(--rule); padding-block: 1.5rem; }
-.folio-profile-skills__group:first-child { border-block-start: 1px solid var(--rule-hard); }
+.folio-profile-skills__group:first-child { border-block-start: 1px solid var(--rule-divider); }
 .folio-profile-skills__items { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; list-style: none; margin: 0; padding: 0; }
 .folio-profile-skills__items > li { display: inline-flex; align-items: center; gap: .5rem; }
 .folio-profile-skill__icon { display: inline-flex; }
@@ -29,7 +29,7 @@
 [data-mode='dark'] .folio-profile-skill__icon[data-invert]:not([data-has-dark]) img { filter: invert(1); }
 .folio-profile-interests { display: grid; gap: 2rem; }
 .folio-profile-interests article { border-block-start: 1px solid var(--rule); padding-block-start: 1.5rem; }
-.folio-timeline { border-block-start: 1px solid var(--rule-hard); }
+.folio-timeline { border-block-start: 1px solid var(--rule-divider); }
 .folio-timeline__item { min-inline-size: 0; }
 @media (min-width: 768px) {
   .folio-career-record { grid-template-columns: 11rem minmax(0, 1fr) 4rem; column-gap: clamp(2rem, 4vw, 3.5rem); }
