@@ -3,7 +3,7 @@
 .folio-conversation-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 2rem; border-block: 1px solid var(--rule); padding-block: 1.25rem; }
 .folio-conversation-facts dd > span { display: inline-flex; align-items: center; gap: .5rem; }
 .folio-conversation-thread { min-inline-size: 0; }
-.folio-conversation-thread__intro { border-block-start: 1px solid var(--rule-hard); padding-block-start: 2rem; }
+.folio-conversation-thread__intro { border-block-start: 1px solid var(--rule-divider); padding-block-start: 2rem; }
 .folio-conversation-thread__intro > h2 { max-inline-size: 22ch; text-wrap: balance; }
 .folio-conversation-thread__intro > p { max-inline-size: 56ch; }
 .folio-conversation-suggestions { margin-block-start: 2rem; }
@@ -11,12 +11,12 @@
 .folio-conversation-suggestions > ul > li, .folio-conversation-sources > ul > li { border-block-end: 1px solid var(--rule); }
 .folio-conversation-suggestions__action { inline-size: 100%; justify-content: space-between; text-align: start; gap: 1.5rem; padding-inline: 0; }
 .folio-conversation-suggestions__action > svg { flex-shrink: 0; }
-.folio-conversation-thread__controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .25rem 1.5rem; border-block-start: 1px solid var(--rule-hard); padding-block-start: .75rem; }
+.folio-conversation-thread__controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .25rem 1.5rem; border-block-start: 1px solid var(--rule-divider); padding-block-start: .75rem; }
 .folio-conversation-thread__controls > div { display: flex; flex-wrap: wrap; gap: .25rem; }
 .folio-conversation-log { display: flex; flex-direction: column; }
 .folio-conversation-log[data-compact] { gap: 2rem; }
 .folio-conversation-thread__composer { margin-block-start: 3rem; }
-.folio-conversation-thread__composer[data-sticky] { position: sticky; inset-block-end: 0; z-index: 10; margin-block-start: 2rem; padding-block: 1rem .75rem; border-block-start: 1px solid var(--rule-hard); background: var(--paper); }
+.folio-conversation-thread__composer[data-sticky] { position: sticky; inset-block-end: 0; z-index: 10; margin-block-start: 2rem; padding-block: 1rem .75rem; border-block-start: 1px solid var(--rule-divider); background: var(--paper); }
 .folio-conversation-thread__proposal { margin-block-end: 1.25rem; }
 .folio-question-composer__row { display: flex; align-items: end; gap: 1rem; }
 .folio-question-composer__field { flex: 1; min-inline-size: 0; }
@@ -43,13 +43,13 @@
 .folio-conversation-prose p.folio-conversation-prose__heading[data-lead] { margin-block-start: 0; }
 .folio-conversation-prose sup { font-size: .75em; }
 .folio-conversation-caret { display: inline-block; inline-size: .375rem; block-size: 1em; margin-inline-start: .2rem; vertical-align: -.1em; background: var(--ink); }
-.folio-conversation-sources { margin-block-start: 1.5rem; border-block-start: 1px solid var(--rule-hard); padding-block-start: .75rem; }
+.folio-conversation-sources { margin-block-start: 1.5rem; border-block-start: 1px solid var(--rule-divider); padding-block-start: .75rem; }
 .folio-conversation-sources__header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
 .folio-conversation-sources__link { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; inline-size: 100%; align-items: baseline; text-align: start; gap: .75rem; padding-inline: 0; }
 .folio-conversation-sources__link[data-highlighted] { background: var(--accent-muted); }
 .folio-conversation-sources__link > span:nth-child(2) { min-inline-size: 0; }
 .folio-conversation-sources__link > span:nth-child(2) > span { display: block; }
-.folio-action-proposal__actions { margin-block-start: .375rem; border-block-start: 1px solid var(--rule-hard); }
+.folio-action-proposal__actions { margin-block-start: .375rem; border-block-start: 1px solid var(--rule-divider); }
 .folio-action-proposal__action { display: flex; inline-size: 100%; justify-content: space-between; gap: 1rem; text-align: start; border-block-end: 1px solid var(--rule); padding-inline: 0; }
 .folio-action-proposal__action > span { min-inline-size: 0; }
 .folio-action-proposal__action > span:last-child { display: flex; align-items: center; gap: .75rem; flex-shrink: 0; }

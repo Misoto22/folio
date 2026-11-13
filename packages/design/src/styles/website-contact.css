@@ -2,15 +2,21 @@
   display: grid;
   align-items: start;
   gap: 3rem;
-  border-block-start: 1px solid var(--rule-hard);
+  border-block-start: 1px solid var(--rule-divider);
   padding-block: clamp(2.5rem, 5vw, 4rem) clamp(4rem, 8vw, 7rem);
 }
 .folio-contact-form, .folio-contact-facts { min-inline-size: 0; }
-.folio-contact-form__fields { display: grid; gap: 2rem; border-block-start: 1px solid var(--rule-hard); padding-block-start: 2rem; }
+.folio-contact-form__fields { display: grid; gap: 2rem; border-block-start: 1px solid var(--rule-divider); padding-block-start: 2rem; }
 .folio-contact-form__identity { display: grid; gap: 2rem; }
 .folio-contact-form__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem; }
 .folio-contact-facts__links { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-block-start: 1rem; }
-.folio-question-list__items { border-block-start: 1px solid var(--rule-hard); }
+/* A fact's link sits on the same left edge as its label: a ghost button's
+   inline padding read as an indent where an icon had gone missing. The 44px
+   block size the host gives the link is kept. */
+.folio-contact-facts dd > a:first-child,
+.folio-contact-facts__links > a { padding-inline: 0; }
+.folio-contact-facts__links { column-gap: 1.5rem; }
+.folio-question-list__items { border-block-start: 1px solid var(--rule-divider); }
 .folio-question-list__item { display: grid; gap: 1rem; padding-block: 1.5rem; border-block-end: 1px solid var(--rule); }
 .folio-location-figure { margin: 0; }
 .folio-location-figure__map { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--radius-sm); background: var(--paper-2); }

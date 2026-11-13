@@ -71,7 +71,7 @@ export function FigureBand({
               {figure.value}
             </dd>
             {figure.note !== undefined && figure.note !== null && (
-              <dd className="m-0 mt-2.5 font-sans text-[13px] font-light leading-[1.5] text-(--ink-3-aa)">
+              <dd className="m-0 mt-2.5 font-sans text-[13px] [font-weight:var(--body-weight)] leading-[1.5] text-(--ink-3-aa)">
                 {figure.note}
               </dd>
             )}

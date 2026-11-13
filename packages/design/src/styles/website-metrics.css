@@ -1,6 +1,6 @@
 .folio-metrics-range { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.25rem; border-block: 1px solid var(--rule); padding-block: 1rem; margin-block-start: 2rem; }
 .folio-metrics-section { padding-block: clamp(3rem, 6vw, 5rem); }
-.folio-metrics-section__header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem; padding-block-end: 1rem; margin-block-end: 1.5rem; border-block-end: 1px solid var(--rule-hard); }
+.folio-metrics-section__header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem; padding-block-end: 1rem; margin-block-end: 1.5rem; border-block-end: 1px solid var(--rule-divider); }
 .folio-metrics-panel { min-inline-size: 0; }
 .folio-metrics-panel > header { margin-block-end: 1.25rem; }
 .folio-metrics-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3rem; }

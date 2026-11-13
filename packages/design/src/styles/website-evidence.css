@@ -7,7 +7,7 @@
 .folio-activity-trace li > span { overflow-wrap: anywhere; }
 .folio-activity-trace__summary { margin-inline-start: auto; flex-shrink: 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .folio-evidence-panel { min-inline-size: 0; }
-.folio-evidence-panel > header { display: flex; align-items: start; justify-content: space-between; gap: 1rem; padding-block-end: 1rem; border-block-end: 1px solid var(--rule-hard); }
+.folio-evidence-panel > header { display: flex; align-items: start; justify-content: space-between; gap: 1rem; padding-block-end: 1rem; border-block-end: 1px solid var(--rule-divider); }
 .folio-evidence-panel > header h2 { margin-block-start: .375rem; }
 .folio-evidence-panel > header > .folio-evidence-status { flex-shrink: 0; margin-block-start: .25rem; }
 .folio-evidence-panel > .folio-activity-trace { border-block-end: 1px solid var(--rule); padding-block: .75rem; }

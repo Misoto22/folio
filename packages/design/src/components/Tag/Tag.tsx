@@ -94,7 +94,7 @@ export function Tag({ children, active, onClick, onRemove, removeLabel, classNam
 
   const chip = cn(
     'inline-flex items-center rounded-(--radius-sm) font-(family-name:--label-font) text-xs tracking-[calc(0.025em*var(--label-tracking-scale))] transition-colors duration-(--duration-fast)',
-    active ? 'bg-(--accent) text-(--accent-foreground)' : 'bg-(--stone) text-(--ink-3-aa)',
+    active ? 'bg-(--action) text-(--action-foreground)' : 'bg-(--stone) text-(--ink-3-aa)',
     onRemove ? 'gap-1 pe-1.5' : 'pe-2.5',
     // Handed to the label button in the split form, so the padding is part of
     // the target rather than a ring of dead space around it.

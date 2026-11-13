@@ -140,7 +140,7 @@ export function Pagination({
           <span
             aria-hidden
             data-folio-animated
-            className="absolute rounded-(--radius-pill) bg-(--accent) transition-[transform,width] duration-(--duration-base) ease-(--ease-out-expo) motion-reduce:transition-none"
+            className="absolute rounded-(--radius-pill) bg-(--action) transition-[transform,width] duration-(--duration-base) ease-(--ease-out-expo) motion-reduce:transition-none"
             style={{
               transform: `translate(${indicator.offset}px, ${indicator.top}px)`,
               width: indicator.width,
@@ -167,7 +167,7 @@ export function Pagination({
                   STEP,
                   'mono-meta tabular-nums',
                   entry === page
-                    ? 'border-transparent text-(--accent-foreground)'
+                    ? 'border-transparent text-(--action-foreground)'
                     : 'border-transparent text-(--ink-2) hover:border-(--rule-2) hover:text-(--ink)',
                 )}
               >

@@ -79,6 +79,11 @@
   --rule: #edebe6;
   --rule-2: #dbdbd6;
   --rule-hard: var(--ink);
+  /* The hard rule as a section DIVIDER — under a band heading, above a form,
+     between groups. Its own name so the rules axis can take dividers away
+     without touching the hard edges controls draw (a slider track, a table
+     head, a quotation bar). */
+  --rule-divider: var(--rule-hard);
 
   /* Historic role names, kept so a consumer written against the previous
      palette keeps resolving. Their hue is now ink; the role remains "the
@@ -191,6 +196,11 @@
   --rule: rgba(244, 244, 242, 0.14);
   --rule-2: rgba(244, 244, 242, 0.26);
   --rule-hard: var(--ink);
+  /* The hard rule as a section DIVIDER — under a band heading, above a form,
+     between groups. Its own name so the rules axis can take dividers away
+     without touching the hard edges controls draw (a slider track, a table
+     head, a quotation bar). */
+  --rule-divider: var(--rule-hard);
 
   --red: var(--clay);
   --red-ink: var(--clay);
@@ -289,6 +299,9 @@
   --label-font: var(--font-mono);
   --label-case: uppercase;
   --label-tracking-scale: 1;
+  /* Running text: the White Reset sets it light; a quiet voice sets it at a
+     regular weight to match its regular-weight headings. */
+  --body-weight: 300;
 }
 
 /* The fluid ramp, computed wherever `--fluid` is set.

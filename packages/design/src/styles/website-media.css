@@ -34,7 +34,7 @@
 .folio-media-gallery-caption { display: grid; grid-template-columns: 2rem minmax(0, 1fr); align-items: baseline; gap: 0.25rem 0.625rem; padding-block-start: 0.875rem; }
 .folio-media-gallery-index,
 .folio-media-gallery-location { overflow: hidden; color: var(--secondary-text); font-family: var(--label-font); font-size: 0.625rem; letter-spacing: calc(0.1em * var(--label-tracking-scale)); text-overflow: ellipsis; white-space: nowrap; }
-.folio-media-gallery-location { grid-column: 2; letter-spacing: 0.14em; }
+.folio-media-gallery-location { grid-column: 2; letter-spacing: calc(0.14em * var(--label-tracking-scale)); }
 .folio-media-gallery-title { display: -webkit-box; overflow: hidden; color: var(--foreground); font-family: var(--font-heading); font-size: 0.9375rem; font-weight: var(--display-weight); line-height: 1.22; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .folio-media-gallery-mount { block-size: auto; aspect-ratio: 1; }
 

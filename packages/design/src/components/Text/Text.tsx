@@ -34,8 +34,8 @@ export type TextElement = 'p' | 'span' | 'div' | 'li' | 'figcaption'
 const SIZE: Record<TextSize, string> = {
   xs: 'text-xs leading-[1.6]',
   sm: 'text-sm leading-[1.65]',
-  base: 'text-base font-light leading-[1.75]',
-  lead: 'text-[length:var(--fs-item)] font-light leading-[1.6]',
+  base: 'text-base [font-weight:var(--body-weight)] leading-[1.75]',
+  lead: 'text-[length:var(--fs-item)] [font-weight:var(--body-weight)] leading-[1.6]',
 }
 
 const TONE: Record<TextTone, string> = {

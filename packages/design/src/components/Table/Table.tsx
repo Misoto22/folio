@@ -38,7 +38,7 @@ const ALIGN: Record<TableAlign, string> = {
  * a trailing gap and no leading one.
  */
 const ROWS =
-  '[&_thead]:border-b [&_thead]:border-(--rule-hard) [&_tbody_tr]:border-b [&_tbody_tr]:border-(--rule) [&_tbody_tr:last-child]:border-b-0'
+  '[&_thead]:border-b [&_thead]:border-(--rule-divider) [&_tbody_tr]:border-b [&_tbody_tr]:border-(--rule) [&_tbody_tr:last-child]:border-b-0'
 const SOFT_HEAD = '[&_thead]:border-(--rule-2)'
 const COLUMNS =
   '[&_th]:border-e [&_td]:border-e [&_th]:border-(--rule) [&_td]:border-(--rule) [&_th:last-child]:border-e-0 [&_td:last-child]:border-e-0'
