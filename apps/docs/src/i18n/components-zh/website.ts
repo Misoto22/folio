@@ -155,4 +155,13 @@ export const WEBSITE_ZH: Record<string, ComponentCopyZh> = {
       ['a341ac78', "不要在展示组件中放入服务凭据、路由逻辑或后端模型。"],
     ],
   },
+  'workbench': {
+    name: "Workbench 版式",
+    summary: ['edefab77', "为 Workbench 预设准备的分区节奏、开篇、卡片、条目、时间轴、照片拼贴与滚动入场。"],
+    when: ['4ff4f6e4', "把作品集页面放在同一套 12 栏网格上，使用双色标题，并在根元素上应用 WORKBENCH_THEME。"],
+    practices: [
+      ['7c666774', "每个分区都用 WorkbenchSection 包裹，让标题与内容落在相同的栏位上。"],
+      ['2c289ab5', "不要在 JavaScript 运行前隐藏内容；Reveal 只会在水合之后隐藏首屏以下的元素。"],
+    ],
+  },
 }

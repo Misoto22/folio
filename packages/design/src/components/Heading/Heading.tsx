@@ -24,7 +24,7 @@ const SIZE: Record<HeadingSize, string> = {
   // `font-heading` both set font-family, and a custom utility is invisible to
   // tailwind-merge — so the two would land in the same cascade layer at the
   // same specificity and source order would pick the winner.
-  label: 'font-mono text-[11px] uppercase leading-[1.6] tracking-[0.2em] text-(--ink-3-aa)',
+  label: 'font-(family-name:--label-font) text-[11px] [text-transform:var(--label-case)] leading-[1.6] tracking-[calc(0.2em*var(--label-tracking-scale))] text-(--ink-3-aa)',
 }
 
 /**

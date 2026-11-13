@@ -13,11 +13,15 @@ import { STORAGE_KEYS } from '@/lib/storage-keys'
  * shipped it as a preset.
  */
 export const AXES = {
-  surface: ['paper', 'warm', 'cool', 'glass'],
+  surface: ['paper', 'warm', 'cool', 'glass', 'linen'],
+  // What the primary button is filled with; `ink` keeps the accent for links.
+  action: ['accent', 'ink'],
   radius: ['sharp', 'soft', 'round'],
   rules: ['quiet', 'hairline', 'firm'],
   type: ['editorial', 'grotesk', 'bookish'],
   motion: ['still', 'calm', 'snappy'],
+  // How loud display type and labels are; the type axis only picks the face.
+  voice: ['display', 'quiet'],
   density: ['comfortable', 'compact'],
   // The one axis that adds hue back, and the only sanctioned way to do it.
   // It used to be left out of the presets on the argument that a preset is a
@@ -34,10 +38,12 @@ export type AxisValue<A extends Axis> = (typeof AXES)[A][number]
 /** Every axis a preset sets, in the order the panel shows them. */
 export const LOOK_AXES: Axis[] = [
   'surface',
+  'action',
   'radius',
   'rules',
   'type',
   'motion',
+  'voice',
   'density',
   'chartPalette',
 ]
@@ -49,10 +55,12 @@ export const attribute = (axis: Axis) =>
 /** What each axis reads when nothing is chosen — the attribute is absent. */
 export const DEFAULTS: Record<Axis, string> = {
   surface: 'paper',
+  action: 'accent',
   radius: 'soft',
   rules: 'hairline',
   type: 'editorial',
   motion: 'calm',
+  voice: 'display',
   density: 'comfortable',
   chartPalette: 'mono',
 }
@@ -95,43 +103,48 @@ export const PRESETS: ThemePreset[] = [
     id: 'broadsheet',
     name: 'Broadsheet',
     note: 'Warm stock, square corners, firm rules. A newspaper reads as a grid of boxes, not a stack of cards.',
-    values: { surface: 'warm', radius: 'sharp', rules: 'firm', type: 'editorial', motion: 'calm', density: 'comfortable', chartPalette: 'mono', accent: 'clay' },
+    values: { surface: 'warm', action: 'accent', radius: 'sharp', rules: 'firm', type: 'editorial', motion: 'calm', voice: 'display', density: 'comfortable', chartPalette: 'mono', accent: 'clay' },
   },
   {
     id: 'console',
     name: 'Console',
     note: 'Cool ground, tight rows, quick motion, one interface face. Everything a dense operational screen wants.',
-    values: { surface: 'cool', radius: 'sharp', rules: 'firm', type: 'grotesk', motion: 'snappy', density: 'compact', chartPalette: 'chroma', accent: 'cobalt' },
+    values: { surface: 'cool', action: 'accent', radius: 'sharp', rules: 'firm', type: 'grotesk', motion: 'snappy', voice: 'display', density: 'compact', chartPalette: 'chroma', accent: 'cobalt' },
   },
   {
     id: 'salon',
     name: 'Salon',
     note: 'Round corners, quiet rules, the serif carried into the body. A reading surface rather than a working one.',
-    values: { surface: 'warm', radius: 'round', rules: 'quiet', type: 'bookish', motion: 'calm', density: 'comfortable', chartPalette: 'mono', accent: 'plum' },
+    values: { surface: 'warm', action: 'accent', radius: 'round', rules: 'quiet', type: 'bookish', motion: 'calm', voice: 'display', density: 'comfortable', chartPalette: 'mono', accent: 'plum' },
   },
   {
     id: 'clinic',
     name: 'Clinic',
     note: 'Paper ground and one grotesk, with nothing warm in it. Softened corners keep it from reading as a form.',
-    values: { surface: 'paper', radius: 'round', rules: 'hairline', type: 'grotesk', motion: 'snappy', density: 'comfortable', chartPalette: 'mono', accent: 'forest' },
+    values: { surface: 'paper', action: 'accent', radius: 'round', rules: 'hairline', type: 'grotesk', motion: 'snappy', voice: 'display', density: 'comfortable', chartPalette: 'mono', accent: 'forest' },
   },
   {
     id: 'atelier',
     name: 'Atelier',
     note: 'Warm stock and quiet rules, with the serif kept for headings only. A portfolio, where the work is the colour.',
-    values: { surface: 'warm', radius: 'soft', rules: 'quiet', type: 'editorial', motion: 'calm', density: 'comfortable', chartPalette: 'mono', accent: 'clay' },
+    values: { surface: 'warm', action: 'accent', radius: 'soft', rules: 'quiet', type: 'editorial', motion: 'calm', voice: 'display', density: 'comfortable', chartPalette: 'mono', accent: 'clay' },
   },
   {
     id: 'aqua',
     name: 'Aqua',
     note: 'Frosted panels over a cool ground. The one theme that spends a blur, and only behind surfaces that actually float.',
-    values: { surface: 'glass', radius: 'round', rules: 'quiet', type: 'grotesk', motion: 'calm', density: 'comfortable', chartPalette: 'chroma', accent: 'cobalt' },
+    values: { surface: 'glass', action: 'accent', radius: 'round', rules: 'quiet', type: 'grotesk', motion: 'calm', voice: 'display', density: 'comfortable', chartPalette: 'chroma', accent: 'cobalt' },
   },
   {
     id: 'ledger',
     name: 'Ledger',
     note: 'Cool paper, square corners, comfortable rows. A reporting screen that has to be read for an hour, not scanned for a second.',
-    values: { surface: 'cool', radius: 'sharp', rules: 'hairline', type: 'grotesk', motion: 'calm', density: 'comfortable', chartPalette: 'chroma', accent: 'cobalt' },
+    values: { surface: 'cool', action: 'accent', radius: 'sharp', rules: 'hairline', type: 'grotesk', motion: 'calm', voice: 'display', density: 'comfortable', chartPalette: 'chroma', accent: 'cobalt' },
+  },  {
+    id: 'workbench',
+    name: 'Workbench',
+    note: 'Linen ground, warm ink and one grotesk, with an ember accent kept for links. A portfolio that lets photographs carry the colour.',
+    values: { surface: 'linen', action: 'ink', radius: 'soft', rules: 'quiet', type: 'grotesk', motion: 'calm', voice: 'quiet', density: 'comfortable', chartPalette: 'mono', accent: 'ember' },
   },
 ]
 

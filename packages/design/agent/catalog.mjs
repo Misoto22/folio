@@ -199,11 +199,13 @@ export const AXIS_DEFAULTS = {
   // as an absence — an unset accent inside a themed subtree is the ancestor's,
   // not the system's.
   'data-accent': 'ink',
+  'data-action': 'accent',
   'data-surface': 'paper',
   'data-radius': 'the default radius ladder',
   'data-rules': 'hairline',
   'data-type': 'editorial',
   'data-motion': 'calm',
+  'data-voice': 'display',
   'data-density': 'comfortable',
   // Set by `<Table density>` rather than by hand, and scoped to one table on
   // purpose: a dashboard often wants a dense grid inside comfortable chrome.

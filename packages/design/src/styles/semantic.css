@@ -69,6 +69,13 @@
      writes the next panel. */
   --accent-on-muted: var(--red-ink);
 
+  /* The fill of the one primary action on a screen. It follows the accent
+     unless `data-action` says otherwise: a preset that keeps its accent for
+     links and the current state can hand the primary button back to ink,
+     without a checked box or the current page losing the accent. */
+  --action: var(--accent);
+  --action-foreground: var(--accent-foreground);
+
   /* ─── Status ─── bound to state, never to brand. ───────────────────────── */
   --success: var(--ok);
   --success-wash: var(--ok-soft);
