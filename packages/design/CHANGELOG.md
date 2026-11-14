@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.20.3](https://github.com/Misoto22/folio/compare/v0.20.2...v0.20.3) (2026-11-14)
+
+
+### Bug Fixes
+
+* **charts:** accept motion 14 as a peer dependency ([#178](https://github.com/Misoto22/folio/issues/178)) ([b5669f4](https://github.com/Misoto22/folio/commit/b5669f4479505b3bd44fb7bb31a8242f253ea834))
+
 ## [0.20.2](https://github.com/Misoto22/folio/compare/v0.20.1...v0.20.2) (2026-11-14)
 
 
