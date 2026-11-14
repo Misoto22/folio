@@ -13,6 +13,9 @@ import {
 } from 'react'
 import {
   DayPicker,
+  formatDay,
+  labelDayButton,
+  labelGridcell,
   useDayPicker,
   type DayPickerProps,
   type MonthCaptionProps,
@@ -110,6 +113,24 @@ function useLabels() {
     [code],
   )
 }
+
+/**
+ * A day button's name, led by the number the button shows.
+ *
+ * The library's own name is the full date alone — "Friday, October 2nd, 2026"
+ * on a button that reads "2". A voice-control user says what they see, and
+ * "click 2" matches nothing, because "2nd" is not "2" (WCAG 2.5.3, Label in
+ * Name). `formatDay` is the call that draws the number, so the prefix is the
+ * button's own text. The library's localised long date, with its "Today" and
+ * "selected" notes, follows it unchanged — rewriting that date by hand would
+ * have hard-coded one language's word order.
+ */
+const nameDayButton: typeof labelDayButton = (date, modifiers, options, dateLib) =>
+  `${formatDay(date, options, dateLib)}, ${labelDayButton(date, modifiers, options, dateLib)}`
+
+/** The same name for the cell a calendar with no `mode` draws instead of a button. */
+const nameGridcell: typeof labelGridcell = (date, modifiers, options, dateLib) =>
+  `${formatDay(date, options, dateLib)}, ${labelGridcell(date, modifiers, options, dateLib)}`
 
 /** The calendar's chrome buttons: the same corner every other control draws. */
 const STEP =
@@ -568,6 +589,9 @@ export function Calendar({
           ...classNames,
         }}
         {...props}
+        // After the spread, so a consumer's `labels` is merged rather than
+        // dropped — and their own `labelDayButton`, if they pass one, wins.
+        labels={{ labelDayButton: nameDayButton, labelGridcell: nameGridcell, ...props.labels }}
       />
     </PickerContext>
   )

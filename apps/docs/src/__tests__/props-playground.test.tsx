@@ -289,6 +289,35 @@ describe('PropsPlayground', () => {
     expect(written[0]).toBe('<Slider />')
   })
 
+  it('fills FloatingIconButton with a glyph, so its visible text never fights its label', async () => {
+    render(
+      <PropsPlayground
+        name="FloatingIconButton"
+        rows={[
+          row({ name: 'position', type: "'start' | 'end'", required: true }),
+          row({ name: 'label', type: 'string', required: true }),
+          row({ name: 'children', type: 'ReactNode', required: true }),
+        ]}
+        aliases={[]}
+        passthrough={[]}
+        fallback={<p>The read-only table</p>}
+      />,
+    )
+
+    // The count control used to render "Item 1 Item 2 Item 3" inside a button
+    // named "label" — visible words its name does not contain (WCAG 2.5.3).
+    const button = screen.getByRole('button', { name: 'label' })
+    expect(button).toHaveTextContent(/^$/)
+    expect(button.querySelector('svg')).not.toBeNull()
+    expect(screen.queryByText('Item 1')).toBeNull()
+
+    fireEvent.click(copyButton())
+    await vi.waitFor(() => expect(written).toHaveLength(1))
+    // The glyph is the frame's, not the reader's.
+    expect(written[0]).not.toContain('Item')
+    expect(written[0]).not.toContain('children')
+  })
+
   it('pins AppShell out of the page\'s own landmarks, and keeps the pins off the snippet', async () => {
     render(
       <PropsPlayground

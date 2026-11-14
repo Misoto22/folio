@@ -216,6 +216,8 @@ export function DiagramCanvas({
     }
   }
 
+  const zoomPercent = `${Math.round(view.scale * 100)}%`
+
   return (
     <div
       className={cn(
@@ -290,13 +292,15 @@ export function DiagramCanvas({
           <CanvasButton label="Zoom out" onClick={() => zoomAbout(1 / STEP)}>
             <span aria-hidden>−</span>
           </CanvasButton>
+          {/* The name leads with the percentage the button shows, so a voice
+              user who says "click 100%" reaches it (WCAG 2.5.3). */}
           <button
             type="button"
             onClick={() => apply({ scale: 1, x: 0, y: 0 })}
-            aria-label="Reset the view"
+            aria-label={`${zoomPercent}, reset the view`}
             className="min-w-12 rounded-(--radius-xs) px-1.5 py-1 mono-meta text-(--ink-2) transition-colors duration-(--duration-fast) hover:bg-(--stone) hover:text-(--ink) focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-(--ring)"
           >
-            {Math.round(view.scale * 100)}%
+            {zoomPercent}
           </button>
           <CanvasButton label="Zoom in" onClick={() => zoomAbout(STEP)}>
             <span aria-hidden>+</span>
