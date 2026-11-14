@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.21.2](https://github.com/Misoto22/folio/compare/v0.21.1...v0.21.2) (2026-11-14)
+
+
+### Bug Fixes
+
+* **website:** give the folded search opener a 44px target ([#186](https://github.com/Misoto22/folio/issues/186)) ([6818349](https://github.com/Misoto22/folio/commit/68183497b9364dc0a59268fdc6301281e270c330))
+
 ## [0.21.1](https://github.com/Misoto22/folio/compare/v0.21.0...v0.21.1) (2026-11-14)
 
 
