@@ -91,7 +91,7 @@ export function ContactFormView({ labels, values, topics, topic, onTopicChange, 
         <form onSubmit={onSubmit} noValidate aria-labelledby={headingId} className="folio-contact-form__fields">
           <Field label={labels.topic}>
             <ToggleGroup type="single" value={topic} onValueChange={(value) => { if (value) onTopicChange(value) }} className="max-w-full flex-wrap">
-              {topics.map((item) => <ToggleGroupItem key={item.value} value={item.value} className="min-h-11">{item.label}</ToggleGroupItem>)}
+              {topics.map((item) => <ToggleGroupItem key={item.value} value={item.value} className="min-h-11 min-w-11">{item.label}</ToggleGroupItem>)}
             </ToggleGroup>
           </Field>
           <div className="folio-contact-form__identity">
