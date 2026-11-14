@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.20.0](https://github.com/Misoto22/folio/compare/v0.19.1...v0.20.0) (2026-11-14)
+
+
+### Features
+
+* **website:** add ReasoningTrace, settle the palette and fix modal layout shift ([#162](https://github.com/Misoto22/folio/issues/162)) ([41d849f](https://github.com/Misoto22/folio/commit/41d849f60eb93b8b0d7d413f107afb19b07d74cf))
+
 ## [0.19.1](https://github.com/Misoto22/folio/compare/v0.19.0...v0.19.1) (2026-11-14)
 
 
