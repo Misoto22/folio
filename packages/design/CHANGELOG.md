@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.18.0](https://github.com/Misoto22/folio/compare/v0.17.1...v0.18.0) (2026-11-14)
+
+
+### Features
+
+* **website:** add pill controls, detail skeletons and an iPhone frame ([#156](https://github.com/Misoto22/folio/issues/156)) ([103b079](https://github.com/Misoto22/folio/commit/103b0792035d1a547904f54e35397857aa37b136))
+
 ## [0.17.1](https://github.com/Misoto22/folio/compare/v0.17.0...v0.17.1) (2026-11-13)
 
 
