@@ -42,6 +42,8 @@ export interface SearchPaletteProps {
   onCloseAutoFocus?: DialogContentProps['onCloseAutoFocus']
 }
 
+const PANEL = 'folio-search-palette top-[max(4rem,15svh)] w-[min(94vw,40rem)] data-[state=open]:animate-[folio-palette-in_var(--duration-base)_var(--ease)] data-[state=closed]:animate-[folio-palette-out_var(--duration-fast)_var(--ease)]'
+
 /** Search, actions and an optional result detail inside one accessible modal. */
 export function SearchPalette({
   open, onOpenChange, label, inputLabel, placeholder, query, onQueryChange,
@@ -59,6 +61,11 @@ export function SearchPalette({
   return (
     <CommandDialog
       open={open} onOpenChange={onOpenChange} label={label} inputLabel={inputLabel} shouldFilter={false}
+      // Placed on the optical centre rather than near the top edge: the panel's
+      // resting height (field, ten rows, footer) puts its middle a little above
+      // the viewport's. It settles in from a 6px lift and a hair of scale, and
+      // leaves faster than it arrives, so closing never feels like waiting.
+      className={PANEL}
       onOpenAutoFocus={() => {
         previousFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
       }}

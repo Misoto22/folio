@@ -1,26 +1,40 @@
-  .folio-search-palette__search { position: relative; }
-  .folio-search-palette__search:focus-within { background: var(--paper-2); }
-  .folio-search-palette__search input { padding-inline-end: 3rem; font-size: .875rem; }
+  /* The panel: one surface, a hairline, and the lift a floating layer is
+     allowed. The field is part of the panel rather than a grey band on top of
+     it, and the list below it is single-line rows at the 44px target. */
+  .folio-search-palette { border-color: var(--rule); background: var(--paper); }
+  .folio-search-palette__search { position: relative; display: flex; align-items: center; border-block-end: 1px solid var(--rule); }
+  .folio-search-palette__search [cmdk-input-wrapper], .folio-search-palette__search > div:first-child { flex: 1; min-inline-size: 0; border: 0; }
+  .folio-search-palette__search input { block-size: 3.5rem; padding-inline-end: 3rem; font-size: .9375rem; }
   .folio-search-palette__search input:focus, .folio-search-palette__search input:focus-visible,
   .folio-search-palette__input input:focus, .folio-search-palette__input input:focus-visible { outline: none; box-shadow: none; }
   .folio-search-palette__close { position: absolute; inset-block-start: 50%; inset-inline-end: .5rem; translate: 0 -50%; }
-  .folio-search-palette__input { display: flex; align-items: center; gap: .5rem; padding: .75rem; border-block-end: 1px solid var(--rule); }
+  .folio-search-palette__input { display: flex; align-items: center; gap: .5rem; padding: .625rem .75rem; border-block-end: 1px solid var(--rule); }
   .folio-search-palette__input input { min-inline-size: 0; }
-  .folio-search-palette__detail { max-block-size: calc(80svh - 6.5rem); overflow-y: auto; overscroll-behavior: contain; padding: 1.5rem; }
-  .folio-search-palette__result { flex: 1; min-inline-size: 0; display: grid; gap: .125rem; }
-  .folio-search-palette__result > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .folio-search-palette__description { color: var(--ink-3-aa); font-size: .75rem; }
-  .folio-search-palette__heading { font-family: var(--sans); font-size: .75rem; letter-spacing: normal; text-transform: none; }
-  .folio-search-palette__item { margin: .125rem 0; border-radius: var(--radius-sm); font-size: .875rem; }
+  .folio-search-palette__detail { max-block-size: calc(70svh - 6.5rem); overflow-y: auto; overscroll-behavior: contain; padding: 1.5rem; }
+  /* The last visible row dissolves into the footer rather than being sliced by
+     it, which is what tells a reader the list goes on. */
+  .folio-search-palette [cmdk-list] { padding: .375rem; mask-image: linear-gradient(to bottom, #000 calc(100% - 1.5rem), transparent); }
+  .folio-search-palette [cmdk-group-heading] { padding: .75rem .625rem .375rem; }
+  .folio-search-palette__heading { color: var(--ink-3-aa); font-family: var(--sans); font-size: .75rem; letter-spacing: normal; text-transform: none; }
+  .folio-search-palette__item { min-block-size: 2.75rem; margin: 0; padding-block: .5rem; border-radius: var(--radius-row); font-size: .875rem; }
   .folio-search-palette__item::before { display: none; }
-  .folio-search-palette__item[data-selected=true] { background: var(--paper-2); box-shadow: inset 0 0 0 1px var(--rule); }
-  .folio-search-palette__meta { font-family: var(--sans); font-size: .6875rem; opacity: 0; }
+  .folio-search-palette__item[data-selected=true] { background: var(--paper-2); }
+  .folio-search-palette__result { flex: 1; min-inline-size: 0; display: flex; align-items: baseline; gap: .625rem; }
+  .folio-search-palette__result > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .folio-search-palette__result > span:first-child { flex: none; max-inline-size: 70%; color: var(--ink); }
+  .folio-search-palette__description { flex: 1; min-inline-size: 0; color: var(--ink-3-aa); font-size: .8125rem; }
+  .folio-search-palette__meta { font-family: var(--sans); font-size: .6875rem; opacity: 0; transition: opacity var(--duration-fast) var(--ease); }
   .folio-search-palette__item[data-selected=true] .folio-search-palette__meta { opacity: 1; }
-  .folio-search-palette__highlight { color: var(--ink); background: var(--stone); border-radius: var(--radius-sm); }
-  .folio-search-palette__footer { flex-wrap: wrap; }
+  .folio-search-palette__highlight { color: var(--ink); background: var(--stone); border-radius: var(--radius-xs); }
+  .folio-search-palette__footer { flex-wrap: wrap; border-block-start: 1px solid var(--rule); background: var(--paper); }
   @media (max-width: 40rem) {
     .folio-search-palette__search input { font-size: 1rem; }
     .folio-search-palette__detail { max-block-size: calc(84svh - 4.5rem); }
+    .folio-search-palette__result { display: grid; gap: .125rem; }
+    .folio-search-palette__result > span:first-child { max-inline-size: none; }
     .folio-search-palette__meta { display: none; }
     .folio-search-palette__footer { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .folio-search-palette { animation: none !important; }
   }

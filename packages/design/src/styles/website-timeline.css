@@ -9,6 +9,12 @@
 .folio-career-record__description { margin-block: 1.25rem 0; max-inline-size: var(--measure-record); padding-inline-start: 1.25rem; list-style: disc; }
 .folio-career-record__description > li + li { margin-block-start: .5rem; }
 .folio-career-record__tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-block: 1.25rem 0; list-style: none; padding: 0; }
+/* Every chip in the row is the same flex box, marked or not, so a text-only
+   chip shares its neighbours' baseline. A mark takes the label's colour, so a
+   row of brand marks reads as one quiet line rather than a sticker sheet. */
+.folio-career-record__tag { display: inline-flex; align-items: center; gap: .375rem; }
+.folio-career-record__tag-mark { display: inline-flex; flex: none; inline-size: .875rem; block-size: .875rem; color: var(--ink-3-aa); }
+.folio-career-record__tag-mark > :is(svg, img) { inline-size: 100%; block-size: 100%; }
 .folio-career-record__mark { display: none; }
 .folio-career-record__mark img { inline-size: 4rem; block-size: 4rem; object-fit: contain; }
 .folio-profile-section, .folio-profile-narrative { padding-block: clamp(3rem, 6vw, 5rem); }

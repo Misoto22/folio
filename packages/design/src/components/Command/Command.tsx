@@ -277,6 +277,8 @@ export interface CommandDialogProps {
   onCloseAutoFocus?: DialogContentProps['onCloseAutoFocus']
   /** Runs before Escape closes the dialog. Prevent the default to keep it open, as a nested view stepping back does. */
   onEscapeKeyDown?: DialogContentProps['onEscapeKeyDown']
+  /** Merged onto the panel after its defaults, so a composition can place and animate it. */
+  className?: string
 }
 
 /**
@@ -295,6 +297,7 @@ export function CommandDialog({
   onOpenAutoFocus,
   onCloseAutoFocus,
   onEscapeKeyDown,
+  className,
 }: CommandDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -313,7 +316,7 @@ export function CommandDialog({
         // does — but the reserved gutter was still there, so the list stopped
         // thirteen pixels short of the panel and drew its own hairline inside
         // an empty channel. Two bars, one of them permanently blank.
-        className="top-[10vh] w-[min(94vw,44rem)] translate-y-0 overflow-hidden p-0 [scrollbar-gutter:auto]"
+        className={cn('top-[10vh] w-[min(94vw,44rem)] translate-y-0 overflow-hidden p-0 [scrollbar-gutter:auto]', className)}
       >
         {/* The modal has the whole screen, so its list may be taller than the
             default an inline menu should keep.

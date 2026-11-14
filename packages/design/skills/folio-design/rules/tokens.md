@@ -71,6 +71,7 @@ not just `:root`. An unset axis is the default.
 | `data-type` | `grotesk` `bookish` | editorial |
 | `data-motion` | `still` `snappy` | calm |
 | `data-voice` | `quiet` | display |
+| `data-controls` | `pill` | the control step (`--radius`) |
 | `data-density` | `compact` | comfortable |
 
 ```tsx

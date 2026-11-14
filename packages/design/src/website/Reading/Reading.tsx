@@ -126,6 +126,9 @@ export function FeaturePairs({ items }: FeaturePairsProps) { return <div classNa
 export interface DevicePreviewProps { kind: 'browser' | 'phone'; label?: string; media: ReactNode; caption?: ReactNode }
 export function DevicePreview({ kind, label, media, caption }: DevicePreviewProps) { return <figure className="folio-device-preview" data-kind={kind}><div>{kind === 'browser' && <div className="folio-browser-bar"><span aria-hidden>● ● ●</span><span>{label}</span></div>}<div className="folio-device-screen">{media}</div></div>{caption && <figcaption>{caption}</figcaption>}</figure> }
 export interface PreviewPairProps { desktop: ReactNode; mobile?: ReactNode }
+export interface DeviceRowProps { children: ReactNode; label?: string }
+/** Two or three phones side by side, the middle one raised a step, wrapping to a column on a narrow screen. */
+export function DeviceRow({ children, label }: DeviceRowProps) { return <div className="folio-device-row" role={label ? 'group' : undefined} aria-label={label}>{children}</div> }
 export function PreviewPair({ desktop, mobile }: PreviewPairProps) { return <div className="folio-preview-pair" data-mobile={Boolean(mobile) || undefined}>{desktop}{mobile}</div> }
 export interface CommandTab { id: string; name: string; commands: string[]; then?: ReactNode; note?: ReactNode; link?: ReactNode }
 export interface CommandTabsProps { label: string; tabs: CommandTab[]; copyLabel: string; copiedLabel: string; footer?: ReactNode }

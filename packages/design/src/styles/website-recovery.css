@@ -1,3 +1,10 @@
+/* The wait-then-fade every route skeleton shares. The delay is one fast step:
+   a route that answers inside it never shows a skeleton at all, and one that
+   does not fades the bars in instead of cutting to them. The pulse lives on
+   the SkeletonPage inside, so the two animations never fight for a property. */
+.folio-loading-page { animation: folio-loading-in var(--duration-base) var(--ease) var(--duration-fast) both; }
+@keyframes folio-loading-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .folio-loading-page { animation: none; } }
 .folio-recovery-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
 .folio-recovery-links { margin-block: clamp(3.5rem, 7vw, 6rem) 3rem; }
 .folio-recovery-links ul { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 4rem; margin: .25rem 0 0; padding: 0; list-style: none; }
@@ -12,6 +19,7 @@
 .folio-loading-media { border-block: 1px solid var(--rule); background: var(--paper-2); }
 .folio-loading-metrics__figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-block: 1px solid var(--rule); }
 .folio-loading-metrics__figures > div { padding: clamp(1.5rem, 4vw, 2.25rem) clamp(1rem, 3vw, 1.625rem); }
+.folio-loading-article { padding-block-start: clamp(4rem, 8vw, 6rem); }
 .folio-loading-identity { display: grid; align-items: center; gap: 3.5rem; padding-block: clamp(7rem, 9vw, 8rem) clamp(2.5rem, 5vw, 4rem); }
 @media (min-width: 640px) {
   .folio-recovery-links ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }

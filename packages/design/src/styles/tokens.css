@@ -289,6 +289,15 @@
 
 }
 
+/* Device hardware. A phone frame is drawn in the colours of the object, not
+   the page: a dark bezel and a black island read as an iPhone in light and
+   dark mode alike, so these do not flip with `data-mode`. */
+:root {
+  --device-bezel: #1d1d1f;
+  --device-rim: #4a4a4d;
+  --device-island: #000;
+}
+
 /* Display voice. How loud a page's display type and labels are, read by the
    website compositions instead of literal values so the voice axis in
    `themes.css` can quiet them. Declared on the root only — never on a fluid
@@ -372,6 +381,11 @@
   --radius: calc(8px * var(--radius-factor)); /* inputs, code, small plates */
   --radius-lg: calc(12px * var(--radius-factor)); /* cards, dialogs, menu panels */
   --radius-pill: calc(999px * var(--radius-factor)); /* capsules and counters */
+  /* The corner every pressable control shares — a button, an icon button, a
+     launcher. A role rather than a step, so a theme can make controls capsules
+     without re-shaping the inputs and plates that also sit on `--radius`. The
+     `data-controls` axis in themes.css is the only thing that moves it. */
+  --radius-control: var(--radius);
 
   /* The nesting law, applied to the two insets this system actually uses. */
   --radius-row: max(0px, calc(var(--radius-lg) - 0.375rem)); /* a row in a 6px-padded panel */

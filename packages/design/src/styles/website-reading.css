@@ -86,9 +86,17 @@
 .folio-browser-bar>span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .folio-device-screen{position:relative;aspect-ratio:16/10;overflow:hidden}
 .folio-device-screen img{width:100%;height:100%;object-fit:cover}
-.folio-device-preview[data-kind=phone]{max-width:16.625rem}
-.folio-device-preview[data-kind=phone]>div{border-width:.5rem;border-radius:calc(var(--radius) * 1.5)}
-.folio-device-preview[data-kind=phone] .folio-device-screen{aspect-ratio:9/19}
+/* The phone is an iPhone as the Simulator draws it: a dark bezel with a
+   hairline rim, a screen whose corner follows the glass, and the Dynamic Island
+   over the status bar. It used to be the browser frame with thicker borders —
+   a rounded rectangle that read as a box around a screenshot, not a device. */
+.folio-device-preview[data-kind=phone]{max-width:16.5rem;justify-self:center}
+.folio-device-preview[data-kind=phone]>div{position:relative;padding:.5rem;border:0;border-radius:2.75rem;background:var(--device-bezel);box-shadow:0 0 0 1px var(--device-rim),0 1.5rem 3rem color-mix(in srgb,var(--device-island) 22%,transparent)}
+.folio-device-preview[data-kind=phone]>div::before{content:'';position:absolute;z-index:1;inset-block-start:1.125rem;inset-inline-start:50%;inline-size:31%;block-size:1.6rem;translate:-50% 0;border-radius:var(--radius-pill);background:var(--device-island)}
+.folio-device-preview[data-kind=phone] .folio-device-screen{aspect-ratio:393/852;overflow:hidden;border-radius:2.25rem;background:var(--device-island)}
+.folio-device-preview[data-kind=phone] figcaption{text-align:center}
+.folio-device-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12.5rem),1fr));gap:clamp(1.5rem,4vw,3rem);align-items:end;padding-block:1.75rem .5rem}
+@media(min-width:48rem){.folio-device-row>:nth-child(3n+2){margin-block-end:2.5rem}}
 .folio-device-preview figcaption{font-family:var(--mono-i18n,var(--font-mono));font-size:.6875rem;color:var(--ink-3-aa);margin-block-start:.75rem}
 .folio-command-tabs{min-width:0}
 .folio-command-tabs [role=tablist]{flex-wrap:wrap}

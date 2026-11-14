@@ -84,8 +84,9 @@ describe('BRAND mirrors styles/tokens.css', () => {
 
   it('declares every light colour token a dark counterpart, or deliberately not', () => {
     // The swap is the dark story. A colour that exists only in light is either
-    // an oversight or one of the three documented exceptions.
-    const EXEMPT = new Set(['ink-3-aa', 'mist', 'clay-ink', 'shadow-offset'])
+    // an oversight or one of the documented exceptions. The device colours are
+    // the hardware's own and stay dark in both modes on purpose.
+    const EXEMPT = new Set(['ink-3-aa', 'mist', 'clay-ink', 'shadow-offset', 'device-bezel', 'device-rim', 'device-island'])
     const colourish = /^(#|rgba?\(|color-mix)/
     const missing = [...LIGHT.entries()]
       .filter(([name, value]) => colourish.test(value) && !DARK.has(name) && !EXEMPT.has(name))

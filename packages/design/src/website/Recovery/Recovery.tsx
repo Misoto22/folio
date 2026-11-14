@@ -45,18 +45,44 @@ export function LoadingRecords({ rows = 4, media = true }: LoadingRecordsProps) 
 
 export interface WebsiteLoadingProps extends LoadingRecordsProps, LoadingRouteIntroProps {
   label: string
-  layout?: 'records' | 'gallery' | 'media' | 'metrics' | 'identity'
+  layout?: 'records' | 'gallery' | 'media' | 'metrics' | 'identity' | 'article' | 'photograph'
   filters?: boolean
 }
 
-/** Named loading layouts for the website's reusable page shapes. */
+/** A detail page's masthead and opening paragraphs, drawn on the reading page's own frame. */
+function LoadingArticle({ media }: { media: boolean }) {
+  return <>
+    <header className="folio-detail-masthead folio-loading-article" data-loading-content><SkeletonLine className="h-2.5 w-20" /><SkeletonBlock className="mt-8 h-[clamp(2.5rem,5vw,4rem)] w-[min(100%,36rem)]" /><SkeletonLine className="mt-6 h-3.5 w-[min(100%,40rem)]" /><SkeletonLine className="mt-2.5 h-3.5 w-[min(100%,30rem)]" /><div className="mt-10 flex flex-wrap gap-8">{[0, 1, 2].map((cell) => <SkeletonLine key={cell} className="h-2.5 w-20" />)}</div></header>
+    {media && <div className="folio-reading-figure" data-loading-content><SkeletonBlock className="aspect-[16/9] w-full" /></div>}
+    <div className="folio-reading-layout" data-loading-content><div className="folio-reading-body">{['w-full', 'w-11/12', 'w-full', 'w-4/5', 'w-full', 'w-2/3'].map((width, index) => <SkeletonLine key={index} className={cn('mt-3.5 h-3.5', width)} />)}</div></div>
+  </>
+}
+
+/** One photograph's spread: the back bar, the image well and its ledger, in the detail page's own grid. */
+function LoadingPhotograph() {
+  return <div className="folio-media-detail-page"><div className="folio-media-detail" data-loading-content>
+    <header className="folio-media-index-bar"><SkeletonLine className="h-3 w-24" /><SkeletonLine className="h-2.5 w-12" /></header>
+    <div className="folio-media-spread" data-photo-spread="wide"><div className="folio-media-well"><SkeletonBlock className="aspect-[3/2] w-full" /></div><div className="folio-media-ledger"><div><SkeletonLine className="h-2.5 w-24" /><SkeletonBlock className="mt-5 h-10 w-4/5" /><SkeletonLine className="mt-6 h-3 w-full" /><SkeletonLine className="mt-2.5 h-3 w-3/4" /></div><div className="mt-10">{[0, 1, 2, 3].map((row) => <SkeletonLine key={row} className="mt-3 h-2.5 w-2/3" />)}</div></div></div>
+  </div></div>
+}
+
+/**
+ * Named loading layouts for the website's reusable page shapes.
+ *
+ * Every layout waits a beat before it shows and then fades in, so a route that
+ * resolves within that beat goes straight from the old page to the new one
+ * instead of flashing grey bars for a frame. A detail route needs its own
+ * `article` or `photograph` shape: inheriting the list skeleton above it
+ * promises a layout the page then abandons.
+ */
 export function WebsiteLoading({ label, layout = 'records', titleClassName, rows = 4, media = true, filters = false }: WebsiteLoadingProps) {
-  return <SkeletonPage label={label}>
+  if (layout === 'article' || layout === 'photograph') return <div className="folio-loading-page"><SkeletonPage label={label}>{layout === 'article' ? <LoadingArticle media={media} /> : <LoadingPhotograph />}</SkeletonPage></div>
+  return <div className="folio-loading-page"><SkeletonPage label={label}>
     {layout === 'identity' ? <header className="folio-loading-identity folio-loading-container"><div><div className="flex items-center gap-5"><SkeletonCircle className="size-12" /><SkeletonBlock className="h-12 w-64" /></div><SkeletonLine className="mt-9 h-3.5 w-full" /><SkeletonLine className="mt-3 h-3.5 w-4/5" /><SkeletonLine className="mt-10 h-3 w-2/3" /></div><SkeletonBlock className="aspect-square w-full" /></header> : <LoadingRouteIntro titleClassName={titleClassName} />}
     {filters && <div className="folio-loading-filters folio-loading-container" data-loading-content><div className="flex flex-wrap gap-6">{[8, 16, 12, 20].map((width) => <SkeletonLine key={width} className="h-3 w-12" />)}</div><SkeletonBlock className="h-11 w-56" /></div>}
     {(layout === 'records' || layout === 'identity') && <LoadingRecords rows={rows} media={media} />}
     {layout === 'gallery' && <section data-loading-content className="folio-loading-gallery folio-loading-container">{Array.from({ length: rows }, (_, index) => <div key={index}><SkeletonBlock className="aspect-[4/5] w-full" /><SkeletonLine className="mt-3 h-3 w-3/4" /></div>)}</section>}
     {layout === 'media' && <section data-loading-content className="folio-loading-media"><div data-loading-now-playing className="folio-media-feature folio-loading-container"><div className="folio-media-feature__artwork"><SkeletonBlock data-loading-artwork className="h-full w-full" /></div><div><SkeletonLine className="h-2.5 w-28" /><SkeletonBlock className="mt-5 h-16 w-4/5" /><SkeletonLine className="mt-5 h-3.5 w-2/3" /><SkeletonLine className="mt-6 h-1 w-full" /></div></div></section>}
     {layout === 'metrics' && <div data-loading-content className="folio-loading-metrics folio-loading-container"><div className="folio-loading-filters"><SkeletonLine className="h-2.5 w-12" /><SkeletonBlock className="h-11 w-72" /></div><div className="folio-loading-metrics__figures">{[0, 1, 2, 3].map((cell) => <div key={cell}><SkeletonLine className="h-2.5 w-24" /><SkeletonBlock className="mt-4 h-9 w-20" /><SkeletonLine className="mt-4 h-2.5 w-16" /></div>)}</div><SkeletonLine className="mt-16 h-3 w-28" /><SkeletonBlock className="mt-6 h-[220px] w-full" /></div>}
-  </SkeletonPage>
+  </SkeletonPage></div>
 }

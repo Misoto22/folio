@@ -125,24 +125,26 @@ export interface MediaGallerySkeletonProps {
 
 export function MediaGallerySkeleton({ label, count = 6 }: MediaGallerySkeletonProps) {
   return (
-    <SkeletonPage label={label} aria-label={label}>
-      <header className="folio-media-masthead">
-        <SkeletonLine className="w-24" />
-        <SkeletonBlock className="mt-4 h-9 w-[min(560px,90%)]" />
-        <SkeletonBlock className="mt-2.5 h-9 w-[min(380px,70%)]" />
-      </header>
-      <div className="folio-media-container"><SkeletonLine className="h-11 w-full" /></div>
-      <section data-loading-content className="folio-media-gallery-content">
-        <MediaGallery>
-          {Array.from({ length: count }, (_, index) => (
-            <li key={index}>
-              <SkeletonBlock className="folio-media-gallery-mount" />
-              <SkeletonLine className="mt-3 w-3/4" />
-            </li>
-          ))}
-        </MediaGallery>
-      </section>
-    </SkeletonPage>
+    <div className="folio-loading-page">
+      <SkeletonPage label={label} aria-label={label}>
+        <header className="folio-media-masthead">
+          <SkeletonLine className="w-24" />
+          <SkeletonBlock className="mt-4 h-9 w-[min(560px,90%)]" />
+          <SkeletonBlock className="mt-2.5 h-9 w-[min(380px,70%)]" />
+        </header>
+        <div className="folio-media-container"><SkeletonLine className="h-11 w-full" /></div>
+        <section data-loading-content className="folio-media-gallery-content">
+          <MediaGallery>
+            {Array.from({ length: count }, (_, index) => (
+              <li key={index}>
+                <SkeletonBlock className="folio-media-gallery-mount" />
+                <SkeletonLine className="mt-3 w-3/4" />
+              </li>
+            ))}
+          </MediaGallery>
+        </section>
+      </SkeletonPage>
+    </div>
   )
 }
 

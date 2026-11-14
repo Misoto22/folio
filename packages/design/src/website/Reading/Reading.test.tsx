@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { Suspense, type ReactElement } from 'react'
 import { describe, expect, it } from 'vitest'
-import { DetailMasthead, RecordPager, TableOfContents, TokenLine, isSelfNumbered, numberToc } from './Reading'
+import { DetailMasthead, DevicePreview, DeviceRow, RecordPager, TableOfContents, TokenLine, isSelfNumbered, numberToc } from './Reading'
 
 describe('Reading compositions', () => {
   it('retains semantic dates and host navigation in its masthead', () => {
@@ -75,5 +75,18 @@ describe('CommandSnippet', () => {
     const { container } = render(<CommandSnippet code="actual" pieces={[{ text: 'wrong' }]} copyLabel="Copy source" copiedLabel="Copied source" />)
     expect(container.querySelector('code')).toHaveTextContent('actual')
     expect(screen.queryByText('wrong')).not.toBeInTheDocument()
+  })
+
+  it('draws a row of phones as one labelled group, each with its own caption', () => {
+    render(<DeviceRow label="Revala on iPhone">{['Map', 'Trip'].map((name) => <DevicePreview key={name} kind="phone" media={<img alt={`${name} screen`} />} caption={name} />)}</DeviceRow>)
+    const group = screen.getByRole('group', { name: 'Revala on iPhone' })
+    expect(group.querySelectorAll('figure[data-kind="phone"]')).toHaveLength(2)
+    expect(screen.getByText('Trip').tagName).toBe('FIGCAPTION')
+    expect(screen.getByAltText('Map screen').closest('.folio-device-screen')).not.toBeNull()
+  })
+
+  it('leaves an unlabelled row without a group role', () => {
+    const { container } = render(<DeviceRow><DevicePreview kind="phone" media={<span />} /></DeviceRow>)
+    expect(container.firstElementChild).not.toHaveAttribute('role')
   })
 })

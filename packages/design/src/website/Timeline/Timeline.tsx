@@ -17,6 +17,13 @@ export function RecordSection({ title, count, headingId, children, className, ..
   return <section aria-labelledby={headingId} className={cn('folio-record-section', className)} {...rest}><header className="folio-record-section__header"><Heading level={2} id={headingId}>{title}</Heading>{count && <Text as="span" size="xs" tone="muted">{count}</Text>}</header>{children}</section>
 }
 
+/**
+ * One entry in a record's tag row. A bare string is a text chip; an object can
+ * add a mark beside the label. The mark is decoration — `aria-hidden` — so the
+ * label is still the whole of what a screen reader hears.
+ */
+export type CareerRecordTag = string | { label: string; icon?: ReactNode }
+
 export interface CareerRecordProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
   title: string
   organization: ReactNode
@@ -25,7 +32,7 @@ export interface CareerRecordProps extends Omit<HTMLAttributes<HTMLElement>, 'ti
   location: string
   locationLabel: string
   description: string[]
-  tags: string[]
+  tags: CareerRecordTag[]
   tagsLabel: string
   mark?: ReactNode
   currentLabel?: string
@@ -36,7 +43,7 @@ export function CareerRecord({ title, organization, period, periodLabel, locatio
   return (
     <article className={cn('folio-career-record', className)} {...rest}>
       <div className="folio-career-record__dates"><dl><dt className="sr-only">{periodLabel}</dt><dd><Text as="span" size="sm" tone="strong">{period}</Text></dd><dt className="sr-only">{locationLabel}</dt><dd><Text as="span" size="xs" tone="muted">{location}</Text></dd></dl>{currentLabel && <Badge>{currentLabel}</Badge>}</div>
-      <div className="folio-career-record__body"><Heading level={3} size="heading">{title}</Heading><div className="mt-2">{organization}</div>{description.length === 1 && <Text className="mb-0 mt-5 max-w-(--measure-record)">{description[0]}</Text>}{description.length > 1 && <ul className="folio-career-record__description">{description.map((point, index) => <Text as="li" key={index}>{point}</Text>)}</ul>}{tags.length > 0 && <ul aria-label={tagsLabel} className="folio-career-record__tags">{tags.map((tag, index) => <li key={`${tag}-${index}`}><Tag>{tag}</Tag></li>)}</ul>}</div>
+      <div className="folio-career-record__body"><Heading level={3} size="heading">{title}</Heading><div className="mt-2">{organization}</div>{description.length === 1 && <Text className="mb-0 mt-5 max-w-(--measure-record)">{description[0]}</Text>}{description.length > 1 && <ul className="folio-career-record__description">{description.map((point, index) => <Text as="li" key={index}>{point}</Text>)}</ul>}{tags.length > 0 && <ul aria-label={tagsLabel} className="folio-career-record__tags">{tags.map((tag, index) => { const { label, icon } = typeof tag === 'string' ? { label: tag, icon: undefined } : tag; return <li key={`${label}-${index}`}><Tag className="folio-career-record__tag">{icon && <span aria-hidden="true" className="folio-career-record__tag-mark">{icon}</span>}{label}</Tag></li> })}</ul>}</div>
       {mark && <div className="folio-career-record__mark">{mark}</div>}
     </article>
   )

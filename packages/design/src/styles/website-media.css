@@ -125,15 +125,21 @@
 .folio-media-pager-link[data-direction='next'] { grid-template-columns: minmax(0, 1fr) 4.5rem; padding-inline: 1.5rem 0; }
 .folio-media-pager-copy { min-inline-size: 0; }
 .folio-media-pager-link[data-direction='next'] .folio-media-pager-copy { text-align: end; }
-.folio-media-pager-image { position: relative; display: block; block-size: 3.25rem; overflow: hidden; background: var(--background-elevated); }
-.folio-media-pager-image img { object-fit: contain; }
+.folio-media-pager-image { position: relative; display: block; block-size: 3.25rem; overflow: hidden; border-radius: var(--radius-sm); background: var(--background-elevated); }
+.folio-media-pager-image img { object-fit: cover; }
 .folio-media-pager-label { display: block; color: var(--secondary-text); font-family: var(--label-font); font-size: 0.625rem; letter-spacing: calc(0.16em * var(--label-tracking-scale)); text-transform: var(--label-case); }
 .folio-media-pager-title { display: block; overflow: hidden; margin-block-start: 0.3125rem; color: var(--foreground); font-family: var(--font-heading); font-size: 1.0625rem; font-weight: var(--display-weight); line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
 .folio-media-thumbnails { padding-block-start: clamp(1.5rem, 3vw, 2.5rem); border-block-start: 1px solid var(--border-subtle); }
 .folio-media-thumbnails h2 { margin-block: 0 0.75rem; color: var(--foreground-muted); font-family: var(--label-font); font-size: 0.6875rem; font-weight: 400; letter-spacing: calc(0.13em * var(--label-tracking-scale)); text-transform: var(--label-case); }
 .folio-media-thumbnail-list { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(0.4rem, 1vw, 0.8rem); }
-.folio-media-thumbnail { position: relative; min-inline-size: 44px; min-block-size: 44px; aspect-ratio: 1; overflow: hidden; background: var(--background-elevated); }
-.folio-media-thumbnail img { object-fit: contain; }
+/* Each frame fills its square. `contain` letterboxed every photograph onto an
+   elevated plate, so a strip of mixed orientations read as a row of grey
+   cards on a linen page — two grounds for one set of images. Cropped, the
+   plate only shows for the instant before the image decodes. */
+.folio-media-thumbnail { position: relative; display: block; min-inline-size: 44px; min-block-size: 44px; aspect-ratio: 1; overflow: hidden; border-radius: var(--radius); background: var(--background-elevated); }
+.folio-media-thumbnail img { object-fit: cover; transition: scale var(--duration-base) var(--ease), opacity var(--duration-base) var(--ease); }
+.folio-media-thumbnail:hover img { scale: 1.02; }
+@media (prefers-reduced-motion: reduce) { .folio-media-thumbnail img { transition: none; } .folio-media-thumbnail:hover img { scale: none; } }
 
 .folio-media-map-section { border-block: 1px solid var(--border-subtle); background: var(--background-elevated); padding-block: clamp(4rem, 10vw, 8rem); }
 .folio-media-anchor { display: block; block-size: 0; scroll-margin-block-start: var(--scroll-offset); pointer-events: none; }
