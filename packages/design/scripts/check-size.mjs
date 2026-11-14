@@ -125,8 +125,16 @@ const BUDGET = {
    * already has.
    */
   singleFigure: 55,
-  /** Seventeen website families, including their shared Radix primitives. */
-  website: 275,
+  /**
+   * Seventeen website families, including their shared Radix primitives.
+   *
+   * 275 → 285 for the ask dock's single pill-and-panel shell, the composer's
+   * Stop and countdown states, the palette's answer view and measured body,
+   * the lightbox's frame-to-stage growth and the staggered section reveal
+   * (268.4 → 276.0 kB measured). A step from new behaviour, not a leak: one
+   * website part is unchanged at 29.8 kB.
+   */
+  website: 285,
   /** A navigation link must not pull in conversations, galleries or charts. */
   singleWebsiteComponent: 40,
 }
