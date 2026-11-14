@@ -1,14 +1,106 @@
 /* Shared interaction density and focus treatment for public reading surfaces. */
-.folio-collection-controls { gap: .75rem 1.25rem; padding-block: .75rem; }
-.folio-collection-filters { gap: .25rem; }
-.folio-collection-filters>button { min-inline-size: 44px; min-block-size: 34px; padding: .375rem .625rem; font-size: .8125rem; border-radius: var(--radius-sm); }
-.folio-collection-search { gap: .5rem; flex: 0 1 16rem; max-inline-size: 18rem; padding: 0 .625rem; border: 1px solid var(--rule); border-radius: var(--radius-sm); background: var(--paper); }
-.folio-collection-search:focus-within { border-color: var(--website-focus); }
-.folio-collection-search>svg { flex: none; color: var(--ink-3-aa); }
-.folio-collection-search input { min-inline-size: 0; min-block-size: 34px; block-size: 34px; flex: 1; padding: 0; border: 0; border-radius: 0; background: transparent; font-size: .8125rem; box-shadow: none; }
-.folio-collection-search input:focus,.folio-collection-search input:focus-visible { outline: none; box-shadow: none; }
+/* ─── The collection bar ─────────────────────────────────────────────────────
+   One owner for `.folio-collection-controls` and everything inside it: the
+   filter rail, the tools, the search and the summary line under the bar.
+   One row at every width — the rail scrolls sideways on a phone rather than
+   wrapping, and the search folds to its icon there. */
+.folio-collection-controls { position: relative; display: flex; align-items: center; gap: .75rem; min-block-size: 4rem; border-block: 1px solid var(--rule-2); }
+.folio-collection-controls[data-quiet] { border: 0; }
+.folio-reference-rows + .folio-collection-controls,
+.folio-reference-rows + :is(div, section) > .folio-collection-controls:first-child { border-block-start: 0; }
+.folio-collection-filters { position: relative; display: flex; flex: 1 1 0; align-items: center; gap: 2px; min-inline-size: 0; padding-block: .625rem; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
+.folio-collection-filters::-webkit-scrollbar { display: none; }
+.folio-collection-filters[data-fade='end'] { mask-image: linear-gradient(to right, currentColor calc(100% - 2.5rem), transparent); }
+.folio-collection-filters[data-fade='start'] { mask-image: linear-gradient(to left, currentColor calc(100% - 2.5rem), transparent); }
+.folio-collection-filters[data-fade='both'] { mask-image: linear-gradient(to right, transparent, currentColor 2.5rem, currentColor calc(100% - 2.5rem), transparent); }
+/* One ink pill travels to the choice; the labels only change colour. Physical
+   `left`, because the offset it is moved by is measured physically. */
+.folio-collection-marker { position: absolute; left: 0; inset-block-start: 50%; block-size: 2.25rem; margin-block-start: -1.125rem; border-radius: var(--radius-pill); background: var(--action); pointer-events: none; transition: transform var(--mid) var(--ease), inline-size var(--mid) var(--ease); }
+.folio-collection-filter { position: relative; z-index: 1; display: inline-flex; flex: none; align-items: center; gap: .4375rem; block-size: 44px; padding-inline: .9375rem; border: 0; border-radius: var(--radius-pill); background: none; color: var(--ink-2); font-family: var(--sans); font-size: .90625rem; white-space: nowrap; cursor: pointer; scroll-snap-align: start; transition: color var(--fast) var(--ease); }
+.folio-collection-filter::before { content: ''; position: absolute; inset: 4px 0; z-index: -1; border-radius: var(--radius-pill); transition: background-color var(--fast) var(--ease); }
+.folio-collection-filter:hover { color: var(--ink); }
+.folio-collection-filter:hover:not([aria-pressed='true'])::before { background: var(--paper-2); }
+.folio-collection-filter[aria-pressed='true'] { color: var(--action-foreground); }
+.folio-collection-filter:focus-visible { outline: var(--focus-w) solid var(--website-focus); outline-offset: -2px; }
+.folio-collection-count { font-family: var(--sans); font-size: .75rem; font-variant-numeric: tabular-nums; letter-spacing: normal; color: var(--ink-3-aa); transition: color var(--fast) var(--ease); }
+.folio-collection-filter[aria-pressed='true'] .folio-collection-count { color: color-mix(in srgb, var(--action-foreground) 72%, transparent); }
+.folio-collection-tools { display: flex; flex: none; align-items: center; gap: .5rem; transition: opacity var(--fast) var(--ease); }
+
+/* A facet: a pill beside search that opens a popover, or a sheet on a phone. */
+.folio-collection-facet { display: inline-flex; align-items: center; gap: .5rem; block-size: 2.5rem; padding-inline: .875rem; border: 1px solid var(--rule-2); border-radius: var(--radius-pill); background: none; color: var(--ink-2); font-family: var(--sans); font-size: .875rem; cursor: pointer; transition: border-color var(--fast) var(--ease), color var(--fast) var(--ease), background-color var(--fast) var(--ease); }
+.folio-collection-facet:hover, .folio-collection-facet[aria-expanded='true'] { border-color: var(--ink-3-aa); color: var(--ink); }
+.folio-collection-facet[data-active] { background: var(--action); border-color: var(--action); color: var(--action-foreground); }
+.folio-collection-facet__chevron { transition: transform var(--mid) var(--ease); }
+.folio-collection-facet[aria-expanded='true'] .folio-collection-facet__chevron { transform: rotate(180deg); }
+.folio-collection-facet__panel { inline-size: 17.5rem; padding: .5rem; }
+.folio-collection-facet__options { display: flex; flex-direction: column; max-block-size: 18.75rem; margin: 0; padding: 0; overflow-y: auto; list-style: none; }
+.folio-collection-facet__option { display: flex; align-items: center; gap: .625rem; inline-size: 100%; min-block-size: 2.5rem; padding-inline: .625rem; border: 0; border-radius: var(--radius); background: none; color: var(--ink-2); font-family: var(--sans); font-size: .90625rem; text-align: start; text-decoration: none; cursor: pointer; }
+.folio-collection-facet__option:hover { background: var(--paper-2); color: var(--ink); }
+.folio-collection-facet__option .folio-collection-count { margin-inline-start: auto; }
+.folio-collection-facet__check { opacity: 0; color: var(--ink); }
+.folio-collection-facet__option[data-current] { color: var(--ink); }
+.folio-collection-facet__option[data-current] .folio-collection-facet__check { opacity: 1; }
+.folio-collection-facet__sheet { padding: .625rem 1.125rem calc(1.5rem + env(safe-area-inset-bottom)); border-start-start-radius: var(--radius-frame); border-start-end-radius: var(--radius-frame); }
+.folio-collection-facet__sheet .folio-collection-facet__options { flex-direction: row; flex-wrap: wrap; gap: .5rem; max-block-size: none; padding-block-start: .25rem; }
+.folio-collection-facet__sheet .folio-collection-facet__option { inline-size: auto; min-block-size: 44px; padding-inline: .875rem; border: 1px solid var(--rule-2); border-radius: var(--radius-pill); }
+.folio-collection-facet__sheet .folio-collection-facet__check { display: none; }
+.folio-collection-facet__sheet .folio-collection-facet__option .folio-collection-count { margin-inline-start: 0; }
+.folio-collection-facet__sheet .folio-collection-facet__option[data-current] { background: var(--action); border-color: var(--action); color: var(--action-foreground); }
+.folio-collection-facet__sheet .folio-collection-facet__option[data-current] .folio-collection-count { color: color-mix(in srgb, var(--action-foreground) 72%, transparent); }
+
+/* Search: a pill at the end of the row that grows while in use. */
+.folio-collection-search { display: flex; flex: none; align-items: center; gap: .5rem; inline-size: 14.5rem; block-size: 2.5rem; padding-inline: .875rem .375rem; border: 1px solid var(--rule-2); border-radius: var(--radius-pill); background: var(--paper); color: var(--ink-3-aa); transition: inline-size var(--mid) var(--ease), border-color var(--fast) var(--ease); }
+.folio-collection-search:focus-within { inline-size: 18.75rem; border-color: var(--ink); color: var(--ink); }
+.folio-collection-search__glyph { flex: none; }
+.folio-collection-search input { flex: 1; min-inline-size: 0; block-size: 100%; min-block-size: 0; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; color: var(--ink); font-size: .90625rem; }
+.folio-collection-search input::placeholder { color: var(--ink-3-aa); }
+.folio-collection-search input:focus, .folio-collection-search input:focus-visible { outline: none; box-shadow: none; }
 .folio-collection-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
-.folio-collection-search>button { min-inline-size: 28px; min-block-size: 28px; inline-size: 28px; block-size: 28px; }
+.folio-collection-search__key { flex: none; margin-inline-start: auto; border-radius: var(--radius-pill); font-family: var(--sans); color: var(--ink-3-aa); }
+.folio-collection-search:is(:focus-within, [data-has-value]) .folio-collection-search__key { display: none; }
+@media (hover: none) { .folio-collection-search__key { display: none; } }
+.folio-collection-search__clear { flex: none; inline-size: 1.75rem; min-inline-size: 1.75rem; block-size: 1.75rem; min-block-size: 1.75rem; border-radius: var(--radius-pill); }
+.folio-collection-search:not([data-has-value]) .folio-collection-search__clear { display: none; }
+.folio-collection-search__open { display: none; }
+
+/* The result line, only while something is applied. It is the live region. */
+.folio-collection-summary { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows var(--mid) var(--ease), opacity var(--mid) var(--ease); }
+.folio-collection-summary > div { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .75rem; min-block-size: 0; overflow: hidden; color: var(--ink-3-aa); font-family: var(--sans); font-size: .84375rem; }
+.folio-collection-summary[data-active] { grid-template-rows: 1fr; opacity: 1; }
+.folio-collection-summary[data-active] > div { padding-block-start: .5rem; }
+.folio-collection-summary b { font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+.folio-collection-summary__clear { min-block-size: 44px; margin-inline-start: auto; padding-inline: .25rem; border: 0; background: none; color: var(--ink-2); font: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; cursor: pointer; }
+.folio-collection-summary__clear:hover { color: var(--ink); }
+
+@media (max-width: 640px) {
+  .folio-collection-controls { flex-wrap: wrap; gap: 0; min-block-size: 3.75rem; }
+  .folio-collection-filters { padding-inline-end: .375rem; }
+  .folio-collection-tools { gap: .25rem; padding-inline-start: .25rem; }
+  .folio-collection-facet { justify-content: center; inline-size: 44px; block-size: 44px; padding: 0; border-color: transparent; }
+  .folio-collection-facet__label, .folio-collection-facet__chevron { display: none; }
+  .folio-collection-facet[data-active] { background: none; border-color: var(--ink); color: var(--ink); }
+  .folio-collection-search:not([data-foldable]) { flex: 1 1 100%; inline-size: auto; margin-block-end: .625rem; }
+  .folio-collection-search:not([data-foldable]):focus-within { inline-size: auto; }
+  /* Folded: a 44px icon at the end of the row, the input still in the page. */
+  .folio-collection-controls:has(> .folio-collection-search[data-foldable]) { padding-inline-end: 3rem; }
+  .folio-collection-search[data-foldable] { position: absolute; inset-inline-end: 0; inset-block-start: 50%; z-index: 3; inline-size: 44px; block-size: 44px; padding: 0; border-color: transparent; overflow: hidden; translate: 0 -50%; }
+  .folio-collection-search[data-foldable]:focus-within { inline-size: 44px; border-color: transparent; }
+  .folio-collection-search[data-foldable] > .folio-collection-search__glyph,
+  .folio-collection-search[data-foldable] > .folio-collection-search__key,
+  .folio-collection-search[data-foldable] > .folio-collection-search__clear { display: none; }
+  .folio-collection-search[data-foldable] input { flex: 0; inline-size: 0; opacity: 0; font-size: 1rem; }
+  .folio-collection-search__open { display: inline-grid; flex: none; place-items: center; inline-size: 42px; block-size: 42px; padding: 0; border: 0; border-radius: var(--radius-pill); background: none; color: var(--ink-2); cursor: pointer; }
+  /* Open: the field runs across the whole row over the rail. */
+  .folio-collection-search[data-foldable][data-open], .folio-collection-search[data-foldable][data-open]:focus-within { inline-size: 100%; border-color: var(--ink); padding-inline-end: 2px; }
+  .folio-collection-search[data-foldable][data-open] input { flex: 1; inline-size: auto; opacity: 1; transition: opacity var(--mid) var(--ease) var(--fast); }
+  .folio-collection-search[data-foldable][data-open] > .folio-collection-search__clear { display: inline-grid; inline-size: 40px; min-inline-size: 40px; block-size: 40px; min-block-size: 40px; }
+  .folio-collection-search[data-foldable][data-open] > .folio-collection-search__open { pointer-events: none; color: var(--ink-3-aa); }
+  .folio-collection-controls:has(> .folio-collection-search[data-open]) > :is(.folio-collection-filters, .folio-collection-tools) { opacity: 0; pointer-events: none; }
+  .folio-collection-filters { transition: opacity var(--fast) var(--ease); }
+}
+@media (pointer: coarse) {
+  .folio-collection-search__clear { inline-size: 44px; min-inline-size: 44px; block-size: 44px; min-block-size: 44px; }
+}
 .folio-reference-link { display: inline-flex; align-items: center; gap: .375rem; min-block-size: 32px; max-inline-size: 100%; padding: .25rem 0; font-family: var(--sans); font-size: .8125rem; color: var(--ink-2); text-decoration: none; }
 .folio-reference-link>span { overflow-wrap: anywhere; }
 .folio-reference-link>svg { flex: none; }
@@ -22,10 +114,9 @@
 .folio-record[data-variant=compact] .folio-record-link { padding-block: 1rem; gap: 1rem; }
 .folio-record[data-variant=compact] :is(h2,h3) { font-family: var(--sans); font-size: .875rem; margin-block-start: 0; }
 .folio-record[data-variant=compact] .folio-record-summary { font-size: .8125rem; margin-block-start: .375rem; line-height: 1.7; }
-@media (max-width: 640px) { .folio-collection-search { flex-basis: auto; inline-size: 100%; max-inline-size: none; } }
 @media (pointer: coarse) {
-  .folio-collection-filters>button,.folio-collection-search input,.folio-reference-link,.folio-command-tabs [role=tab] { min-block-size: 44px; }
-  .folio-collection-search>button,:is(.folio-command-tabs [role=tabpanel],.folio-command-snippet) button { min-inline-size: 44px; min-block-size: 44px; }
+  .folio-reference-link,.folio-command-tabs [role=tab] { min-block-size: 44px; }
+  :is(.folio-command-tabs [role=tabpanel],.folio-command-snippet) button { min-inline-size: 44px; min-block-size: 44px; }
   :is(.folio-command-tabs [role=tabpanel],.folio-command-snippet) div:has(>button[aria-label]) { padding-block: 0; }
 }
 .folio-selection-toolbar { animation: folio-fade-in var(--duration-fast) var(--ease); }
@@ -37,15 +128,14 @@
    ride up beneath a skeleton and jump down when the page arrives. */
 .folio-site-navigation-inner { min-block-size: var(--website-header-h); }
 .folio-site-navigation .folio-navigation-search {
-  min-block-size: 34px;
-  block-size: 34px;
+  min-block-size: 2.5rem;
+  block-size: 2.5rem;
   inline-size: clamp(9rem, 14vw, 12rem);
-  padding-inline: .75rem;
+  padding-inline: .875rem .5rem;
   background: var(--paper);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-pill);
   font-size: .8125rem;
 }
-.folio-navigation-search kbd { border: 0; background: transparent; padding: 0; }
 .folio-site-navigation button:focus-visible { outline-color: var(--website-focus); outline-offset: 2px; }
 .folio-site-navigation button:focus:not(:focus-visible) { outline: none; }
 .folio-site-navigation .folio-navigation-search:focus-visible { outline: none; background: var(--paper-2); box-shadow: inset 0 0 0 1px var(--website-focus); }

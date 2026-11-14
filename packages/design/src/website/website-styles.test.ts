@@ -13,6 +13,9 @@ const conversation = readFileSync(join(ROOT, 'website-conversation.css'), 'utf8'
 const evidence = readFileSync(join(ROOT, 'website-evidence.css'), 'utf8')
 const recovery = readFileSync(join(ROOT, 'website-recovery.css'), 'utf8')
 const actions = readFileSync(join(ROOT, 'website-actions.css'), 'utf8')
+const collection = readFileSync(join(ROOT, 'website-collection.css'), 'utf8')
+const contact = readFileSync(join(ROOT, 'website-contact.css'), 'utf8')
+const shell = readFileSync(join(ROOT, 'website-shell.css'), 'utf8')
 
 const strip = (css: string) => css.replace(/\/\*[\s\S]*?\*\//g, '')
 
@@ -56,8 +59,63 @@ describe('website interaction styles', () => {
     expect(base).toContain('outline: var(--focus-w) solid var(--website-focus, var(--focus));')
   })
 
-  it('keeps compact collection filters wide enough for a thumb', () => {
-    expect(controls).toContain('.folio-collection-filters>button { min-inline-size: 44px; min-block-size: 34px;')
+  it('gives every filter pill a 44px hit box behind its 36px drawn marker', () => {
+    expect(strip(controls)).toMatch(/\.folio-collection-filter \{[^}]*block-size: 44px;/)
+    expect(strip(controls)).toMatch(/\.folio-collection-marker \{[^}]*block-size: 2\.25rem;/)
+  })
+
+  it('styles the collection bar from one sheet only', () => {
+    for (const part of ['.folio-collection-controls', '.folio-collection-filters', '.folio-collection-search', '.folio-collection-count']) {
+      expect(strip(collection)).not.toContain(part)
+      expect(strip(controls)).toContain(part)
+    }
+  })
+
+  it('keeps the bar to one row on a phone: the rail scrolls and the search folds to its icon', () => {
+    expect(strip(controls)).toMatch(/\.folio-collection-filters \{[^}]*overflow-x: auto;/)
+    expect(strip(controls)).toMatch(/\.folio-collection-search\[data-foldable\] \{ position: absolute;[^}]*inline-size: 44px;/)
+  })
+})
+
+describe('contact', () => {
+  it('lays the topic out as five tiles, three and two on a phone', () => {
+    expect(strip(contact)).toContain(".folio-contact-topic[data-count='5'] { grid-template-columns: repeat(5, minmax(0, 1fr)); }")
+    expect(strip(contact)).toContain(".folio-contact-topic[data-count='5'] .folio-contact-topic__tile:nth-child(n + 4) { grid-column: span 3; }")
+  })
+
+  it('stacks a full-width send button over the note on a phone', () => {
+    expect(strip(contact)).toMatch(/@media \(max-width: 640px\)[\s\S]*\.folio-contact-form__actions \{ flex-direction: column;[\s\S]*\.folio-contact-form__submit \{ inline-size: 100%;/)
+  })
+
+  it('keeps contact fields at 16px so a phone does not zoom on focus', () => {
+    expect(strip(contact)).toContain('.folio-contact-form__input, .folio-contact-form textarea { font-size: 1rem; }')
+  })
+
+  it('rings the map pin only when motion is welcome', () => {
+    const { inside, outside } = motionBlocks(contact, 'no-preference')
+    expect(inside).toContain('.folio-location-figure__marker::after { animation: folio-halo')
+    expect(outside).not.toContain('folio-halo')
+  })
+})
+
+describe('the phone menu', () => {
+  it('unfolds from under the bar by clip-path rather than sliding a sheet over it', () => {
+    expect(strip(shell)).toContain('@keyframes folio-navigation-unfold { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }')
+    expect(strip(shell)).toMatch(/\.folio-site-navigation-sheet \{ position: fixed; inset: var\(--website-header-h, 3\.75rem\) 0 0;/)
+    expect(strip(shell)).not.toContain('folio-navigation-down')
+  })
+
+  it('crossfades one toggle between Menu and X', () => {
+    expect(strip(shell)).toContain(".folio-site-navigation-toggle[aria-expanded='true'] [data-glyph='close'] { opacity: 1; transform: none; }")
+  })
+
+  it('leaves the selected segment its on-ink colour', () => {
+    expect(strip(shell)).toContain(".folio-site-preference-segment__item:not([data-indicator-active='true']) { color: var(--ink-2); }")
+    expect(strip(shell)).not.toMatch(/\.folio-site-preference-segment__item \{[^}]*color:/)
+  })
+
+  it('takes the pill radius for the desk search trigger', () => {
+    expect(strip(controls)).toMatch(/\.folio-site-navigation \.folio-navigation-search \{[^}]*border-radius: var\(--radius-pill\);/)
   })
 })
 

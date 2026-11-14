@@ -135,12 +135,20 @@ const BUDGET = {
   /**
    * Seventeen website families, including their shared Radix primitives.
    *
-   * 275 → 285 for the Radix minor releases (275.8 kB measured, up from
+   * 285 → 305 for the contact, collection-filter and phone-menu redesign
+   * (296.9 kB measured, up from 282.6). Most of the 14.3 kB is two Radix
+   * primitives the website entry did not reach before — the toggle group
+   * (with its roving focus) behind the contact topic tiles and the menu's
+   * preference segments, and the popover behind the collection facet — plus
+   * the facet, the folding search, the sliding filter marker and the
+   * disclosure question list. The single-part budget is unchanged.
+   *
+   * Previously, 275 → 285 for the Radix minor releases (275.8 kB measured, up from
    * 269.3), and then for the ask dock's single pill-and-panel shell, the
    * composer's Stop and countdown states, the palette's answer view, the
    * lightbox's frame-to-stage growth and the staggered section reveal.
    */
-  website: 285,
+  website: 305,
   /** A navigation link must not pull in conversations, galleries or charts. */
   singleWebsiteComponent: 40,
 }

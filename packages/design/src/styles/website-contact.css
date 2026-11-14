@@ -5,43 +5,178 @@
   border-block-start: 1px solid var(--rule-divider);
   padding-block: clamp(2.5rem, 5vw, 4rem) clamp(4rem, 8vw, 7rem);
 }
-.folio-contact-form, .folio-contact-facts { min-inline-size: 0; }
-.folio-contact-form__fields { display: grid; gap: 2rem; border-block-start: 1px solid var(--rule-divider); padding-block-start: 2rem; }
-.folio-contact-form__identity { display: grid; gap: 2rem; }
+.folio-contact-form, .folio-contact-facts, .folio-correspondence__main, .folio-correspondence__side { min-inline-size: 0; }
+
+/* The contact layout: form seven parts, place five. On a phone the side column
+   dissolves so its parts can take their own order — the picture of the place
+   first, the form, then the facts. */
+.folio-correspondence[data-media] { display: flex; flex-direction: column; align-items: stretch; gap: 0; border-block-start-color: var(--rule-2); padding-block-start: 2.75rem; }
+/* Availability beside the title: flush with the column's end, on the title's baseline. */
+.folio-collection-intro-media:has(> .folio-contact-status) { justify-self: end; align-self: end; }
+.folio-correspondence[data-media] .folio-correspondence__side { display: contents; }
+.folio-correspondence[data-media] .folio-correspondence__media { order: -1; margin-block-end: 2.25rem; }
+.folio-correspondence[data-media] .folio-correspondence__main { padding-block-end: 2.75rem; }
+.folio-correspondence__side { display: grid; gap: 1.375rem; align-content: start; }
+
+/* Availability, one pill beside the page title. */
+.folio-contact-status { display: inline-flex; align-items: center; gap: .625rem; min-block-size: 2.375rem; padding-inline: .875rem 1rem; border: 1px solid var(--rule-2); border-radius: var(--radius-pill); color: var(--ink); font-family: var(--sans); font-size: .875rem; white-space: nowrap; }
+
+/* Form */
+.folio-contact-form__heading { max-inline-size: 26ch; margin-block: 0 1.875rem; font-size: var(--fs-sub); line-height: 1.22; }
+.folio-contact-form__fields { display: grid; gap: 1.375rem; }
+.folio-contact-form__identity { display: grid; gap: 1.375rem; }
+.folio-contact-form__label { font-size: .875rem; color: var(--ink); }
+.folio-contact-form__input, .folio-contact-form textarea { font-size: 1rem; }
+.folio-contact-form__input { min-block-size: 3rem; }
+.folio-contact-form__topic { display: grid; gap: .5rem; min-inline-size: 0; }
+
+/* The topic tiles. Five across on a desk, three and two on a phone. */
+.folio-contact-topic { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 7rem), 1fr)); gap: .5rem; }
+.folio-contact-topic[data-count='5'] { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.folio-contact-topic__tile { display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: .625rem; min-block-size: 4.75rem; padding: .75rem .75rem .6875rem; border: 1px solid var(--rule-2); border-radius: var(--radius-lg); background: transparent; color: var(--ink-2); font-family: var(--sans); font-size: .875rem; line-height: 1.2; text-align: start; cursor: pointer; transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease), border-color var(--fast) var(--ease), transform var(--fast) var(--ease); }
+.folio-contact-topic__icon { display: inline-flex; color: var(--ink-3-aa); transition: color var(--fast) var(--ease); }
+.folio-contact-topic__tile:hover { border-color: var(--ink-3-aa); color: var(--ink); }
+.folio-contact-topic__tile:active { transform: scale(.98); }
+.folio-contact-topic__tile[data-state='on'] { background: var(--action); border-color: var(--action); color: var(--action-foreground); }
+.folio-contact-topic__tile[data-state='on'] .folio-contact-topic__icon { color: var(--action-foreground); }
+.folio-contact-topic__tile:focus-visible { outline: var(--focus-w) solid var(--website-focus, var(--focus)); outline-offset: 2px; }
+
+/* The optional subject, folded behind one line until asked for. */
+.folio-contact-form__subject { display: grid; }
+.folio-contact-form__more { display: inline-flex; align-items: center; gap: .5rem; justify-self: start; min-block-size: 44px; margin-block: -.625rem; padding: 0; border: 0; background: none; color: var(--ink-2); font-family: var(--sans); font-size: .875rem; cursor: pointer; }
+.folio-contact-form__more:hover { color: var(--ink); }
+.folio-contact-form__more svg { transition: transform var(--mid) var(--ease); }
+.folio-contact-form__more[aria-expanded='true'] svg { transform: rotate(45deg); }
+.folio-contact-form__fold { display: grid; grid-template-rows: 0fr; visibility: hidden; transition: grid-template-rows var(--mid) var(--ease), visibility 0s linear var(--mid); }
+.folio-contact-form__fold > div { min-block-size: 0; overflow: hidden; padding: 3px; margin: -3px; }
+.folio-contact-form__fold[data-open] { grid-template-rows: 1fr; visibility: visible; transition: grid-template-rows var(--mid) var(--ease), visibility 0s; }
+.folio-contact-form__more + .folio-contact-form__fold[data-open] { margin-block-start: 1.375rem; }
+
 .folio-contact-form__error { display: grid; grid-template-rows: 1fr; }
 .folio-contact-form__error > span { min-block-size: 0; overflow: hidden; }
 /* A failed send: a sentence ruled in the danger colour, as the answer notes are. */
 .folio-contact-form__note { margin: 0; padding: .125rem 0 .125rem .875rem; border-inline-start: 2px solid var(--danger); color: var(--ink-2); font-size: .875rem; line-height: 1.55; }
 @media (prefers-reduced-motion: no-preference) {
   .folio-contact-form__error, .folio-contact-form__note { animation: folio-contact-unfold var(--mid) var(--ease) backwards; }
+  .folio-contact-form__sent { animation: folio-contact-rise var(--slow) var(--ease) both; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .folio-contact-form__error, .folio-contact-form__note { animation: folio-contact-fade var(--fast) var(--ease) backwards; }
+  .folio-contact-form__error, .folio-contact-form__note, .folio-contact-form__sent { animation: folio-contact-fade var(--fast) var(--ease) backwards; }
 }
 @keyframes folio-contact-unfold { from { grid-template-rows: 0fr; opacity: 0; } }
 @keyframes folio-contact-fade { from { opacity: 0; } }
-.folio-contact-form__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem; }
-.folio-contact-facts__links { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-block-start: 1rem; }
+@keyframes folio-contact-rise { from { opacity: 0; transform: translateY(8px); } }
+
+/* The send button leads; the privacy note follows it, never shares its row on a phone. */
+.folio-contact-form__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; margin-block-start: .375rem; }
+.folio-contact-form__submit { min-block-size: 3rem; padding-inline: 1.5rem 1.375rem; border-radius: var(--radius-pill); font-size: .9375rem; }
+.folio-contact-form__submit-arrow { transition: transform var(--mid) var(--ease); }
+.folio-contact-form__submit:hover .folio-contact-form__submit-arrow { transform: translateX(3px); }
+.folio-contact-form__privacy { display: flex; align-items: flex-start; gap: .5rem; max-inline-size: 34ch; margin: 0; color: var(--ink-3-aa); font-size: .8125rem; line-height: 1.45; }
+.folio-contact-form__privacy svg { flex: none; margin-block-start: .125rem; }
+
+.folio-contact-form__sent { padding-block: 2.25rem .75rem; }
+.folio-contact-form__sent > svg { color: var(--ok); }
+.folio-contact-form__sent-title { margin: 1rem 0 .375rem; font-size: var(--fs-sub); letter-spacing: -.012em; color: var(--ink); }
+.folio-contact-form__sent-body { margin: 0; color: var(--ink-2); }
+
+/* Facts as rows: glyph, value, and the term or one action at the end. */
+.folio-contact-facts__rows { margin: 0; padding: 0; list-style: none; border-block-start: 1px solid var(--rule-2); }
+.folio-contact-facts__rows > li { display: flex; align-items: center; gap: .875rem; min-block-size: 3.5rem; border-block-end: 1px solid var(--rule); font-size: .96875rem; color: var(--ink); }
+.folio-contact-facts__icon { display: inline-flex; flex: none; color: var(--ink-3-aa); }
+.folio-contact-facts__value { min-inline-size: 0; overflow-wrap: anywhere; }
+.folio-contact-facts__value > a { display: inline-flex; align-items: center; min-block-size: 44px; color: inherit; text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 1px; text-underline-offset: 4px; transition: text-decoration-color var(--fast) var(--ease); }
+.folio-contact-facts__value > a:hover { text-decoration-color: currentColor; }
+.folio-contact-facts__term { margin-inline-start: auto; color: var(--ink-3-aa); font-size: .8125rem; white-space: nowrap; }
+.folio-contact-facts__action { margin-inline: auto -.625rem; }
+/* The copy glyph turns into a check in place, then back. */
+.folio-contact-facts__action .folio-clipboard-button { position: relative; }
+.folio-contact-facts__action .folio-clipboard-button svg { position: absolute; inset: 0; margin: auto; transition: opacity var(--fast) var(--ease), transform var(--mid) var(--ease); }
+.folio-contact-facts__action .folio-clipboard-button [data-glyph='copied'] { opacity: 0; transform: scale(.6); color: var(--ok); }
+.folio-contact-facts__action .folio-clipboard-button[data-copied] [data-glyph='copy'] { opacity: 0; transform: scale(.6); }
+.folio-contact-facts__action .folio-clipboard-button[data-copied] [data-glyph='copied'] { opacity: 1; transform: none; }
+.folio-contact-facts__links { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-block-start: 1rem; column-gap: 1.5rem; }
+.folio-contact-facts__links[data-variant='marks'] { gap: .5rem; margin-block-start: .625rem; }
+.folio-contact-facts__links[data-variant='marks'] > a { display: inline-grid; place-items: center; inline-size: 44px; block-size: 44px; padding: 0; border: 1px solid var(--rule-2); border-radius: var(--radius-pill); color: var(--ink-2); transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease), border-color var(--fast) var(--ease); }
+.folio-contact-facts__links[data-variant='marks'] > a:hover { background: var(--action); border-color: var(--action); color: var(--action-foreground); }
 /* A fact's link sits on the same left edge as its label: a ghost button's
    inline padding read as an indent where an icon had gone missing. The 44px
    block size the host gives the link is kept. */
 .folio-contact-facts dd > a:first-child,
-.folio-contact-facts__links > a { padding-inline: 0; }
-.folio-contact-facts__links { column-gap: 1.5rem; }
+.folio-contact-facts__links[data-variant='text'] > a { padding-inline: 0; }
+
+/* Questions */
+.folio-question-list__description { max-inline-size: 42rem; margin-block: .75rem 2rem; }
 .folio-question-list__items { border-block-start: 1px solid var(--rule-divider); }
 .folio-question-list__item { display: grid; gap: 1rem; padding-block: 1.5rem; border-block-end: 1px solid var(--rule); }
+.folio-question-list[data-disclosure] { display: grid; gap: 1.5rem 4.75rem; border-block-start: 1px solid var(--rule-2); padding-block: clamp(2.25rem, 5vw, 2.75rem) clamp(3.75rem, 8vw, 5.25rem); }
+.folio-question-list[data-disclosure] .folio-question-list__description { margin-block: .375rem 0; color: var(--ink-3-aa); font-size: .90625rem; }
+.folio-question-list[data-disclosure] .folio-question-list__items { border-block-start-color: var(--rule-2); }
+.folio-question-list__row { border-block-end: 1px solid var(--rule); }
+.folio-question-list__row > h3 { margin: 0; font: inherit; }
+.folio-question-list__row button { display: flex; align-items: center; justify-content: space-between; gap: 1rem; inline-size: 100%; min-block-size: 3.875rem; padding: 0; border: 0; background: none; color: var(--ink); font-family: var(--sans); font-size: 1.125rem; text-align: start; cursor: pointer; }
+.folio-question-list__row button svg { flex: none; color: var(--ink-3-aa); transition: transform var(--mid) var(--ease); }
+.folio-question-list__row button[aria-expanded='true'] svg { transform: rotate(45deg); }
+.folio-question-list__answer { display: grid; grid-template-rows: 0fr; visibility: hidden; transition: grid-template-rows var(--mid) var(--ease), visibility 0s linear var(--mid); }
+.folio-question-list__answer > div { min-block-size: 0; overflow: hidden; }
+.folio-question-list__answer p { max-inline-size: 60ch; color: var(--ink-2); }
+.folio-question-list__row[data-open] .folio-question-list__answer { grid-template-rows: 1fr; visibility: visible; transition: grid-template-rows var(--mid) var(--ease), visibility 0s; }
+.folio-question-list__row[data-open] .folio-question-list__answer p { padding-block-end: 1.25rem; }
+
+/* The place */
 .folio-location-figure { margin: 0; }
-.folio-location-figure__map { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--radius-sm); background: var(--paper-2); }
+.folio-location-figure__map { position: relative; aspect-ratio: var(--folio-location-ratio, 16 / 10); overflow: hidden; border: 1px solid var(--rule-2); border-radius: var(--radius-lg); background: var(--paper-2); }
 .folio-location-figure__map > img { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
 .folio-location-figure__crosshair::before, .folio-location-figure__crosshair::after { content: ''; position: absolute; background: var(--rule-2); }
 .folio-location-figure__crosshair::before { inset-block: 0; inset-inline-start: 50%; inline-size: 1px; }
 .folio-location-figure__crosshair::after { inset-inline: 0; inset-block-start: 50%; block-size: 1px; }
 .folio-location-figure__marker { position: absolute; inset-inline-start: 50%; inset-block-start: 50%; inline-size: .875rem; block-size: .875rem; border-radius: var(--radius-pill); border: 2px solid var(--paper); background: var(--ink); outline: 1px solid var(--ink); translate: -50% -50%; }
+.folio-location-figure__marker::after { content: ''; position: absolute; inset: -3px; border: 1px solid var(--ink); border-radius: var(--radius-pill); opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .folio-location-figure__marker::after { animation: folio-halo 2.6s var(--ease) infinite; }
+}
 [dir='rtl'] .folio-location-figure__marker { translate: 50% -50%; }
-.folio-location-figure__caption { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .25rem 1rem; margin-block-start: .75rem; border-block-start: 1px solid var(--rule); padding-block-start: .75rem; }
+.folio-location-figure__overlay { position: absolute; inset-inline-start: .75rem; inset-block-end: .75rem; }
+.folio-location-figure__credit { position: absolute; inset-inline-end: .625rem; inset-block-end: .5rem; color: var(--ink-3-aa); font-size: .625rem; }
+.folio-location-figure__caption { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .125rem 1rem; padding-block-start: .625rem; }
+.folio-location-clock { display: inline-flex; align-items: center; gap: .625rem; min-block-size: 2.75rem; padding-inline: .8125rem 1rem; border: 1px solid var(--rule-2); border-radius: var(--radius-pill); background: var(--paper); box-shadow: var(--folio-lift-rest); color: var(--ink); }
+.folio-location-clock__icon { display: inline-flex; color: var(--ink-2); }
+.folio-location-clock time { font-size: 1.0625rem; font-weight: 500; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.folio-location-clock__place { color: var(--ink-3-aa); font-size: .8125rem; }
+
 @media (min-width: 640px) { .folio-contact-form__identity { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 768px) { .folio-question-list__item { grid-template-columns: minmax(12rem, 4fr) minmax(0, 8fr); gap: 2rem; } }
 @media (min-width: 901px) {
   .folio-correspondence { grid-template-columns: minmax(16rem, 4fr) minmax(0, 8fr); gap: clamp(3rem, 7vw, 7rem); }
   .folio-correspondence[data-aside-position='end'] { grid-template-columns: minmax(0, 8fr) minmax(18rem, 4fr); }
+  .folio-correspondence[data-media] { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 0 clamp(3rem, 6vw, 4.75rem); }
+  .folio-correspondence[data-media] .folio-correspondence__main { padding-block-end: 0; }
+  .folio-correspondence[data-media] .folio-correspondence__side { display: grid; position: sticky; inset-block-start: calc(var(--website-header-h, 3.75rem) + 1.5rem); }
+  .folio-correspondence[data-media] .folio-correspondence__media { margin-block-end: 0; }
+  .folio-question-list[data-disclosure] { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); }
+}
+/* The ask dock's pill rests in the lower-left corner, over the start of the
+   page column until the window is wide enough for a gutter to hold it. On a
+   phone the pill steps aside while the form is under it; from there up the
+   form starts clear of it instead, so no field or button is ever beneath it. */
+@media (min-width: 641px) {
+  :root:has(.folio-conversation-dock[data-corner='bottom-left']) .folio-correspondence[data-media] .folio-correspondence__main {
+    padding-inline-start: max(0px, calc(var(--folio-dock-clearance) - (100vw - min(100vw, var(--w-page))) / 2 - var(--page-pad)));
+  }
+}
+@media (max-width: 900px) {
+  .folio-collection-intro-media:has(> .folio-contact-status) { justify-self: start; }
+}
+@media (max-width: 640px) {
+  .folio-correspondence[data-media] { border-block-start: 0; padding-block-start: 0; }
+  .folio-correspondence[data-media] .folio-correspondence__main { padding-block-start: 1.875rem; border-block-start: 1px solid var(--rule-2); }
+  .folio-correspondence[data-media] .folio-location-figure__map { aspect-ratio: 2 / 1; }
+  .folio-contact-form__heading { font-size: var(--fs-item); margin-block-end: 1.5rem; }
+  .folio-contact-topic[data-count='5'] { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .folio-contact-topic[data-count='5'] .folio-contact-topic__tile { grid-column: span 2; min-block-size: 4.5rem; padding: .6875rem .6875rem .625rem; font-size: .84375rem; }
+  .folio-contact-topic[data-count='5'] .folio-contact-topic__tile:nth-child(n + 4) { grid-column: span 3; }
+  .folio-contact-form__actions { flex-direction: column; align-items: stretch; gap: .875rem; }
+  .folio-contact-form__submit { inline-size: 100%; min-block-size: 3.25rem; }
+  .folio-contact-form__privacy { max-inline-size: none; }
+  .folio-question-list__row button { font-size: 1.0625rem; }
 }

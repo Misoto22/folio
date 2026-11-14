@@ -1,15 +1,16 @@
 /* The soft lift a summoned layer may carry — the ask dock and the search
    palette, each opened by the reader's own hand over the page they are
-   reading. Law 2 keeps blur off the system's shadows; these two are the
+   reading — and the clock set into the contact map, which floats over the
+   picture rather than the page. Law 2 keeps blur off the system's shadows; these two are the
    exception, declared once here so both float at the same height.
    Dark mode mixes from the scrim, which is black there, rather than from ink,
    which is light there and would draw a glow instead of a shadow. */
-.folio-conversation-dock, .folio-search-palette {
+.folio-conversation-dock, .folio-search-palette, .folio-location-clock {
   --folio-lift-rest: 0 2px 5px color-mix(in srgb, var(--ink) 4%, transparent), 0 8px 24px color-mix(in srgb, var(--ink) 6%, transparent);
   --folio-lift-hover: 0 3px 8px color-mix(in srgb, var(--ink) 5%, transparent), 0 10px 28px color-mix(in srgb, var(--ink) 8%, transparent);
   --folio-lift-open: 0 12px 48px color-mix(in srgb, var(--ink) 12%, transparent);
 }
-[data-mode='dark'] :is(.folio-conversation-dock, .folio-search-palette) {
+[data-mode='dark'] :is(.folio-conversation-dock, .folio-search-palette, .folio-location-clock) {
   --folio-lift-rest: 0 2px 5px color-mix(in srgb, var(--scrim) 42%, transparent), 0 8px 24px color-mix(in srgb, var(--scrim) 48%, transparent);
   --folio-lift-hover: 0 3px 8px color-mix(in srgb, var(--scrim) 48%, transparent), 0 10px 28px color-mix(in srgb, var(--scrim) 56%, transparent);
   --folio-lift-open: 0 12px 48px color-mix(in srgb, var(--scrim) 76%, transparent);

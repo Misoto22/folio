@@ -1,11 +1,15 @@
 'use client'
 
-import { useEffect, useRef, type ComponentProps, type ElementType, type HTMLAttributes, type ReactElement, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, useSyncExternalStore, type ComponentProps, type ElementType, type HTMLAttributes, type ReactElement, type ReactNode } from 'react'
 import { Slot } from '@radix-ui/react-slot'
-import { ArrowRight, ArrowUpRight, Search, X } from '../../icons'
+import { ArrowRight, ArrowUpRight, Check, ChevronDown, Search, Tag, X } from '../../icons'
 import { Button } from '../../components/Button/Button'
 import { Input } from '../../components/Input/Input'
 import { EmptyState } from '../../components/EmptyState/EmptyState'
+import { Kbd } from '../../components/Kbd/Kbd'
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from '../../components/Popover/Popover'
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from '../../components/Sheet/Sheet'
+import { useSelectionIndicator } from '../../lib/useSelectionIndicator'
 import { cn } from '../../lib/cn'
 import { replaceSlotContent } from '../../lib/slot-content'
 
@@ -48,28 +52,196 @@ export function CollectionGroup({ title, caption, headingId, compact, children, 
   </section>
 }
 export interface CollectionFilter { value: string | null; label: string; count?: number }
-export interface CollectionSearchProps { value: string; onChange: (value: string) => void; label: string; placeholder?: string; clearLabel: string; focusShortcut?: boolean }
-export function CollectionSearch({ value, onChange, label, placeholder, clearLabel, focusShortcut = false }: CollectionSearchProps) {
+export interface CollectionSearchProps {
+  value: string
+  onChange: (value: string) => void
+  label: string
+  placeholder?: string
+  clearLabel: string
+  focusShortcut?: boolean
+  /**
+   * Names the button the field folds to on a phone. With it the search is a
+   * 44px icon at the end of the row until asked for, then runs across the row;
+   * clearing closes it and returns focus to the icon. Without it the field is
+   * open at every width.
+   */
+  openLabel?: string
+}
+
+const PHONE = '(max-width: 640px)'
+const subscribePhone = (onChange: () => void) => {
+  const query = window.matchMedia?.(PHONE)
+  query?.addEventListener('change', onChange)
+  return () => query?.removeEventListener('change', onChange)
+}
+const readPhone = () => window.matchMedia?.(PHONE).matches ?? false
+const readPhoneOnServer = () => false
+
+/** Whether the viewport is phone-sized, read where the stylesheet folds the controls. */
+function usePhone() {
+  return useSyncExternalStore(subscribePhone, readPhone, readPhoneOnServer)
+}
+
+export function CollectionSearch({ value, onChange, label, placeholder, clearLabel, focusShortcut = false, openLabel }: CollectionSearchProps) {
   const ref = useRef<HTMLInputElement>(null)
+  const opener = useRef<HTMLButtonElement>(null)
+  const inputId = useId()
+  const foldable = openLabel != null
+  const [open, setOpen] = useState(false)
   useEffect(() => {
     if (!focusShortcut) return
     const onKey = (event: KeyboardEvent) => {
       const target = event.target
       const typing = target instanceof HTMLElement && (target.matches('input,textarea,select') || target.isContentEditable)
       if (event.key === '/' && !typing && !event.metaKey && !event.ctrlKey && !event.altKey) { event.preventDefault(); ref.current?.focus() }
-      if (event.key === 'Escape' && document.activeElement === ref.current) { onChange(''); ref.current?.blur() }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [focusShortcut, onChange])
-  return <div className="folio-collection-search"><Search aria-hidden="true" size={15} /><Input ref={ref} aria-label={label} type="search" value={value} placeholder={placeholder} onChange={(event) => onChange(event.target.value)} />{value && <Button type="button" variant="ghost" iconOnly aria-label={clearLabel} onClick={() => onChange('')}><X size={15} aria-hidden="true" /></Button>}</div>
-}
-export interface CollectionControlsProps { items: CollectionFilter[]; selected: string | null; onSelect: (value: string | null) => void; filterLabel?: string; search?: CollectionSearchProps; quiet?: boolean; showCounts?: boolean }
-export function CollectionControls({ items, selected, onSelect, filterLabel, search, quiet, showCounts = true }: CollectionControlsProps) {
-  return <div className="folio-collection-controls" data-quiet={quiet || undefined}>
-    {items.length > 0 && <div className="folio-collection-filters" role="group" aria-label={filterLabel}>{filterLabel && <span className="folio-collection-context">{filterLabel}</span>}{items.map((item) => <Button key={item.value ?? '__all'} type="button" variant={item.value === selected ? 'secondary' : 'ghost'} aria-pressed={item.value === selected} onClick={() => onSelect(item.value)}>{item.label}{showCounts && item.count !== undefined && <span aria-hidden className="folio-collection-count">{item.count}</span>}</Button>)}</div>}
-    {search && <CollectionSearch {...search} />}
+  }, [focusShortcut])
+  // Clearing ends the search. On a phone the field folds back to its icon and
+  // the caret goes to the icon; on a desk it stays in the field.
+  const clear = (fromKeyboard: boolean) => {
+    onChange('')
+    if (foldable && readPhone()) { setOpen(false); opener.current?.focus() }
+    else if (fromKeyboard) ref.current?.blur()
+    else ref.current?.focus()
+  }
+  return <div className="folio-collection-search" data-foldable={foldable || undefined} data-open={(foldable && open) || undefined} data-has-value={value !== '' || undefined}
+    onBlur={(event) => { if (foldable && value === '' && !event.currentTarget.contains(event.relatedTarget as Node | null)) setOpen(false) }}>
+    <Search className="folio-collection-search__glyph" aria-hidden="true" size={16} />
+    {foldable && <button ref={opener} type="button" className="folio-collection-search__open" aria-label={openLabel} aria-expanded={open} aria-controls={inputId} onClick={() => { setOpen(true); ref.current?.focus() }}><Search size={19} aria-hidden="true" /></button>}
+    <Input ref={ref} id={inputId} aria-label={label} type="search" value={value} placeholder={placeholder} onChange={(event) => onChange(event.target.value)}
+      onFocus={() => { if (foldable) setOpen(true) }}
+      onKeyDown={(event) => { if (event.key === 'Escape') { event.preventDefault(); clear(true) } }} />
+    {focusShortcut && <Kbd className="folio-collection-search__key" aria-hidden="true">/</Kbd>}
+    {(value !== '' || (foldable && open)) && <Button type="button" variant="ghost" iconOnly aria-label={clearLabel} className="folio-collection-search__clear" onClick={() => clear(false)}><X size={15} aria-hidden="true" /></Button>}
   </div>
+}
+
+/** One quiet line under the bar while something is applied: how many are left, and the way back. */
+export interface CollectionSummaryProps {
+  /** Whether a filter, a search or a facet is applied. The line folds away when not. */
+  active: boolean
+  /** The result, e.g. "3 of 6 projects", already localized by the host. */
+  label: ReactNode
+  clearLabel: string
+  onClear: () => void
+  /** An applied facet, e.g. a removable tag chip, between the result and the clear action. */
+  applied?: ReactNode
+}
+
+function CollectionSummary({ active, label, clearLabel, onClear, applied }: CollectionSummaryProps) {
+  return <div className="folio-collection-summary" data-active={active || undefined}>
+    <div role="status" aria-live="polite">
+      {active && <><span className="folio-collection-summary__label">{label}</span>{applied}<button type="button" className="folio-collection-summary__clear" onClick={onClear}>{clearLabel}</button></>}
+    </div>
+  </div>
+}
+
+export interface CollectionControlsProps {
+  items: CollectionFilter[]
+  selected: string | null
+  onSelect: (value: string | null) => void
+  /** Names the filter group for assistive tech. */
+  filterLabel?: string
+  search?: CollectionSearchProps
+  quiet?: boolean
+  showCounts?: boolean
+  /** More controls between the filters and the search, such as a `CollectionFacet`. */
+  tools?: ReactNode
+  /** The result line under the bar, shown while something is applied. */
+  summary?: CollectionSummaryProps
+}
+
+/**
+ * One row of controls: the filters as a rail of pills, with an ink marker that
+ * slides to the choice, then any tools, then search.
+ *
+ * The rail scrolls sideways on a phone instead of wrapping, with its far edge
+ * faded while there is more; its height is the same at any number of filters.
+ */
+export function CollectionControls({ items, selected, onSelect, filterLabel, search, quiet, showCounts = true, tools, summary }: CollectionControlsProps) {
+  const [rail, marker] = useSelectionIndicator<HTMLDivElement>(selected ?? '')
+  const [fade, setFade] = useState<'none' | 'start' | 'end' | 'both'>('none')
+  useEffect(() => {
+    const node = rail.current
+    if (!node) return
+    const update = () => {
+      const max = node.scrollWidth - node.clientWidth
+      const at = Math.abs(node.scrollLeft)
+      setFade(max <= 1 ? 'none' : at <= 1 ? 'end' : at >= max - 1 ? 'start' : 'both')
+    }
+    update()
+    node.addEventListener('scroll', update, { passive: true })
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(update)
+    observer?.observe(node)
+    return () => { node.removeEventListener('scroll', update); observer?.disconnect() }
+  }, [rail, items.length])
+  return <>
+    <div className="folio-collection-controls" data-quiet={quiet || undefined}>
+      {items.length > 0 && <div ref={rail} className="folio-collection-filters" role="group" aria-label={filterLabel} data-fade={fade}>
+        {marker.ready && <span aria-hidden className="folio-collection-marker" data-folio-animated style={{ transform: `translateX(${marker.offset}px)`, inlineSize: marker.width }} />}
+        {items.map((item) => {
+          const pressed = item.value === selected
+          return <button key={item.value ?? '__all'} type="button" className="folio-collection-filter" aria-pressed={pressed} data-indicator-active={pressed} onClick={() => onSelect(item.value)}>
+            {item.label}{showCounts && item.count !== undefined && <>{' '}<span className="folio-collection-count">{item.count}</span></>}
+          </button>
+        })}
+      </div>}
+      {tools && <div className="folio-collection-tools">{tools}</div>}
+      {search && <CollectionSearch {...search} />}
+    </div>
+    {summary && <CollectionSummary {...summary} />}
+  </>
+}
+
+export interface CollectionFacetOption {
+  value: string
+  label: string
+  count?: number
+  /** A host router link. With it the option navigates rather than selecting in place. */
+  link?: CollectionLink
+}
+
+export interface CollectionFacetProps {
+  /** Names the trigger and the panel, e.g. "Tags". */
+  label: string
+  options: CollectionFacetOption[]
+  /** The applied option, marked in the list and on the trigger. */
+  selected?: string | null
+  /** Called with an option's value, or `null` when the applied one is chosen again. Ignored by linked options. */
+  onSelect?: (value: string | null) => void
+  closeLabel: string
+  /** The trigger's glyph. A tag by default. */
+  icon?: ReactNode
+}
+
+/**
+ * One more way to narrow a collection, behind a single button beside search:
+ * a popover list on a desk, a bottom sheet of pills on a phone. Options either
+ * select in place or, given a host `link`, go to that facet's own page.
+ */
+export function CollectionFacet({ label, options, selected = null, onSelect, closeLabel, icon }: CollectionFacetProps) {
+  const phone = usePhone()
+  const [open, setOpen] = useState(false)
+  const Close = phone ? SheetClose : PopoverClose
+  const list = <ul className="folio-collection-facet__options">
+    {options.map((option) => {
+      const current = option.value === selected
+      const body = <><Check size={15} aria-hidden="true" className="folio-collection-facet__check" /><span>{option.label}</span>{option.count !== undefined && <>{' '}<span className="folio-collection-count">{option.count}</span></>}</>
+      return <li key={option.value}>
+        {option.link
+          ? <Close asChild><Slot className="folio-collection-facet__option" aria-current={current ? 'page' : undefined} data-current={current || undefined}>{replaceSlotContent(option.link, body)}</Slot></Close>
+          : <Close asChild><button type="button" className="folio-collection-facet__option" aria-pressed={current} data-current={current || undefined} onClick={() => onSelect?.(current ? null : option.value)}>{body}</button></Close>}
+      </li>
+    })}
+  </ul>
+  const trigger = <button type="button" className="folio-collection-facet" aria-label={label} data-active={selected != null || undefined}>
+    {icon ?? <Tag size={16} aria-hidden="true" />}<span className="folio-collection-facet__label">{label}</span><ChevronDown size={14} aria-hidden="true" className="folio-collection-facet__chevron" />
+  </button>
+  return phone
+    ? <Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild>{trigger}</SheetTrigger><SheetContent side="bottom" title={label} closeLabel={closeLabel} className="folio-collection-facet__sheet" aria-describedby={undefined}>{list}</SheetContent></Sheet>
+    : <Popover open={open} onOpenChange={setOpen}><PopoverTrigger asChild>{trigger}</PopoverTrigger><PopoverContent label={label} align="end" className="folio-collection-facet__panel">{list}</PopoverContent></Popover>
 }
 export interface HighlightedTextProps { text: string; query: string; className?: string }
 export function HighlightedText({ text, query, className }: HighlightedTextProps) {

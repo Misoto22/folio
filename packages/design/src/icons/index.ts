@@ -45,6 +45,8 @@ import {
   FileText as LucideFileText,
   GitBranch as LucideGitBranch,
   GraduationCap as LucideGraduationCap,
+  Hand as LucideHand,
+  Handshake as LucideHandshake,
   Haze as LucideHaze,
   House as LucideHouse,
   ImageDown as LucideImageDown,
@@ -53,6 +55,7 @@ import {
   Languages as LucideLanguages,
   Layers as LucideLayers,
   List as LucideList,
+  Lock as LucideLock,
   Mail as LucideMail,
   Maximize as LucideMaximize,
   Menu as LucideMenu,
@@ -81,6 +84,8 @@ import {
   SquareCode as LucideSquareCode,
   SquareTerminal as LucideSquareTerminal,
   Sun as LucideSun,
+  Tag as LucideTag,
+  Timer as LucideTimer,
   Trash2 as LucideTrash2,
   TriangleAlert as LucideTriangleAlert,
   User as LucideUser,
@@ -127,6 +132,8 @@ export const FileDown = /* @__PURE__ */ folioIcon(LucideFileDown)
 export const FileText = /* @__PURE__ */ folioIcon(LucideFileText)
 export const GitBranch = /* @__PURE__ */ folioIcon(LucideGitBranch)
 export const GraduationCap = /* @__PURE__ */ folioIcon(LucideGraduationCap)
+export const Hand = /* @__PURE__ */ folioIcon(LucideHand)
+export const Handshake = /* @__PURE__ */ folioIcon(LucideHandshake)
 export const Haze = /* @__PURE__ */ folioIcon(LucideHaze)
 export const House = /* @__PURE__ */ folioIcon(LucideHouse)
 export const ImageDown = /* @__PURE__ */ folioIcon(LucideImageDown)
@@ -135,6 +142,7 @@ export const Info = /* @__PURE__ */ folioIcon(LucideInfo)
 export const Languages = /* @__PURE__ */ folioIcon(LucideLanguages)
 export const Layers = /* @__PURE__ */ folioIcon(LucideLayers)
 export const List = /* @__PURE__ */ folioIcon(LucideList)
+export const Lock = /* @__PURE__ */ folioIcon(LucideLock)
 export const Mail = /* @__PURE__ */ folioIcon(LucideMail)
 export const Maximize = /* @__PURE__ */ folioIcon(LucideMaximize)
 export const Menu = /* @__PURE__ */ folioIcon(LucideMenu)
@@ -163,6 +171,8 @@ export const Square = /* @__PURE__ */ folioIcon(LucideSquare)
 export const SquareCode = /* @__PURE__ */ folioIcon(LucideSquareCode)
 export const SquareTerminal = /* @__PURE__ */ folioIcon(LucideSquareTerminal)
 export const Sun = /* @__PURE__ */ folioIcon(LucideSun)
+export const Tag = /* @__PURE__ */ folioIcon(LucideTag)
+export const Timer = /* @__PURE__ */ folioIcon(LucideTimer)
 export const Trash2 = /* @__PURE__ */ folioIcon(LucideTrash2)
 export const TriangleAlert = /* @__PURE__ */ folioIcon(LucideTriangleAlert)
 export const User = /* @__PURE__ */ folioIcon(LucideUser)
