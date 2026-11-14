@@ -1,5 +1,13 @@
 # @misoto22/folio
 
+## [0.21.1](https://github.com/Misoto22/folio/compare/v0.21.0...v0.21.1) (2026-11-14)
+
+
+### Bug Fixes
+
+* **website:** keep filter counts out of the control's accessible name ([#184](https://github.com/Misoto22/folio/issues/184)) ([adb0416](https://github.com/Misoto22/folio/commit/adb0416527106717d9dd33f27f67be949f0a6e5f))
+* **website:** keep the filter rail's start unfaded at rest ([#183](https://github.com/Misoto22/folio/issues/183)) ([3fc6325](https://github.com/Misoto22/folio/commit/3fc632573a6d0f4aa42e76fd77cd9c7e934f9e71))
+
 ## [0.21.0](https://github.com/Misoto22/folio/compare/v0.20.3...v0.21.0) (2026-11-14)
 
 
