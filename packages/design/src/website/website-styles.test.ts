@@ -11,6 +11,7 @@ const keyframes = readFileSync(join(ROOT, 'keyframes.css'), 'utf8')
 const media = readFileSync(join(ROOT, 'website-media.css'), 'utf8')
 const conversation = readFileSync(join(ROOT, 'website-conversation.css'), 'utf8')
 const evidence = readFileSync(join(ROOT, 'website-evidence.css'), 'utf8')
+const recovery = readFileSync(join(ROOT, 'website-recovery.css'), 'utf8')
 
 const strip = (css: string) => css.replace(/\/\*[\s\S]*?\*\//g, '')
 
@@ -94,3 +95,12 @@ describe('ask motion under prefers-reduced-motion', () => {
     expect(inside).toContain('.folio-search-palette__body { transition: none; }')
   })
 })
+
+describe('loading pages', () => {
+  it('fill the screen under the masthead, read from the one header height', () => {
+    expect(controls).toContain('--website-header-h: 3.75rem;')
+    expect(controls).toContain('.folio-site-navigation-inner { min-block-size: var(--website-header-h); }')
+    expect(recovery).toContain('.folio-loading-page { min-block-size: calc(100svh - var(--website-header-h) - 1px); }')
+  })
+})
+
