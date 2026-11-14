@@ -52,7 +52,7 @@ jobs:
       url: https://ui.misoto22.com
     steps:
       - name: Download the static export
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: docs-out
           path: out
@@ -61,7 +61,7 @@ jobs:
       # rebuilding here — a second build is a second chance to ship something
       # the gates never saw.
       - name: Publish to Cloudflare Pages
-        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # v4.0.0
+        uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4.1.3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -120,7 +120,7 @@ jobs:
   # not let a version number be reused.
   release:
     needs: [verify, browser]
-    uses: Misoto22/ci/.github/workflows/release.yml@65443cf5cd7c65b978373aeb0a0e93127b0d6ede # v0.5.0
+    uses: Misoto22/ci/.github/workflows/release.yml@cc7dd7f7cf2113627494435195b6d7f2f52f9220 # v0.9.0
     permissions:
       contents: write
       pull-requests: write
