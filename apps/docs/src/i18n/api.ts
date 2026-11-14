@@ -476,6 +476,7 @@ export const API_ZH: Record<string, ApiCopy> = {
   'Command.CommandDialog#shouldFilter': { hash: '992f9a5c', zh: '应用已经筛选过这些行时——服务端搜索，或它自己的索引——传 `false`。否则面板会拿输入再筛一遍，把应用本来要显示的结果藏起来。' },
   'Command.CommandDialog#onOpenAutoFocus': { hash: '6b0f8702', zh: '对话框把焦点移进来时调用。阻止默认行为即可自己安排焦点。' },
   'Command.CommandDialog#onCloseAutoFocus': { hash: '82e3872c', zh: '关闭时对话框交还焦点的那一刻调用。默认会把焦点还给 `DialogTrigger`，而通过快捷键打开的面板没有触发器，焦点就掉回了页面。阻止默认行为，然后把焦点放回打开它的那个元素。' },
+  'Command.CommandDialog#className': { hash: 'd6ff1c59', zh: '在面板默认样式之后合并上去，让组合组件可以自己决定它的位置和动效。' },
   'Command.CommandDialog#onEscapeKeyDown': { hash: '6659a019', zh: '在 Escape 关闭对话框之前调用。阻止默认行为即可让它保持打开，就像嵌套视图后退一步那样。' },
   'ContextMenu.ContextMenu': { hash: '34e3ceb9', zh: 'Radix ContextMenu 的根节点和触发器，带类型的原样透传。' },
   'ContextMenu.ContextMenuContent': { hash: 'bc8a07f4', zh: '右键打开的那个菜单。\n\n**永远不能**是通往某个动作的唯一路径。右键菜单靠指针的次要按键或者键盘上的菜单键打开，而相当一部分读者两者都没有——触屏用户、没配置过触控板的人、纯键盘操作的人。这里放的任何东西，都必须在别处也有能够得着的入口：一行的溢出按钮，或者一条工具栏。' },
