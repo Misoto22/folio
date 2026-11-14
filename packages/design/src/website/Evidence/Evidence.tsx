@@ -1,7 +1,7 @@
 'use client'
 
 import { Check, X } from '../../icons'
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { CSSProperties, HTMLAttributes, ReactNode } from 'react'
 import { cn } from '../../lib/cn'
 import { Button } from '../../components/Button/Button'
 import { CollapsibleSection } from '../../components/Collapsible/Collapsible'
@@ -117,13 +117,21 @@ export function EvidenceStage({ number, state, stateLabel, title, description, t
   </li>
 }
 
-export interface EvidenceScore { id: string; label: string; value: number; valueText: string }
+export interface EvidenceScore {
+  id: string
+  label: string
+  value: number
+  valueText: string
+  /** The numeral the answer cites this passage by. Its presence marks the row as cited: ink rather than muted, numeral in the accent. */
+  citation?: ReactNode
+}
 
 export interface EvidenceScoresProps extends HTMLAttributes<HTMLDivElement> { items: EvidenceScore[] }
 
+/** Similarity per retrieved passage. Rows arrive one stagger step apart; cited ones carry their numeral. */
 export function EvidenceScores({ items, className, ...rest }: EvidenceScoresProps) {
-  return <div className={cn('folio-evidence-scores', className)} {...rest}>{items.map((item) => <div key={item.id}>
-    <div><Text as="span" size="xs">{item.label}</Text><Text as="span" size="xs" tone="muted">{item.valueText}</Text></div>
+  return <div className={cn('folio-evidence-scores', className)} {...rest}>{items.map((item, index) => <div key={item.id} data-cited={item.citation != null || undefined} style={{ '--n': index } as CSSProperties}>
+    <div><Text as="span" size="xs">{item.citation != null && <sup className="folio-evidence-scores__citation">{item.citation}</sup>}{item.label}</Text><Text as="span" size="xs" tone="muted">{item.valueText}</Text></div>
     <Progress label={item.label} value={item.value} max={1} aria-valuetext={item.valueText} />
   </div>)}</div>
 }
@@ -158,12 +166,30 @@ export function EvidenceMeter({ label, value, valueText, detail, className, ...r
 
 export interface EvidenceDuration { id: string; label: string; value: number | null; valueText: string }
 
-export interface EvidenceDurationsProps extends HTMLAttributes<HTMLDivElement> { label: string; total: number | null; totalText: string; items: EvidenceDuration[] }
+export interface EvidenceDurationsProps extends HTMLAttributes<HTMLDivElement> {
+  label: string
+  total: number | null
+  totalText: string
+  items: EvidenceDuration[]
+  /**
+   * How far a live run has come, from 0 to 1. While set, the bar is one clock
+   * filling as the stream runs — linearly while below 1, settling at 1 — in place
+   * of the per-stage segments, which return once it is unset.
+   */
+  progress?: number | null
+}
 
-export function EvidenceDurations({ label, total, totalText, items, className, ...rest }: EvidenceDurationsProps) {
+const share = (value: number | null, total: number | null) => total != null && total > 0 && value != null ? `${Math.min(100, Math.max(0, value / total * 100))}%` : '0%'
+
+/** Where the time went, stage by stage, under one total. */
+export function EvidenceDurations({ label, total, totalText, items, progress, className, ...rest }: EvidenceDurationsProps) {
+  const live = progress != null
+  const fill = { '--folio-progress': Math.min(1, Math.max(0, progress ?? 0)) } as CSSProperties
   return <div className={cn('folio-evidence-durations', className)} {...rest}>
     <div className="folio-evidence-durations__header"><Text size="xs" tone="muted">{label}</Text><Text size="sm" tone="strong">{totalText}</Text></div>
-    <div className="folio-evidence-durations__bar" aria-hidden>{items.map((item) => <span key={item.id} style={{ width: total != null && total > 0 && item.value != null ? `${Math.min(100, Math.max(0, item.value / total * 100))}%` : '0%' }} />)}</div>
+    <div className="folio-evidence-durations__bar" aria-hidden data-live={live || undefined}>{live
+      ? <span className="folio-evidence-durations__fill" data-running={(progress ?? 0) < 1 || undefined} style={fill} />
+      : items.map((item) => <span key={item.id} style={{ width: share(item.value, total) }} />)}</div>
     <DescriptionList aria-label={label} items={items.map((item) => ({ id: item.id, term: item.label, description: item.valueText }))} layout="stacked" divided={false} className="folio-evidence-durations__legend" />
   </div>
 }
