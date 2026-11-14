@@ -48,4 +48,47 @@ describe('MediaLightbox', () => {
     expect(within(print).getByRole('img')).toHaveAttribute('width', '800')
     expect(within(print).getByRole('img')).toHaveAttribute('height', '1200')
   })
+
+  it('paints the page print at once and fades the larger rendering in only when it has loaded', async () => {
+    const user = userEvent.setup()
+    function Expanded() {
+      const [open, setOpen] = useState(false)
+      return <MediaLightbox open={open} onOpenChange={setOpen} title="The shore" triggerLabel="Enlarge photograph" closeLabel="Close" aspectRatio={1.5}
+        media={<img src="/shore-640.jpg" alt="The shore at dusk" />} expandedMedia={<img src="/shore-2400.jpg" alt="The shore at dusk" />} />
+    }
+    render(<Expanded />)
+    await user.click(screen.getByRole('button', { name: 'Enlarge photograph' }))
+    const dialog = screen.getByRole('dialog')
+    const print = dialog.querySelector('.folio-media-lightbox-print')!
+    const full = dialog.querySelector<HTMLElement>('.folio-media-lightbox-full')!
+    // The print is there from the first frame, hidden from assistive tech so the photograph is named once.
+    expect(print.querySelector('img')).toHaveAttribute('src', '/shore-640.jpg')
+    expect(print).toHaveAttribute('aria-hidden', 'true')
+    expect(within(dialog).getAllByRole('img')).toHaveLength(1)
+    expect(full).toHaveAttribute('data-loaded', 'false')
+    const large = full.querySelector('img')!
+    Object.defineProperty(large, 'complete', { value: true })
+    Object.defineProperty(large, 'naturalWidth', { value: 2400 })
+    fireEvent.load(large)
+    expect(full).toHaveAttribute('data-loaded', 'true')
+  })
+
+  it('measures the way back to the print’s frame onto the stage', async () => {
+    const user = userEvent.setup()
+    render(<Viewer />)
+    const print = screen.getByRole('button', { name: 'Enlarge photograph' })
+    print.getBoundingClientRect = () => ({ left: 100, top: 200, width: 200, height: 300, right: 300, bottom: 500, x: 100, y: 200, toJSON: () => ({}) })
+    const stageRect = { left: 400, top: 100, width: 400, height: 600, right: 800, bottom: 700, x: 400, y: 100, toJSON: () => ({}) }
+    const original = HTMLElement.prototype.getBoundingClientRect
+    HTMLElement.prototype.getBoundingClientRect = function rect(this: HTMLElement) { return this.classList.contains('folio-media-lightbox-stage') ? stageRect : original.call(this) }
+    try {
+      await user.click(print)
+      const stage = screen.getByRole('dialog').querySelector<HTMLElement>('.folio-media-lightbox-stage')!
+      expect(stage.style.getPropertyValue('--folio-lightbox-x')).toBe('-400px')
+      expect(stage.style.getPropertyValue('--folio-lightbox-y')).toBe('-50px')
+      expect(stage.style.getPropertyValue('--folio-lightbox-scale')).toBe('0.5')
+    } finally {
+      HTMLElement.prototype.getBoundingClientRect = original
+    }
+  })
 })
