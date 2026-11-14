@@ -10,7 +10,7 @@
 .folio-reference-rows + :is(div, section) > .folio-collection-controls:first-child { border-block-start: 0; }
 /* The rail scrolls, so it clips: a few pixels of inline padding, given back by
    a negative margin, keep the site-wide focus ring whole on the end pills. */
-.folio-collection-filters { position: relative; display: flex; flex: 1 1 0; align-items: center; gap: 2px; min-inline-size: 0; margin-inline: -.375rem; padding: .625rem .375rem; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
+.folio-collection-filters { position: relative; display: flex; flex: 1 1 0; align-items: center; gap: 2px; min-inline-size: 0; margin-inline: -.375rem; padding: .625rem .375rem; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; scroll-padding-inline: .375rem; }
 .folio-collection-filters::-webkit-scrollbar { display: none; }
 .folio-collection-filters[data-fade='end'] { mask-image: linear-gradient(to right, currentColor calc(100% - 2.5rem), transparent); }
 .folio-collection-filters[data-fade='start'] { mask-image: linear-gradient(to left, currentColor calc(100% - 2.5rem), transparent); }

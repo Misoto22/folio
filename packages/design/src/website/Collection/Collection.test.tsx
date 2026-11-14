@@ -46,6 +46,24 @@ describe('Collection compositions', () => {
     await user.click(screen.getByRole('button', { name: 'Clear' }))
     expect(onClear).toHaveBeenCalledOnce()
   })
+  it('fades only the far edge at rest, even when snapping leaves the rail inside its padding', () => {
+    render(<CollectionControls filterLabel="Filter" items={[{ label: 'All', value: null }, { label: 'iOS', value: 'ios' }]} selected={null} onSelect={() => {}} />)
+    const rail = screen.getByRole('group', { name: 'Filter' })
+    Object.defineProperty(rail, 'scrollWidth', { configurable: true, value: 600 })
+    Object.defineProperty(rail, 'clientWidth', { configurable: true, value: 300 })
+    rail.style.paddingInlineStart = '6px'
+    // Snapping the first pill leaves the rail 6px in: still the start.
+    rail.scrollLeft = 6
+    fireEvent.scroll(rail)
+    expect(rail).toHaveAttribute('data-fade', 'end')
+    rail.scrollLeft = 150
+    fireEvent.scroll(rail)
+    expect(rail).toHaveAttribute('data-fade', 'both')
+    rail.scrollLeft = 300
+    fireEvent.scroll(rail)
+    expect(rail).toHaveAttribute('data-fade', 'start')
+  })
+
   it('keeps search named after typing and reports clear without submitting', () => {
     const onQueryChange = vi.fn()
     render(<CollectionControls items={[]} selected={null} onSelect={() => {}} search={{ value: 'test', onChange: onQueryChange, label: 'Search records', clearLabel: 'Clear search' }} />)

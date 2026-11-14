@@ -167,9 +167,13 @@ export function CollectionControls({ items, selected, onSelect, filterLabel, sea
     const node = rail.current
     if (!node) return
     const update = () => {
+      // An edge counts as reached within the rail's own inline padding: snapping
+      // the first pill can leave the rail a few pixels in, and fading the
+      // selected pill at rest reads as a broken control.
+      const slack = Number.parseFloat(getComputedStyle(node).paddingInlineStart) || 1
       const max = node.scrollWidth - node.clientWidth
       const at = Math.abs(node.scrollLeft)
-      setFade(max <= 1 ? 'none' : at <= 1 ? 'end' : at >= max - 1 ? 'start' : 'both')
+      setFade(max <= slack ? 'none' : at <= slack ? 'end' : at >= max - slack ? 'start' : 'both')
     }
     update()
     node.addEventListener('scroll', update, { passive: true })
