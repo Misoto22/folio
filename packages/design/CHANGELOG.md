@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.21.0](https://github.com/Misoto22/folio/compare/v0.20.3...v0.21.0) (2026-11-14)
+
+
+### Features
+
+* **website:** redesign the contact page, collection filters and the phone navigation ([#181](https://github.com/Misoto22/folio/issues/181)) ([2c49b9d](https://github.com/Misoto22/folio/commit/2c49b9df1e33b2b6944799c19e9438eae49e0a8b))
+
 ## [0.20.3](https://github.com/Misoto22/folio/compare/v0.20.2...v0.20.3) (2026-11-14)
 
 
