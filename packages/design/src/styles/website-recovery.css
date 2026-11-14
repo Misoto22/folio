@@ -1,10 +1,14 @@
-/* The wait-then-fade every route skeleton shares. The delay is one fast step:
-   a route that answers inside it never shows a skeleton at all, and one that
-   does not fades the bars in instead of cutting to them. The pulse lives on
-   the SkeletonPage inside, so the two animations never fight for a property. */
-.folio-loading-page { animation: folio-loading-in var(--duration-base) var(--ease) var(--duration-fast) both; }
+/* Static parts at once, the skeleton after a wait. A route's own words — its
+   title, its description — are known before any data, so they render for real
+   and immediately; only the data's shapes wait `--duration-wait`, then fade in.
+   A route that answers inside the wait never shows a bar at all. The pulse
+   lives on the SkeletonPage itself, so the fade sits on the wrapper around it
+   and the two animations never fight for a property. */
+.folio-loading-page > .folio-loading-data { animation: folio-loading-in var(--duration-base) var(--ease) var(--duration-wait) both; }
 @keyframes folio-loading-in { from { opacity: 0; } to { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .folio-loading-page { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .folio-loading-page > .folio-loading-data { animation: none; } }
+.folio-loading-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr)); gap: 1rem; padding-block: 1.5rem clamp(4rem, 9vw, 8rem); }
+.folio-loading-cards > div { padding: 1.25rem 1.25rem 1.5rem; border: 1px solid var(--rule); border-radius: var(--radius-lg); }
 .folio-recovery-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
 .folio-recovery-links { margin-block: clamp(3.5rem, 7vw, 6rem) 3rem; }
 .folio-recovery-links ul { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 4rem; margin: .25rem 0 0; padding: 0; list-style: none; }

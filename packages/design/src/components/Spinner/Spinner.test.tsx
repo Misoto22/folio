@@ -1,8 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { Spinner } from './Spinner'
+import { Spinner, SPINNER_TURN_MS } from './Spinner'
 
 describe('Spinner', () => {
+  it('turns once per SPINNER_TURN_MS, the one duration a host can wait out', () => {
+    const { container } = render(<Spinner label={null} />)
+    const ring = container.querySelector('[data-folio-animated]') as HTMLElement
+    expect(ring.style.animationDuration).toBe(`${SPINNER_TURN_MS}ms`)
+  })
+
   it('announces what is loading', () => {
     render(<Spinner label="Loading projects" />)
     expect(screen.getByRole('status')).toHaveTextContent('Loading projects')

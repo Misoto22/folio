@@ -37,6 +37,13 @@ const TONE = {
 } as const
 
 /**
+ * One full turn of the spinner, in milliseconds. Exported so a host can keep a
+ * pressed control turning for at least this long: a reply faster than one
+ * turn otherwise reads as a flicker, not as work being done.
+ */
+export const SPINNER_TURN_MS = 700
+
+/**
  * The system's one "working" indicator.
  *
  * A ring, not a blurred glow and not a shimmer: the White Reset has no light
@@ -82,11 +89,12 @@ export function Spinner({
       <span
         data-folio-animated
         className={cn(
-          'inline-block rounded-full border-solid motion-safe:animate-[folio-spin_0.7s_linear_infinite]',
+          'inline-block rounded-full border-solid motion-safe:animate-[folio-spin_linear_infinite]',
           SIZE[size],
           TONE[tone],
           className,
         )}
+        style={{ animationDuration: `${SPINNER_TURN_MS}ms` }}
       />
       {label !== null && <span className="sr-only">{label}</span>}
     </span>

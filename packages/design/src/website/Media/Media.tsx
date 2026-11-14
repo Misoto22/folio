@@ -126,7 +126,7 @@ export interface MediaGallerySkeletonProps {
 export function MediaGallerySkeleton({ label, count = 6 }: MediaGallerySkeletonProps) {
   return (
     <div className="folio-loading-page">
-      <SkeletonPage label={label} aria-label={label}>
+      <div className="folio-loading-data"><SkeletonPage label={label} aria-label={label}>
         <header className="folio-media-masthead">
           <SkeletonLine className="w-24" />
           <SkeletonBlock className="mt-4 h-9 w-[min(560px,90%)]" />
@@ -143,7 +143,7 @@ export function MediaGallerySkeleton({ label, count = 6 }: MediaGallerySkeletonP
             ))}
           </MediaGallery>
         </section>
-      </SkeletonPage>
+      </SkeletonPage></div>
     </div>
   )
 }
