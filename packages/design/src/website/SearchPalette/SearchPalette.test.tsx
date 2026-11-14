@@ -135,3 +135,77 @@ describe('SearchPalette', () => {
     expect(screen.getByRole('combobox', { name: 'Query' })).toBeInTheDocument()
   })
 })
+
+describe('SearchPalette rows and answer view', () => {
+  const base = { open: true, onOpenChange: () => {}, label: 'Search', inputLabel: 'Query', placeholder: 'Search', onQueryChange: () => {}, emptyLabel: 'No results', labels: { ...LABELS, askAnywhere: 'ask the site', cancel: 'Cancel' } }
+
+  it('leads places with a bare glyph on one line, and gives a picture tile only to a result that has one', () => {
+    render(<SearchPalette {...base} query="" groups={[
+      { id: 'pages', label: 'Pages', items: [{ id: 'home', title: 'Home', description: 'Back to the start', icon: <svg data-testid="glyph" />, onSelect: () => {} }] },
+      { id: 'projects', label: 'Projects', items: [{ id: 'revala', title: 'Revala', description: 'A fuel map', thumbnail: <img alt="" src="/cover.jpg" />, onSelect: () => {} }] },
+    ]} />)
+    const home = screen.getByRole('option', { name: /Home/ })
+    const revala = screen.getByRole('option', { name: /Revala/ })
+    expect(home).toHaveAttribute('data-variant', 'inline')
+    expect(home.querySelector('.folio-search-palette__icon')).toContainElement(screen.getByTestId('glyph'))
+    expect(home.querySelector('.folio-search-palette__thumb')).toBeNull()
+    expect(revala).toHaveAttribute('data-variant', 'stacked')
+    expect(revala.querySelector('.folio-search-palette__thumb img')).toBeInTheDocument()
+    expect(revala.querySelector('.folio-search-palette__icon')).toBeNull()
+  })
+
+  it('lets a row choose its own shape and marks the Ask row with the accent', () => {
+    render(<SearchPalette {...base} query="who" groups={[{ id: 'ask', label: 'Ask the site', items: [
+      { id: 'hit', title: 'Inovit', description: 'Work history', icon: <svg />, variant: 'stacked', onSelect: () => {} },
+      { id: 'ask', title: 'Ask: who', accent: true, meta: 'Ask', onSelect: () => {} },
+    ] }]} />)
+    expect(screen.getByRole('option', { name: /Inovit/ })).toHaveAttribute('data-variant', 'stacked')
+    expect(screen.getByRole('option', { name: /Ask: who/ })).toHaveAttribute('data-accent')
+  })
+
+  it('says what Enter does on the selected row in plain words, kept out of the row\'s name', () => {
+    render(<SearchPalette {...base} query="" groups={[{ id: 'pages', label: 'Pages', items: [
+      { id: 'a', title: 'About', meta: 'Run', onSelect: () => {} },
+      { id: 'b', title: 'Blog', onSelect: () => {} },
+    ] }]} />)
+    const about = screen.getByRole('option', { name: 'About' })
+    expect(about.querySelector('.folio-search-palette__hint')).toHaveTextContent('Run↵')
+    expect(about.querySelector('.folio-search-palette__hint')).toHaveAttribute('aria-hidden', 'true')
+    expect(screen.getByRole('option', { name: 'Blog' }).querySelector('.folio-search-palette__hint')).toHaveTextContent('Open↵')
+  })
+
+  it('keeps the Ask row under the no-results sentence, so a miss is not a dead end', () => {
+    render(<SearchPalette {...base} query="zettelkasten" groups={[{ id: 'ask', label: 'Ask the site', items: [{ id: 'ask', title: 'Ask', accent: true, onSelect: () => {} }] }]} />)
+    expect(screen.getByText('No results')).toHaveClass('folio-search-palette__none')
+    expect(screen.getByRole('option', { name: /Ask/ })).toBeInTheDocument()
+  })
+
+  it('names the host’s ask shortcut in the list footer and offers to continue from the answer', async () => {
+    const user = userEvent.setup()
+    const go = vi.fn()
+    const { rerender } = render(<SearchPalette {...base} query="" groups={[]} />)
+    expect(screen.getByText('ask the site')).toBeInTheDocument()
+    rerender(<SearchPalette {...base} query="" groups={[]} detail={{ label: 'Answer', content: 'An answer', onBack: () => {}, onSubmit: () => {}, continueLabel: 'Continue in the panel', onContinue: go }} />)
+    expect(screen.queryByText('ask the site')).toBeNull()
+    expect(screen.getByRole('region', { name: 'Answer' })).toHaveTextContent('An answer')
+    await user.click(screen.getByRole('button', { name: 'Continue in the panel' }))
+    expect(go).toHaveBeenCalledOnce()
+  })
+
+  it('goes back from the answer with Backspace on an empty field', async () => {
+    const user = userEvent.setup()
+    render(<Launcher detail={(back) => ({ label: 'Answer', content: 'An answer', onBack: back, onSubmit: () => {} })} />)
+    await user.click(screen.getByRole('button', { name: 'Launch search' }))
+    await user.click(screen.getByRole('textbox', { name: 'Query' }))
+    await user.keyboard('{Backspace}')
+    expect(screen.getByRole('combobox', { name: 'Query' })).toBeInTheDocument()
+  })
+
+  it('closes from the phone’s Cancel button', async () => {
+    const user = userEvent.setup()
+    const change = vi.fn()
+    render(<SearchPalette {...base} onOpenChange={change} query="" groups={[]} />)
+    await user.click(screen.getByRole('button', { name: 'Cancel' }))
+    expect(change).toHaveBeenCalledWith(false)
+  })
+})

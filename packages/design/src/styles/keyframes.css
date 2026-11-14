@@ -306,7 +306,7 @@
 @keyframes folio-palette-in {
   from {
     opacity: 0;
-    transform: translateY(-8px) scale(0.98);
+    transform: translateY(-8px) scale(0.985);
   }
   to {
     opacity: 1;
@@ -317,7 +317,22 @@
 @keyframes folio-palette-out {
   to {
     opacity: 0;
-    transform: translateY(-4px) scale(0.99);
+    transform: translateY(-8px);
+  }
+}
+
+/* Reduced motion's palette: it arrives by opacity alone. */
+@keyframes folio-palette-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* The palette's answer view rising in after its list has faded. */
+@keyframes folio-palette-answer-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
   }
 }
 

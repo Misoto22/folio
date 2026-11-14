@@ -461,6 +461,7 @@ export const API_ZH: Record<string, ApiCopy> = {
   'Combobox.Combobox#aria-required': { hash: '874f30b6', zh: '在触发器上播报。`Field` 会从 `required` 替你设好。' },
   'Command.Command': { hash: 'd0aef6c4', zh: '可筛选的动作列表——⌘K 那个面。\n\n建在 cmdk 上，而不是建在 `Select` 或菜单上，因为这个交互两者都不是：列表随你打字实时筛选，高亮行跟着方向键走而焦点**留在**输入框里，回车执行高亮那一行。这就是 ARIA combobox 模式，也是最不该自己手搓的部分——“`aria-activedescendant` 在动而焦点不动”，恰恰是自制面板在读屏软件下失灵的那一处。' },
   'Command.CommandInput': { hash: 'b3a0884f', zh: '筛选框。带着搜索图标和 combobox 语义。' },
+  'Command.CommandInput#icon': { hash: '6a32c45b', zh: '在输入框前画出搜索图标。如果应用自己画了前置标记——比如会变成返回箭头的那种——就传 `false`。' },
   'Command.CommandEmpty': { hash: '69879e06', zh: '筛选没命中时显示。写清楚什么会命中，别写“无结果”。' },
   'Command.CommandFooter': { hash: 'f549b27e', zh: '底部那条键位提示。\n\n面板是一个键盘界面，而它的键是看不见的：屏幕上没有任何东西说方向键会移动选中行、回车会执行它；一个伸手去够鼠标的读者，是被设计辜负了，而不是他自己的问题。' },
   'Command.CommandHint': { hash: 'e3d98bbf', zh: '`CommandFooter` 里的一组“键 + 动作”。' },

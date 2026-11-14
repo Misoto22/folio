@@ -68,14 +68,23 @@ export function Command({
   )
 }
 
+export interface CommandInputProps extends ComponentProps<typeof CommandPrimitive.Input> {
+  /**
+   * Draws the search glyph before the field. Pass `false` when the host draws
+   * its own leading mark — one that turns into a back arrow, say.
+   */
+  icon?: boolean
+}
+
 /** The filter field. Carries the search icon and the combobox semantics. */
 export function CommandInput({
   className,
+  icon = true,
   ...props
-}: ComponentProps<typeof CommandPrimitive.Input>) {
+}: CommandInputProps) {
   return (
     <div className="flex items-center gap-3 border-b border-(--rule) px-4">
-      <SearchIcon size={18} aria-hidden className="shrink-0 text-(--ink-3-aa)" />
+      {icon && <SearchIcon size={18} aria-hidden className="shrink-0 text-(--ink-3-aa)" />}
       <CommandPrimitive.Input
         className={cn(
           'h-13 w-full bg-transparent text-base md:text-[15px] text-(--ink) outline-none placeholder:text-(--ink-3-aa)',
