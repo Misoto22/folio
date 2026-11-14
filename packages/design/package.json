@@ -114,7 +114,7 @@
     "@fontsource/ibm-plex-mono": "^5.2.5",
     "@fontsource/newsreader": "^5.2.5",
     "@tailwindcss/cli": "4.3.3",
-    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.7",
     "@types/culori": "^4.0.1",
@@ -134,7 +134,7 @@
     "tailwindcss": "4.3.3",
     "tsup": "^8.5.0",
     "typescript": "^6.0.3",
-    "vitest": "^5.0.2"
+    "vitest": "^5.1.0"
   },
   "engines": {
     "node": ">=24",
