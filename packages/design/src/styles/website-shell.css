@@ -77,17 +77,18 @@
   .folio-site-navigation-here::before { content: ''; inline-size: 6px; block-size: 6px; border-radius: var(--radius-pill); background: var(--accent); }
   .folio-site-navigation-marker { display: inline-flex; color: var(--accent); }
   .folio-site-navigation-secondary { display: flex; flex-wrap: wrap; gap: .25rem 1.375rem; padding-block-start: .375rem; }
-  .folio-site-navigation-secondary .folio-site-navigation-link { font-size: .9375rem; color: var(--ink-2); opacity: 1; }
+  .folio-site-navigation-secondary .folio-site-navigation-link { justify-content: center; min-inline-size: 44px; font-size: .9375rem; color: var(--ink-2); opacity: 1; }
   .folio-site-navigation-secondary .folio-site-navigation-link[aria-current] { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
   .folio-site-navigation-footer { display: grid; gap: .625rem; margin-block-start: auto; padding-block-start: 1.125rem; color: var(--ink-2); }
   /* A reader preference as a segmented switch: the name, then the options. */
   .folio-site-preference-segment { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
   .folio-site-preference-segment__label { color: var(--ink-3-aa); font-family: var(--sans); font-size: .8125rem; }
   .folio-site-preference-segment__group { padding: 3px; gap: 0; }
-  /* 38px drawn, 44px to the thumb: the group's padding and the row gap carry the rest. */
-  .folio-site-preference-segment__item { gap: .375rem; min-block-size: 2.375rem; min-inline-size: 44px; padding-inline: .8125rem; font-family: var(--sans); font-size: .84375rem; }
+  /* Drawn at the full 44px, not 38 with a larger hit box: the drawer's target
+     sweep measures what is drawn, and a thumb at the foot of the menu should
+     not have to trust an invisible margin. */
+  .folio-site-preference-segment__item { gap: .375rem; min-block-size: 44px; min-inline-size: 44px; padding-inline: .8125rem; font-family: var(--sans); font-size: .84375rem; }
   .folio-site-preference-segment__item:not([data-indicator-active='true']) { color: var(--ink-2); }
-  .folio-site-preference-segment__item::after { content: ''; position: absolute; inset: -4px 0; }
   .folio-site-footer { border-block-start: 1px solid var(--rule); padding-block: 3rem 6rem; background: var(--paper); }
   .folio-site-footer-masthead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
   .folio-site-footer-masthead > a { font-size: .9rem; color: var(--ink-2); min-block-size: 44px; display: inline-flex; align-items: center; }

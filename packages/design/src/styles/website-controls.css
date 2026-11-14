@@ -8,7 +8,9 @@
 .folio-collection-controls[data-quiet] { border: 0; }
 .folio-reference-rows + .folio-collection-controls,
 .folio-reference-rows + :is(div, section) > .folio-collection-controls:first-child { border-block-start: 0; }
-.folio-collection-filters { position: relative; display: flex; flex: 1 1 0; align-items: center; gap: 2px; min-inline-size: 0; padding-block: .625rem; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
+/* The rail scrolls, so it clips: a few pixels of inline padding, given back by
+   a negative margin, keep the site-wide focus ring whole on the end pills. */
+.folio-collection-filters { position: relative; display: flex; flex: 1 1 0; align-items: center; gap: 2px; min-inline-size: 0; margin-inline: -.375rem; padding: .625rem .375rem; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
 .folio-collection-filters::-webkit-scrollbar { display: none; }
 .folio-collection-filters[data-fade='end'] { mask-image: linear-gradient(to right, currentColor calc(100% - 2.5rem), transparent); }
 .folio-collection-filters[data-fade='start'] { mask-image: linear-gradient(to left, currentColor calc(100% - 2.5rem), transparent); }
@@ -21,7 +23,6 @@
 .folio-collection-filter:hover { color: var(--ink); }
 .folio-collection-filter:hover:not([aria-pressed='true'])::before { background: var(--paper-2); }
 .folio-collection-filter[aria-pressed='true'] { color: var(--action-foreground); }
-.folio-collection-filter:focus-visible { outline: var(--focus-w) solid var(--website-focus); outline-offset: -2px; }
 .folio-collection-count { font-family: var(--sans); font-size: .75rem; font-variant-numeric: tabular-nums; letter-spacing: normal; color: var(--ink-3-aa); transition: color var(--fast) var(--ease); }
 .folio-collection-filter[aria-pressed='true'] .folio-collection-count { color: color-mix(in srgb, var(--action-foreground) 72%, transparent); }
 .folio-collection-tools { display: flex; flex: none; align-items: center; gap: .5rem; transition: opacity var(--fast) var(--ease); }
@@ -74,7 +75,6 @@
 
 @media (max-width: 640px) {
   .folio-collection-controls { flex-wrap: wrap; gap: 0; min-block-size: 3.75rem; }
-  .folio-collection-filters { padding-inline-end: .375rem; }
   .folio-collection-tools { gap: .25rem; padding-inline-start: .25rem; }
   .folio-collection-facet { justify-content: center; inline-size: 44px; block-size: 44px; padding: 0; border-color: transparent; }
   .folio-collection-facet__label, .folio-collection-facet__chevron { display: none; }
