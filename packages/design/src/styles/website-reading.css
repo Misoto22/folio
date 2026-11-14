@@ -46,6 +46,8 @@
 .folio-toc a{display:flex;align-items:baseline;gap:.625rem;min-height:2rem;padding:.375rem .5rem .375rem 1rem;color:inherit;font-size:.8125rem;line-height:1.5;text-decoration:none}
 .folio-toc a[aria-current=true]{font-weight:500;color:var(--ink)}
 .folio-toc a:hover{color:var(--ink)}
+.folio-toc a{transition:color var(--fast) var(--ease)}
+.folio-toc a:focus-visible{outline-offset:-2px;border-radius:var(--radius-sm)}
 .folio-toc a>span{font-family:var(--mono-i18n,var(--font-mono));font-size:.625rem}
 /* The outline trigger stacks one step above the conversation launcher, which
    owns the same corner (1.5rem in, 3rem tall). Sharing the spot put one
