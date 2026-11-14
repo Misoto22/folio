@@ -276,7 +276,7 @@ const FOUNDATIONS_ZH: Record<string, FoundationCopy> = {
     summary: '装上它，选一张样式表，渲染第一个控件。',
     intro: [
       '组件是编译好发出来的。你 import 它们，而不是把它们抄进自己的项目；也没有哪个 CLI 会往你的源码树里写一个 Button 交给你维护。这就是这个包做的取舍：升级是改一个版本号，而不是四十个从此归你的文件上的一份 diff。',
-      '四个 peer dependency，其中只有两个是 React。react 与 react-dom，^19.0.0，是必需的；motion 和 recharts 声明为可选，它们是一个入口点的代价——@misoto22/folio/charts 两个都要 import，没装上就解析不到。@misoto22/folio/diagrams 两个都不要。组件需要的其余东西——Radix、cmdk、sonner、Remix Icon、react-day-picker、tailwind-merge——都是真正的 dependency，随包一起下来。Node 24 或更新，而且这个包只有 ESM：exports map 里带的是 import 条件，没有 require，所以 CommonJS 构建解析不到它。',
+      '四个 peer dependency，其中只有两个是 React。react 与 react-dom，^19.0.0，是必需的；motion 和 recharts 声明为可选，它们是一个入口点的代价——@misoto22/folio/charts 两个都要 import，没装上就解析不到。@misoto22/folio/diagrams 两个都不要。组件需要的其余东西——Radix、cmdk、sonner、Lucide、react-day-picker、tailwind-merge——都是真正的 dependency，随包一起下来。Node 24 或更新，而且这个包只有 ESM：exports map 里带的是 import 条件，没有 require，所以 CommonJS 构建解析不到它。',
       '这一页剩下的部分，正是 README 写得最薄的那一块：exports map 里的十二个入口，你真正要的是哪一个，以及每一个漏掉了什么。',
     ],
     sections: {
@@ -410,19 +410,19 @@ const FOUNDATIONS_ZH: Record<string, FoundationCopy> = {
   },
   icons: {
     title: '图标',
-    summary: '填充路径而不是描边，三个尺寸 token 对着源码里的六个尺寸，以及一套重新提供品牌图标的图标集。',
+    summary: '统一 token 粗细的描边，三个尺寸 token 对着源码里的六个尺寸，品牌图标交给它们的出品方。',
     intro: [
-      '包里每一个图标都来自 @remixicon/react 的 Line 变体，画在 24px 网格上。它们是填充路径而不是描边，这是唯一需要记在脑子里的差别：没有 strokeWidth 可设，于是这一页从前那条例外——坐在方框里的七个小记号被推到 2、2.5 或 3，因为 1.5 在十二像素上会细到比发丝线还薄——也跟着那个属性一起没有了。填充路径的粗细跟着它的盒子一起缩，所以 12px 的记号本来就比 16px 的轻，任何 API 都改不了这件事。最依赖旧那条后路的是复选框的勾和它旁边那根横杠，两个都画在 12px 的强调色底上——那里由对比度接手了粗细不再能承担的事。',
+      '包里每一个图标都来自 @misoto22/folio/icons，它重新导出了这个包和它的站点画到的 Lucide 字形。它们是 24px 网格上的描边，端点和拐角都是圆的，而粗细是一个 token：每个字形都包了一层，让描边读 --ico-stroke，在这套网格上是 1.75——16px 图标上是 1.17px，20px 上是 1.46px，正好是这款无衬线字体 400 到 500 字重的笔画。Lucide 自带的 2 和它取代的 Remix 填充轮廓一样重，后者每个拐角都是尖角，在文字旁边显得生硬；1.5 在 14px 上又太细。单个字形传 strokeWidth 就能不用这个粗细。要从这个包里 import，而不是直接从 lucide-react 拿，否则字形拿不到这个粗细。',
       '十六像素是默认值，扛着这套系统的大部分：折角箭头、关闭、勾、小三角。14px 用于落在控件自身内边距里的记号，16 在那里会挤到标签——选择器的指示符、浮层的关闭、组合框的清除。18px 用于领起一行而不是坐在一行里的记号：导航项、提示的语气记号、命令面板的搜索。20px 是应用外壳的菜单开关，24px 留给 EmptyState，那里图标是整个界面上唯一的东西。',
-      '那六个尺寸里有三个有名字：--ico-s 是 14，--ico-m 是 16，--ico-l 是 20。本来有四个。--ico-stroke 跟着描边一起走了，因为一个命名了系统再也设不了的粗细的 token，比没有这个 token 更糟。12px、18px 和 24px 从来就没有过。把这三个当成规格来读，不要当成机制——包里没有任何东西读它们。src/components 里每一个图标在 TSX 里都写成 size={16}，因为尺寸是以属性而不是以样式落到 SVG 上的。所以 token 是评审拿来对照的那一份，数字是你在源码里会看到的那一份。别去找把两者接起来的那个 var()，没有那个东西。',
+      '那六个尺寸里有三个有名字：--ico-s 是 14，--ico-m 是 16，--ico-l 是 20，另外 --ico-stroke 命名了粗细。包里的字形没给 size 时，盒子取 --ico-m，描边永远读 --ico-stroke，所以这两个是接上线的。src/components 里每个图标在 TSX 里仍写作 size={16}，因为尺寸是作为属性落到 SVG 上的；12px、18px 和 24px 从来没有 token。把尺寸 token 当作评审据以核对的规格，把数字当作你在源码里会看到的东西。',
       '图标靠 flex 对齐，永远不靠基线。Button 在每个变体上都设了 inline-flex items-center gap-(--control-gap)，所以字形相对它的标签居中，间距来自密度轴而不是调用处写死的一个 margin。居中对一行文字是对的，对一整块文字就是错的：Alert 的语气记号旁边是一个标题加一段正文，所以它改用 mt-px shrink-0。包里大多数图标都带 shrink-0，这不是装饰——没有它，flex 行会先压扁字形再去折标签，而一个被压到 11 的 16px 图标，是所有人都看得见、没人叫得出名字的那种瑕疵。',
-      '在被证明不是之前，图标一律算装饰，所以 aria-hidden 是默认值，包里几乎每个图标都带着它。折叠面板上的箭头、复选框里的勾、话里已经说清出了什么事的提示上的语气记号——把这些念出来，都是同一句话说两遍。现在它是写出来的，不是继承来的。lucide 会给任何没被交给 aria- 属性或 role 的图标盖上 aria-hidden="true"；@remixicon/react 什么都不加，只把收到的东西原样摊到 svg 上。所以每一个装饰性字形都在它自己的调用处带着这个属性，这就把它从一个库的默认值变成了评审的一行——也是评审绝不能漏掉的一行，因为一个完全没有文字的控件，没有别的东西可以拿来播报。FloatingIconButton 把这件事变成了类型的问题：label 是必填属性，没有它代码就编译不过。Button 没有——它的 JSDoc 写着纯图标按钮必须有 aria-label，却没有任何东西去检查。一个没有可访问名称的纯图标控件，是设计系统交付出不可用东西最常见的一种方式。',
-      '品牌图标回来了。lucide 把它们一个不剩地删了：没有 Github 这个导出，也没有 Twitter、Slack、Figma、Gitlab、Linkedin、Youtube、Chrome、Codepen、Framer、Dribbble、Instagram 或 Facebook，所以 import { Github } from "lucide-react" 是一个编译错误，而不是一个缺失的字形。这个站点为此背了一只手绘章鱼猫，就放在 apps/docs/src/components/GithubMark.tsx 里。Remix Icon 提供它们——RiGithubFill、RiTwitterXFill、RiDiscordFill、RiFigmaFill、RiSlackFill，还有两百来个，大多数同时有 Fill 和 Line 两种——所以那个文件删掉了，顶栏像 import 别的东西一样 import RiGithubFill。@misoto22/folio 把 @remixicon/react 以 ^4.9.0 声明为 dependency 而不是 peer，所以直接 import 它的应用会按自己的范围解析自己的那份副本，出事的是它的升级，不是我们的。',
+      '在被证明不是之前，图标一律算装饰，所以 aria-hidden 是默认值，包里几乎每个图标都带着它。折叠面板上的箭头、复选框里的勾、话里已经说清出了什么事的提示上的语气记号——把这些念出来，都是同一句话说两遍。它写在每个调用处，而不是交给库去决定，这就把它从一个默认值变成了评审的一行——也是评审绝不能漏掉的一行，因为一个完全没有文字的控件，没有别的东西可以拿来播报。FloatingIconButton 把这件事变成了类型的问题：label 是必填属性，没有它代码就编译不过。Button 没有——它的 JSDoc 写着纯图标按钮必须有 aria-label，却没有任何东西去检查。一个没有可访问名称的纯图标控件，是设计系统交付出不可用东西最常见的一种方式。',
+      '品牌图标不在这套里。Lucide 一个都不提供，而商标应该照搬，不该按自家描边风格重画，所以 GitHub 或 LinkedIn 的标记来自出品方自己的图形——这个站点的顶栏从 @remixicon/react import RiGithubFill，文档应用正是为了这些标记才依赖它。任何图标组件都能放进接收图标的属性，所以品牌字形在包里字形能去的地方都能去。@misoto22/folio 以精确版本依赖 lucide-react，所以直接 import 它的应用会按自己的范围解析自己的那份副本。',
     ],
     categories: {
       icon: {
         title: '图标 token',
-        note: '这是那条规则被写下来的版本。没有组件读它们——数字在每个调用处都是字面量——所以把这里的 token 当成评审据以断言的值，而不是组件解析出来的值。',
+        note: '这是那条规则被写下来的版本。粗细和默认盒子由包里的每个字形读取；其余尺寸在每个调用处都是字面量，所以把它们当成评审据以断言的值，而不是组件解析出来的值。',
       },
     },
   },
@@ -639,7 +639,7 @@ export const PAGE_ZH = {
       shadowNote: '深度是一条细线',
     },
     installNote:
-      '六个运行时依赖——Radix 负责没人该重写的行为，cmdk 负责 combobox 模式，react-day-picker 负责日历，Remix Icon 负责图标，sonner 负责 toast，clsx 加 tailwind-merge 负责让类名冲突按调用方的意思解决。没有路由、没有状态库、没有 CSS-in-JS。',
+      '六个运行时依赖——Radix 负责没人该重写的行为，cmdk 负责 combobox 模式，react-day-picker 负责日历，Lucide 负责图标，sonner 负责 toast，clsx 加 tailwind-merge 负责让类名冲突按调用方的意思解决。没有路由、没有状态库、没有 CSS-in-JS。',
     tailwindNote:
       '把可移植的 token 层单独拿走，省掉第二份工具类。模式是 <html> 上的一个属性，所以它可以在首次绘制前写好，永远不会闪出错误的主题。',
   },

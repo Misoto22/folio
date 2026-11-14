@@ -32,7 +32,7 @@ const EN = {
     shadowNote: 'depth is a hairline',
   },
   installNote:
-    'Six runtime dependencies — Radix for the behaviour nobody should re-implement, cmdk for the combobox pattern, react-day-picker for the calendar, Remix Icon for icons, sonner for toasts, and clsx + tailwind-merge to resolve a class conflict in the caller’s favour. No router, no state library, no CSS-in-JS.',
+    'Six runtime dependencies — Radix for the behaviour nobody should re-implement, cmdk for the combobox pattern, react-day-picker for the calendar, Lucide for icons, sonner for toasts, and clsx + tailwind-merge to resolve a class conflict in the caller’s favour. No router, no state library, no CSS-in-JS.',
   tailwindNote:
     'Take the portable token layers on their own and skip the second copy of the utilities. The mode is an attribute on <html>, so it can be written before the first paint and never flashes the wrong theme.',
 } as const

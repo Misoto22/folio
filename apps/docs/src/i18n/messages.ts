@@ -169,8 +169,8 @@ const en = {
     },
     inABoxTitle: 'Twelve pixels, on the accent',
     inABoxNote:
-      'There is no strokeWidth on any of these and nothing to keep consistent. A Remix Icon glyph is a filled path on a 24px grid, so its weight comes down with its box rather than staying put and swamping it.',
-    brandsTitle: 'Brands, which are back',
+      'The same --ico-stroke as every other size: a stroke on a 24px grid scales with its box, so at twelve pixels on a filled ground the mark thins with the box rather than swamping it, and the contrast of the ground carries the rest.',
+    brandsTitle: 'Brands, from their makers',
     brandsNote:
       'Someone else’s trademark, reproduced rather than redrawn in a house stroke — which is the argument for importing one instead of inventing it. This site’s own masthead used to carry a hand-drawn octocat for exactly the want of this row.',
   },
@@ -383,8 +383,8 @@ const zh: Messages = {
     },
     inABoxTitle: '十二像素，画在强调色上',
     inABoxNote:
-      '这里没有 strokeWidth，也没有什么需要保持一致。Remix Icon 的字形是 24px 网格上的填充路径，所以它的粗细跟着盒子一起缩小，而不是钉在原处把盒子塞满。',
-    brandsTitle: '品牌图标回来了',
+      '和其他尺寸一样读 --ico-stroke：24px 网格上的描边跟着盒子一起缩放，所以在填色底上的十二像素里，记号随盒子变细，而不是把盒子塞满，剩下的交给底色的对比度。',
+    brandsTitle: '品牌图标，来自出品方',
     brandsNote:
       '别人的商标，是照搬而不是按自家描边风格重画的——这正是应该 import 而不是自己发明的理由。这个站点自己的顶栏，曾经就为了缺这一排而背着一只手绘章鱼猫。',
   },

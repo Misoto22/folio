@@ -147,7 +147,7 @@ export const NAVIGATION_ZH: Record<string, ComponentCopyZh> = {
     accessibility: [['94aa9ae3', 'aria-current="page"，而且不只靠颜色：当前行同时由字重和填充底色承担。']],
     anatomy: [
       { hash: 'f7d64e16', element: '行', description: '一个 --control-h-sm 高、带 --radius 圆角的 <a href>——或者，在 asChild 下，是你交给它的那个路由链接：它接过类名和 aria-current，自己成为这一行。' },
-      { hash: 'ec3eb13f', element: '图标', description: '一个可选的 Remix Icon 组件，18px，aria-hidden，排在标签前面。它只由原生那条分支渲染：走 slot 的行要把图标放进子元素里面，因为 Slot 只收一个子节点。' },
+      { hash: 'cd437ebe', element: '图标', description: '一个可选的图标组件，18px，aria-hidden，排在标签前面。它只由原生那条分支渲染：走 slot 的行要把图标放进子元素里面，因为 Slot 只收一个子节点。' },
       { hash: '1b25cd67', element: '标签', description: 'children，也是这一行无障碍名称的全部——图标对它没有任何贡献。' },
       { hash: '0e34d57b', element: '选中底色', description: 'active 一步打开的东西：一块 --stone 填充、中等字重，以及 aria-current="page"。三重信号，所以当前行在单色和低对比度下都活得下来。' },
     ],
