@@ -26,8 +26,14 @@
 .folio-media-gallery-item,
 .folio-media-gallery-item figure { min-inline-size: 0; margin: 0; }
 .folio-media-gallery-link { position: relative; display: flex; aspect-ratio: 1; align-items: flex-end; justify-content: center; }
-.folio-media-gallery-link img { display: block; inline-size: auto; block-size: auto; max-inline-size: 100%; max-block-size: 100%; object-fit: contain; transition: transform var(--duration-fast) var(--ease); }
-.folio-media-gallery-link:hover img { transform: translateY(-2px); }
+.folio-media-gallery-link img { display: block; inline-size: auto; block-size: auto; max-inline-size: 100%; max-block-size: 100%; object-fit: contain; transition: filter var(--mid) var(--ease); }
+/* An uncropped photograph is not moved off its baseline or scaled: it brightens
+   a touch, and its caption answers — the title underlined, the index in the accent. */
+.folio-media-gallery-item:hover .folio-media-gallery-link img { filter: brightness(1.04); }
+.folio-media-gallery-title { text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 1px; text-underline-offset: .25rem; transition: text-decoration-color var(--fast) var(--ease); }
+.folio-media-gallery-index { transition: color var(--fast) var(--ease); }
+.folio-media-gallery-item:hover .folio-media-gallery-title { text-decoration-color: var(--rule-2); }
+.folio-media-gallery-item:hover .folio-media-gallery-index { color: var(--accent); }
 .folio-media-gallery-link:focus-visible,
 .folio-media-thumbnail:focus-visible,
 .folio-media-pager-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
@@ -250,7 +256,6 @@
 @media (prefers-reduced-motion: reduce) {
   .folio-media-gallery-link img,
   .folio-media-map-pin > span { transition: none; }
-  .folio-media-gallery-link:hover img { transform: none; }
   /* Plain fades: the scrim and the larger rendering keep theirs; the photograph does not travel. */
   .folio-media-lightbox[role='dialog'] { animation-duration: var(--fast); }
   .folio-media-lightbox[data-state] .folio-media-lightbox-stage { animation: none; }
@@ -259,5 +264,4 @@
 
 [data-motion='still'] .folio-media-gallery-link img,
 [data-motion='still'] .folio-media-map-pin > span { transition: none; }
-[data-motion='still'] .folio-media-gallery-link:hover img { transform: none; }
 [data-motion='still'] .folio-media-lightbox[role='dialog'], [data-motion='still'] .folio-media-lightbox[data-state] .folio-media-lightbox-stage { animation: none; }
