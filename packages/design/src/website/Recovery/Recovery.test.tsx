@@ -10,7 +10,7 @@ describe('website recovery', () => {
     expect(screen.getByRole('link', { name: '工作' })).toHaveAttribute('href', '/zh/work')
   })
 
-  it.each(['records', 'gallery', 'media', 'metrics', 'identity', 'article', 'photograph'] as const)('names the %s loading state once and reserves its content', (layout) => {
+  it.each(['records', 'gallery', 'media', 'metrics', 'identity', 'article', 'photograph', 'cards'] as const)('names the %s loading state once and reserves its content', (layout) => {
     const { container } = render(<WebsiteLoading layout={layout} label="正在载入内容" />)
     expect(screen.getAllByRole('status')).toHaveLength(1)
     expect(screen.getByRole('status')).toHaveAttribute('aria-busy', 'true')
@@ -23,7 +23,22 @@ describe('website recovery', () => {
     const { container } = render(<WebsiteLoading layout="records" label="Loading" />)
     const page = container.firstElementChild
     expect(page).toHaveClass('folio-loading-page')
-    expect(page?.firstElementChild).toHaveAttribute('role', 'status')
+    const data = page?.querySelector('.folio-loading-data')
+    expect(data?.firstElementChild).toHaveAttribute('role', 'status')
+  })
+
+  it('renders a real intro at once, outside the delayed skeleton, and drops the masthead bars', () => {
+    const { container } = render(<WebsiteLoading layout="records" label="Loading projects" intro={<h1>Projects.</h1>} />)
+    const heading = screen.getByRole('heading', { level: 1, name: 'Projects.' })
+    expect(heading.closest('.folio-loading-data')).toBeNull()
+    expect(container.querySelector('.folio-loading-intro')).toBeNull()
+    expect(container.querySelector('.folio-loading-records')).not.toBeNull()
+  })
+
+  it('draws a card grid with one card per row asked for', () => {
+    const { container } = render(<WebsiteLoading layout="cards" rows={6} label="Loading skills" />)
+    expect(container.querySelectorAll('.folio-loading-cards > div')).toHaveLength(6)
+    expect(container.querySelector('.folio-loading-records')).toBeNull()
   })
 
   it('draws a photograph detail on the detail page grid, not the gallery grid', () => {

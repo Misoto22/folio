@@ -542,6 +542,9 @@
   --fast: 0.13s;
   --mid: 0.22s;
   --slow: 0.34s;
+  /* How long a page waits before it admits it is loading. Under this, a
+     skeleton would only flash; over it, the reader needs to see something. */
+  --wait: 0.3s;
 
   /* ─── Stacking ─── seven ranks, named for what sits at each.
      Every overlay in the package portals to document.body, so all of them are

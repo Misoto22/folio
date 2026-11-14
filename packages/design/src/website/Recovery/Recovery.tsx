@@ -45,7 +45,13 @@ export function LoadingRecords({ rows = 4, media = true }: LoadingRecordsProps) 
 
 export interface WebsiteLoadingProps extends LoadingRecordsProps, LoadingRouteIntroProps {
   label: string
-  layout?: 'records' | 'gallery' | 'media' | 'metrics' | 'identity' | 'article' | 'photograph'
+  layout?: 'records' | 'gallery' | 'media' | 'metrics' | 'identity' | 'article' | 'photograph' | 'cards'
+  /**
+   * The route's real opening — its title and description — rendered at once,
+   * in place of the skeleton masthead. A route's own words never wait on its
+   * data, so drawing grey bars where they will be is a promise of nothing.
+   */
+  intro?: ReactNode
   filters?: boolean
 }
 
@@ -69,20 +75,33 @@ function LoadingPhotograph() {
 /**
  * Named loading layouts for the website's reusable page shapes.
  *
- * Every layout waits a beat before it shows and then fades in, so a route that
- * resolves within that beat goes straight from the old page to the new one
- * instead of flashing grey bars for a frame. A detail route needs its own
- * `article` or `photograph` shape: inheriting the list skeleton above it
- * promises a layout the page then abandons.
+ * Static parts at once, data after a wait: an `intro` renders immediately and
+ * for real, and the skeleton for the data waits `--duration-wait` before it
+ * fades in, so a route that resolves inside the wait goes straight from the
+ * old page to the new one. Every shape is the real one's — a detail route
+ * needs `article` or `photograph`, a card grid needs `cards` — because a
+ * skeleton the page then abandons is the jump it exists to prevent.
  */
-export function WebsiteLoading({ label, layout = 'records', titleClassName, rows = 4, media = true, filters = false }: WebsiteLoadingProps) {
-  if (layout === 'article' || layout === 'photograph') return <div className="folio-loading-page"><SkeletonPage label={label}>{layout === 'article' ? <LoadingArticle media={media} /> : <LoadingPhotograph />}</SkeletonPage></div>
-  return <div className="folio-loading-page"><SkeletonPage label={label}>
-    {layout === 'identity' ? <header className="folio-loading-identity folio-loading-container"><div><div className="flex items-center gap-5"><SkeletonCircle className="size-12" /><SkeletonBlock className="h-12 w-64" /></div><SkeletonLine className="mt-9 h-3.5 w-full" /><SkeletonLine className="mt-3 h-3.5 w-4/5" /><SkeletonLine className="mt-10 h-3 w-2/3" /></div><SkeletonBlock className="aspect-square w-full" /></header> : <LoadingRouteIntro titleClassName={titleClassName} />}
-    {filters && <div className="folio-loading-filters folio-loading-container" data-loading-content><div className="flex flex-wrap gap-6">{[8, 16, 12, 20].map((width) => <SkeletonLine key={width} className="h-3 w-12" />)}</div><SkeletonBlock className="h-11 w-56" /></div>}
-    {(layout === 'records' || layout === 'identity') && <LoadingRecords rows={rows} media={media} />}
-    {layout === 'gallery' && <section data-loading-content className="folio-loading-gallery folio-loading-container">{Array.from({ length: rows }, (_, index) => <div key={index}><SkeletonBlock className="aspect-[4/5] w-full" /><SkeletonLine className="mt-3 h-3 w-3/4" /></div>)}</section>}
-    {layout === 'media' && <section data-loading-content className="folio-loading-media"><div data-loading-now-playing className="folio-media-feature folio-loading-container"><div className="folio-media-feature__artwork"><SkeletonBlock data-loading-artwork className="h-full w-full" /></div><div><SkeletonLine className="h-2.5 w-28" /><SkeletonBlock className="mt-5 h-16 w-4/5" /><SkeletonLine className="mt-5 h-3.5 w-2/3" /><SkeletonLine className="mt-6 h-1 w-full" /></div></div></section>}
-    {layout === 'metrics' && <div data-loading-content className="folio-loading-metrics folio-loading-container"><div className="folio-loading-filters"><SkeletonLine className="h-2.5 w-12" /><SkeletonBlock className="h-11 w-72" /></div><div className="folio-loading-metrics__figures">{[0, 1, 2, 3].map((cell) => <div key={cell}><SkeletonLine className="h-2.5 w-24" /><SkeletonBlock className="mt-4 h-9 w-20" /><SkeletonLine className="mt-4 h-2.5 w-16" /></div>)}</div><SkeletonLine className="mt-16 h-3 w-28" /><SkeletonBlock className="mt-6 h-[220px] w-full" /></div>}
-  </SkeletonPage></div>
+export function WebsiteLoading({ label, layout = 'records', titleClassName, rows = 4, media = true, filters = false, intro }: WebsiteLoadingProps) {
+  return <div className="folio-loading-page">
+    {intro}
+    <div className="folio-loading-data"><SkeletonPage label={label}>
+      {layout === 'article' ? <LoadingArticle media={media} />
+        : layout === 'photograph' ? <LoadingPhotograph />
+        : <>
+          {!intro && (layout === 'identity' ? <LoadingIdentity /> : <LoadingRouteIntro titleClassName={titleClassName} />)}
+          {filters && <div className="folio-loading-filters folio-loading-container" data-loading-content><div className="flex flex-wrap gap-6">{[8, 16, 12, 20].map((width) => <SkeletonLine key={width} className="h-3 w-12" />)}</div><SkeletonBlock className="h-11 w-56" /></div>}
+          {(layout === 'records' || layout === 'identity') && <LoadingRecords rows={rows} media={media} />}
+          {layout === 'cards' && <section data-loading-content className="folio-loading-cards folio-loading-container">{Array.from({ length: rows }, (_, index) => <div key={index}><div className="flex items-center gap-2"><SkeletonBlock className="size-7" /><SkeletonLine className="h-2.5 w-16" /></div><SkeletonLine className="mt-5 h-4 w-28" /><SkeletonLine className="mt-2.5 h-2.5 w-24" /><SkeletonLine className="mt-4 h-3 w-full" /><SkeletonLine className="mt-2 h-3 w-4/5" /></div>)}</section>}
+          {layout === 'gallery' && <section data-loading-content className="folio-loading-gallery folio-loading-container">{Array.from({ length: rows }, (_, index) => <div key={index}><SkeletonBlock className="aspect-[4/5] w-full" /><SkeletonLine className="mt-3 h-3 w-3/4" /></div>)}</section>}
+          {layout === 'media' && <section data-loading-content className="folio-loading-media"><div data-loading-now-playing className="folio-media-feature folio-loading-container"><div className="folio-media-feature__artwork"><SkeletonBlock data-loading-artwork className="h-full w-full" /></div><div><SkeletonLine className="h-2.5 w-28" /><SkeletonBlock className="mt-5 h-16 w-4/5" /><SkeletonLine className="mt-5 h-3.5 w-2/3" /><SkeletonLine className="mt-6 h-1 w-full" /></div></div></section>}
+          {layout === 'metrics' && <div data-loading-content className="folio-loading-metrics folio-loading-container"><div className="folio-loading-filters"><SkeletonLine className="h-2.5 w-12" /><SkeletonBlock className="h-11 w-72" /></div><div className="folio-loading-metrics__figures">{[0, 1, 2, 3].map((cell) => <div key={cell}><SkeletonLine className="h-2.5 w-24" /><SkeletonBlock className="mt-4 h-9 w-20" /><SkeletonLine className="mt-4 h-2.5 w-16" /></div>)}</div><SkeletonLine className="mt-16 h-3 w-28" /><SkeletonBlock className="mt-6 h-[220px] w-full" /></div>}
+        </>}
+    </SkeletonPage></div>
+  </div>
+}
+
+/** A profile opening: a mark beside a name, a lead, and the portrait. */
+function LoadingIdentity() {
+  return <header className="folio-loading-identity folio-loading-container"><div><div className="flex items-center gap-5"><SkeletonCircle className="size-12" /><SkeletonBlock className="h-12 w-64" /></div><SkeletonLine className="mt-9 h-3.5 w-full" /><SkeletonLine className="mt-3 h-3.5 w-4/5" /><SkeletonLine className="mt-10 h-3 w-2/3" /></div><SkeletonBlock className="aspect-square w-full" /></header>
 }

@@ -139,6 +139,7 @@
   --duration-fast: var(--fast);
   --duration-base: var(--mid);
   --duration-slow: var(--slow);
+  --duration-wait: var(--wait);
   --overlay: var(--scrim);
   --disabled-opacity: 0.5;
 
