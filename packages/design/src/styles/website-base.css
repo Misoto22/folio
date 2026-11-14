@@ -11,7 +11,13 @@
  * All of it sits in the base layer, so any utility still wins over it.
  */
 @layer base {
-  html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; }
+  /* A website scrolls one way. `clip` on both the root and the body (not
+     `hidden`, which would make the body a scroll container and break sticky
+     headers) means a child that ends up a pixel too wide can never give a
+     phone a sideways pan, and the root refuses horizontal overscroll so a
+     diagonal swipe stays a vertical one. */
+  html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; overflow-x: clip; overscroll-behavior-x: none; }
+  body { overflow-x: clip; }
   body {
     margin: 0;
     background: var(--paper);

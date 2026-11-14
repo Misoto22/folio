@@ -9,7 +9,7 @@
 .folio-conversation-suggestions { margin-block-start: 2rem; }
 .folio-conversation-suggestions > ul, .folio-conversation-sources > ul { list-style: none; margin: .5rem 0 0; padding: 0; border-block-start: 1px solid var(--rule); }
 .folio-conversation-suggestions > ul > li, .folio-conversation-sources > ul > li { border-block-end: 1px solid var(--rule); }
-.folio-conversation-suggestions__action { inline-size: 100%; justify-content: space-between; text-align: start; gap: 1.5rem; padding-inline: 0; }
+.folio-conversation-suggestions__action { inline-size: 100%; justify-content: space-between; text-align: start; gap: 1.5rem; }
 .folio-conversation-suggestions__action > svg { flex-shrink: 0; }
 .folio-conversation-thread__controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .25rem 1.5rem; border-block-start: 1px solid var(--rule-divider); padding-block-start: .75rem; }
 .folio-conversation-thread__controls > div { display: flex; flex-wrap: wrap; gap: .25rem; }
@@ -25,7 +25,10 @@
 .folio-question-composer__footer > p { max-inline-size: 56ch; }
 .folio-question-composer__counter { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .folio-conversation-turn { border-block-end: 1px solid var(--rule); padding-block: 1.75rem; }
-.folio-conversation-turn__toggle { inline-size: 100%; justify-content: space-between; align-items: baseline; gap: 1rem; text-align: start; font: inherit; color: inherit; padding-inline: 0; }
+.folio-conversation-turn__toggle { inline-size: calc(100% + 1.5rem); margin-inline: -.75rem; justify-content: space-between; align-items: baseline; gap: 1rem; text-align: start; font: inherit; color: inherit; padding: .5rem .75rem; border-radius: var(--radius); }
+/* A question is a row, not a standalone control: its hover fill keeps the
+   row corner and some air around the words, instead of the capsule the
+   Workbench gives a button, which hugged the heading edge to edge. */
 .folio-conversation-turn__toggle > span { text-wrap: balance; }
 .folio-conversation-turn__toggle > svg { flex-shrink: 0; transition: rotate var(--duration-fast) var(--ease); }
 .folio-conversation-turn__toggle[data-state='open'] > svg { rotate: 90deg; }
@@ -45,12 +48,12 @@
 .folio-conversation-caret { display: inline-block; inline-size: .375rem; block-size: 1em; margin-inline-start: .2rem; vertical-align: -.1em; background: var(--ink); }
 .folio-conversation-sources { margin-block-start: 1.5rem; border-block-start: 1px solid var(--rule-divider); padding-block-start: .75rem; }
 .folio-conversation-sources__header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
-.folio-conversation-sources__link { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; inline-size: 100%; align-items: baseline; text-align: start; gap: .75rem; padding-inline: 0; }
+.folio-conversation-sources__link { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; inline-size: 100%; align-items: baseline; text-align: start; gap: .75rem; }
 .folio-conversation-sources__link[data-highlighted] { background: var(--accent-muted); }
 .folio-conversation-sources__link > span:nth-child(2) { min-inline-size: 0; }
 .folio-conversation-sources__link > span:nth-child(2) > span { display: block; }
 .folio-action-proposal__actions { margin-block-start: .375rem; border-block-start: 1px solid var(--rule-divider); }
-.folio-action-proposal__action { display: flex; inline-size: 100%; justify-content: space-between; gap: 1rem; text-align: start; border-block-end: 1px solid var(--rule); padding-inline: 0; }
+.folio-action-proposal__action { display: flex; inline-size: 100%; justify-content: space-between; gap: 1rem; text-align: start; border-block-end: 1px solid var(--rule); }
 .folio-action-proposal__action > span { min-inline-size: 0; }
 .folio-action-proposal__action > span:last-child { display: flex; align-items: center; gap: .75rem; flex-shrink: 0; }
 .folio-conversation-launcher { position: fixed; inset-block-end: 1.5rem; inset-inline-start: 1.5rem; z-index: 40; min-block-size:3rem; padding-inline:1rem 1.125rem; gap:.625rem; border:1px solid var(--rule-2); border-radius:var(--radius-pill); background:var(--paper); color:var(--ink-2); font-family:var(--sans); font-size:.8125rem; font-weight:500; box-shadow:0 2px 5px color-mix(in srgb,var(--ink) 4%,transparent),0 8px 24px color-mix(in srgb,var(--ink) 6%,transparent); transition: opacity var(--duration-base) var(--ease),background var(--duration-fast),box-shadow var(--duration-fast); }
@@ -113,3 +116,18 @@
   .folio-conversation-dock, .folio-conversation-launcher, .folio-conversation-turn__toggle > svg { transition: none; }
 }
 @keyframes folio-conversation-blink { to { opacity: 0; } }
+
+/* Row-shaped controls — a suggestion, a source, a proposal's action. Each is
+   a full-width row, not a standalone button, so its hover and selected fill
+   takes the row corner with air inside it; the negative margin keeps the
+   words on the column's edge. Without this they inherited the Workbench's
+   capsule, which hugged the text edge to edge. */
+:is(.folio-conversation-suggestions__action, .folio-conversation-sources__link, .folio-action-proposal__action) {
+  inline-size: calc(100% + 1.25rem);
+  margin-inline: -.625rem;
+  padding-inline: .625rem;
+  border-radius: var(--radius-sm);
+}
+/* A proposal's actions are divided by hairlines, and a rounded corner would
+   bend the rule at both ends; they keep the padding and stay square. */
+.folio-action-proposal__action { border-radius: 0; }

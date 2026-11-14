@@ -161,9 +161,12 @@
 .folio-media-map-preview-copy h3 { margin: 0; color: var(--foreground); font-family: var(--font-heading); font-size: var(--fs-lead); font-weight: 400; line-height: 1.04; letter-spacing: -0.01em; overflow-wrap: anywhere; }
 .folio-media-map-place { margin-block: 0.25rem 0; color: var(--foreground-muted); font-size: 0.875rem; }
 .folio-media-map-coordinates { display: flex; flex-wrap: wrap; gap: 0.875rem; margin-block-start: 0.75rem; color: var(--foreground-muted); font-family: var(--font-mono); font-size: 0.6875rem; }
-.folio-media-map-areas { display: flex; flex-direction: column; margin-block-start: 1rem; padding-block-start: 0.5rem; border-block-start: 1px solid var(--border-subtle); }
-.folio-media-map-area { inline-size: 100%; justify-content: space-between; gap: 0.75rem; padding-inline: 0.25rem; border: 0; border-block-end: 1px solid var(--border-subtle); border-radius: 0; text-align: start; }
-.folio-media-map-area[aria-pressed='true'] { color: var(--foreground); }
+/* The regions are rows: rounded like every other row, with no rule between
+   them, so the hover and the selected fill are one shape instead of a square
+   block cut by a hairline. */
+.folio-media-map-areas { display: flex; flex-direction: column; gap: 0.125rem; margin-block-start: 1rem; padding-block-start: 0.5rem; border-block-start: 1px solid var(--border-subtle); }
+.folio-media-map-area { inline-size: 100%; justify-content: space-between; gap: 0.75rem; padding-inline: 0.625rem; border: 0; border-radius: var(--radius-sm); text-align: start; }
+.folio-media-map-area[aria-pressed='true'] { background: var(--background-elevated); color: var(--foreground); }
 .folio-media-map-area-name { display: flex; align-items: center; gap: 0.6875rem; }
 .folio-media-map-area-name > span { inline-size: 0.4375rem; block-size: 0.4375rem; flex: none; background: currentColor; opacity: 0.55; }
 .folio-media-map-area[aria-pressed='true'] .folio-media-map-area-name > span { opacity: 1; }

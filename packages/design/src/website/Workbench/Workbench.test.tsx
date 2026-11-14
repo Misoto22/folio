@@ -105,6 +105,17 @@ describe('Workbench compositions', () => {
     expect(container.firstChild).not.toHaveAttribute('data-has-featured')
   })
 
+  it('leads the featured tile with its cover, above the title, and keeps the others text', () => {
+    const { container } = render(
+      <WorkbenchEntries featured={{ id: 'a', title: 'Lead', cover: <img alt="Cover" src="/c.png" /> }} entries={[{ id: 'b', title: 'Next', cover: <img alt="Other" src="/o.png" /> }]} />,
+    )
+    const tile = container.querySelector('.folio-wb-entry-featured')!
+    expect(tile).toHaveAttribute('data-has-cover')
+    expect(tile.firstElementChild).toHaveClass('folio-wb-entry-cover')
+    expect(tile.firstElementChild?.nextElementSibling?.tagName).toBe('H3')
+    expect(screen.queryByAltText('Other')).toBeNull()
+  })
+
   it('has no axe violations across a composed page', async () => {
     const { container } = render(
       <main>

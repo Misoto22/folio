@@ -87,3 +87,12 @@
 @media(max-width:767px){.folio-collection-tally{justify-content:flex-start}}
 .folio-collection-list{list-style:none;margin:0;padding:0}
 .folio-collection-list>li{min-width:0}
+
+/* A record answers the pointer the way the home cards do: its picture grows a
+   hair inside its frame and the frame's edge firms up. Small enough to read as
+   the row being live, not as the row moving. */
+.folio-record-media{transition:border-color var(--duration-fast) var(--ease)}
+.folio-record-media img{transition:scale var(--duration-base) var(--ease)}
+.folio-record:hover .folio-record-media{border-color:var(--rule-2)}
+.folio-record:hover .folio-record-media img{scale:1.02}
+@media (prefers-reduced-motion:reduce){.folio-record-media,.folio-record-media img{transition:none}.folio-record:hover .folio-record-media img{scale:none}}

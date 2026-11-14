@@ -9,6 +9,12 @@ export interface WorkbenchEntry {
   date?: ReactNode
   /** Category and reading time. */
   meta?: ReactNode
+  /**
+   * The post's cover, usually an image that fills its box. Drawn only on the
+   * featured tile, above the title, which then sits a step lower; the stacked
+   * entries beside it stay text.
+   */
+  cover?: ReactNode
 }
 
 export interface WorkbenchEntriesProps {
@@ -22,7 +28,8 @@ export function WorkbenchEntries({ featured, entries }: WorkbenchEntriesProps) {
   return (
     <div className="folio-wb-entries" data-has-featured={featured ? true : undefined}>
       {featured && (
-        <article className="folio-wb-entry-featured">
+        <article className="folio-wb-entry-featured" data-has-cover={featured.cover ? true : undefined}>
+          {featured.cover && <div className="folio-wb-entry-cover">{featured.cover}</div>}
           <h3>{featured.title}</h3>
           {featured.excerpt && <p>{featured.excerpt}</p>}
           <p className="folio-wb-entry-meta">
