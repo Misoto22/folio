@@ -179,3 +179,9 @@ describe('dock pill and live latency bar', () => {
     expect(strip(evidence)).toMatch(/\.folio-evidence-durations__bar > span\.folio-evidence-durations__fill \{ background: var\(--ink\); \}/)
   })
 })
+
+describe('collection search opener', () => {
+  it('folds search behind a 44px target on a phone', () => {
+    expect(strip(controls)).toMatch(/\.folio-collection-search__open \{ display: inline-grid;[^}]*inline-size: 44px; block-size: 44px;/)
+  })
+})
