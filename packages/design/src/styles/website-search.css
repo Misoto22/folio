@@ -27,6 +27,19 @@
   .folio-search-palette__item[data-selected=true] .folio-search-palette__meta { opacity: 1; }
   .folio-search-palette__highlight { color: var(--ink); background: var(--stone); border-radius: var(--radius-xs); }
   .folio-search-palette__footer { flex-wrap: wrap; border-block-start: 1px solid var(--rule); background: var(--paper); }
+  /* Arrival, after the reference the site was reviewed against: the backdrop
+     dims and softens over a slow step, the panel settles from a small lift,
+     and its parts follow it in, a third of a fast step apart — field, then
+     each group, then the footer — so the eye lands on the field first. The
+     exit is one quick fade, because closing should never feel like waiting. */
+  [data-folio-animated]:has(+ .folio-search-palette) { backdrop-filter: blur(var(--backdrop-blur)); }
+  [data-folio-animated][data-state='open']:has(+ .folio-search-palette) { animation: folio-backdrop-in var(--duration-slow) var(--ease) both; }
+  .folio-search-palette[data-state='open'] :is(.folio-search-palette__search, .folio-search-palette__input, [cmdk-group], .folio-search-palette__footer) { animation: folio-palette-part-in var(--duration-base) var(--ease) both; }
+  .folio-search-palette[data-state='open'] .folio-search-palette__search { animation-delay: calc(var(--duration-fast) / 3); }
+  .folio-search-palette[data-state='open'] [cmdk-group]:nth-of-type(1) { animation-delay: calc(var(--duration-fast) / 3 * 2); }
+  .folio-search-palette[data-state='open'] [cmdk-group]:nth-of-type(2) { animation-delay: calc(var(--duration-fast) / 3 * 3); }
+  .folio-search-palette[data-state='open'] [cmdk-group]:nth-of-type(n + 3) { animation-delay: calc(var(--duration-fast) / 3 * 4); }
+  .folio-search-palette[data-state='open'] .folio-search-palette__footer { animation-delay: calc(var(--duration-fast) / 3 * 4); }
   @media (max-width: 40rem) {
     .folio-search-palette__search input { font-size: 1rem; }
     .folio-search-palette__detail { max-block-size: calc(84svh - 4.5rem); }
@@ -36,5 +49,5 @@
     .folio-search-palette__footer { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .folio-search-palette { animation: none !important; }
+    .folio-search-palette, .folio-search-palette *, [data-folio-animated]:has(+ .folio-search-palette) { animation: none !important; }
   }

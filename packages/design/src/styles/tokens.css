@@ -545,6 +545,9 @@
   /* How long a page waits before it admits it is loading. Under this, a
      skeleton would only flash; over it, the reader needs to see something. */
   --wait: 0.3s;
+  /* How much a modal's backdrop softens the page behind it: enough that the
+     page reads as set aside, not so much that it stops being the same page. */
+  --backdrop-blur: 6px;
 
   /* ─── Stacking ─── seven ranks, named for what sits at each.
      Every overlay in the package portals to document.body, so all of them are

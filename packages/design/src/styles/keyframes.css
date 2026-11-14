@@ -306,7 +306,7 @@
 @keyframes folio-palette-in {
   from {
     opacity: 0;
-    transform: translateY(-6px) scale(0.985);
+    transform: translateY(-8px) scale(0.98);
   }
   to {
     opacity: 1;
@@ -317,6 +317,31 @@
 @keyframes folio-palette-out {
   to {
     opacity: 0;
-    transform: translateY(-4px) scale(0.985);
+    transform: translateY(-4px) scale(0.99);
+  }
+}
+
+/* One part of the palette arriving after the panel: the field, then each
+   group, then the footer, a small lift each. */
+@keyframes folio-palette-part-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The palette's backdrop: the page dims and softens behind the panel. */
+@keyframes folio-backdrop-in {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(var(--backdrop-blur));
   }
 }
