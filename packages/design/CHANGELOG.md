@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.19.1](https://github.com/Misoto22/folio/compare/v0.19.0...v0.19.1) (2026-11-14)
+
+
+### Bug Fixes
+
+* **website:** quiet the map pins and honour reduced motion's wait ([#160](https://github.com/Misoto22/folio/issues/160)) ([eb4286c](https://github.com/Misoto22/folio/commit/eb4286c9f78318cfb01a41950cd7e83c2ec2b345))
+
 ## [0.19.0](https://github.com/Misoto22/folio/compare/v0.18.0...v0.19.0) (2026-11-14)
 
 
