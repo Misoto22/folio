@@ -1,7 +1,7 @@
 'use client'
 
 import { Badge, Button, Input, Select, SelectItem, Switch, TBody, TD, TH, THead, TR, Table, cn } from '@misoto22/folio'
-import { RiAddLine, RiCheckLine, RiFileCopyLine, RiResetLeftLine, RiSubtractLine } from '@remixicon/react'
+import { RiAddLine, RiArrowUpLine, RiCheckLine, RiFileCopyLine, RiResetLeftLine, RiSubtractLine } from '@remixicon/react'
 import { Component, createElement, useEffect, useId, useMemo, useState, type ReactNode } from 'react'
 import { COMPONENTS } from '@/generated/component-registry'
 import type { Locale } from '@/i18n/locales'
@@ -87,6 +87,12 @@ export interface PropsPlaygroundProps {
  * required" rule then leaves it out of the snippet until the reader moves it.
  * An undocumented one — the `aria-label`s — has no row to appear in.
  *
+ * `FloatingIconButton.children` is the third case: the slot is an icon, and
+ * the count control filled it with "Item 1 Item 2 Item 3" — visible words the
+ * `label` it is named by does not contain, which axe reports as
+ * `label-content-name-mismatch`. A pinned `children` retires the count control,
+ * because a count of a fixed glyph is not a choice the reader has.
+ *
  * Nothing keeps this list current except the sweep that made it necessary:
  * `apps/docs/e2e/a11y.spec.ts` runs axe over this panel on every component
  * page, so a new form control with no name fails `button-name` the day it
@@ -102,6 +108,7 @@ const PINNED: Record<string, Record<string, unknown>> = {
   Slider: { label: 'Slider' },
   Switch: { 'aria-label': 'Switch' },
   Textarea: { 'aria-label': 'Textarea' },
+  FloatingIconButton: { children: <RiArrowUpLine size={16} aria-hidden /> },
 }
 
 /** `ReactNode` as the extractor writes it — source text, so both spellings occur. */
@@ -146,6 +153,7 @@ function seatedControl(name: string, row: PropRow, aliases: readonly TypeAlias[]
   const control = controlFor(row, aliases)
   const pinned = PINNED[name]?.[row.name]
   if (typeof pinned === 'string') return reseat(control, pinned)
+  if (pinned !== undefined && control.kind === 'nodeCount') return { kind: 'none' }
 
   const seed = placeholder(row, control)
   return seed === undefined ? control : reseat(control, seed)
@@ -566,7 +574,9 @@ function previewProps(
     if (control.kind === 'none') {
       // A required slot with no control still has to hold something. Preview
       // only: there is no control, so there is nothing the reader chose, and
-      // `toJsx` leaves it out for exactly that reason.
+      // `toJsx` leaves it out for exactly that reason. A pinned slot is
+      // already filled, and the placeholder must not paper over it.
+      if (PINNED[name] && row.name in PINNED[name]) continue
       const slot = placeholder(row, control)
       if (slot !== undefined) props[row.name] = slot
       continue

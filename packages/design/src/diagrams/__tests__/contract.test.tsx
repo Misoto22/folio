@@ -367,6 +367,26 @@ describe('DiagramCanvas', () => {
 
     expect(views.at(-1)).toMatchObject({ frame: { width: 400, height: 200 } })
   })
+
+  it('names the reset button after the percentage it shows', async () => {
+    render(
+      <DiagramCanvas label="Request path">
+        <ArchitectureFigure spec={ARCHITECTURE} heading={false} legend="hidden" cards={false} />
+      </DiagramCanvas>,
+    )
+
+    // WCAG 2.5.3: a voice user says the "100%" they can see.
+    const reset = screen.getByRole('button', { name: '100%, reset the view' })
+    expect(reset).toHaveTextContent('100%')
+
+    await userEvent.click(screen.getByLabelText('Zoom in'))
+    const zoomed = screen.getByRole('button', { name: /, reset the view$/ })
+    expect(zoomed.getAttribute('aria-label')).toBe(`${zoomed.textContent}, reset the view`)
+    expect(zoomed).not.toHaveTextContent('100%')
+
+    await userEvent.click(zoomed)
+    expect(screen.getByRole('button', { name: '100%, reset the view' })).toBeInTheDocument()
+  })
 })
 
 describe('the diagrams entry', () => {

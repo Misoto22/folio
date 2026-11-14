@@ -112,3 +112,44 @@ describe('Calendar picker in a language other than English', () => {
     expect(within(panel).getByRole('button', { name: 'Next year' })).toBeInTheDocument()
   })
 })
+
+describe('Calendar day buttons', () => {
+  it('lead their name with the number they show, so a voice user can say it', () => {
+    render(<Calendar mode="single" defaultMonth={JANUARY_2026} />)
+    const day = screen.getByRole('button', { name: /^2, .*January 2nd, 2026$/ })
+
+    // WCAG 2.5.3: the visible text has to be part of the name, as a word —
+    // "2nd" alone is not "2", which is what the library's own name left.
+    expect(day).toHaveTextContent(/^2$/)
+  })
+
+  it('keeps the library notes for today and the selected day after the date', () => {
+    const today = new Date()
+    render(<Calendar mode="single" selected={today} defaultMonth={today} />)
+
+    const name = screen.getByRole('button', { name: /^\d+, Today, .*, selected$/ }).getAttribute('aria-label')
+    expect(name?.startsWith(`${today.getDate()}, `)).toBe(true)
+  })
+
+  it('names the cells of a calendar with no mode the same way', () => {
+    render(<Calendar defaultMonth={JANUARY_2026} />)
+
+    // No `mode` means no buttons: the library draws plain grid cells instead,
+    // and names them through a different label function.
+    expect(screen.queryByRole('button', { name: /January 2nd/ })).toBeNull()
+    expect(screen.getByRole('gridcell', { name: /^2, .*January 2nd, 2026$/ })).toHaveTextContent(/^2$/)
+  })
+
+  it('lets a consumer replace the name, and merges the rest of their labels', () => {
+    render(
+      <Calendar
+        mode="single"
+        defaultMonth={JANUARY_2026}
+        labels={{ labelDayButton: (date) => `Day ${date.getDate()}`, labelNext: () => 'Forward' }}
+      />,
+    )
+
+    expect(screen.getByRole('button', { name: 'Day 2' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Forward' })).toBeInTheDocument()
+  })
+})
