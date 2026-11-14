@@ -66,7 +66,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build:fonts": "node scripts/vendor-fonts.mjs",
-    "build:js": "NODE_OPTIONS=--max-old-space-size=8192 tsup",
+    "build:js": "NODE_OPTIONS=--max-old-space-size=12288 tsup",
     "build:css": "tailwindcss -i ./src/styles/index.css -o ./dist/styles.css --minify && node scripts/copy-portable-css.mjs && node scripts/emit-tokens.mjs",
     "build:agent": "node scripts/emit-agent.mjs",
     "build": "pnpm run build:fonts && pnpm run build:js && pnpm run build:css && pnpm run build:agent",
@@ -136,7 +136,7 @@
     "react-dom": "^19.3.1",
     "recharts": "3.10.1",
     "tailwindcss": "4.3.5",
-    "tsup": "^8.5.0",
+    "tsup": "^9.0.0",
     "typescript": "^6.0.3",
     "vitest": "^5.1.0"
   },
