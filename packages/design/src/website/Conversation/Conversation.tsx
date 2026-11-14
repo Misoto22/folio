@@ -1,8 +1,8 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import type { ButtonHTMLAttributes, CSSProperties, HTMLAttributes, PointerEvent, ReactElement, ReactNode, Ref } from 'react'
-import { ArrowRight as ArrowRightIcon, ArrowUpRight, ChevronDown, ChevronRight, MessageCircle, RefreshCw, Sparkles, X } from '../../icons'
+import type { CSSProperties, HTMLAttributes, ReactElement, ReactNode, Ref } from 'react'
+import { ArrowRight as ArrowRightIcon, ArrowUp, ArrowUpRight, ChevronDown, ChevronRight, RefreshCw, X } from '../../icons'
 import { cn } from '../../lib/cn'
 import { replaceSlotContent, resolveSlotElement } from '../../lib/slot-content'
 import { Article } from '../../components/Article/Article'
@@ -10,9 +10,7 @@ import { Button } from '../../components/Button/Button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../components/Collapsible/Collapsible'
 import { DescriptionList } from '../../components/DescriptionList/DescriptionList'
 import type { DescriptionListItem } from '../../components/DescriptionList/DescriptionList'
-import { Field } from '../../components/Field/Field'
 import { Heading } from '../../components/Heading/Heading'
-import { Input } from '../../components/Input/Input'
 import { Text } from '../../components/Text/Text'
 
 export interface ConversationLayoutProps extends HTMLAttributes<HTMLDivElement> {
@@ -49,9 +47,9 @@ export interface ConversationSuggestionsProps extends HTMLAttributes<HTMLDivElem
 export function ConversationSuggestions({ label, items, className, ...rest }: ConversationSuggestionsProps) {
   return <div className={cn('folio-conversation-suggestions', className)} {...rest}>
     <Text size="xs" tone="muted">{label}</Text>
-    <ul>{items.map((item) => <li key={item.id} data-wide-only={item.wideOnly || undefined}>
+    <ul>{items.map((item, index) => <li key={item.id} data-wide-only={item.wideOnly || undefined} style={{ '--n': index } as CSSProperties}>
       <Button variant="ghost" className="folio-conversation-suggestions__action" disabled={item.disabled} onClick={item.onSelect}>
-        <span>{item.label}</span><ArrowRightIcon size={16} aria-hidden />
+        <span>{item.label}</span><ArrowUpRight size={16} aria-hidden />
       </Button>
     </li>)}</ul>
   </div>
@@ -104,44 +102,6 @@ export function ConversationLog({ compact, className, ...rest }: ConversationLog
   return <div role="log" aria-live="polite" className={cn('folio-conversation-log', className)} data-compact={compact || undefined} {...rest} />
 }
 
-export interface QuestionComposerProps extends Omit<HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
-  id: string
-  label: string
-  hideLabel?: boolean
-  value: string
-  onValueChange: (value: string) => void
-  onSubmit: () => void
-  inputRef?: Ref<HTMLInputElement>
-  placeholder?: string
-  maxLength?: number
-  disabled?: boolean
-  submitDisabled?: boolean
-  pending?: boolean
-  submitLabel: string
-  hint?: ReactNode
-  hideHint?: boolean
-  counter?: ReactNode
-  actions?: ReactNode
-  compact?: boolean
-}
-
-/** A controlled, labelled composer. Request limits and sending remain host concerns. */
-export function QuestionComposer({ id, label, hideLabel, value, onValueChange, onSubmit, inputRef, placeholder, maxLength, disabled, submitDisabled, pending, submitLabel, hint, hideHint, counter, actions, compact, className, ...rest }: QuestionComposerProps) {
-  return <form autoComplete="off" className={cn('folio-question-composer', className)} data-compact={compact || undefined} onSubmit={(event) => { event.preventDefault(); onSubmit() }} {...rest}>
-    <div className="folio-question-composer__row">
-      <Field htmlFor={id} label={<span className={hideLabel ? 'sr-only' : undefined}>{label}</span>} className="folio-question-composer__field">
-        <Input ref={inputRef} id={id} name="question" value={value} onChange={(event) => onValueChange(event.target.value)} placeholder={placeholder} maxLength={maxLength} disabled={disabled} />
-      </Field>
-      <Button type="submit" loading={pending} disabled={submitDisabled} keycap={compact ? undefined : '↵'}>{submitLabel}</Button>
-    </div>
-    {(hint || counter || actions) && <div className="folio-question-composer__footer">
-      {hint && <Text size="xs" tone="muted" className={hideHint ? 'sr-only' : undefined}>{hint}</Text>}
-      {counter != null && <Text as="span" size="xs" tone="muted" className="folio-question-composer__counter">{counter}</Text>}
-      {actions}
-    </div>}
-  </form>
-}
-
 export interface ConversationTurnProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
   title: ReactNode
   metadata?: ReactNode
@@ -172,11 +132,17 @@ export function ConversationQuote({ label, compact, children, className, ...rest
   </figure>
 }
 
-export interface ConversationAnswerProps extends HTMLAttributes<HTMLDivElement> { question: ReactNode; questionLabel: string; quote?: ReactNode }
+export interface ConversationAnswerProps extends HTMLAttributes<HTMLDivElement> {
+  question: ReactNode
+  /** Read before the question by assistive tech, such as "You asked". Not drawn: the question's size already says what it is. */
+  questionLabel: string
+  quote?: ReactNode
+}
 
+/** One question and its answer, set as a short passage under the question. */
 export function ConversationAnswer({ question, questionLabel, quote, children, className, ...rest }: ConversationAnswerProps) {
   return <div className={cn('folio-conversation-answer', className)} {...rest}>
-    {quote}<Text size="xs" tone="muted">{questionLabel}</Text><Text tone="strong" size="lead" className="folio-conversation-answer__question">{question}</Text>{children}
+    {quote}<p className="folio-conversation-answer__question"><span className="sr-only">{questionLabel} </span>{question}</p>{children}
   </div>
 }
 
@@ -185,12 +151,21 @@ export function ConversationProse({ className, ...rest }: HTMLAttributes<HTMLDiv
   return <Article as="div" className={cn('folio-conversation-prose', className)} {...rest} />
 }
 
+/**
+ * Answer text that has just arrived, faded in once as it mounts.
+ *
+ * Wrap each newly streamed run of a few words, keyed by where it starts, so
+ * earlier text is never re-faded: the answer reads as typesetting rather than
+ * typing, with nothing blinking at its end. Reduced motion shows it at once.
+ */
+export function StreamingWords({ className, ...rest }: HTMLAttributes<HTMLSpanElement>) {
+  return <span className={cn('folio-conversation-words', className)} {...rest} />
+}
+
 /** Model-generated headings are prose labels, so they do not alter the page outline. */
 export function ConversationAnswerHeading({ lead, className, ...rest }: HTMLAttributes<HTMLParagraphElement> & { lead?: boolean }) {
   return <p className={cn('folio-conversation-prose__heading', className)} data-lead={lead || undefined} {...rest} />
 }
-
-export function StreamingCaret() { return <span aria-hidden="true" className="folio-conversation-caret" /> }
 
 export interface ConversationSource {
   id: string
@@ -199,18 +174,63 @@ export interface ConversationSource {
   detail?: ReactNode
   kind: ReactNode
   highlighted?: boolean
+  /** Whether the answer cited this passage. Once `phase` is `cited`, rows marked `false` fold away. */
+  cited?: boolean
   link: ReactElement<{ children?: ReactNode }>
 }
 
-export interface ConversationSourcesProps extends HTMLAttributes<HTMLDivElement> { label: string; count: ReactNode; items: ConversationSource[] }
+export interface ConversationSourcesProps extends HTMLAttributes<HTMLDivElement> {
+  label: string
+  count: ReactNode
+  items: ConversationSource[]
+  /**
+   * `retrieved` while the answer is written: every passage retrieval returned,
+   * shown the moment it lands. `cited` once it is done: only the ones the answer
+   * cites stay. Defaults to `cited`, which with no row marked uncited shows all.
+   */
+  phase?: 'retrieved' | 'cited'
+}
 
-export function ConversationSources({ label, count, items, className, ...rest }: ConversationSourcesProps) {
+/**
+ * The answer's footnotes.
+ *
+ * They land when retrieval lands, before the first word, one stagger step
+ * apart — the proof the answer is working from the site arrives first, and the
+ * answer is then written above it. At the end the passages it did not cite
+ * fold away and the count beside the label is the host's to swap.
+ */
+export function ConversationSources({ label, count, items, phase = 'cited', className, ...rest }: ConversationSourcesProps) {
   if (items.length === 0) return null
-  return <div className={cn('folio-conversation-sources', className)} {...rest}>
+  return <div className={cn('folio-conversation-sources', className)} data-phase={phase} {...rest}><div className="folio-conversation-sources__body">
     <div className="folio-conversation-sources__header"><Text size="xs" tone="muted">{label}</Text><Text size="xs" tone="muted">{count}</Text></div>
-    <ul>{items.map((item) => <li key={item.id}><Button asChild variant="ghost" className="folio-conversation-sources__link" data-highlighted={item.highlighted || undefined}>
+    <ul>{items.map((item, index) => {
+      const folded = phase === 'cited' && item.cited === false
+      return <li key={item.id} data-cited={folded ? 'false' : undefined} inert={folded} aria-hidden={folded || undefined} style={{ '--n': index } as CSSProperties}><Button asChild variant="ghost" className="folio-conversation-sources__link" data-highlighted={item.highlighted || undefined}>
       {replaceSlotContent(item.link, <><Text as="span" size="xs" tone="muted" aria-hidden>{item.index}</Text><span><Text as="span" size="sm" tone="strong">{item.title}</Text>{item.detail && <Text as="span" size="xs" tone="muted">{item.detail}</Text>}</span><Text as="span" size="xs" tone="muted">{item.kind}</Text></>)}
-    </Button></li>)}</ul>
+      </Button></li>
+    })}</ul>
+  </div></div>
+}
+
+export interface ConversationNoteProps extends HTMLAttributes<HTMLDivElement> {
+  /** `danger` for a failure, `warn` for a refusal that will pass, such as a rate limit. */
+  tone: 'danger' | 'warn'
+  /** Names the retry action. With `onRetry`, the note carries a button that asks again. */
+  retryLabel?: string
+  onRetry?: () => void
+}
+
+/**
+ * Why there is no answer, as a sentence on the page rather than an alert box.
+ *
+ * A hairline in the tone's colour marks it; the page around it is ruled paper,
+ * and a filled box would be the only one on it. A rate limit says how long to
+ * wait in the composer's own countdown, not here.
+ */
+export function ConversationNote({ tone, retryLabel, onRetry, children, className, ...rest }: ConversationNoteProps) {
+  return <div role="alert" className={cn('folio-conversation-note', className)} data-tone={tone} {...rest}>
+    <Text size="sm">{children}</Text>
+    {onRetry && retryLabel && <Button variant="secondary" size="sm" onClick={onRetry}><ArrowUp size={14} aria-hidden />{retryLabel}</Button>}
   </div>
 }
 
@@ -233,78 +253,6 @@ export function ActionProposal({ label, destination, detail, approveLabel, dismi
       <Button variant="ghost" className="folio-action-proposal__action" onClick={onDismiss}>{dismissLabel}<X size={16} aria-hidden /></Button>
     </div>
   </div>
-}
-
-export interface ConversationLauncherProps extends ButtonHTMLAttributes<HTMLButtonElement> { visible: boolean; buttonRef?: Ref<HTMLButtonElement> }
-
-export function ConversationLauncher({ visible, buttonRef, className, children, ...rest }: ConversationLauncherProps) {
-  return <Button asChild variant="secondary" className={cn('folio-conversation-launcher', className)}><button ref={buttonRef} inert={!visible} data-revealed={visible} {...rest}><MessageCircle size={18} aria-hidden />{children}</button></Button>
-}
-
-export type ConversationDockCorner = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right'
-
-export interface ConversationDockProps extends HTMLAttributes<HTMLElement> {
-  label: string
-  open: boolean
-  card: boolean
-  corner: ConversationDockCorner
-  dragging?: boolean
-  moving?: boolean
-  panelRef?: Ref<HTMLElement>
-  logRef?: Ref<HTMLDivElement>
-  roomLink: ReactElement
-  closeLabel: string
-  onClose: () => void
-  onHeaderPointerDown?: (event: PointerEvent<HTMLElement>) => void
-  handles?: ReactNode
-  proposal?: ReactNode
-  notice?: ReactNode
-  composer: ReactNode
-}
-
-/** The host supplies placement, dismissal and stream state; the dock draws them. */
-export function ConversationDock({ label, open, card, corner, dragging, moving, panelRef, logRef, roomLink, closeLabel, onClose, onHeaderPointerDown, handles, proposal, notice, composer, children, className, ...rest }: ConversationDockProps) {
-  return <>
-    {open && !card && <div className="folio-conversation-dock__scrim" aria-hidden onClick={onClose} />}
-    <aside ref={panelRef} aria-label={label} inert={!open} data-open={open} data-card={card} data-corner={corner} data-dragging={dragging || undefined} data-moving={moving || undefined} className={cn('folio-conversation-dock', className)} {...rest}>
-      {handles}
-      <header onPointerDown={onHeaderPointerDown} className="folio-conversation-dock__header">
-        <Text as="span" size="xs" tone="muted"><Sparkles size={14} aria-hidden />{label}</Text>
-        <div><Button asChild variant="ghost">{roomLink}</Button><Button variant="ghost" iconOnly aria-label={closeLabel} onClick={onClose}><ChevronDown size={16} aria-hidden /></Button></div>
-      </header>
-      <div ref={logRef} className="folio-conversation-dock__log">{children}</div>
-      {proposal && <div className="folio-conversation-dock__proposal">{proposal}</div>}
-      {notice && <Text role="status" size="xs" className="folio-conversation-dock__notice">{notice}</Text>}
-      <div className="folio-conversation-dock__composer">{composer}</div>
-    </aside>
-  </>
-}
-
-export interface ConversationDockWelcomeProps extends HTMLAttributes<HTMLDivElement> { lead: ReactNode; suggestionsLabel: string; suggestions: ConversationSuggestion[] }
-
-export function ConversationDockWelcome({ lead, suggestionsLabel, suggestions, className, ...rest }: ConversationDockWelcomeProps) {
-  return <div className={cn('folio-conversation-dock-welcome', className)} {...rest}><Text size="lead" tone="strong">{lead}</Text><ConversationSuggestions label={suggestionsLabel} items={suggestions} /></div>
-}
-
-export interface ConversationResizeHandleProps {
-  axis: 'size-vertical' | 'size-horizontal'
-  side: 'top' | 'bottom' | 'left' | 'right'
-  label: string
-  dragging: boolean
-  onStart: (axis: 'size-vertical' | 'size-horizontal', event: PointerEvent<HTMLElement>) => void
-  onNudge: (axis: 'size-vertical' | 'size-horizontal', delta: number) => void
-}
-
-/** Keyboard equivalents for the host's pointer resize controller. */
-export function ConversationResizeHandle({ axis, side, label, dragging, onStart, onNudge }: ConversationResizeHandleProps) {
-  const growKey = { top: 'ArrowUp', bottom: 'ArrowDown', left: 'ArrowLeft', right: 'ArrowRight' }[side]
-  const shrinkKey = { top: 'ArrowDown', bottom: 'ArrowUp', left: 'ArrowRight', right: 'ArrowLeft' }[side]
-  return <div role="separator" aria-orientation={axis === 'size-vertical' ? 'horizontal' : 'vertical'} aria-label={label} tabIndex={0} data-side={side} data-dragging={dragging || undefined} className="folio-conversation-resize" onPointerDown={(event) => onStart(axis, event)} onKeyDown={(event) => {
-    if (event.key === growKey) onNudge(axis, 32)
-    else if (event.key === shrinkKey) onNudge(axis, -32)
-    else return
-    event.preventDefault()
-  }} />
 }
 
 export interface SelectionToolbarAction { id: string; label: string; disabled?: boolean; onSelect: () => void }
