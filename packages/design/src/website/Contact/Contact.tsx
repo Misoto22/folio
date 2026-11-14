@@ -64,27 +64,37 @@ export interface ContactFormViewProps {
   onSubmit: FormEventHandler<HTMLFormElement>
   limits: Record<keyof ContactFormValues, number>
   pending?: boolean
+  /** Why the send failed — a sentence ruled in the danger colour beside the send button, not a banner over the form. */
   error?: string
+  /** What is wrong with each field, said under that field and wired to it with `aria-invalid` and `aria-describedby`. */
+  fieldErrors?: Partial<Record<keyof ContactFormValues, string>>
   /** A server-confirmed success. The host decides when the form can disappear. */
   success?: { title: string; description: string }
   /** Optional stable prefix for links to a specific form. */
   idPrefix?: string
 }
 
-/** Controlled contact form. Validation, submission and delivery remain host responsibilities. */
-export function ContactFormView({ labels, values, topics, topic, onTopicChange, onFieldChange, onSubmit, limits, pending = false, error, success, idPrefix }: ContactFormViewProps) {
+/** A field's error, unfolding under it rather than pushing the form down at once. */
+function fieldNote(message: string | undefined) {
+  return message ? <span className="folio-contact-form__error"><span>{message}</span></span> : undefined
+}
+
+/**
+ * Controlled contact form. Validation, submission and delivery remain host responsibilities.
+ *
+ * A validation error is said under the field it is about, so the reader is told
+ * which one and nothing above the form moves. A failed send is a hairline note
+ * beside the send button, not a filled banner over the form.
+ */
+export function ContactFormView({ labels, values, topics, topic, onTopicChange, onFieldChange, onSubmit, limits, pending = false, error, fieldErrors = {}, success, idPrefix }: ContactFormViewProps) {
   const generatedId = useId()
   const prefix = idPrefix ?? generatedId
   const headingId = `${prefix}-intro`
-  // One visible summary, with the same feedback connected to each required
-  // control through Field. This keeps the summary concise and the fields named.
-  const fieldError = error ? <span className="sr-only">{error}</span> : undefined
 
   return (
     <section className="folio-contact-form">
       <Heading level={2} id={headingId} className="mb-8 max-w-[24ch]">{labels.heading}</Heading>
       <div aria-live="polite" aria-atomic="true">
-        {error && <Alert id={`${prefix}-status`} tone="danger" className="mb-5">{error}</Alert>}
         {success && <Alert tone="success" title={success.title}>{success.description}</Alert>}
       </div>
       {!success && (
@@ -95,19 +105,20 @@ export function ContactFormView({ labels, values, topics, topic, onTopicChange, 
             </ToggleGroup>
           </Field>
           <div className="folio-contact-form__identity">
-            <Field label={labels.name} required htmlFor={`${prefix}-name`} error={fieldError}>
+            <Field label={labels.name} required htmlFor={`${prefix}-name`} error={fieldNote(fieldErrors.name)}>
               <Input name="name" autoComplete="name" value={values.name} onChange={(event) => onFieldChange('name', event.target.value)} placeholder={labels.namePlaceholder} required maxLength={limits.name} className="min-h-11" />
             </Field>
-            <Field label={labels.email} required htmlFor={`${prefix}-email`} error={fieldError}>
+            <Field label={labels.email} required htmlFor={`${prefix}-email`} error={fieldNote(fieldErrors.email)}>
               <Input name="email" type="email" autoComplete="email" value={values.email} onChange={(event) => onFieldChange('email', event.target.value)} placeholder={labels.emailPlaceholder} required maxLength={limits.email} className="min-h-11" />
             </Field>
           </div>
-          <Field label={<>{labels.subject} <Text as="span" size="xs" tone="muted">({labels.optional})</Text></>} htmlFor={`${prefix}-subject`}>
+          <Field label={<>{labels.subject} <Text as="span" size="xs" tone="muted">({labels.optional})</Text></>} htmlFor={`${prefix}-subject`} error={fieldNote(fieldErrors.subject)}>
             <Input name="subject" value={values.subject} onChange={(event) => onFieldChange('subject', event.target.value)} placeholder={labels.subjectPlaceholder} maxLength={limits.subject} className="min-h-11" />
           </Field>
-          <Field label={labels.message} required htmlFor={`${prefix}-message`} error={fieldError}>
+          <Field label={labels.message} required htmlFor={`${prefix}-message`} error={fieldNote(fieldErrors.message)}>
             <Textarea name="message" value={values.message} onChange={(event) => onFieldChange('message', event.target.value)} placeholder={labels.messagePlaceholder} required maxLength={limits.message} rows={6} />
           </Field>
+          {error && <p id={`${prefix}-status`} role="alert" className="folio-contact-form__note">{error}</p>}
           <div className="folio-contact-form__actions">
             <Text size="xs" tone="muted" className="m-0 max-w-[30ch]">{labels.note}</Text>
             <Button type="submit" keycap="↵" loading={pending} className="min-h-11">{pending ? labels.submitting : labels.submit}</Button>

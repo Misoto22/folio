@@ -28,15 +28,24 @@ describe('ContactFormView', () => {
     expect(within(group).getByRole('radio', { name: 'Photography' })).toHaveAttribute('aria-checked', 'true')
   })
 
-  it('connects the shared validation message to every required field without invalidating the optional subject', () => {
-    render(<Form error="Check the required fields" />)
-    expect(screen.getByRole('alert')).toHaveTextContent('Check the required fields')
-    for (const name of ['Name', 'Email', 'Message']) {
-      const control = screen.getByRole('textbox', { name })
-      expect(control).toHaveAttribute('aria-invalid', 'true')
-      expect(control).toHaveAccessibleDescription('Check the required fields')
-    }
+  it('says each field’s error under that field and wires it to the control, leaving the others valid', () => {
+    render(<Form fieldErrors={{ name: 'Add your name.', message: 'Write a message.' }} />)
+    const name = screen.getByRole('textbox', { name: 'Name' })
+    expect(name).toHaveAttribute('aria-invalid', 'true')
+    expect(name).toHaveAccessibleDescription('Add your name.')
+    expect(screen.getByRole('textbox', { name: 'Message' })).toHaveAccessibleDescription('Write a message.')
+    expect(screen.getByRole('textbox', { name: 'Email' })).not.toHaveAttribute('aria-invalid')
     expect(screen.getByRole('textbox', { name: /Subject/ })).not.toHaveAttribute('aria-invalid')
+    expect(screen.queryByRole('alert')).toBeNull()
+  })
+
+  it('reports a failed send as a hairline note beside the button, not a banner that invalidates the fields', () => {
+    render(<Form error="The message could not be sent." />)
+    const note = screen.getByRole('alert')
+    expect(note).toHaveTextContent('The message could not be sent.')
+    expect(note).toHaveClass('folio-contact-form__note')
+    expect(note.nextElementSibling).toHaveClass('folio-contact-form__actions')
+    expect(screen.getByRole('textbox', { name: 'Name' })).not.toHaveAttribute('aria-invalid')
   })
 
   it('disables submission while pending and displays success only when supplied by the host', () => {
