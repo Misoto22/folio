@@ -89,7 +89,7 @@
   .folio-collection-search[data-foldable] > .folio-collection-search__key,
   .folio-collection-search[data-foldable] > .folio-collection-search__clear { display: none; }
   .folio-collection-search[data-foldable] input { flex: 0; inline-size: 0; opacity: 0; font-size: 1rem; }
-  .folio-collection-search__open { display: inline-grid; flex: none; place-items: center; inline-size: 42px; block-size: 42px; padding: 0; border: 0; border-radius: var(--radius-pill); background: none; color: var(--ink-2); cursor: pointer; }
+  .folio-collection-search__open { display: inline-grid; flex: none; place-items: center; inline-size: 44px; block-size: 44px; padding: 0; border: 0; border-radius: var(--radius-pill); background: none; color: var(--ink-2); cursor: pointer; }
   /* Open: the field runs across the whole row over the rail. */
   .folio-collection-search[data-foldable][data-open], .folio-collection-search[data-foldable][data-open]:focus-within { inline-size: 100%; border-color: var(--ink); padding-inline-end: 2px; }
   .folio-collection-search[data-foldable][data-open] input { flex: 1; inline-size: auto; opacity: 1; transition: opacity var(--mid) var(--ease) var(--fast); }
