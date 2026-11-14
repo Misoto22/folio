@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.19.0](https://github.com/Misoto22/folio/compare/v0.18.0...v0.19.0) (2026-11-14)
+
+
+### Features
+
+* **website:** render route intros at once and wait 300ms for skeletons ([#158](https://github.com/Misoto22/folio/issues/158)) ([7e2cc5e](https://github.com/Misoto22/folio/commit/7e2cc5e5e7d49a61728ebe0d7839bfcf57967566))
+
 ## [0.18.0](https://github.com/Misoto22/folio/compare/v0.17.1...v0.18.0) (2026-11-14)
 
 
