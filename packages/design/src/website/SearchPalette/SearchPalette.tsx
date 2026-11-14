@@ -131,8 +131,11 @@ export function SearchPalette({
       // in from an 8px lift while its parts follow it in a stagger step apart,
       // and leaves in one quick fade.
       className={PANEL}
-      onOpenAutoFocus={() => {
+      onOpenAutoFocus={(event) => {
         previousFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
+        // The field, not the first control: in the answer view that is the back arrow.
+        event.preventDefault()
+        input.current?.focus()
       }}
       // A palette opened by a shortcut has no trigger for the dialog to return
       // focus to, so it goes back to whatever held it before opening.

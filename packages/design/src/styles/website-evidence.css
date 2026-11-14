@@ -101,6 +101,9 @@ button.folio-reasoning__line:hover { background: var(--paper-2); color: var(--in
 .folio-reasoning__fold[data-open='true'] { grid-template-rows: 1fr; opacity: 1; transition: grid-template-rows var(--slow) var(--ease), opacity var(--mid) var(--ease) calc(var(--fast) / 2); }
 .folio-reasoning__steps { margin: 0 0 .625rem .4375rem; padding: .125rem 0 .125rem 1rem; border-inline-start: 1px solid var(--rule-2); }
 .folio-reasoning__steps > ul { gap: .375rem; }
+/* The line above already carries the state; the steps are words and times. */
+.folio-reasoning__steps li > :first-child { display: none; }
+.folio-reasoning__steps li { font-size: .8125rem; }
 @media (prefers-reduced-motion: no-preference) {
   .folio-reasoning__title[data-running] { animation: folio-reasoning-shimmer calc(var(--slow) * 6) linear infinite; }
   .folio-reasoning__icon[data-mark='spin'] > .folio-reasoning__spin { animation: folio-reasoning-spin calc(var(--slow) * 3) linear infinite; }

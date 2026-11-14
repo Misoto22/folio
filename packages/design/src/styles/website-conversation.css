@@ -91,7 +91,7 @@
 .folio-conversation-sources li + li { border-block-start: 1px solid var(--rule-2); }
 .folio-conversation-sources li[data-cited='false'] { grid-template-rows: 0fr; opacity: 0; border-color: transparent; }
 .folio-conversation-sources li[data-cited='false'] > * { min-block-size: 0; padding-block: 0; }
-.folio-conversation-sources__link { display: grid; grid-template-columns: 1.375rem minmax(0, 1fr) auto; inline-size: 100%; align-items: baseline; text-align: start; gap: .5rem; }
+.folio-conversation-sources__link { display: grid; grid-template-columns: 1.375rem minmax(0, 1fr) auto; inline-size: 100%; block-size: auto; min-block-size: var(--control-h-md); align-items: baseline; padding-block: .625rem; text-align: start; gap: .5rem; }
 .folio-conversation-sources__link[data-highlighted] { background: var(--accent-muted); }
 .folio-conversation-sources__link > span:first-child { color: var(--accent); font-weight: 500; font-variant-numeric: tabular-nums; }
 .folio-conversation-sources__link > span:nth-child(2) { min-inline-size: 0; }
@@ -117,7 +117,9 @@
   position: fixed; z-index: var(--z-sticky);
   display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;
   width: var(--folio-dock-pill-w, auto); height: var(--folio-dock-pill-h);
-  overflow: hidden; border: 1px solid var(--rule-2); border-radius: calc(var(--folio-dock-pill-h) / 2);
+  /* clip, not hidden: a clipped box cannot be scrolled, so focusing the wide
+     pill never slides its label out of the corner. */
+  overflow: clip; border: 1px solid var(--rule-2); border-radius: calc(var(--folio-dock-pill-h) / 2);
   background: var(--paper); box-shadow: var(--folio-lift-rest);
   /* Closing: the panel has already gone (--fast), and the box follows a touch quicker than it came. */
   transition: width var(--mid) var(--ease) calc(var(--fast) / 2), height var(--mid) var(--ease) calc(var(--fast) / 2), left var(--mid) var(--ease) calc(var(--fast) / 2), right var(--mid) var(--ease) calc(var(--fast) / 2), bottom var(--mid) var(--ease) calc(var(--fast) / 2), border-radius var(--mid) var(--ease) calc(var(--fast) / 2), box-shadow var(--mid) var(--ease), background-color var(--fast) var(--ease), opacity var(--mid) var(--ease), scale var(--fast) var(--ease);
@@ -161,7 +163,7 @@
 .folio-conversation-dock[data-open='true'] > .folio-conversation-dock__panel { opacity: 1; visibility: visible; transition: opacity var(--mid) var(--ease) var(--fast), visibility 0s; }
 .folio-conversation-dock__grab { position: absolute; inset-block-start: .375rem; inset-inline-start: 50%; inline-size: 2.25rem; block-size: .25rem; translate: -50% 0; border-radius: var(--radius-pill); background: var(--rule-2); }
 .folio-conversation-dock__header { display: flex; align-items: center; justify-content: space-between; gap: .5rem; flex-shrink: 0; block-size: 3rem; padding-inline: 1.25rem .375rem; font-family: var(--sans); }
-.folio-conversation-dock__header > span { display: flex; align-items: baseline; gap: .5rem; min-inline-size: 0; white-space: nowrap; }
+.folio-conversation-dock__header > span { display: flex; align-items: baseline; gap: .5rem; min-inline-size: 0; font-size: .8125rem; white-space: nowrap; }
 .folio-conversation-dock__header b { color: var(--ink); font-weight: 500; }
 .folio-conversation-dock__header > div { display: flex; align-items: center; }
 .folio-conversation-dock__header a { font-family: var(--sans); font-size: .8125rem; color: var(--ink-2); }
