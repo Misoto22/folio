@@ -12,6 +12,7 @@ const media = readFileSync(join(ROOT, 'website-media.css'), 'utf8')
 const conversation = readFileSync(join(ROOT, 'website-conversation.css'), 'utf8')
 const evidence = readFileSync(join(ROOT, 'website-evidence.css'), 'utf8')
 const recovery = readFileSync(join(ROOT, 'website-recovery.css'), 'utf8')
+const actions = readFileSync(join(ROOT, 'website-actions.css'), 'utf8')
 
 const strip = (css: string) => css.replace(/\/\*[\s\S]*?\*\//g, '')
 
@@ -101,6 +102,12 @@ describe('loading pages', () => {
     expect(controls).toContain('--website-header-h: 3.75rem;')
     expect(controls).toContain('.folio-site-navigation-inner { min-block-size: var(--website-header-h); }')
     expect(recovery).toContain('.folio-loading-page { min-block-size: calc(100svh - var(--website-header-h) - 1px); }')
+  })
+})
+
+describe('the scroll control', () => {
+  it('sits in the gutter beside the page column on a wide screen', () => {
+    expect(actions).toMatch(/@media \(min-width: 64rem\) \{ \.folio-scroll-control \{ inset-inline-end: max\(1rem, calc\(\(100vw - var\(--w-page\)\) \/ 2 - 3\.5rem\)\); \} \}/)
   })
 })
 
