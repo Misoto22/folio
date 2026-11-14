@@ -126,6 +126,8 @@ export const WEBSITE_API_ZH: Record<string, ApiCopy> = {
   'Timeline.Timeline': { hash: 'a4185601', zh: "有序集合的展示框架，不管理排序或业务数据。" },
   'Timeline.TimelineItem': { hash: 'c82f80b6', zh: "独立的条目容器，让动画遵循共用的 data-motion 设置。" },
   'Collection.ReferenceLink': { hash: '7aa7e39d', zh: "用于引用资料的轻量链接，与操作按钮区分。" },
+  'Collection.RecordArrow': { hash: 'a964e772', zh: "条目行链接结尾的箭头，作为行可以移动的一个部件。\n\n把它放进 `trailing`，跟在操作文字后面。悬停时，行会把它朝目的地方向推动 2px——向右，离开站点的链接则向右上。" },
+  'Collection.RecordArrow#external': { hash: '15f283ce', zh: "离开本站：箭头指向右上方，悬停时也朝那个方向推动。" },
   'Metrics.MetricsEmptyState': { hash: '982c3cd2', zh: "时间序列为空时保留图表区域，并说明首次收到数据后将展示什么。" },
   'Portfolio.PortfolioImage#natural': { hash: 'e5038b10', zh: "保留传入图片的原始比例，不裁切图片。" },
   'Reading.ReadingSection': { hash: '8204c37c', zh: "`seamless` 让结构化子内容直接延续章节分隔线，避免重复绘制边线。" },

@@ -138,6 +138,10 @@
 .folio-media-pager-link { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); min-block-size: 44px; align-items: center; gap: 1rem; padding-block: 1.125rem; padding-inline-end: 1.5rem; color: inherit; text-decoration: none; }
 .folio-media-pager-link[data-direction='previous'] { border-inline-end: 1px solid var(--border-subtle); }
 .folio-media-pager-link[data-direction='next'] { grid-template-columns: minmax(0, 1fr) 4.5rem; padding-inline: 1.5rem 0; }
+.folio-media-pager-link { transition: background-color var(--fast) var(--ease); }
+.folio-media-pager-link:hover { background: color-mix(in srgb, var(--paper-2) 60%, transparent); }
+.folio-media-pager-title { text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 1px; text-underline-offset: .3125rem; transition: text-decoration-color var(--fast) var(--ease); }
+.folio-media-pager-link:hover .folio-media-pager-title { text-decoration-color: var(--rule-2); }
 .folio-media-pager-copy { min-inline-size: 0; }
 .folio-media-pager-link[data-direction='next'] .folio-media-pager-copy { text-align: end; }
 .folio-media-pager-image { position: relative; display: block; block-size: 3.25rem; overflow: hidden; border-radius: var(--radius-sm); background: var(--background-elevated); }

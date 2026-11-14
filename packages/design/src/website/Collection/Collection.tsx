@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type ComponentProps, type ElementType, type HTMLAttributes, type ReactElement, type ReactNode } from 'react'
 import { Slot } from '@radix-ui/react-slot'
-import { ArrowUpRight, Search, X } from '../../icons'
+import { ArrowRight, ArrowUpRight, Search, X } from '../../icons'
 import { Button } from '../../components/Button/Button'
 import { Input } from '../../components/Input/Input'
 import { EmptyState } from '../../components/EmptyState/EmptyState'
@@ -96,6 +96,21 @@ export function RecordRow({ link, title, summary, context, media, index, metadat
   const body = <>{index != null && <span className="folio-record-index" aria-hidden>{index}</span>}{variant !== 'compact' && <div className="folio-record-media" data-empty={!media || undefined}>{media}</div>}<div className="folio-record-copy">{context && <div className="folio-record-context">{context}</div>}<Heading>{title}</Heading>{subtitle && <div className="folio-record-subtitle">{subtitle}</div>}{summary && <p className="folio-record-summary">{summary}</p>}{metadata && <div className="folio-record-metadata">{metadata}</div>}</div>{trailing && <div className="folio-record-trailing">{trailing}</div>}</>
   return <article className="folio-record" data-variant={variant} data-indexed={index != null || undefined}>{link ? <Slot className="folio-record-link">{replaceSlotContent(link, body)}</Slot> : <div className="folio-record-link">{body}</div>}</article>
 }
+export interface RecordArrowProps {
+  /** Leaves the site: the arrow points up and out, and nudges that way on hover. */
+  external?: boolean
+}
+
+/**
+ * The trailing arrow a record row's link ends on, as a part the row can move.
+ *
+ * Put it inside `trailing` after the action's words. On hover the row nudges it
+ * 2px toward where it goes — right, or up and right for a link that leaves.
+ */
+export function RecordArrow({ external }: RecordArrowProps) {
+  return <span aria-hidden className="folio-record-arrow" data-external={external || undefined}>{external ? <ArrowUpRight size={12} /> : <ArrowRight size={12} />}</span>
+}
+
 export interface FeaturedRecordProps { media: ReactNode; title: ReactNode; context?: ReactNode; summary?: ReactNode; action?: ReactNode }
 export function FeaturedRecord({ media, title, context, summary, action }: FeaturedRecordProps) {
   return <article className="folio-featured-record"><div className="folio-featured-record-media">{media}</div><div>{context && <div className="folio-record-context">{context}</div>}<h2>{title}</h2>{summary && <p>{summary}</p>}{action && <div className="folio-collection-actions">{action}</div>}</div></article>

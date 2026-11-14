@@ -1,7 +1,7 @@
 import { act, fireEvent, render, screen } from '@testing-library/react'
 import { Suspense, type ReactElement } from 'react'
 import { describe, expect, it, vi } from 'vitest'
-import { CollectionControls, HighlightedText, RecordRow } from './Collection'
+import { CollectionControls, HighlightedText, RecordRow, RecordArrow } from './Collection'
 
 describe('Collection compositions', () => {
   it('reports the chosen filter and exposes the current choice', () => {
@@ -42,3 +42,16 @@ describe('Collection compositions', () => {
     expect(screen.queryByText('Placeholder')).not.toBeInTheDocument()
   })
 })
+
+describe('RecordArrow', () => {
+  it('ends a row’s trailing action with a hidden arrow the row can nudge, pointing out for an external link', () => {
+    const { container } = render(<RecordRow link={<a href="/projects/revala" />} title="Revala" trailing={<span>Open project <RecordArrow /></span>} />)
+    const arrow = container.querySelector('.folio-record-link .folio-record-trailing .folio-record-arrow')!
+    expect(arrow).toHaveAttribute('aria-hidden', 'true')
+    expect(arrow).not.toHaveAttribute('data-external')
+    expect(screen.getByRole('link')).toHaveAccessibleName(/Open project/)
+    const { container: away } = render(<RecordArrow external />)
+    expect(away.querySelector('.folio-record-arrow')).toHaveAttribute('data-external', 'true')
+  })
+})
+

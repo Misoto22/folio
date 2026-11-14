@@ -39,7 +39,6 @@
 .folio-record-media img{display:block;width:100%;height:100%;object-fit:cover}
 .folio-record-copy{min-width:0}
 .folio-record-copy h2,.folio-record-copy h3{margin:.375rem 0 0;font-family:var(--serif-i18n,var(--font-heading));font-size:var(--fs-heading);font-weight:var(--display-weight);line-height:1.16;letter-spacing:-.022em}
-.folio-record-link:hover h2,.folio-record-link:hover h3{color:var(--ink-2)}
 .folio-record-context{display:flex;flex-wrap:wrap;gap:.75rem}
 .folio-record-summary{max-width:var(--measure-record,62ch);margin:.875rem 0 0;color:var(--ink-2);line-height:1.66;text-wrap:pretty}
 .folio-record-metadata{margin-block-start:1rem}
@@ -95,4 +94,15 @@
 .folio-record-media img{transition:scale var(--duration-base) var(--ease)}
 .folio-record:hover .folio-record-media{border-color:var(--rule-2)}
 .folio-record:hover .folio-record-media img{scale:1.02}
-@media (prefers-reduced-motion:reduce){.folio-record-media,.folio-record-media img{transition:none}.folio-record:hover .folio-record-media img{scale:none}}
+/* The whole row answers: a faint ground across the hit area, the title
+   underlined in the rule colour (never dimmed — a hovered title should come
+   forward, not recede), and the trailing arrow nudged toward where it goes.
+   The negative margin keeps the words on the column edge under the ground. */
+.folio-record-link{margin-inline:-.75rem;padding-inline:.75rem;border-radius:var(--radius-sm);transition:background-color var(--fast) var(--ease)}
+.folio-record-link:hover{background:color-mix(in srgb,var(--paper-2) 60%,transparent)}
+.folio-record-copy :is(h2,h3){text-decoration:underline;text-decoration-color:transparent;text-decoration-thickness:1px;text-underline-offset:.3125rem;transition:text-decoration-color var(--fast) var(--ease)}
+.folio-record-link:hover .folio-record-copy :is(h2,h3){text-decoration-color:var(--rule-2)}
+.folio-record-arrow{display:inline-flex;vertical-align:-.125em;transition:translate var(--fast) var(--ease)}
+.folio-record-link:hover .folio-record-arrow{translate:2px 0}
+.folio-record-link:hover .folio-record-arrow[data-external]{translate:2px -2px}
+@media (prefers-reduced-motion:reduce){.folio-record-media,.folio-record-media img,.folio-record-arrow{transition:none}.folio-record:hover .folio-record-media img{scale:none}.folio-record-link:hover .folio-record-arrow{translate:none}}
