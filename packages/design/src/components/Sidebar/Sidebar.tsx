@@ -1,6 +1,7 @@
 'use client'
 
-import { RiArrowRightSLine, RiMenuFold3Line, RiMenuFoldLine, RiMenuUnfold3Line, RiMenuUnfoldLine, type RemixiconComponentType } from '@remixicon/react'
+import { ChevronRight, PanelLeftClose, PanelLeftOpen } from '../../icons'
+import type { IconComponent } from '../../icons'
 import {
   createContext,
   useCallback,
@@ -652,7 +653,7 @@ export function SidebarTrigger({
   // The glyph points at the edge the rail is on, so the button is a picture of
   // what it will do rather than a picture of somebody else's layout.
   const Icon =
-    side === 'end' ? (open ? RiMenuUnfold3Line : RiMenuFold3Line) : open ? RiMenuFoldLine : RiMenuUnfoldLine
+    side === 'end' ? (open ? PanelLeftOpen : PanelLeftClose) : open ? PanelLeftClose : PanelLeftOpen
 
   return (
     <button
@@ -780,7 +781,7 @@ export function SidebarGroup({
     <Collapsible open={open} onOpenChange={setOpen} className={cn('flex flex-col gap-1', className)}>
       <div className="flex min-h-9 items-center gap-1.5">
         <CollapsibleTrigger className="group/heading flex min-h-8 flex-1 items-center gap-1.5 rounded-(--radius-sm) px-2 py-1 text-start transition-colors duration-(--duration-fast) hover:bg-(--stone)">
-          <RiArrowRightSLine
+          <ChevronRight
             size={12}
             aria-hidden
             className="shrink-0 text-(--ink-3-aa) transition-transform duration-(--duration-base) ease-(--ease-out-expo) group-data-[state=open]/heading:rotate-90 motion-reduce:transition-none"
@@ -826,7 +827,7 @@ export interface SidebarBranchProps {
   /** The row's own words, and the name of the group it opens. */
   label: string
   /** Drawn at the start of the row, and the whole of the row when collapsed. */
-  icon?: RemixiconComponentType
+  icon?: IconComponent
   /** A count or a state at the end of the row. */
   trailing?: ReactNode
   defaultOpen?: boolean
@@ -909,7 +910,7 @@ export function SidebarBranch({
         {/* The chevron goes at the END and only when nothing else is there, so
             a row with a count does not put two marks in the same corner. */}
         {trailing === undefined && (
-          <RiArrowRightSLine
+          <ChevronRight
             size={12}
             aria-hidden
             className="ms-auto shrink-0 transition-transform duration-(--duration-base) ease-(--ease-out-expo) group-data-[state=open]/branch:rotate-90 motion-reduce:transition-none"

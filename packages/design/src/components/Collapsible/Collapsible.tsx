@@ -1,7 +1,7 @@
 'use client'
 
 import * as CollapsiblePrimitive from '@radix-ui/react-collapsible'
-import { RiArrowDownSLine } from '@remixicon/react'
+import { ChevronDown } from '../../icons'
 import type { ComponentProps, ReactNode } from 'react'
 import { cn } from '../../lib/cn'
 
@@ -72,7 +72,7 @@ export function CollapsibleSection({
     <CollapsiblePrimitive.Root className={cn('w-full', className)} {...props}>
       <CollapsiblePrimitive.Trigger className="group flex w-full items-center justify-between gap-4 py-3 text-start text-sm text-(--ink) transition-colors duration-(--duration-fast) hover:text-(--ink-2)">
         {title}
-        <RiArrowDownSLine
+        <ChevronDown
           size={16}
           aria-hidden
           className="shrink-0 text-(--ink-3-aa) transition-transform duration-(--duration-base) ease-(--ease-out-expo) group-data-[state=open]:rotate-180"

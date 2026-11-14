@@ -2,7 +2,7 @@
 
 import { Slot } from '@radix-ui/react-slot'
 import * as MenuPrimitive from '@radix-ui/react-dropdown-menu'
-import { RiCheckLine, RiMenuLine, RiSearchLine } from '@remixicon/react'
+import { Check, Menu, Search } from '../../icons'
 import { useEffect, useRef, useState, type ReactElement, type ReactNode } from 'react'
 import { Button } from '../../components/Button/Button'
 import { Kbd } from '../../components/Kbd/Kbd'
@@ -23,7 +23,7 @@ export interface NavigationSearchTriggerProps {
 
 /** A visible search entry with its keyboard shortcut, compact on small screens. */
 export function NavigationSearchTrigger({ label, onClick, shortcut = '⌘ K' }: NavigationSearchTriggerProps) {
-  return <Button variant="ghost" className="folio-navigation-search" aria-label={`${label} (${shortcut})`} onClick={onClick}><RiSearchLine size={17} aria-hidden /><span className="folio-navigation-search-label">{label}</span><Kbd>{shortcut}</Kbd></Button>
+  return <Button variant="ghost" className="folio-navigation-search" aria-label={`${label} (${shortcut})`} onClick={onClick}><Search size={17} aria-hidden /><span className="folio-navigation-search-label">{label}</span><Kbd>{shortcut}</Kbd></Button>
 }
 
 export interface PreferenceMenuProps {
@@ -38,7 +38,7 @@ export interface PreferenceMenuProps {
 /** A compact named control for selecting one persistent reader preference. */
 export function PreferenceMenu({ label, value, onValueChange, icon, disabled, options }: PreferenceMenuProps) {
   const keyboardInteraction = useRef(false)
-  return <DropdownMenu modal={false}><DropdownMenuTrigger asChild onPointerDownCapture={() => { keyboardInteraction.current = false }} onKeyDownCapture={() => { keyboardInteraction.current = true }}><Button variant="ghost" iconOnly aria-label={label} disabled={disabled}>{icon}</Button></DropdownMenuTrigger><DropdownMenuContent align="end" aria-label={label} className="folio-site-preference-menu"onPointerDownCapture={() => { keyboardInteraction.current = false }} onKeyDownCapture={() => { keyboardInteraction.current = true }} onCloseAutoFocus={event => { if (!keyboardInteraction.current) event.preventDefault() }}><DropdownMenuLabel>{label}</DropdownMenuLabel><MenuPrimitive.RadioGroup value={value} onValueChange={onValueChange}>{options.map(option => <MenuPrimitive.RadioItem key={option.value} value={option.value} className="folio-site-preference-item"><span>{option.label}</span>{option.icon}<MenuPrimitive.ItemIndicator className="folio-site-preference-indicator" aria-hidden><RiCheckLine size={14} /></MenuPrimitive.ItemIndicator></MenuPrimitive.RadioItem>)}</MenuPrimitive.RadioGroup></DropdownMenuContent></DropdownMenu>
+  return <DropdownMenu modal={false}><DropdownMenuTrigger asChild onPointerDownCapture={() => { keyboardInteraction.current = false }} onKeyDownCapture={() => { keyboardInteraction.current = true }}><Button variant="ghost" iconOnly aria-label={label} disabled={disabled}>{icon}</Button></DropdownMenuTrigger><DropdownMenuContent align="end" aria-label={label} className="folio-site-preference-menu"onPointerDownCapture={() => { keyboardInteraction.current = false }} onKeyDownCapture={() => { keyboardInteraction.current = true }} onCloseAutoFocus={event => { if (!keyboardInteraction.current) event.preventDefault() }}><DropdownMenuLabel>{label}</DropdownMenuLabel><MenuPrimitive.RadioGroup value={value} onValueChange={onValueChange}>{options.map(option => <MenuPrimitive.RadioItem key={option.value} value={option.value} className="folio-site-preference-item"><span>{option.label}</span>{option.icon}<MenuPrimitive.ItemIndicator className="folio-site-preference-indicator" aria-hidden><Check size={14} /></MenuPrimitive.ItemIndicator></MenuPrimitive.RadioItem>)}</MenuPrimitive.RadioGroup></DropdownMenuContent></DropdownMenu>
 }
 
 /**
@@ -122,7 +122,7 @@ export function SiteNavigation({ brand, links, actions, footer, label, openLabel
         <div className="folio-site-navigation-actions">
           {actions}
           <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild><Button variant="ghost" iconOnly aria-label={open ? closeLabel : openLabel} className="folio-site-navigation-toggle"><RiMenuLine size={19} aria-hidden /></Button></SheetTrigger>
+            <SheetTrigger asChild><Button variant="ghost" iconOnly aria-label={open ? closeLabel : openLabel} className="folio-site-navigation-toggle"><Menu size={19} aria-hidden /></Button></SheetTrigger>
             <SheetContent side="top" title={label} closeLabel={closeLabel} className="folio-site-navigation-sheet" aria-describedby={undefined}>
               <nav aria-label={label} className="folio-site-navigation-mobile">
                 {links.map(item => <SheetClose asChild key={item.id}><Slot className="folio-site-navigation-link" aria-current={item.active ? 'page' : undefined}>{item.content}</Slot></SheetClose>)}

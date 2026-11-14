@@ -1,7 +1,7 @@
 'use client'
 
 import type { CSSProperties, ReactNode } from 'react'
-import { RiCloseLine } from '@remixicon/react'
+import { X } from '../../icons'
 import { Button } from '../../components/Button/Button'
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../../components/Dialog/Dialog'
 
@@ -42,7 +42,7 @@ export function MediaLightbox({ open, onOpenChange, title, triggerLabel, closeLa
         onClick={(event) => { if (event.target === event.currentTarget) onOpenChange(false) }}
       >
         <div className="folio-media-lightbox-stage">{expandedMedia}</div>
-        <DialogClose asChild><Button variant="secondary" iconOnly aria-label={closeLabel} className="folio-media-lightbox-close"><RiCloseLine size={18} aria-hidden="true" /></Button></DialogClose>
+        <DialogClose asChild><Button variant="secondary" iconOnly aria-label={closeLabel} className="folio-media-lightbox-close"><X size={18} aria-hidden="true" /></Button></DialogClose>
         <p className="folio-media-lightbox-caption" aria-hidden="true">{title}</p>
       </DialogContent>
     </Dialog>

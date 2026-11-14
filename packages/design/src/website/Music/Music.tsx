@@ -1,6 +1,6 @@
 'use client'
 
-import { RiPauseFill, RiPlayFill } from '@remixicon/react'
+import { Pause, Play } from '../../icons'
 import { useId, type HTMLAttributes, type ReactNode } from 'react'
 import { Badge } from '../../components/Badge/Badge'
 import { Button } from '../../components/Button/Button'
@@ -22,7 +22,7 @@ function PreviewAction({ action, children, overlay = false }: { action: MediaPre
     <Button type="button" iconOnly variant="ghost" onClick={action.onToggle} disabled={action.disabled} aria-label={action.label} title={action.disabled ? action.label : undefined} className={cn('folio-media-preview min-h-11 min-w-11', overlay && 'folio-media-preview--overlay')}>
       {children}
       <span className="folio-media-preview__control" data-playing={action.playing || undefined} aria-hidden>
-        {action.disabled ? '—' : action.playing ? <RiPauseFill size={16} aria-hidden /> : <RiPlayFill size={16} aria-hidden />}
+        {action.disabled ? '—' : action.playing ? <Pause fill="currentColor" size={16} aria-hidden /> : <Play fill="currentColor" size={16} aria-hidden />}
       </span>
     </Button>
   )

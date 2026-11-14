@@ -1,4 +1,4 @@
-import { RiArrowDownLine, RiArrowUpLine, RiExpandUpDownLine } from '@remixicon/react'
+import { ArrowDown, ArrowUp, ChevronsUpDown } from '../../icons'
 import type { HTMLAttributes, TableHTMLAttributes, TdHTMLAttributes, ThHTMLAttributes } from 'react'
 import { cn } from '../../lib/cn'
 import { warnBlankName } from '../../lib/warn'
@@ -179,9 +179,9 @@ const CELL =
   'px-[var(--table-pad-x,0)] [&:not(:last-child)]:pe-[calc(var(--table-pad-x,0px)+1.5rem)]'
 
 const SORT_ICON = {
-  ascending: RiArrowUpLine,
-  descending: RiArrowDownLine,
-  none: RiExpandUpDownLine,
+  ascending: ArrowUp,
+  descending: ArrowDown,
+  none: ChevronsUpDown,
 } as const
 
 /**

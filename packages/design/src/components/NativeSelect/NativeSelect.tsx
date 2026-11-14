@@ -1,4 +1,4 @@
-import { RiArrowDownSLine } from '@remixicon/react'
+import { ChevronDown } from '../../icons'
 import type { Ref, SelectHTMLAttributes } from 'react'
 import { cn } from '../../lib/cn'
 import { CONTROL_BASE, CONTROL_BORDER, isInvalid } from '../../lib/control'
@@ -54,7 +54,7 @@ export function NativeSelect({
       >
         {children}
       </select>
-      <RiArrowDownSLine
+      <ChevronDown
         size={16}
         className="pointer-events-none absolute end-3 top-1/2 -translate-y-1/2 text-(--ink-3-aa)"
         aria-hidden

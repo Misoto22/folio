@@ -1,6 +1,6 @@
 'use client'
 
-import { RiCheckLine, RiFileCopyLine } from '@remixicon/react'
+import { Check, Copy as CopyIcon } from '../../icons'
 import { cn } from '../../lib/cn'
 import { useClipboardCopy } from '../../lib/useClipboardCopy'
 import { Button } from '../Button/Button'
@@ -231,9 +231,9 @@ export function CodeBlock({
               className="ms-auto shrink-0 pointer-coarse:min-h-11 pointer-coarse:min-w-11"
             >
               {copied ? (
-                <RiCheckLine size={14} aria-hidden />
+                <Check size={14} aria-hidden />
               ) : (
-                <RiFileCopyLine size={14} aria-hidden />
+                <CopyIcon size={14} aria-hidden />
               )}
             </Button>
           ) : null}

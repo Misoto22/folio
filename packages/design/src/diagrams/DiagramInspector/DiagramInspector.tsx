@@ -1,7 +1,7 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import { RiCloseLine } from '@remixicon/react'
+import { X } from '../../icons'
 import { cn } from '../../lib/cn'
 
 /** One fact about the selected thing: a short label and its value. */
@@ -106,7 +106,7 @@ export function DiagramInspector({
             aria-label="Clear the selection"
             className="-me-1 -mt-1 flex size-7 shrink-0 items-center justify-center rounded-(--radius-xs) text-(--ink-3-aa) transition-colors duration-(--duration-fast) hover:bg-(--stone) hover:text-(--ink) focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-(--ring)"
           >
-            <RiCloseLine size={14} aria-hidden />
+            <X size={14} aria-hidden />
           </button>
         )}
       </div>

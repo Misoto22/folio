@@ -1,6 +1,6 @@
 'use client'
 
-import { RiCheckLine, RiFileCopyLine } from '@remixicon/react'
+import { Check, Copy } from '../../icons'
 import { useRef, type HTMLAttributes, type ReactNode } from 'react'
 import { Button } from '../../components/Button/Button'
 import { cn } from '../../lib/cn'
@@ -21,7 +21,7 @@ export function ClipboardButton({ text, getText, copyLabel, copiedLabel, classNa
 
   return (
     <Button variant="ghost" size="sm" onClick={() => void copy(getText ?? text ?? '')} aria-label={copied ? copiedLabel : copyLabel} className={cn('folio-clipboard-button', className)}>
-      {copied ? <RiCheckLine size={14} aria-hidden="true" /> : <RiFileCopyLine size={14} aria-hidden="true" />}
+      {copied ? <Check size={14} aria-hidden="true" /> : <Copy size={14} aria-hidden="true" />}
       <span aria-live="polite">{copied ? copiedLabel : copyLabel}</span>
     </Button>
   )

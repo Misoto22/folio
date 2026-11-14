@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type HTMLAttributes, type ReactNode } from 'react'
 import { Slot } from '@radix-ui/react-slot'
-import { RiListUnordered, RiPlayFill, RiPauseFill } from '@remixicon/react'
+import { List, Pause, Play } from '../../icons'
 import { Button } from '../../components/Button/Button'
 import { StatusDot } from '../../components/StatusDot/StatusDot'
 import { Sheet, SheetContent, SheetTrigger } from '../../components/Sheet/Sheet'
@@ -90,7 +90,7 @@ export interface MobileOutlineProps { items: OutlineItem[]; title: string; openL
 export function MobileOutline({ items, title, openLabel, closeLabel }: MobileOutlineProps) {
   const [open, setOpen] = useState(false)
   if (!items.length) return null
-  return <Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild><Button variant="secondary" iconOnly aria-label={openLabel} className="folio-outline-trigger"><RiListUnordered size={18} aria-hidden="true" /></Button></SheetTrigger><SheetContent title={title} closeLabel={closeLabel} side="bottom" className="folio-outline-sheet" aria-describedby={undefined}><TableOfContents items={items} label={title} expanded onNavigate={(id) => {
+  return <Sheet open={open} onOpenChange={setOpen}><SheetTrigger asChild><Button variant="secondary" iconOnly aria-label={openLabel} className="folio-outline-trigger"><List size={18} aria-hidden="true" /></Button></SheetTrigger><SheetContent title={title} closeLabel={closeLabel} side="bottom" className="folio-outline-sheet" aria-describedby={undefined}><TableOfContents items={items} label={title} expanded onNavigate={(id) => {
     setOpen(false)
     requestAnimationFrame(() => { const target = document.getElementById(id); if (target) { target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); window.history.replaceState(null, '', `#${id}`) } })
   }} /></SheetContent></Sheet>
@@ -116,7 +116,7 @@ export function MediaPlayback({ src, poster, label, playLabel, pauseLabel, fallb
   const ref = useRef<HTMLVideoElement>(null)
   useEffect(() => { if (typeof window.matchMedia !== 'function') return; const query = window.matchMedia('(prefers-reduced-motion: reduce)'); const update = () => setReduceMotion(query.matches); update(); query.addEventListener('change', update); return () => query.removeEventListener('change', update) }, [])
   if (reduceMotion) return fallback
-  return <div className="folio-media-playback"><video ref={ref} src={src} poster={poster} aria-label={label} autoPlay muted loop playsInline preload="metadata" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} /><Button type="button" variant="secondary" iconOnly aria-label={playing ? pauseLabel : playLabel} onClick={() => { if (playing) ref.current?.pause(); else void ref.current?.play().catch(() => {}) }}>{playing ? <RiPauseFill size={18} aria-hidden /> : <RiPlayFill size={18} aria-hidden />}</Button></div>
+  return <div className="folio-media-playback"><video ref={ref} src={src} poster={poster} aria-label={label} autoPlay muted loop playsInline preload="metadata" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} /><Button type="button" variant="secondary" iconOnly aria-label={playing ? pauseLabel : playLabel} onClick={() => { if (playing) ref.current?.pause(); else void ref.current?.play().catch(() => {}) }}>{playing ? <Pause fill="currentColor" size={18} aria-hidden /> : <Play fill="currentColor" size={18} aria-hidden />}</Button></div>
 }
 export interface ActionBandProps { title: ReactNode; description?: ReactNode; actions?: ReactNode; eyebrow?: ReactNode }
 /** A terminal project invitation with one strong entry action and quieter supporting actions. */

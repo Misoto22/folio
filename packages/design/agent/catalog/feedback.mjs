@@ -221,7 +221,7 @@ export const FEEDBACK = [
       {
         element: 'Mark',
         description:
-          'The tone’s Remix Icon glyph at 18px — RiInformationLine, RiCheckboxCircleLine, RiAlertLine or RiCloseCircleLine — aria-hidden, so it doubles the colour for sighted readers only. hideIcon removes it.',
+          'The tone’s glyph at 18px — Info, CircleCheck, TriangleAlert or CircleX from @misoto22/folio/icons — aria-hidden, so it doubles the colour for sighted readers only. hideIcon removes it.',
       },
       {
         element: 'Title',
@@ -286,7 +286,7 @@ export const FEEDBACK = [
       {
         element: 'Medallion',
         description:
-          'The optional Remix Icon glyph at 24px inside a 56px --stone circle, aria-hidden. Decoration that gives the column something to start from, never the message.',
+          'The optional icon glyph at 24px inside a 56px --stone circle, aria-hidden. Decoration that gives the column something to start from, never the message.',
       },
       {
         element: 'Title',

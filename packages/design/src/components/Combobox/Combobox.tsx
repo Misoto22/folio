@@ -1,6 +1,6 @@
 'use client'
 
-import { RiCheckLine, RiCloseLine, RiExpandUpDownLine } from '@remixicon/react'
+import { Check, ChevronsUpDown, X } from '../../icons'
 import { useId, useState } from 'react'
 import { cn } from '../../lib/cn'
 import { CONTROL_BORDER, isInvalid } from '../../lib/control'
@@ -218,10 +218,10 @@ export function Combobox(props: ComboboxProps) {
               }}
               className="grid size-5 cursor-pointer place-items-center rounded-(--radius-pill) text-(--ink-3-aa) transition-colors duration-(--duration-fast) hover:bg-(--stone) hover:text-(--ink)"
             >
-              <RiCloseLine size={12} aria-hidden />
+              <X size={12} aria-hidden />
             </span>
           )}
-          <RiExpandUpDownLine size={14} aria-hidden className="text-(--ink-3-aa)" />
+          <ChevronsUpDown size={14} aria-hidden className="text-(--ink-3-aa)" />
         </span>
       </PopoverTrigger>
       <PopoverContent
@@ -261,7 +261,7 @@ export function Combobox(props: ComboboxProps) {
                       )}
                       data-on={selected}
                     >
-                      <RiCheckLine
+                      <Check
                         size={12}
                         aria-hidden
                         className={selected ? 'opacity-100' : 'opacity-0'}

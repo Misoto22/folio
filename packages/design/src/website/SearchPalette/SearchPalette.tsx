@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, type KeyboardEvent, type ReactNode, type RefObject } from 'react'
-import { RiArrowLeftLine, RiCloseLine } from '@remixicon/react'
+import { ArrowLeft, X } from '../../icons'
 import { Badge } from '../../components/Badge/Badge'
 import { Button } from '../../components/Button/Button'
 import { CommandDialog, CommandEmpty, CommandFooter, CommandGroup, CommandHint, CommandInput, CommandItem, CommandList } from '../../components/Command/Command'
@@ -116,7 +116,7 @@ function SearchResults({ input, inputLabel, placeholder, query, onQueryChange, o
     <>
       <div className="folio-search-palette__search">
         <CommandInput ref={input} aria-label={inputLabel} placeholder={placeholder} value={query} onValueChange={onQueryChange} autoComplete="off" spellCheck={false} />
-        <Button variant="ghost" iconOnly aria-label={closeLabel} onClick={onClose} className="folio-search-palette__close"><RiCloseLine size={18} aria-hidden /></Button>
+        <Button variant="ghost" iconOnly aria-label={closeLabel} onClick={onClose} className="folio-search-palette__close"><X size={18} aria-hidden /></Button>
       </div>
       <CommandList label={label}>
         <CommandEmpty>{emptyLabel}</CommandEmpty>
@@ -167,10 +167,10 @@ function SearchDetail({ input, inputLabel, placeholder, query, onQueryChange, on
         event.preventDefault()
         if (query.trim() && !detail.submitDisabled) detail.onSubmit()
       }}>
-        <Button variant="ghost" iconOnly aria-label={labels.back} onClick={detail.onBack}><RiArrowLeftLine size={18} aria-hidden /></Button>
+        <Button variant="ghost" iconOnly aria-label={labels.back} onClick={detail.onBack}><ArrowLeft size={18} aria-hidden /></Button>
         <Input ref={input} aria-label={inputLabel} placeholder={placeholder} value={query} onChange={(event) => onQueryChange(event.target.value)} autoComplete="off" />
         <Badge>{detail.label}</Badge>
-        <Button variant="ghost" iconOnly aria-label={labels.close} onClick={onClose}><RiCloseLine size={18} aria-hidden /></Button>
+        <Button variant="ghost" iconOnly aria-label={labels.close} onClick={onClose}><X size={18} aria-hidden /></Button>
       </form>
       <div className="folio-search-palette__detail" aria-live="polite" onKeyDown={keepFromList} onClick={(event) => {
         if ((event.target as HTMLElement).closest('a')) onContentLinkClick?.()

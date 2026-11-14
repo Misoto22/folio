@@ -545,6 +545,11 @@
   /* How long a page waits before it admits it is loading. Under this, a
      skeleton would only flash; over it, the reader needs to see something. */
   --wait: 0.3s;
+  /* One step of a cascade: the gap between parts that arrive one after
+     another — a panel's field, its groups, its footer; a list's rows. A third
+     of a fast step, so six parts land inside one slow step and read as one
+     arrival rather than a queue. */
+  --stagger: calc(var(--fast) / 3);
   /* How much a modal's backdrop softens the page behind it: enough that the
      page reads as set aside, not so much that it stops being the same page. */
   --backdrop-blur: 6px;
@@ -581,10 +586,14 @@
   --focus-w: 2px;
   --focus-off: 3px;
 
-  /* ─── Icons ─── three sizes, and no weight: a Remix Icon glyph is a filled path. */
+  /* ─── Icons ─── three sizes and one weight. The glyphs are strokes on a 24
+     grid, so the weight is a number on that grid: 1.75 lands at 1.17px on a
+     16px icon and 1.46px on a 20px one — the stem of the grotesk at 400–500.
+     2 reads as heavy as the filled set it replaced; 1.5 goes thin at 14px. */
   --ico-s: 14px;
   --ico-m: 16px;
   --ico-l: 20px;
+  --ico-stroke: 1.75;
 
   /* ─── Status ─── the only chroma in the system, and it is bound to state. */
   --ok: #3d6b34;

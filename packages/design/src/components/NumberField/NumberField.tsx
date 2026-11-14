@@ -1,6 +1,6 @@
 'use client'
 
-import { RiArrowLeftRightLine } from '@remixicon/react'
+import { ArrowLeftRight } from '../../icons'
 import { useId, useRef, useState, type InputHTMLAttributes, type PointerEvent, type Ref } from 'react'
 import { cn } from '../../lib/cn'
 import { CONTROL_BASE, CONTROL_BORDER, isInvalid } from '../../lib/control'
@@ -242,7 +242,7 @@ export function NumberField({
             disabled ? 'pointer-events-none' : 'cursor-ew-resize hover:text-(--ink)',
           )}
         >
-          <RiArrowLeftRightLine className="size-4" aria-hidden />
+          <ArrowLeftRight className="size-4" aria-hidden />
         </span>
       )}
       {unit && (

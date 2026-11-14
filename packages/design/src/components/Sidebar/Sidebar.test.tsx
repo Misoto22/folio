@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { RiHomeLine, RiMenuUnfold3Line, RiSettings3Line } from '@remixicon/react'
+import { House, PanelLeftOpen, Settings as SettingsIcon } from '../../icons'
 import {
   Sidebar,
   SidebarBranch,
@@ -21,10 +21,10 @@ function rail(props: Partial<React.ComponentProps<typeof SidebarProvider>> = {})
         <SidebarTrigger />
         <SidebarContent>
           <SidebarGroup label="Guide" count={2}>
-            <SidebarItem href="#start" icon={RiHomeLine} active>
+            <SidebarItem href="#start" icon={House} active>
               Getting started
             </SidebarItem>
-            <SidebarItem href="#settings" icon={RiSettings3Line} trailing="3">
+            <SidebarItem href="#settings" icon={SettingsIcon} trailing="3">
               Settings
             </SidebarItem>
           </SidebarGroup>
@@ -126,8 +126,8 @@ describe('SidebarBranch', () => {
         <Sidebar label="Workspace">
           <SidebarContent>
             <SidebarGroup label="Teamspaces" count={1} badge={<span>Beta</span>}>
-              <SidebarBranch label="Acme HQ" icon={RiHomeLine}>
-                <SidebarItem href="#hq" icon={RiHomeLine}>
+              <SidebarBranch label="Acme HQ" icon={House}>
+                <SidebarItem href="#hq" icon={House}>
                   Overview
                 </SidebarItem>
               </SidebarBranch>
@@ -174,7 +174,7 @@ describe('without a provider', () => {
       <Sidebar label="Workspace">
         <SidebarContent>
           <SidebarGroup label="Guide" count={1}>
-            <SidebarItem href="#one" icon={RiHomeLine}>
+            <SidebarItem href="#one" icon={House}>
               One
             </SidebarItem>
           </SidebarGroup>
@@ -353,12 +353,12 @@ describe('Sidebar side and variant', () => {
 
   it('points the trigger at the edge it operates', () => {
     render(rail({ side: 'end' }))
-    // Remix Icon puts the same class on every glyph, so the drawn path is the
-    // only way to tell the two panel marks apart without a snapshot. Render the
+    // The drawn path is what tells the two panel marks apart without a
+    // snapshot or a dependency on the icon set's class names. Render the
     // one this side is supposed to draw and compare against it, rather than
     // pinning the path data a version bump is free to redraw.
     const trigger = screen.getByRole('button', { name: 'Close the sidebar' })
-    const { container } = render(<RiMenuUnfold3Line />)
+    const { container } = render(<PanelLeftOpen />)
     const expected = container.querySelector('svg path')?.getAttribute('d')
     expect(expected).toBeTruthy()
     expect(trigger.querySelector('svg path')?.getAttribute('d')).toBe(expected)
@@ -372,7 +372,7 @@ describe('Sidebar side and variant', () => {
         <Sidebar label="Documentation">
           <SidebarContent>
             <SidebarGroup label="Guide" count={1}>
-              <SidebarItem href="#one" icon={RiHomeLine}>
+              <SidebarItem href="#one" icon={House}>
                 One
               </SidebarItem>
             </SidebarGroup>

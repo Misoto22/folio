@@ -1,7 +1,8 @@
 'use client'
 
 import { Command as CommandPrimitive } from 'cmdk'
-import { RiSearchLine, type RemixiconComponentType } from '@remixicon/react'
+import { Search as SearchIcon } from '../../icons'
+import type { IconComponent } from '../../icons'
 import { isValidElement, type ComponentProps, type ReactNode } from 'react'
 import { cn } from '../../lib/cn'
 
@@ -9,13 +10,13 @@ import { cn } from '../../lib/cn'
  * True for a component type — `icon={Settings}` — rather than a rendered element.
  *
  * Everything a `ReactNode` can be is an element, a primitive, an array, another
- * iterable or a promise; a Remix Icon glyph is none of those, it is a plain
+ * iterable or a promise; an icon component is none of those, it is a plain
  * function component. So both spellings are tellable apart at runtime, which is
  * what lets one prop take either — and it has to, because this prop meant the
  * opposite thing one import away and the wrong spelling failed at render, not
  * at the type.
  */
-function isIconComponent(icon: RemixiconComponentType | ReactNode): icon is RemixiconComponentType {
+function isIconComponent(icon: IconComponent | ReactNode): icon is IconComponent {
   if (isValidElement(icon)) return false
   if (typeof icon === 'function') return true
   if (typeof icon !== 'object' || icon === null) return false
@@ -23,7 +24,7 @@ function isIconComponent(icon: RemixiconComponentType | ReactNode): icon is Remi
 }
 
 /** The leading glyph, sized by this component when it was handed a component. */
-function iconNode(icon: RemixiconComponentType | ReactNode): ReactNode {
+function iconNode(icon: IconComponent | ReactNode): ReactNode {
   if (!isIconComponent(icon)) return icon
   const Icon = icon
   return <Icon size={16} aria-hidden />
@@ -74,7 +75,7 @@ export function CommandInput({
 }: ComponentProps<typeof CommandPrimitive.Input>) {
   return (
     <div className="flex items-center gap-3 border-b border-(--rule) px-4">
-      <RiSearchLine size={18} aria-hidden className="shrink-0 text-(--ink-3-aa)" />
+      <SearchIcon size={18} aria-hidden className="shrink-0 text-(--ink-3-aa)" />
       <CommandPrimitive.Input
         className={cn(
           'h-13 w-full bg-transparent text-base md:text-[15px] text-(--ink) outline-none placeholder:text-(--ink-3-aa)',
@@ -200,7 +201,7 @@ export interface CommandItemProps extends ComponentProps<typeof CommandPrimitive
    * It is what makes a long list scannable — the eye sorts by shape before it
    * reads, and forty identical rows of text defeat that.
    */
-  icon?: RemixiconComponentType | ReactNode
+  icon?: IconComponent | ReactNode
   /**
    * A quiet note at the end of the row — what kind of thing this is, or its
    * current state. Not a description: a palette that prints a sentence per row

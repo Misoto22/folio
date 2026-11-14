@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import type { ButtonHTMLAttributes, CSSProperties, HTMLAttributes, PointerEvent, ReactElement, ReactNode, Ref } from 'react'
-import { RiArrowRightLine, RiArrowRightUpLine, RiArrowDownSLine, RiArrowRightSLine, RiRestartLine, RiSparklingLine, RiCloseLine, RiChat3Line } from '@remixicon/react'
+import { ArrowRight as ArrowRightIcon, ArrowUpRight, ChevronDown, ChevronRight, MessageCircle, RefreshCw, Sparkles, X } from '../../icons'
 import { cn } from '../../lib/cn'
 import { replaceSlotContent, resolveSlotElement } from '../../lib/slot-content'
 import { Article } from '../../components/Article/Article'
@@ -51,7 +51,7 @@ export function ConversationSuggestions({ label, items, className, ...rest }: Co
     <Text size="xs" tone="muted">{label}</Text>
     <ul>{items.map((item) => <li key={item.id} data-wide-only={item.wideOnly || undefined}>
       <Button variant="ghost" className="folio-conversation-suggestions__action" disabled={item.disabled} onClick={item.onSelect}>
-        <span>{item.label}</span><RiArrowRightLine size={16} aria-hidden />
+        <span>{item.label}</span><ArrowRightIcon size={16} aria-hidden />
       </Button>
     </li>)}</ul>
   </div>
@@ -86,7 +86,7 @@ export function ConversationThread({ label, intro, summary, controls = [], compo
       <div className="folio-conversation-thread__controls">
         <Text size="xs" tone="muted">{summary}</Text>
         <div>{controls.map((control) => {
-          const Icon = control.kind === 'reset' ? RiRestartLine : control.kind === 'expand' ? RiArrowDownSLine : RiArrowRightSLine
+          const Icon = control.kind === 'reset' ? RefreshCw : control.kind === 'expand' ? ChevronDown : ChevronRight
           return <Button key={control.id} variant="ghost" disabled={control.disabled} onClick={control.onSelect}><Icon size={14} aria-hidden />{control.label}</Button>
         })}</div>
       </div>
@@ -156,7 +156,7 @@ export function ConversationTurn({ title, metadata, expanded, onToggle, bodyId, 
     {metadata}
     <Collapsible open={expanded} onOpenChange={onToggle}>
       <Heading level={3} size="sub">
-        <CollapsibleTrigger asChild><Button variant="ghost" className="folio-conversation-turn__toggle" aria-controls={bodyId}><span>{title}</span><RiArrowRightSLine size={16} aria-hidden /></Button></CollapsibleTrigger>
+        <CollapsibleTrigger asChild><Button variant="ghost" className="folio-conversation-turn__toggle" aria-controls={bodyId}><span>{title}</span><ChevronRight size={16} aria-hidden /></Button></CollapsibleTrigger>
       </Heading>
       {!expanded && <Text size="sm" tone="muted" className="folio-conversation-turn__preview">{preview}</Text>}
       <CollapsibleContent id={bodyId}><div className="folio-conversation-turn__body">{children}</div></CollapsibleContent>
@@ -229,8 +229,8 @@ export function ActionProposal({ label, destination, detail, approveLabel, dismi
   return <div role="group" aria-label={label} className={cn('folio-action-proposal', className)} {...rest}>
     <Text size="xs" tone="muted">{label}</Text>
     <div className="folio-action-proposal__actions">
-      <Button variant="ghost" className="folio-action-proposal__action" aria-label={approveLabel} onClick={onApprove} {...approvalAttributes}><span>{destination}</span><span>{detail && <Text as="span" size="xs" tone="muted" className="folio-action-proposal__detail">{detail}</Text>}<RiArrowRightLine size={16} aria-hidden /></span></Button>
-      <Button variant="ghost" className="folio-action-proposal__action" onClick={onDismiss}>{dismissLabel}<RiCloseLine size={16} aria-hidden /></Button>
+      <Button variant="ghost" className="folio-action-proposal__action" aria-label={approveLabel} onClick={onApprove} {...approvalAttributes}><span>{destination}</span><span>{detail && <Text as="span" size="xs" tone="muted" className="folio-action-proposal__detail">{detail}</Text>}<ArrowRightIcon size={16} aria-hidden /></span></Button>
+      <Button variant="ghost" className="folio-action-proposal__action" onClick={onDismiss}>{dismissLabel}<X size={16} aria-hidden /></Button>
     </div>
   </div>
 }
@@ -238,7 +238,7 @@ export function ActionProposal({ label, destination, detail, approveLabel, dismi
 export interface ConversationLauncherProps extends ButtonHTMLAttributes<HTMLButtonElement> { visible: boolean; buttonRef?: Ref<HTMLButtonElement> }
 
 export function ConversationLauncher({ visible, buttonRef, className, children, ...rest }: ConversationLauncherProps) {
-  return <Button asChild variant="secondary" className={cn('folio-conversation-launcher', className)}><button ref={buttonRef} inert={!visible} data-revealed={visible} {...rest}><RiChat3Line size={18} aria-hidden />{children}</button></Button>
+  return <Button asChild variant="secondary" className={cn('folio-conversation-launcher', className)}><button ref={buttonRef} inert={!visible} data-revealed={visible} {...rest}><MessageCircle size={18} aria-hidden />{children}</button></Button>
 }
 
 export type ConversationDockCorner = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right'
@@ -269,8 +269,8 @@ export function ConversationDock({ label, open, card, corner, dragging, moving, 
     <aside ref={panelRef} aria-label={label} inert={!open} data-open={open} data-card={card} data-corner={corner} data-dragging={dragging || undefined} data-moving={moving || undefined} className={cn('folio-conversation-dock', className)} {...rest}>
       {handles}
       <header onPointerDown={onHeaderPointerDown} className="folio-conversation-dock__header">
-        <Text as="span" size="xs" tone="muted"><RiSparklingLine size={14} aria-hidden />{label}</Text>
-        <div><Button asChild variant="ghost">{roomLink}</Button><Button variant="ghost" iconOnly aria-label={closeLabel} onClick={onClose}><RiArrowDownSLine size={16} aria-hidden /></Button></div>
+        <Text as="span" size="xs" tone="muted"><Sparkles size={14} aria-hidden />{label}</Text>
+        <div><Button asChild variant="ghost">{roomLink}</Button><Button variant="ghost" iconOnly aria-label={closeLabel} onClick={onClose}><ChevronDown size={16} aria-hidden /></Button></div>
       </header>
       <div ref={logRef} className="folio-conversation-dock__log">{children}</div>
       {proposal && <div className="folio-conversation-dock__proposal">{proposal}</div>}
@@ -352,5 +352,5 @@ export function SelectionToolbar({ label, actions, floating, toolbarRef, classNa
 /** A router link keeps its own destination and behavior inside a standard action. */
 export function ConversationRoomLink({ children }: { children: ReactElement }) {
   const link = resolveSlotElement(children as ReactElement<{ children?: ReactNode }>)
-  return <Button asChild variant="ghost" className="mt-5">{replaceSlotContent(link, <>{link.props.children}<RiArrowRightUpLine size={14} aria-hidden /></>)}</Button>
+  return <Button asChild variant="ghost" className="mt-5">{replaceSlotContent(link, <>{link.props.children}<ArrowUpRight size={14} aria-hidden /></>)}</Button>
 }

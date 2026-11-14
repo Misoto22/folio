@@ -1,6 +1,6 @@
 'use client'
 
-import { RiArrowRightSLine, RiCheckLine } from '@remixicon/react'
+import { Check, ChevronRight } from '../../icons'
 import { useState, type HTMLAttributes, type ReactNode } from 'react'
 import { cn } from '../../lib/cn'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../components/Collapsible/Collapsible'
@@ -30,7 +30,7 @@ export interface ReasoningTraceProps extends Omit<HTMLAttributes<HTMLDivElement>
 export function ReasoningTrace({ label, running, title, items, className, ...rest }: ReasoningTraceProps) {
   const [chosen, setChosen] = useState<boolean | null>(null)
   const line = <>
-    <span className="folio-reasoning__icon" aria-hidden="true">{running ? <Spinner size="sm" label={null} /> : <RiCheckLine size={14} />}</span>
+    <span className="folio-reasoning__icon" aria-hidden="true">{running ? <Spinner size="sm" label={null} /> : <Check size={14} />}</span>
     <span className="folio-reasoning__title" data-running={running || undefined}>{title}</span>
   </>
 
@@ -41,7 +41,7 @@ export function ReasoningTrace({ label, running, title, items, className, ...res
   return <Collapsible open={chosen ?? running} onOpenChange={setChosen} className={cn('folio-reasoning', className)} {...rest}>
     <div role={running ? 'status' : undefined} aria-live={running ? 'polite' : undefined}>
       <CollapsibleTrigger asChild>
-        <button type="button" className="folio-reasoning__line">{line}<RiArrowRightSLine size={14} aria-hidden className="folio-reasoning__chevron" /></button>
+        <button type="button" className="folio-reasoning__line">{line}<ChevronRight size={14} aria-hidden className="folio-reasoning__chevron" /></button>
       </CollapsibleTrigger>
     </div>
     <CollapsibleContent><ActivityTrace label={label} items={items} className="folio-reasoning__steps" /></CollapsibleContent>

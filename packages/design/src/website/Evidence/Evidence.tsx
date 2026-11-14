@@ -1,6 +1,6 @@
 'use client'
 
-import { RiCheckLine, RiCloseLine } from '@remixicon/react'
+import { Check, X } from '../../icons'
 import type { HTMLAttributes, ReactNode } from 'react'
 import { cn } from '../../lib/cn'
 import { Button } from '../../components/Button/Button'
@@ -40,7 +40,7 @@ export function ActivityTrace({ label, items, waiting, waitingLabel, className, 
   if (items.length === 0 && !waiting) return null
   return <div role={waiting ? 'status' : undefined} aria-live={waiting ? 'polite' : undefined} className={cn('folio-activity-trace', className)} {...rest}>
     {items.length === 0 ? <EvidenceStatus state="running">{waitingLabel}</EvidenceStatus> : <ul aria-label={label}>{items.map((item) => <li key={item.id} data-state={item.state}>
-      {item.state === 'running' ? <StatusDot tone="neutral" size="sm" /> : item.state === 'done' ? <RiCheckLine size={12} aria-hidden /> : <RiCloseLine size={12} aria-hidden />}
+      {item.state === 'running' ? <StatusDot tone="neutral" size="sm" /> : item.state === 'done' ? <Check size={12} aria-hidden /> : <X size={12} aria-hidden />}
       <Text as="span" size="xs"><span>{item.label}</span>{item.detail && <Text as="span" size="xs" tone="muted"> {item.detail}</Text>}</Text>
       {item.summary != null && <Text as="span" size="xs" tone="muted" className="folio-activity-trace__summary">{item.summary}</Text>}
     </li>)}</ul>}

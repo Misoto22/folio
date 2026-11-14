@@ -84,7 +84,7 @@ and add `hideTitle`, so the accessible name is a real one.
 <Alert tone="success" title="Saved">Your changes are live.</Alert>
 ```
 
-`EmptyState` is the same shape: `icon` (a Remix Icon component, not an element),
+`EmptyState` is the same shape: `icon` (an icon component such as `Inbox` from `@misoto22/folio/icons`, not an element),
 `title`, `description`, `action`.
 
 ### Accordion — the item carries its own title

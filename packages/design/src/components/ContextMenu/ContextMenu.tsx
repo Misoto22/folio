@@ -1,7 +1,7 @@
 'use client'
 
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu'
-import type { RemixiconComponentType } from '@remixicon/react'
+import type { IconComponent } from '../../icons'
 import { isValidElement, useId, type ComponentProps, type ReactNode } from 'react'
 import { cn } from '../../lib/cn'
 import { useOverlayContainer } from '../../lib/overlay-container'
@@ -10,13 +10,13 @@ import { useOverlayContainer } from '../../lib/overlay-container'
  * True for a component type — `icon={Copy}` — rather than a rendered element.
  *
  * Everything a `ReactNode` can be is an element, a primitive, an array, another
- * iterable or a promise; a Remix Icon glyph is none of those, it is a plain
+ * iterable or a promise; an icon component is none of those, it is a plain
  * function component. So both spellings are tellable apart at runtime, which is
  * what lets one prop take either — and it has to, because this prop meant the
  * opposite thing one import away and the wrong spelling failed at render, not
  * at the type.
  */
-function isIconComponent(icon: RemixiconComponentType | ReactNode): icon is RemixiconComponentType {
+function isIconComponent(icon: IconComponent | ReactNode): icon is IconComponent {
   if (isValidElement(icon)) return false
   if (typeof icon === 'function') return true
   if (typeof icon !== 'object' || icon === null) return false
@@ -24,7 +24,7 @@ function isIconComponent(icon: RemixiconComponentType | ReactNode): icon is Remi
 }
 
 /** The leading glyph, sized by this component when it was handed a component. */
-function iconNode(icon: RemixiconComponentType | ReactNode): ReactNode {
+function iconNode(icon: IconComponent | ReactNode): ReactNode {
   if (icon === undefined || icon === null || icon === false) return null
   if (!isIconComponent(icon)) {
     return (
@@ -88,7 +88,7 @@ export interface ContextMenuItemProps
    * and this sizes it, `icon={<Copy size={16} />}` passes the element and this
    * places it.
    */
-  icon?: RemixiconComponentType | ReactNode
+  icon?: IconComponent | ReactNode
   /** Paints the row as destructive. Use for delete, revoke, disconnect. */
   destructive?: boolean
 }

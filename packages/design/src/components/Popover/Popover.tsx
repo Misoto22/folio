@@ -1,7 +1,7 @@
 'use client'
 
 import * as PopoverPrimitive from '@radix-ui/react-popover'
-import { RiCloseLine } from '@remixicon/react'
+import { X } from '../../icons'
 import type { ComponentProps } from 'react'
 import { cn } from '../../lib/cn'
 import { useOverlayContainer } from '../../lib/overlay-container'
@@ -72,7 +72,7 @@ export function PopoverContent({
             aria-label="Close"
             className="absolute end-2 top-2 grid size-8 place-items-center rounded-(--radius-pill) text-(--ink-3-aa) transition-colors duration-(--duration-fast) hover:bg-(--stone) hover:text-(--ink)"
           >
-            <RiCloseLine size={14} aria-hidden />
+            <X size={14} aria-hidden />
           </PopoverPrimitive.Close>
         )}
       </PopoverPrimitive.Content>

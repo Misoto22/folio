@@ -429,7 +429,7 @@ export const NAVIGATION = [
       {
         element: 'Icon',
         description:
-          'An optional Remix Icon component at 18px, aria-hidden, ahead of the label. It is rendered by the native branch only: a slotted row takes its icon inside the child, because Slot accepts exactly one.',
+          'An optional icon component at 18px, aria-hidden, ahead of the label. It is rendered by the native branch only: a slotted row takes its icon inside the child, because Slot accepts exactly one.',
       },
       {
         element: 'Label',

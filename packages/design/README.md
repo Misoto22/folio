@@ -173,6 +173,18 @@ accessibility is required in the type — `Table.caption`, `Progress.label`,
 Logical properties throughout, so the system is RTL-correct; motion is gated
 behind `prefers-reduced-motion`.
 
+## Icons
+
+`@misoto22/folio/icons` re-exports the Lucide glyphs the package and its site
+draw, each reading its stroke from `--ico-stroke` (1.75 on the 24 grid) and,
+with no `size`, its box from `--ico-m`. Pass any of them where a prop takes an
+icon component — `<EmptyState icon={Inbox} … />`. Brand marks are not in the
+set; they keep their makers' drawings.
+
+```tsx
+import { ArrowUpRight, Search } from '@misoto22/folio/icons'
+```
+
 ## Requirements
 
 React 19, Node 24+. ESM only.
