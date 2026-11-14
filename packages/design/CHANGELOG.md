@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.20.1](https://github.com/Misoto22/folio/compare/v0.20.0...v0.20.1) (2026-11-14)
+
+
+### Bug Fixes
+
+* **website:** keep short-label targets 44px wide ([#172](https://github.com/Misoto22/folio/issues/172)) ([c4667eb](https://github.com/Misoto22/folio/commit/c4667ebbd6beac946cbc39640d420b441a9879c4))
+
 ## [0.20.0](https://github.com/Misoto22/folio/compare/v0.19.1...v0.20.0) (2026-11-14)
 
 
