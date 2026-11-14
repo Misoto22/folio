@@ -1,6 +1,6 @@
 {
   "name": "@misoto22/folio",
-  "version": "0.21.1",
+  "version": "0.21.2",
   "private": false,
   "description": "Monochrome design system — CSS tokens and accessible React primitives",
   "license": "MIT",
