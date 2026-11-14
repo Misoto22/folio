@@ -3,4 +3,4 @@
 .folio-scroll-control { transition: opacity var(--duration-fast) var(--ease); }
 .folio-scroll-control-hidden { opacity: 0; pointer-events: none; }
 @media (prefers-reduced-motion: reduce) { .folio-scroll-control { transition: none; } }
-[data-motion='none'] .folio-scroll-control { transition: none; }
+[data-motion='still'] .folio-scroll-control { transition: none; }

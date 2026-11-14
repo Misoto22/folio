@@ -6,7 +6,10 @@
    and the two animations never fight for a property. */
 .folio-loading-page > .folio-loading-data { animation: folio-loading-in var(--duration-base) var(--ease) var(--duration-wait) both; }
 @keyframes folio-loading-in { from { opacity: 0; } to { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .folio-loading-page > .folio-loading-data { animation: none; } }
+/* Reduced motion drops the fade, not the wait: `animation: none` here showed
+   the grey bars at once — on every quick navigation, to exactly the readers
+   who asked for less movement. */
+@media (prefers-reduced-motion: reduce) { .folio-loading-page > .folio-loading-data { animation-duration: 1ms; } }
 .folio-loading-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17.5rem), 1fr)); gap: 1rem; padding-block: 1.5rem clamp(4rem, 9vw, 8rem); }
 .folio-loading-cards > div { padding: 1.25rem 1.25rem 1.5rem; border: 1px solid var(--rule); border-radius: var(--radius-lg); }
 .folio-recovery-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
