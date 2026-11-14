@@ -154,11 +154,39 @@ jobs:
       contents: read
       id-token: write
     steps:
-      # The release commit itself: release-please tags the commit that merged
-      # its pull request, which on this push event is `github.sha`. So the
-      # version read below is the one that was just tagged, rather than one a
-      # later push moved on from.
+      # The tag release-please just wrote, not `github.sha`. Runs queue on the
+      # `release` group, and release-please reads `main` as it is when its job
+      # runs: on 2026-11-14 the run for one commit found the next release pull
+      # request already merged, tagged v0.20.1, then built its own older tree,
+      # still 0.20.0, and npm answered "no new packages". The run for the
+      # release commit itself saw the tag already there and skipped publishing,
+      # so v0.20.1 never reached npm.
+      - name: Find the release this run created
+        id: tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag=$(gh api "repos/${GITHUB_REPOSITORY}/releases/latest" --jq .tag_name)
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          echo "Publishing ${tag}"
+
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: refs/tags/${{ steps.tag.outputs.tag }}
+
+      # The tree must be the version it is published as; otherwise the publish
+      # below is a silent no-op and the registry check confirms the old version.
+      - name: Confirm the checkout is the tagged version
+        env:
+          TAG: ${{ steps.tag.outputs.tag }}
+        run: |
+          set -euo pipefail
+          version=$(node -p "require('./packages/design/package.json').version")
+          if [ "v${version}" != "${TAG}" ]; then
+            echo "::error::packages/design is ${version}, the release is ${TAG}"
+            exit 1
+          fi
 
       - uses: ./.github/actions/setup
         with:
