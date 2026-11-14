@@ -104,6 +104,11 @@
 .folio-action-proposal__action { display: flex; inline-size: 100%; justify-content: space-between; gap: 1rem; text-align: start; border-block-end: 1px solid var(--rule); }
 .folio-action-proposal__action > span { min-inline-size: 0; }
 .folio-action-proposal__action > span:last-child { display: flex; align-items: center; gap: .75rem; flex-shrink: 0; }
+/* How far from the viewport's inline-start edge the closed pill reaches, gap
+   included: its 1.5rem inset, the pill itself and 1rem of air. Read by a page
+   that has to keep its controls out from under the pill — see the contact
+   layout. */
+:root { --folio-dock-clearance: 8.5rem; }
 /* ─── The dock ───
    One shell is the launcher pill closed and the panel open. The panel inside
    it keeps its final size and is anchored to the pill's corner, so growing the

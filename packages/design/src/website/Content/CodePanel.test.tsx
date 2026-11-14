@@ -32,6 +32,19 @@ describe('CodePanel clipboard boundary', () => {
     expect(screen.queryByRole('button', { name: 'Copied' })).not.toBeInTheDocument()
   })
 
+  it('copies from an icon-only button that names itself and announces the copy without visible words', async () => {
+    const user = userEvent.setup()
+    const write = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue()
+    render(<ClipboardButton iconOnly text="a@b.c" copyLabel="Copy email address" copiedLabel="Email address copied" />)
+    const button = screen.getByRole('button', { name: 'Copy email address' })
+    expect(button).not.toHaveTextContent('Copy email address')
+    await user.click(button)
+    expect(write).toHaveBeenCalledWith('a@b.c')
+    expect(button).toHaveAttribute('data-copied', 'true')
+    expect(button).toHaveAccessibleName('Email address copied')
+    expect(button.querySelector('[aria-live="polite"]')).toHaveTextContent('Email address copied')
+  })
+
   it('accepts highlighted children inside a pre-existing renderer figure', () => {
     const { container } = render(<figure data-renderer="mdx"><CodePanel framed={false} languageLabel="TypeScript" copyLabel="Copy" copiedLabel="Copied" preProps={{ 'aria-label': 'Example' }}><code>const a = 1</code></CodePanel></figure>)
     expect(container.querySelectorAll('figure')).toHaveLength(1)

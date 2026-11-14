@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Box, Camera, Hand } from '@misoto22/folio/icons'
 import { ContactFormView, type ContactFormValues } from '@misoto22/folio/website'
 
 /**
@@ -15,9 +16,9 @@ export function Example() {
     <ContactFormView
       labels={{ heading: 'Start a conversation', topic: 'Topic', name: 'Name', email: 'Email', subject: 'Subject', message: 'Message',
         namePlaceholder: 'Your name', emailPlaceholder: 'you@example.com', subjectPlaceholder: 'A short introduction', messagePlaceholder: 'What would you like to discuss?',
-        optional: 'Optional', note: 'This demonstration saves a local draft only.', submit: 'Capture draft', submitting: 'Capturing' }}
+        optional: 'Optional', note: 'This demonstration saves a local draft only.', submit: 'Capture draft', submitting: 'Capturing', addSubject: 'Add a subject' }}
       values={values} onFieldChange={(field, value) => setValues((current) => ({ ...current, [field]: value }))}
-      topic={topic} onTopicChange={setTopic} topics={[{ value: 'question', label: 'A question' }, { value: 'project', label: 'A project' }]}
+      topic={topic} onTopicChange={setTopic} topics={[{ value: 'question', label: 'A question', icon: <Hand size={18} /> }, { value: 'project', label: 'A project', icon: <Box size={18} /> }, { value: 'photography', label: 'Photography', icon: <Camera size={18} /> }]}
       limits={{ name: 100, email: 200, subject: 160, message: 2000 }}
       onSubmit={(event) => { event.preventDefault(); setSaved(true) }}
       success={saved ? { title: 'Draft captured', description: 'The example retained this draft locally. No message was sent.' } : undefined}

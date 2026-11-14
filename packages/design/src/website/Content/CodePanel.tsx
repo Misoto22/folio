@@ -13,11 +13,25 @@ export interface ClipboardButtonProps {
   copyLabel: string
   copiedLabel: string
   className?: string
+  /**
+   * A 44px icon button: the copy glyph turns into a check, and the labels are
+   * its name and a visually hidden announcement rather than visible words.
+   */
+  iconOnly?: boolean
 }
 
 /** Confirms copying only after the browser accepts the clipboard write. */
-export function ClipboardButton({ text, getText, copyLabel, copiedLabel, className }: ClipboardButtonProps) {
+export function ClipboardButton({ text, getText, copyLabel, copiedLabel, className, iconOnly = false }: ClipboardButtonProps) {
   const { copied, copy } = useClipboardCopy('ClipboardButton')
+
+  if (iconOnly) {
+    return (
+      <Button variant="ghost" iconOnly onClick={() => void copy(getText ?? text ?? '')} aria-label={copied ? copiedLabel : copyLabel} className={cn('folio-clipboard-button', className)} data-copied={copied || undefined}>
+        <Copy size={16} aria-hidden="true" data-glyph="copy" /><Check size={17} aria-hidden="true" data-glyph="copied" />
+        <span className="sr-only" aria-live="polite">{copied ? copiedLabel : ''}</span>
+      </Button>
+    )
+  }
 
   return (
     <Button variant="ghost" size="sm" onClick={() => void copy(getText ?? text ?? '')} aria-label={copied ? copiedLabel : copyLabel} className={cn('folio-clipboard-button', className)}>
