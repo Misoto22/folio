@@ -83,7 +83,9 @@ describe('CodeBlock', () => {
     render(<CodeBlock code={SOURCE} maxHeight="12rem" label="Example" />)
 
     const body = screen.getByRole('group', { name: 'Example' })
-    expect(body).toHaveStyle({ maxHeight: '12rem' })
+    // The declared value, not the computed one: jsdom 31 resolves `rem` to
+    // pixels in getComputedStyle, and the unit is the caller's to choose.
+    expect(body.style.maxHeight).toBe('12rem')
     expect(body.className).toContain('overflow-auto')
     expect(body.className).not.toContain('overflow-hidden')
     // A capped box whose contents cannot be reached by keyboard is a box with

@@ -51,7 +51,11 @@ describe('AspectRatio', () => {
     const box = container.firstElementChild as HTMLElement
 
     expect(box).not.toBeNull()
-    expect(box.style.aspectRatio).toBe(`${16 / 9} / 1`)
+    // CSSOM serialises numbers to six significant digits (jsdom 31 follows
+    // it), so compare the ratio as a number rather than as JS's long string.
+    const [width, height] = box.style.aspectRatio.split('/').map(Number)
+    expect(height).toBe(1)
+    expect(width).toBeCloseTo(16 / 9, 5)
   })
 
   it('lets a caller override the ratio through style, last write winning', () => {
