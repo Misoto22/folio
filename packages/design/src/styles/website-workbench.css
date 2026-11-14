@@ -129,7 +129,9 @@
   .folio-wb-mosaic-lead { grid-row: span 2; margin: 0; display: flex; flex-direction: column; }
   .folio-wb-mosaic-lead .folio-wb-mosaic-frame { flex: 1; }
   .folio-wb-mosaic-frame { position: relative; overflow: hidden; border-radius: var(--radius); background: var(--paper-2); aspect-ratio: 4 / 5; }
-  .folio-wb-mosaic-lead .folio-wb-mosaic-frame { aspect-ratio: auto; min-block-size: 100%; }
+  /* flex: 1 fills the two rows beside the caption; a 100% minimum would push
+     the caption out of the lead and under the next row on a phone. */
+  .folio-wb-mosaic-lead .folio-wb-mosaic-frame { aspect-ratio: auto; min-block-size: 0; }
   .folio-wb-mosaic-frame > a { position: absolute; inset: 0; display: block; }
   .folio-wb-mosaic-lead figcaption { margin-block-start: .75rem; font-size: .8125rem; color: var(--ink-3-aa); }
 
