@@ -2,7 +2,7 @@
 .folio-detail-masthead{padding-block:.5rem 3rem;color:var(--ink)}
 .folio-detail-masthead[data-width=fill],.folio-reading-figure[data-width=fill]{padding-inline:0;max-width:none}
 .folio-detail-back{margin-block-end:clamp(2rem,5vw,3rem)}
-.folio-detail-back a{display:inline-flex;align-items:center;min-height:44px;gap:.5rem;color:var(--ink-3-aa);font-size:.875rem;text-decoration:none}
+.folio-detail-back a{display:inline-flex;align-items:center;min-height:44px;min-width:44px;gap:.5rem;color:var(--ink-3-aa);font-size:.875rem;text-decoration:none}
 .folio-detail-context{font-family:var(--mono-i18n,var(--label-font));font-size:.6875rem;color:var(--ink-3-aa);letter-spacing:calc(.12em * var(--label-tracking-scale));margin-block:0 1.25rem}
 .folio-detail-opening{display:grid;gap:2.5rem}
 .folio-detail-opening[data-aside]{grid-template-columns:minmax(0,1fr) minmax(19rem,26rem);gap:clamp(3rem,7vw,6rem)}

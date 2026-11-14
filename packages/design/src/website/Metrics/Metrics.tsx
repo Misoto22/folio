@@ -17,7 +17,7 @@ export interface MetricsRangeProps {
 
 /** A controlled range selector. Selection represents the data the host successfully loaded. */
 export function MetricsRange({ label, value, options, onChange }: MetricsRangeProps) {
-  return <div className="folio-metrics-range"><Text as="span" size="xs" tone="muted">{label}</Text><ToggleGroup type="single" aria-label={label} value={value} onValueChange={(next) => { if (next) onChange(next) }} className="max-w-full flex-wrap">{options.map((option) => <ToggleGroupItem value={option.value} key={option.value} className="min-h-11">{option.label}</ToggleGroupItem>)}</ToggleGroup></div>
+  return <div className="folio-metrics-range"><Text as="span" size="xs" tone="muted">{label}</Text><ToggleGroup type="single" aria-label={label} value={value} onValueChange={(next) => { if (next) onChange(next) }} className="max-w-full flex-wrap">{options.map((option) => <ToggleGroupItem value={option.value} key={option.value} className="min-h-11 min-w-11">{option.label}</ToggleGroupItem>)}</ToggleGroup></div>
 }
 
 export interface MetricsSectionProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
