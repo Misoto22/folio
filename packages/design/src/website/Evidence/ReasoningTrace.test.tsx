@@ -37,3 +37,33 @@ describe('ReasoningTrace', () => {
     expect(screen.getByRole('button', { name: /Thought/ })).toHaveAttribute('aria-expanded', 'true')
   })
 })
+
+describe('ReasoningTrace marks and failure', () => {
+  const mark = (container: HTMLElement) => container.querySelector('.folio-reasoning__icon')?.getAttribute('data-mark')
+
+  it('cross-fades its mark in place: a ring while running, a check once done', () => {
+    const { container, rerender } = render(<ReasoningTrace label="Steps" running title="Thinking" meta="1.1s" items={steps} />)
+    expect(mark(container)).toBe('spin')
+    expect(container.querySelectorAll('.folio-reasoning__icon > svg')).toHaveLength(3)
+    rerender(<ReasoningTrace label="Steps" running={false} title="Thought for 1.4s" meta="2 steps" items={steps} />)
+    expect(mark(container)).toBe('check')
+    expect(screen.getByText('2 steps')).toHaveClass('folio-reasoning__meta')
+  })
+
+  it('crosses the mark out on failure and keeps the steps shut, as a status line rather than a control', () => {
+    const { container } = render(<ReasoningTrace label="Steps" running title="No answer" failed items={steps} />)
+    expect(mark(container)).toBe('fail')
+    expect(screen.queryByRole('button')).toBeNull()
+    expect(screen.queryByRole('list', { name: 'Steps' })).toBeNull()
+    expect(screen.getByRole('status')).toHaveTextContent('No answer')
+    expect(container.querySelector('.folio-reasoning__title')).not.toHaveAttribute('data-running')
+  })
+
+  it('keeps folded steps mounted but inert, so they can fold rather than vanish', () => {
+    const { container } = render(<ReasoningTrace label="Steps" running={false} title="Thought" items={steps} />)
+    const fold = container.querySelector('.folio-reasoning__fold')!
+    expect(fold).toHaveAttribute('data-open', 'false')
+    expect(fold).toHaveAttribute('inert')
+    expect(screen.getByRole('button', { name: /Thought/ })).toHaveAttribute('aria-controls', fold.id)
+  })
+})

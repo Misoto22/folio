@@ -1,53 +1,94 @@
-  /* The panel: one surface, a hairline, and the lift a floating layer is
-     allowed. The field is part of the panel rather than a grey band on top of
-     it, and the list below it is single-line rows at the 44px target. */
-  .folio-search-palette { border-color: var(--rule); background: var(--paper); }
-  .folio-search-palette__search { position: relative; display: flex; align-items: center; border-block-end: 1px solid var(--rule); }
-  .folio-search-palette__search [cmdk-input-wrapper], .folio-search-palette__search > div:first-child { flex: 1; min-inline-size: 0; border: 0; }
-  .folio-search-palette__search input { block-size: 3.5rem; padding-inline-end: 3rem; font-size: .9375rem; }
-  .folio-search-palette__search input:focus, .folio-search-palette__search input:focus-visible,
-  .folio-search-palette__input input:focus, .folio-search-palette__input input:focus-visible { outline: none; box-shadow: none; }
-  .folio-search-palette__close { position: absolute; inset-block-start: 50%; inset-inline-end: .5rem; translate: 0 -50%; }
-  .folio-search-palette__input { display: flex; align-items: center; gap: .5rem; padding: .625rem .75rem; border-block-end: 1px solid var(--rule); }
-  .folio-search-palette__input input { min-inline-size: 0; }
-  .folio-search-palette__detail { max-block-size: calc(70svh - 6.5rem); overflow-y: auto; overscroll-behavior: contain; padding: 1.5rem; }
-  /* The last visible row dissolves into the footer rather than being sliced by
-     it, which is what tells a reader the list goes on. */
-  .folio-search-palette [cmdk-list] { padding: .375rem; mask-image: linear-gradient(to bottom, #000 calc(100% - 1.5rem), transparent); }
-  .folio-search-palette [cmdk-group-heading] { padding: .75rem .625rem .375rem; }
-  .folio-search-palette__heading { color: var(--ink-3-aa); font-family: var(--sans); font-size: .75rem; letter-spacing: normal; text-transform: none; }
-  .folio-search-palette__item { min-block-size: 2.75rem; margin: 0; padding-block: .5rem; border-radius: var(--radius-row); font-size: .875rem; }
+  /* The panel: the dock's paper, hairline and lift, so the two read as one
+     family. The field is part of the panel rather than a band on top of it.
+     Places and actions are one-line rows led by a bare glyph; a search hit
+     takes a second line for its snippet, and a 36px tile only when it has a
+     real picture, so a picture always means content. */
+  .folio-search-palette { overflow: hidden; border-color: var(--rule-2); border-radius: var(--radius-lg); background: var(--paper); box-shadow: var(--folio-lift-open); transform-origin: 50% 0; }
+  .folio-search-palette__frame { display: contents; }
+  .folio-search-palette__field { display: flex; flex-shrink: 0; align-items: center; gap: .75rem; block-size: 3.5rem; padding-inline: 1.125rem .75rem; border-block-end: 1px solid var(--rule-2); }
+  .folio-search-palette__field > div:has(> [cmdk-input]) { flex: 1; min-inline-size: 0; padding: 0; border: 0; }
+  .folio-search-palette__field input { inline-size: 100%; block-size: 3.5rem; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 1rem; }
+  .folio-search-palette__field input::placeholder { color: var(--ink-3-aa); opacity: 1; }
+  .folio-search-palette__field input:focus, .folio-search-palette__field input:focus-visible { outline: none; box-shadow: none; }
+  .folio-search-palette__input { flex: 1; min-inline-size: 0; }
+  /* The lead: the search glyph and the back arrow share one 20px box and
+     cross-fade, so the field never shifts as it becomes a composer. */
+  .folio-search-palette__lead { position: relative; flex-shrink: 0; inline-size: var(--ico-l); block-size: var(--ico-l); padding: 0; border: 0; background: transparent; color: var(--ink-3-aa); cursor: pointer; }
+  .folio-search-palette__lead:disabled { cursor: default; }
+  .folio-search-palette__lead::after { content: ''; position: absolute; inset: calc((var(--ico-l) - var(--control-h-md)) / 2); }
+  .folio-search-palette__lead > svg { position: absolute; inset: 0; inline-size: var(--ico-l); block-size: var(--ico-l); transition: opacity var(--fast) var(--ease), translate var(--mid) var(--ease); }
+  .folio-search-palette__lead > [data-glyph='back'] { opacity: 0; translate: 6px 0; }
+  .folio-search-palette__frame[data-view='answer'] .folio-search-palette__lead { color: var(--ink); }
+  .folio-search-palette__frame[data-view='answer'] .folio-search-palette__lead > [data-glyph='search'] { opacity: 0; translate: -6px 0; }
+  .folio-search-palette__frame[data-view='answer'] .folio-search-palette__lead > [data-glyph='back'] { opacity: 1; translate: 0 0; }
+  .folio-search-palette__esc { flex-shrink: 0; }
+  .folio-search-palette__cancel { display: none; flex-shrink: 0; min-block-size: var(--control-h-md); padding-inline: .375rem; border: 0; background: transparent; color: var(--ink-2); font: inherit; font-size: .875rem; cursor: pointer; }
+  /* The body eases to whatever its visible view needs; the views cross-fade. */
+  .folio-search-palette__body { position: relative; overflow: hidden; transition: height var(--slow) var(--ease); }
+  .folio-search-palette [cmdk-list] { padding: .375rem .5rem .875rem; mask-image: linear-gradient(to bottom, #000 calc(100% - 1.5rem), transparent); transition: opacity var(--fast) var(--ease); }
+  .folio-search-palette__frame[data-view='answer'] [cmdk-list] { position: absolute; inset: 0 0 auto 0; opacity: 0; pointer-events: none; }
+  .folio-search-palette__detail { max-block-size: min(26.25rem, calc(70svh - 6.5rem)); overflow-y: auto; overscroll-behavior: contain; padding: .875rem 1.25rem 1.125rem; scrollbar-width: thin; scrollbar-color: var(--rule-2) transparent; }
+  .folio-search-palette [cmdk-group] + [cmdk-group] { margin-block-start: .125rem; }
+  /* Headings in sentence case: the theme's voice is quiet, and an uppercase
+     tracked heading was the only shouting on the page. */
+  .folio-search-palette [cmdk-group-heading] { padding: .625rem .625rem .25rem; text-transform: none; letter-spacing: normal; }
+  .folio-search-palette__heading { color: var(--ink-3-aa); font-family: var(--sans); font-size: .75rem; font-weight: 400; letter-spacing: normal; text-transform: none; }
+  .folio-search-palette__none { margin: 0; padding: 1.125rem .625rem .5rem; color: var(--ink-2); font-size: .875rem; }
+  .folio-search-palette__item { gap: .75rem; min-block-size: var(--control-h-md); margin: 0; padding: .375rem .625rem; border-radius: var(--radius-sm); color: var(--ink-2); font-size: .875rem; transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease); }
   .folio-search-palette__item::before { display: none; }
-  .folio-search-palette__item[data-selected=true] { background: var(--paper-2); }
+  /* The selection arrives at once and leaves over a fast step. */
+  .folio-search-palette__item[data-selected=true] { background: var(--paper-2); color: var(--ink); transition-duration: 0s; }
+  .folio-search-palette__icon { display: grid; flex-shrink: 0; place-items: center; inline-size: var(--ico-l); block-size: var(--ico-l); color: var(--ink-3-aa); transition: color var(--fast) var(--ease); }
+  .folio-search-palette__icon > svg { inline-size: var(--ico-l); block-size: var(--ico-l); }
+  .folio-search-palette__item[data-selected=true] .folio-search-palette__icon { color: var(--ink); transition-duration: 0s; }
+  .folio-search-palette__item[data-accent] .folio-search-palette__icon { color: var(--accent); }
+  .folio-search-palette__thumb { flex-shrink: 0; inline-size: 2.25rem; block-size: 2.25rem; margin-inline: -.5rem -.25rem; overflow: hidden; border-radius: var(--radius-sm); background: var(--stone); }
+  .folio-search-palette__thumb > :is(img, picture, span) { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
   .folio-search-palette__result { flex: 1; min-inline-size: 0; display: flex; align-items: baseline; gap: .625rem; }
-  .folio-search-palette__result > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .folio-search-palette__result > span:first-child { flex: none; max-inline-size: 70%; color: var(--ink); }
-  .folio-search-palette__description { flex: 1; min-inline-size: 0; color: var(--ink-3-aa); font-size: .8125rem; }
-  .folio-search-palette__meta { font-family: var(--sans); font-size: .6875rem; opacity: 0; transition: opacity var(--duration-fast) var(--ease); }
-  .folio-search-palette__item[data-selected=true] .folio-search-palette__meta { opacity: 1; }
-  .folio-search-palette__highlight { color: var(--ink); background: var(--stone); border-radius: var(--radius-xs); }
-  .folio-search-palette__footer { flex-wrap: wrap; border-block-start: 1px solid var(--rule); background: var(--paper); }
-  /* Arrival, after the reference the site was reviewed against: the backdrop
-     dims and softens over a slow step, the panel settles from a small lift,
-     and its parts follow it in, a third of a fast step apart — field, then
-     each group, then the footer — so the eye lands on the field first. The
-     exit is one quick fade, because closing should never feel like waiting. */
+  .folio-search-palette__item[data-variant='stacked'] .folio-search-palette__result { display: grid; gap: 0; line-height: 1.35; }
+  .folio-search-palette__result > span { min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  /* The descriptor gives way before the title does. */
+  .folio-search-palette__title { flex-shrink: 0; max-inline-size: 100%; color: var(--ink); font-weight: 500; }
+  .folio-search-palette__description { flex: 1; color: var(--ink-3-aa); font-size: .8125rem; }
+  /* The selected row says what Enter does, in plain words, not as a chip. */
+  .folio-search-palette__hint { display: inline-flex; flex-shrink: 0; align-items: center; gap: .375rem; margin-inline-start: auto; color: var(--ink-3-aa); font-size: .75rem; white-space: nowrap; opacity: 0; transition: opacity var(--fast) var(--ease); }
+  .folio-search-palette__item[data-selected=true] .folio-search-palette__hint { opacity: 1; transition-duration: 0s; }
+  .folio-search-palette__highlight { color: var(--ink); background: var(--accent-muted); border-radius: var(--radius-xs); }
+  .folio-search-palette__footer { display: flex; flex-shrink: 0; flex-wrap: wrap; align-items: center; gap: 1rem; min-block-size: 2.5rem; padding-block: 0; padding-inline: 1.125rem .875rem; border-block-start: 1px solid var(--rule-2); background: var(--paper); }
+  .folio-search-palette__footer > span { font-family: var(--sans); font-size: .75rem; letter-spacing: normal; text-transform: none; }
+  .folio-search-palette__footer > :is(.folio-search-palette__ask-anywhere, .folio-search-palette__continue) { margin-inline-start: auto; }
+  .folio-search-palette__continue { display: inline-flex; align-items: center; gap: .25rem; min-block-size: 1.75rem; padding-inline: .5rem; border: 0; border-radius: var(--radius-pill); background: transparent; color: var(--ink-2); font: inherit; font-size: .75rem; cursor: pointer; transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease); }
+  .folio-search-palette__continue:hover { background: var(--paper-2); color: var(--ink); }
+  /* Arrival: the backdrop dims and softens over a slow step, the panel settles
+     from a small lift over a mid one, and its parts follow it in one stagger
+     step apart — field, then each group, then the footer — so the eye lands on
+     the field first. The exit is one quick fade, because closing should never
+     feel like waiting. */
   [data-folio-animated]:has(+ .folio-search-palette) { backdrop-filter: blur(var(--backdrop-blur)); }
   [data-folio-animated][data-state='open']:has(+ .folio-search-palette) { animation: folio-backdrop-in var(--duration-slow) var(--ease) both; }
-  .folio-search-palette[data-state='open'] :is(.folio-search-palette__search, .folio-search-palette__input, [cmdk-group], .folio-search-palette__footer) { animation: folio-palette-part-in var(--duration-base) var(--ease) both; }
-  .folio-search-palette[data-state='open'] .folio-search-palette__search { animation-delay: calc(var(--duration-fast) / 3); }
-  .folio-search-palette[data-state='open'] [cmdk-group]:nth-of-type(1) { animation-delay: calc(var(--duration-fast) / 3 * 2); }
-  .folio-search-palette[data-state='open'] [cmdk-group]:nth-of-type(2) { animation-delay: calc(var(--duration-fast) / 3 * 3); }
-  .folio-search-palette[data-state='open'] [cmdk-group]:nth-of-type(n + 3) { animation-delay: calc(var(--duration-fast) / 3 * 4); }
-  .folio-search-palette[data-state='open'] .folio-search-palette__footer { animation-delay: calc(var(--duration-fast) / 3 * 4); }
+  .folio-search-palette[data-state='open'] :is(.folio-search-palette__field, [cmdk-group], .folio-search-palette__footer) { animation: folio-palette-part-in var(--mid) var(--ease) both; }
+  .folio-search-palette[data-state='open'] .folio-search-palette__field { animation-delay: var(--stagger); }
+  .folio-search-palette[data-state='open'] [cmdk-group]:nth-of-type(1) { animation-delay: calc(var(--stagger) * 2); }
+  .folio-search-palette[data-state='open'] [cmdk-group]:nth-of-type(2) { animation-delay: calc(var(--stagger) * 3); }
+  .folio-search-palette[data-state='open'] [cmdk-group]:nth-of-type(3) { animation-delay: calc(var(--stagger) * 4); }
+  .folio-search-palette[data-state='open'] [cmdk-group]:nth-of-type(n + 4) { animation-delay: calc(var(--stagger) * 5); }
+  .folio-search-palette[data-state='open'] .folio-search-palette__footer { animation-delay: calc(var(--stagger) * 6); }
+  /* Into the answer: the list fades over a fast step, then the answer rises in. */
+  .folio-search-palette__detail { animation: folio-palette-answer-in var(--mid) var(--ease) var(--fast) backwards; }
   @media (max-width: 40rem) {
-    .folio-search-palette__search input { font-size: 1rem; }
+    /* A sheet from the top edge, so the list sits above the keyboard. */
+    .folio-search-palette { inset-block-start: .5rem; inline-size: calc(100% - 1rem); }
+    .folio-search-palette__field { padding-inline: .875rem .5rem; }
+    .folio-search-palette__field input { font-size: 1rem; }
+    .folio-search-palette__cancel { display: block; }
+    .folio-search-palette__esc, .folio-search-palette__hint, .folio-search-palette__footer { display: none; }
+    .folio-search-palette__item { min-block-size: var(--control-h-lg); }
     .folio-search-palette__detail { max-block-size: calc(84svh - 4.5rem); }
-    .folio-search-palette__result { display: grid; gap: .125rem; }
-    .folio-search-palette__result > span:first-child { max-inline-size: none; }
-    .folio-search-palette__meta { display: none; }
-    .folio-search-palette__footer { display: none; }
+    .folio-search-palette [cmdk-list] { max-block-size: calc(84svh - 4.5rem); }
   }
   @media (prefers-reduced-motion: reduce) {
     .folio-search-palette, .folio-search-palette *, [data-folio-animated]:has(+ .folio-search-palette) { animation: none !important; }
+    .folio-search-palette[data-state='open'] { animation: folio-palette-fade var(--fast) var(--ease) !important; }
+    .folio-search-palette__body { transition: none; }
+    .folio-search-palette__lead > svg { transition: opacity var(--fast) var(--ease); translate: none !important; }
   }

@@ -1,13 +1,13 @@
 import { Slot } from '@radix-ui/react-slot'
-import type { RemixiconComponentType } from '@remixicon/react'
+import type { IconComponent } from '../../icons'
 import type { AnchorHTMLAttributes, ReactNode } from 'react'
 import { cn } from '../../lib/cn'
 
 export interface NavItemProps
   extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'> {
   href: string
-  /** Optional leading icon (a `@remixicon/react` component, rendered at 18px). */
-  icon?: RemixiconComponentType
+  /** Optional leading icon component, such as a glyph from `@misoto22/folio/icons`, rendered at 18px. */
+  icon?: IconComponent
   /** Marks the current route. Also sets `aria-current="page"`. */
   active?: boolean
   /**

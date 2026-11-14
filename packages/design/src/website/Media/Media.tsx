@@ -1,5 +1,5 @@
 import { Slot } from '@radix-ui/react-slot'
-import { RiAddLine, RiSubtractLine } from '@remixicon/react'
+import { Minus, Plus } from '../../icons'
 import type { ComponentPropsWithRef, HTMLAttributes, ReactElement, ReactNode } from 'react'
 import { Badge } from '../../components/Badge/Badge'
 import { Button, type ButtonProps } from '../../components/Button/Button'
@@ -307,7 +307,7 @@ export interface MediaMapNavigationProps {
 }
 
 export function MediaMapNavigation({ zoomInLabel, zoomOutLabel, onZoomIn, onZoomOut }: MediaMapNavigationProps) {
-  return <><Button variant="secondary" iconOnly aria-label={zoomInLabel} onClick={onZoomIn}><RiAddLine size={18} aria-hidden="true" /></Button><Button variant="secondary" iconOnly aria-label={zoomOutLabel} onClick={onZoomOut}><RiSubtractLine size={18} aria-hidden="true" /></Button></>
+  return <><Button variant="secondary" iconOnly aria-label={zoomInLabel} onClick={onZoomIn}><Plus size={18} aria-hidden="true" /></Button><Button variant="secondary" iconOnly aria-label={zoomOutLabel} onClick={onZoomOut}><Minus size={18} aria-hidden="true" /></Button></>
 }
 
 export type MediaMapCanvasProps = ComponentPropsWithRef<'div'>

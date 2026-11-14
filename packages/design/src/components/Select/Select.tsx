@@ -1,7 +1,7 @@
 'use client'
 
 import * as SelectPrimitive from '@radix-ui/react-select'
-import { RiArrowDownSLine, RiArrowUpSLine, RiCheckLine } from '@remixicon/react'
+import { Check, ChevronDown, ChevronUp } from '../../icons'
 import { useId, type ComponentProps, type ReactNode } from 'react'
 import { cn } from '../../lib/cn'
 import { warnBlankName } from '../../lib/warn'
@@ -136,7 +136,7 @@ export function Select({
           <SelectPrimitive.Value placeholder={placeholder} />
         </span>
         <SelectPrimitive.Icon asChild>
-          <RiArrowDownSLine
+          <ChevronDown
             size={16}
             aria-hidden
             className="shrink-0 text-(--ink-3-aa) transition-transform duration-(--duration-fast) group-data-[state=open]:rotate-180"
@@ -154,15 +154,15 @@ export function Select({
           className={cn(
             'z-(--z-dropdown) max-h-72 min-w-(--radix-select-trigger-width) overflow-hidden rounded-(--radius-lg) border border-(--panel-border) bg-(--panel-bg) shadow-(--panel-lift) panel-blur',
             contentClassName,
-            'data-[state=open]:animate-[folio-pop-in_var(--duration-fast)_var(--ease-out-expo)] data-[state=closed]:animate-[folio-pop-out_var(--duration-fast)_var(--ease)] origin-(--radix-popper-transform-origin)',
+            'data-[state=open]:animate-[folio-pop-in_var(--duration-base)_var(--ease-out-expo)] data-[state=closed]:animate-[folio-pop-out_var(--duration-fast)_var(--ease)] origin-(--radix-popper-transform-origin)',
           )}
         >
           <SelectPrimitive.ScrollUpButton className="flex h-6 items-center justify-center text-(--ink-3-aa)">
-            <RiArrowUpSLine size={14} aria-hidden />
+            <ChevronUp size={14} aria-hidden />
           </SelectPrimitive.ScrollUpButton>
           <SelectPrimitive.Viewport className="p-1.5">{children}</SelectPrimitive.Viewport>
           <SelectPrimitive.ScrollDownButton className="flex h-6 items-center justify-center text-(--ink-3-aa)">
-            <RiArrowDownSLine size={14} aria-hidden />
+            <ChevronDown size={14} aria-hidden />
           </SelectPrimitive.ScrollDownButton>
         </SelectPrimitive.Content>
       </SelectPrimitive.Portal>
@@ -186,7 +186,7 @@ export function SelectItem({ className, children, ...props }: SelectItemProps) {
           choosing an option does not shunt every label sideways. */}
       <span className="grid size-3.5 shrink-0 place-items-center">
         <SelectPrimitive.ItemIndicator asChild>
-          <RiCheckLine size={14} aria-hidden />
+          <Check size={14} aria-hidden />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

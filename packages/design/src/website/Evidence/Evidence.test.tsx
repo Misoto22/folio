@@ -23,3 +23,33 @@ describe('evidence values', () => {
     expect(container.querySelectorAll('[style*="Infinity"]')).toHaveLength(0)
   })
 })
+
+describe('live evidence', () => {
+  const stages = [{ id: 'embed', label: 'Embed', value: 38, valueText: '38ms' }, { id: 'generate', label: 'Generate', value: 1840, valueText: '1,840ms' }]
+
+  it('fills one clock while a run is live, and returns to its stage segments once settled', () => {
+    const { container, rerender } = render(<EvidenceDurations label="Latency" total={null} totalText="—" progress={0.4} items={stages} />)
+    const bar = container.querySelector('.folio-evidence-durations__bar')!
+    const fill = container.querySelector<HTMLElement>('.folio-evidence-durations__fill')!
+    expect(bar).toHaveAttribute('data-live')
+    expect(fill).toHaveAttribute('data-running')
+    expect(fill.style.getPropertyValue('--folio-progress')).toBe('0.4')
+    rerender(<EvidenceDurations label="Latency" total={null} totalText="—" progress={1.4} items={stages} />)
+    expect(fill).not.toHaveAttribute('data-running')
+    expect(fill.style.getPropertyValue('--folio-progress')).toBe('1')
+    rerender(<EvidenceDurations label="Latency" total={1878} totalText="1,878ms" items={stages} />)
+    expect(container.querySelector('.folio-evidence-durations__fill')).toBeNull()
+    expect(bar.children).toHaveLength(2)
+  })
+
+  it('marks cited passages with their numeral and staggers every row by position', () => {
+    const { container } = render(<EvidenceScores items={[
+      { id: 'a', label: 'Revala — Overview', value: 0.84, valueText: '0.84', citation: '1' },
+      { id: 'b', label: 'Experience', value: 0.58, valueText: '0.58' },
+    ]} />)
+    const rows = [...container.querySelectorAll<HTMLElement>('.folio-evidence-scores > div')]
+    expect(rows.map((row) => row.hasAttribute('data-cited'))).toEqual([true, false])
+    expect(rows.map((row) => row.style.getPropertyValue('--n'))).toEqual(['0', '1'])
+    expect(container.querySelector('.folio-evidence-scores__citation')).toHaveTextContent('1')
+  })
+})

@@ -1,13 +1,5 @@
-import {
-  RiArrowRightSLine,
-  RiCheckLine,
-  RiDiscordFill,
-  RiFigmaFill,
-  RiGithubFill,
-  RiSlackFill,
-  RiSubtractLine,
-  RiTwitterXFill,
-} from '@remixicon/react'
+import { RiDiscordFill, RiFigmaFill, RiGithubFill, RiSlackFill, RiTwitterXFill } from '@remixicon/react'
+import { Check, ChevronRight, Minus } from '@misoto22/folio/icons'
 import type { Locale } from '@/i18n/locales'
 import { getMessages } from '@/i18n/messages'
 
@@ -19,8 +11,9 @@ import { getMessages } from '@/i18n/messages'
  * three of these six sizes and no component reads any of them — and a specimen
  * built from the tokens alone would show a scale the library does not use.
  *
- * Every glyph here is a real `@remixicon/react` icon, so the page renders the
- * claim rather than describing it.
+ * The scale and the boxed marks are the package's own glyphs from
+ * `@misoto22/folio/icons`, so the page renders the claim rather than describing
+ * it; the brand row is Remix, where those marks come from.
  */
 
 const SIZES: { size: 12 | 14 | 16 | 18 | 20 | 24; token?: string }[] = [
@@ -34,11 +27,11 @@ const SIZES: { size: 12 | 14 | 16 | 18 | 20 | 24; token?: string }[] = [
 
 /** The two marks a checkbox draws, at the one size that used to force a stroke. */
 const IN_A_BOX = [
-  { Mark: RiCheckLine, name: 'RiCheckLine' },
-  { Mark: RiSubtractLine, name: 'RiSubtractLine' },
+  { Mark: Check, name: 'Check' },
+  { Mark: Minus, name: 'Minus' },
 ] as const
 
-/** Five of the twenty-six brands, which the set this replaced had none of. */
+/** Five brand marks, which the package's own set does not draw. */
 const BRANDS = [
   { Mark: RiGithubFill, name: 'RiGithubFill' },
   { Mark: RiTwitterXFill, name: 'RiTwitterXFill' },
@@ -58,7 +51,7 @@ export function IconSpecimen({ locale }: { locale: Locale }) {
             {/* A fixed box, so the glyphs share a centre line and the scale
                 reads as a scale rather than as six left-aligned marks. */}
             <span className="flex w-8 shrink-0 items-center justify-center text-(--ink)">
-              <RiArrowRightSLine size={step.size} aria-hidden />
+              <ChevronRight size={step.size} aria-hidden />
             </span>
             <p className="m-0 w-28 shrink-0 mono-meta text-(--ink-3-aa)">
               {step.size}px{step.token ? ` · ${step.token}` : ''}

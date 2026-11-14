@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type ComponentProps, type ElementType, type HTMLAttributes, type ReactElement, type ReactNode } from 'react'
 import { Slot } from '@radix-ui/react-slot'
-import { RiArrowRightUpLine, RiCloseLine, RiSearchLine } from '@remixicon/react'
+import { ArrowRight, ArrowUpRight, Search, X } from '../../icons'
 import { Button } from '../../components/Button/Button'
 import { Input } from '../../components/Input/Input'
 import { EmptyState } from '../../components/EmptyState/EmptyState'
@@ -62,7 +62,7 @@ export function CollectionSearch({ value, onChange, label, placeholder, clearLab
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [focusShortcut, onChange])
-  return <div className="folio-collection-search"><RiSearchLine aria-hidden="true" size={15} /><Input ref={ref} aria-label={label} type="search" value={value} placeholder={placeholder} onChange={(event) => onChange(event.target.value)} />{value && <Button type="button" variant="ghost" iconOnly aria-label={clearLabel} onClick={() => onChange('')}><RiCloseLine size={15} aria-hidden="true" /></Button>}</div>
+  return <div className="folio-collection-search"><Search aria-hidden="true" size={15} /><Input ref={ref} aria-label={label} type="search" value={value} placeholder={placeholder} onChange={(event) => onChange(event.target.value)} />{value && <Button type="button" variant="ghost" iconOnly aria-label={clearLabel} onClick={() => onChange('')}><X size={15} aria-hidden="true" /></Button>}</div>
 }
 export interface CollectionControlsProps { items: CollectionFilter[]; selected: string | null; onSelect: (value: string | null) => void; filterLabel?: string; search?: CollectionSearchProps; quiet?: boolean; showCounts?: boolean }
 export function CollectionControls({ items, selected, onSelect, filterLabel, search, quiet, showCounts = true }: CollectionControlsProps) {
@@ -96,6 +96,21 @@ export function RecordRow({ link, title, summary, context, media, index, metadat
   const body = <>{index != null && <span className="folio-record-index" aria-hidden>{index}</span>}{variant !== 'compact' && <div className="folio-record-media" data-empty={!media || undefined}>{media}</div>}<div className="folio-record-copy">{context && <div className="folio-record-context">{context}</div>}<Heading>{title}</Heading>{subtitle && <div className="folio-record-subtitle">{subtitle}</div>}{summary && <p className="folio-record-summary">{summary}</p>}{metadata && <div className="folio-record-metadata">{metadata}</div>}</div>{trailing && <div className="folio-record-trailing">{trailing}</div>}</>
   return <article className="folio-record" data-variant={variant} data-indexed={index != null || undefined}>{link ? <Slot className="folio-record-link">{replaceSlotContent(link, body)}</Slot> : <div className="folio-record-link">{body}</div>}</article>
 }
+export interface RecordArrowProps {
+  /** Leaves the site: the arrow points up and out, and nudges that way on hover. */
+  external?: boolean
+}
+
+/**
+ * The trailing arrow a record row's link ends on, as a part the row can move.
+ *
+ * Put it inside `trailing` after the action's words. On hover the row nudges it
+ * 2px toward where it goes — right, or up and right for a link that leaves.
+ */
+export function RecordArrow({ external }: RecordArrowProps) {
+  return <span aria-hidden className="folio-record-arrow" data-external={external || undefined}>{external ? <ArrowUpRight size={12} /> : <ArrowRight size={12} />}</span>
+}
+
 export interface FeaturedRecordProps { media: ReactNode; title: ReactNode; context?: ReactNode; summary?: ReactNode; action?: ReactNode }
 export function FeaturedRecord({ media, title, context, summary, action }: FeaturedRecordProps) {
   return <article className="folio-featured-record"><div className="folio-featured-record-media">{media}</div><div>{context && <div className="folio-record-context">{context}</div>}<h2>{title}</h2>{summary && <p>{summary}</p>}{action && <div className="folio-collection-actions">{action}</div>}</div></article>
@@ -108,7 +123,7 @@ export interface TaxonomyLinksProps { children: ReactNode; label?: string }
 export function TaxonomyLinks({ children, label }: TaxonomyLinksProps) { return <nav className="folio-taxonomy-links" aria-label={label}>{children}</nav> }
 export interface ReferenceRowsProps { items: { id?: string; label: ReactNode; hint?: ReactNode; content: ReactNode }[] }
 /** A quiet resource link for references, separate from action buttons. */
-export function ReferenceLink({ children, className, ...props }: ComponentProps<'a'>) { return <a {...props} className={cn('folio-reference-link', className)}><span>{children}</span><RiArrowRightUpLine size={14} aria-hidden /></a> }
+export function ReferenceLink({ children, className, ...props }: ComponentProps<'a'>) { return <a {...props} className={cn('folio-reference-link', className)}><span>{children}</span><ArrowUpRight size={14} aria-hidden /></a> }
 export function ReferenceRows({ items }: ReferenceRowsProps) { return <dl className="folio-reference-rows">{items.map((item, index) => <div key={item.id ?? index}><dt>{item.label}{item.hint && <p>{item.hint}</p>}</dt><dd>{item.content}</dd></div>)}</dl> }
 export interface CollectionTallyProps { children: ReactNode }
 export function CollectionTally({ children }: CollectionTallyProps) { return <p className="folio-collection-tally">{children}</p> }

@@ -1,6 +1,6 @@
 'use client'
 
-import { RiArrowUpLine } from '@remixicon/react'
+import { ArrowUp } from '../../icons'
 import type { ReactNode } from 'react'
 import { Button } from '../../components/Button/Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../../components/DropdownMenu/DropdownMenu'
@@ -51,5 +51,5 @@ export interface ScrollControlProps {
 
 /** Page position belongs to the host; visibility and a safe tab stop belong here. */
 export function ScrollControl({ label, visible, onActivate }: ScrollControlProps) {
-  return <FloatingIconButton position="end" label={label} onClick={onActivate} disabled={!visible} tabIndex={visible ? 0 : -1} aria-hidden={!visible || undefined} className={cn('folio-scroll-control', !visible && 'folio-scroll-control-hidden')}><RiArrowUpLine size={18} aria-hidden="true" /></FloatingIconButton>
+  return <FloatingIconButton position="end" label={label} onClick={onActivate} disabled={!visible} tabIndex={visible ? 0 : -1} aria-hidden={!visible || undefined} className={cn('folio-scroll-control', !visible && 'folio-scroll-control-hidden')}><ArrowUp size={18} aria-hidden="true" /></FloatingIconButton>
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
-import { RiCheckLine, RiSubtractLine } from '@remixicon/react'
+import { Check, Minus } from '../../icons'
 import { useState, type ComponentProps } from 'react'
 import { cn } from '../../lib/cn'
 
@@ -51,9 +51,9 @@ export function Checkbox({ className, onCheckedChange, ...props }: CheckboxProps
     >
       <CheckboxPrimitive.Indicator className="flex items-center justify-center text-current">
         {state === 'indeterminate' ? (
-          <RiSubtractLine className="size-3" aria-hidden />
+          <Minus className="size-3" aria-hidden />
         ) : (
-          <RiCheckLine className="size-3" aria-hidden />
+          <Check className="size-3" aria-hidden />
         )}
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>

@@ -3,7 +3,8 @@ import type { MouseEvent, ReactElement } from 'react'
 import { describe, expect, it, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { ActionProposal, ConversationRoomLink, ConversationSources, ConversationTurn, QuestionComposer, SelectionToolbar } from './Conversation'
+import { ActionProposal, ConversationAnswer, ConversationNote, ConversationRoomLink, ConversationSources, ConversationTurn, SelectionToolbar } from './Conversation'
+import { QuestionComposer } from './QuestionComposer'
 
 // Flight can defer an element itself, rather than its component type.
 function deferredLink(element: ReactElement): ReactElement {
@@ -99,5 +100,47 @@ describe('conversation interaction contracts', () => {
     expect(screen.getByRole('button', { name: 'Ask' })).toHaveFocus()
     await user.keyboard('{Home}')
     expect(screen.getByRole('button', { name: 'Explain' })).toHaveFocus()
+  })
+})
+
+describe('answer parts', () => {
+  const source = (id: string, cited?: boolean) => ({ id, index: id, title: `Source ${id}`, kind: 'Post', cited, link: <a href={`/${id}`}>x</a> })
+
+  it('shows every retrieved passage while the answer is written, staggered by position', () => {
+    const { container } = render(<ConversationSources label="Sources" count="3 passages" phase="retrieved" items={[source('1', true), source('2', false), source('3')]} />)
+    expect(screen.getAllByRole('link')).toHaveLength(3)
+    const rows = container.querySelectorAll('li')
+    expect([...rows].map((row) => row.style.getPropertyValue('--n'))).toEqual(['0', '1', '2'])
+    expect(container.querySelector('[data-cited="false"]')).toBeNull()
+  })
+
+  it('folds the uncited passages away once the answer is cited, keeping them out of reach', () => {
+    const { container } = render(<ConversationSources label="Sources" count="2 cited" phase="cited" items={[source('1', true), source('2', false), source('3')]} />)
+    const folded = container.querySelector('li[data-cited="false"]')!
+    expect(folded).toHaveAttribute('inert')
+    expect(folded).toHaveAttribute('aria-hidden', 'true')
+    expect(screen.getAllByRole('link').map((link) => link.getAttribute('href'))).toEqual(['/1', '/3'])
+    expect(container.querySelector('.folio-conversation-sources')).toHaveAttribute('data-phase', 'cited')
+  })
+
+  it('keeps the question label for screen readers without drawing it', () => {
+    render(<ConversationAnswer question="What changed?" questionLabel="You asked">Body</ConversationAnswer>)
+    expect(screen.getByText('You asked')).toHaveClass('sr-only')
+    expect(screen.getByText(/What changed\?/)).toHaveClass('folio-conversation-answer__question')
+  })
+
+  it('says why there is no answer as an alert, and asks again from its retry', async () => {
+    const user = userEvent.setup()
+    const retry = vi.fn()
+    render(<ConversationNote tone="danger" retryLabel="Try again" onRetry={retry}>Something went wrong.</ConversationNote>)
+    expect(screen.getByRole('alert')).toHaveAttribute('data-tone', 'danger')
+    await user.click(screen.getByRole('button', { name: 'Try again' }))
+    expect(retry).toHaveBeenCalledOnce()
+  })
+
+  it('offers no retry for a refusal that only has to wait', () => {
+    render(<ConversationNote tone="warn">A few questions in a row.</ConversationNote>)
+    expect(screen.getByRole('alert')).toHaveAttribute('data-tone', 'warn')
+    expect(screen.queryByRole('button')).toBeNull()
   })
 })

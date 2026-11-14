@@ -1,7 +1,7 @@
 'use client'
 
 import * as PopoverPrimitive from '@radix-ui/react-popover'
-import { RiCloseLine } from '@remixicon/react'
+import { X } from '../../icons'
 import type { ComponentProps } from 'react'
 import { cn } from '../../lib/cn'
 import { useOverlayContainer } from '../../lib/overlay-container'
@@ -61,7 +61,7 @@ export function PopoverContent({
         data-folio-animated
         className={cn(
           'z-(--z-dropdown) w-72 rounded-(--radius-lg) border border-(--panel-border) bg-(--panel-bg) p-4 shadow-(--panel-lift) panel-blur',
-          'data-[state=open]:animate-[folio-pop-in_var(--duration-fast)_var(--ease-out-expo)] data-[state=closed]:animate-[folio-pop-out_var(--duration-fast)_var(--ease)] origin-(--radix-popper-transform-origin)',
+          'data-[state=open]:animate-[folio-pop-in_var(--duration-base)_var(--ease-out-expo)] data-[state=closed]:animate-[folio-pop-out_var(--duration-fast)_var(--ease)] origin-(--radix-popper-transform-origin)',
           className,
         )}
         {...rest}
@@ -72,7 +72,7 @@ export function PopoverContent({
             aria-label="Close"
             className="absolute end-2 top-2 grid size-8 place-items-center rounded-(--radius-pill) text-(--ink-3-aa) transition-colors duration-(--duration-fast) hover:bg-(--stone) hover:text-(--ink)"
           >
-            <RiCloseLine size={14} aria-hidden />
+            <X size={14} aria-hidden />
           </PopoverPrimitive.Close>
         )}
       </PopoverPrimitive.Content>

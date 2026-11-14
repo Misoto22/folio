@@ -1,4 +1,4 @@
-import { RiAlertLine, RiCheckboxCircleLine, RiCloseCircleLine, RiInformationLine } from '@remixicon/react'
+import { CircleCheck, CircleX, Info, TriangleAlert } from '../../icons'
 import type { HTMLAttributes, ReactNode } from 'react'
 import { cn } from '../../lib/cn'
 
@@ -16,14 +16,14 @@ export interface AlertProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'
 
 const TONE: Record<
   AlertTone,
-  { surface: string; mark: string; icon: typeof RiInformationLine; live: 'polite' | 'assertive' }
+  { surface: string; mark: string; icon: typeof Info; live: 'polite' | 'assertive' }
 > = {
-  info: { surface: 'border-(--rule-2) bg-(--paper-2)', mark: 'text-(--ink-2)', icon: RiInformationLine, live: 'polite' },
-  success: { surface: 'border-transparent bg-(--ok-soft)', mark: 'text-(--ok)', icon: RiCheckboxCircleLine, live: 'polite' },
-  warning: { surface: 'border-transparent bg-(--warn-soft)', mark: 'text-(--warn)', icon: RiAlertLine, live: 'polite' },
+  info: { surface: 'border-(--rule-2) bg-(--paper-2)', mark: 'text-(--ink-2)', icon: Info, live: 'polite' },
+  success: { surface: 'border-transparent bg-(--ok-soft)', mark: 'text-(--ok)', icon: CircleCheck, live: 'polite' },
+  warning: { surface: 'border-transparent bg-(--warn-soft)', mark: 'text-(--warn)', icon: TriangleAlert, live: 'polite' },
   /* Assertive: a danger alert interrupts because whatever the reader is doing
      is already failing. The other three wait for a pause in speech. */
-  danger: { surface: 'border-transparent bg-(--danger-soft)', mark: 'text-(--danger)', icon: RiCloseCircleLine, live: 'assertive' },
+  danger: { surface: 'border-transparent bg-(--danger-soft)', mark: 'text-(--danger)', icon: CircleX, live: 'assertive' },
 }
 
 /**

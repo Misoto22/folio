@@ -1,7 +1,7 @@
 'use client'
 
 import * as AccordionPrimitive from '@radix-ui/react-accordion'
-import { RiAddLine } from '@remixicon/react'
+import { Plus } from '../../icons'
 import type { ComponentProps, ReactNode } from 'react'
 import { cn } from '../../lib/cn'
 
@@ -44,7 +44,7 @@ export function AccordionItem({ title, children, className, ...rest }: Accordion
       <AccordionPrimitive.Header className="m-0">
         <AccordionPrimitive.Trigger className="group flex w-full items-center justify-between gap-4 py-4 text-start font-sans text-sm text-(--ink) transition-colors duration-(--duration-fast) hover:text-(--ink-2)">
           {title}
-          <RiAddLine
+          <Plus
             size={16}
             aria-hidden
             className="shrink-0 text-(--ink-3-aa) transition-transform duration-(--duration-base) ease-(--ease-out-expo) group-data-[state=open]:rotate-45"

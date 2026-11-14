@@ -6,6 +6,9 @@
    and the two animations never fight for a property. */
 .folio-loading-page > .folio-loading-data { animation: folio-loading-in var(--duration-base) var(--ease) var(--duration-wait) both; }
 @keyframes folio-loading-in { from { opacity: 0; } to { opacity: 1; } }
+/* A skeleton fills the screen under the masthead (and its hairline), so the
+   footer cannot appear beneath it and be pushed off when the page arrives. */
+.folio-loading-page { min-block-size: calc(100svh - var(--website-header-h) - 1px); }
 /* Reduced motion drops the fade, not the wait: `animation: none` here showed
    the grey bars at once — on every quick navigation, to exactly the readers
    who asked for less movement. */

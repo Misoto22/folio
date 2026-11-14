@@ -1,4 +1,4 @@
-import { RiDeleteBinLine, RiFileCopyLine, RiInboxLine, RiSettings3Line } from '@remixicon/react'
+import { Copy as CopyIcon, Inbox, Settings as SettingsIcon, Trash2 } from '../icons'
 import type { ReactElement } from 'react'
 import {
   Accordion,
@@ -199,14 +199,14 @@ export const SURFACE: SurfaceEntry[] = [
       <DropdownMenuTrigger asChild><Button variant="secondary">Account</Button></DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Signed in</DropdownMenuLabel>
-        <DropdownMenuItem icon={RiSettings3Line}>Settings</DropdownMenuItem>
+        <DropdownMenuItem icon={SettingsIcon}>Settings</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem icon={RiDeleteBinLine} destructive>Delete account</DropdownMenuItem>
+        <DropdownMenuItem icon={Trash2} destructive>Delete account</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   ) },
   { dir: 'EmptyState', render: () => (
-    <EmptyState icon={RiInboxLine} title="No projects yet" description="Create one to get started." />
+    <EmptyState icon={Inbox} title="No projects yet" description="Create one to get started." />
   ) },
   { dir: 'ErrorState', render: () => (
     <ErrorState
@@ -349,10 +349,10 @@ export const SURFACE: SurfaceEntry[] = [
         </SidebarHeader>
         <SidebarContent>
           <SidebarGroup label="Guide" count={2} badge={<Badge tone="outline">Beta</Badge>}>
-            <SidebarItem href="#start" icon={RiInboxLine} active>Getting started</SidebarItem>
-            <SidebarItem href="#settings" icon={RiSettings3Line} trailing="3">Settings</SidebarItem>
-            <SidebarBranch label="Acme HQ" icon={RiFileCopyLine} defaultOpen>
-              <SidebarItem href="#hq" icon={RiInboxLine}>Overview</SidebarItem>
+            <SidebarItem href="#start" icon={Inbox} active>Getting started</SidebarItem>
+            <SidebarItem href="#settings" icon={SettingsIcon} trailing="3">Settings</SidebarItem>
+            <SidebarBranch label="Acme HQ" icon={CopyIcon} defaultOpen>
+              <SidebarItem href="#hq" icon={Inbox}>Overview</SidebarItem>
             </SidebarBranch>
           </SidebarGroup>
         </SidebarContent>
@@ -461,7 +461,7 @@ export const SURFACE: SurfaceEntry[] = [
         <div>Right-click me</div>
       </ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuItem icon={RiFileCopyLine}>Copy</ContextMenuItem>
+        <ContextMenuItem icon={CopyIcon}>Copy</ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
   ) },

@@ -7,10 +7,12 @@
 .folio-conversation-thread__intro > h2 { max-inline-size: 22ch; text-wrap: balance; }
 .folio-conversation-thread__intro > p { max-inline-size: 56ch; }
 .folio-conversation-suggestions { margin-block-start: 2rem; }
-.folio-conversation-suggestions > ul, .folio-conversation-sources > ul { list-style: none; margin: .5rem 0 0; padding: 0; border-block-start: 1px solid var(--rule); }
-.folio-conversation-suggestions > ul > li, .folio-conversation-sources > ul > li { border-block-end: 1px solid var(--rule); }
+.folio-conversation-suggestions > ul { list-style: none; margin: .5rem 0 0; padding: 0; border-block-start: 1px solid var(--rule); }
+.folio-conversation-suggestions > ul > li { border-block-end: 1px solid var(--rule); }
 .folio-conversation-suggestions__action { inline-size: 100%; justify-content: space-between; text-align: start; gap: 1.5rem; }
 .folio-conversation-suggestions__action > svg { flex-shrink: 0; }
+.folio-conversation-suggestions__action > svg { transition: translate var(--fast) var(--ease), color var(--fast) var(--ease); }
+.folio-conversation-suggestions__action:hover > svg { translate: 2px -2px; color: var(--ink); }
 .folio-conversation-thread__controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .25rem 1.5rem; border-block-start: 1px solid var(--rule-divider); padding-block-start: .75rem; }
 .folio-conversation-thread__controls > div { display: flex; flex-wrap: wrap; gap: .25rem; }
 .folio-conversation-log { display: flex; flex-direction: column; }
@@ -18,13 +20,41 @@
 .folio-conversation-thread__composer { margin-block-start: 3rem; }
 .folio-conversation-thread__composer[data-sticky] { position: sticky; inset-block-end: 0; z-index: 10; margin-block-start: 2rem; padding-block: 1rem .75rem; border-block-start: 1px solid var(--rule-divider); background: var(--paper); }
 .folio-conversation-thread__proposal { margin-block-end: 1.25rem; }
-.folio-question-composer__row { display: flex; align-items: end; gap: 1rem; }
-.folio-question-composer__field { flex: 1; min-inline-size: 0; }
-.folio-question-composer__row > button { flex-shrink: 0; }
-.folio-question-composer__footer { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; justify-content: space-between; margin-block-start: .75rem; }
+/* The question field: a capsule with its send control inside the end. The
+   dock's is the launcher pill opened — the same height and corner. */
+.folio-question-composer__label { display: block; margin: 0 0 .375rem 1rem; color: var(--ink-3-aa); font-size: .75rem; }
+.folio-question-composer__field { --folio-composer-h: 3.25rem; display: flex; align-items: center; gap: .375rem; block-size: var(--folio-composer-h); padding-inline: 1.25rem .375rem; border: 1px solid var(--rule-2); border-radius: calc(var(--folio-composer-h) / 2); background: var(--paper); transition: border-color var(--fast) var(--ease), background-color var(--fast) var(--ease); }
+.folio-question-composer[data-compact] .folio-question-composer__field { --folio-composer-h: var(--control-h-lg); padding-inline-start: 1rem; }
+.folio-question-composer__field:focus-within { border-color: var(--ink-3-aa); }
+.folio-question-composer__field[data-disabled] { background: var(--paper-2); }
+.folio-question-composer__field > input { flex: 1; min-inline-size: 0; block-size: 100%; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: .9375rem; }
+.folio-question-composer__field > input:focus, .folio-question-composer__field > input:focus-visible { outline: none; }
+.folio-question-composer__field > input::placeholder { color: var(--ink-3-aa); opacity: 1; }
+/* Send, Stop and the countdown are one 36px mark in three states, swapped in
+   place; the hit area around it is the 44px target. */
+.folio-question-composer__send { position: relative; flex-shrink: 0; display: inline-grid; place-items: center; inline-size: var(--control-h-sm); block-size: var(--control-h-sm); padding: 0; border: 0; border-radius: var(--radius-pill); background: var(--ink); color: var(--paper); cursor: pointer; transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease), scale var(--fast) var(--ease); }
+.folio-question-composer:not([data-compact]) .folio-question-composer__send { inline-size: 2.5rem; block-size: 2.5rem; }
+.folio-question-composer__send::after { content: ''; position: absolute; inset: calc((var(--control-h-sm) - var(--control-h-md)) / 2); }
+.folio-question-composer__send:active:not(:disabled) { scale: .94; }
+.folio-question-composer__send:disabled { background: var(--stone); color: var(--ink-3-aa); cursor: default; }
+.folio-question-composer__glyph { grid-area: 1 / 1; transition: opacity var(--fast) var(--ease), scale var(--fast) var(--ease); }
+.folio-question-composer__glyph[data-glyph='stop'], .folio-question-composer__send[data-pending] .folio-question-composer__glyph[data-glyph='send'] { opacity: 0; scale: .6; }
+.folio-question-composer__send[data-pending] .folio-question-composer__glyph[data-glyph='stop'] { opacity: 1; scale: 1; }
+.folio-question-composer__send[data-waiting] { background: transparent; color: var(--ink-2); }
+.folio-question-composer__send[data-waiting] .folio-question-composer__glyph { display: none; }
+.folio-question-composer__count { grid-area: 1 / 1; font-size: .6875rem; font-variant-numeric: tabular-nums; }
+.folio-question-composer__ring { position: absolute; inset: 0; rotate: -90deg; }
+.folio-question-composer__ring circle { fill: none; stroke: var(--rule-2); stroke-width: 1.5; }
+/* One tick per second of real time: the ring drains with the clock it shows,
+   so its duration is the countdown's unit rather than a motion token. */
+.folio-question-composer__ring circle + circle { stroke: var(--ink-2); stroke-dasharray: 100; stroke-dashoffset: calc(100 - var(--folio-composer-left) * 100); stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
+.folio-question-composer__footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .25rem 1rem; min-block-size: 1.75rem; padding: .375rem .375rem 0 1rem; }
 .folio-question-composer__footer > p { max-inline-size: 56ch; }
+.folio-question-composer__footer > button { min-block-size: var(--control-h-md); margin-block: calc((1.75rem - var(--control-h-md)) / 2); padding-inline: .5rem; color: var(--ink-2); font-size: .75rem; font-weight: 400; }
 .folio-question-composer__counter { white-space: nowrap; font-variant-numeric: tabular-nums; }
-.folio-conversation-turn { border-block-end: 1px solid var(--rule); padding-block: 1.75rem; }
+/* A turn opens under its own rule, drawn left to right as the turn arrives. */
+.folio-conversation-turn { position: relative; padding-block: 1.75rem; }
+.folio-conversation-turn::before { content: ''; position: absolute; inset-inline: 0; inset-block-start: 0; block-size: 1px; background: var(--rule); transform-origin: left; }
 .folio-conversation-turn__toggle { inline-size: calc(100% + 1.5rem); margin-inline: -.75rem; justify-content: space-between; align-items: baseline; gap: 1rem; text-align: start; font: inherit; color: inherit; padding: .5rem .75rem; border-radius: var(--radius); }
 /* A question is a row, not a standalone control: its hover fill keeps the
    row corner and some air around the words, instead of the capsule the
@@ -38,54 +68,127 @@
 .folio-conversation-quote > blockquote { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; margin: .5rem 0 0; font-family: var(--font-heading); font-weight: var(--display-weight); font-style: italic; font-size: 1rem; line-height: 1.6; color: var(--ink-2); }
 .folio-conversation-quote[data-compact] { margin-block-end: 1rem; padding-inline-start: .875rem; }
 .folio-conversation-quote[data-compact] > blockquote { -webkit-line-clamp: 3; font-size: .875rem; }
-.folio-conversation-answer__question { margin-block: .375rem 1rem; font-family: var(--font-heading); }
+/* The answer: a short typeset passage under its question. The label the
+   question used to sit under is still read; it is no longer drawn. */
+.folio-conversation-answer__question { margin: 0 0 .25rem; color: var(--ink); font-size: 1.125rem; font-weight: 500; line-height: 1.35; letter-spacing: -.005em; text-wrap: balance; }
 .folio-conversation-answer > .folio-activity-trace { margin-block-end: 1rem; }
+.folio-conversation-answer .folio-conversation-prose { font-size: .9375rem; line-height: 1.7; }
 .folio-conversation-prose { font-size: 1rem; overflow-wrap: anywhere; }
 .folio-conversation-prose > p { white-space: pre-wrap; }
 .folio-conversation-prose p.folio-conversation-prose__heading { margin-block: 1.5rem .5rem; font-size: 1rem; font-family: var(--font-sans); font-weight: 500; line-height: 1.5; color: var(--ink); }
 .folio-conversation-prose p.folio-conversation-prose__heading[data-lead] { margin-block-start: 0; }
-.folio-conversation-prose sup { font-size: .75em; }
-.folio-conversation-caret { display: inline-block; inline-size: .375rem; block-size: 1em; margin-inline-start: .2rem; vertical-align: -.1em; background: var(--ink); }
-.folio-conversation-sources { margin-block-start: 1.5rem; border-block-start: 1px solid var(--rule-divider); padding-block-start: .75rem; }
-.folio-conversation-sources__header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
-.folio-conversation-sources__link { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; inline-size: 100%; align-items: baseline; text-align: start; gap: .75rem; }
+/* Citation numerals point at evidence, so they carry the accent. */
+.folio-conversation-prose sup { padding-inline: .125rem; border-radius: var(--radius-xs); color: var(--accent); font-size: .6875rem; font-weight: 500; font-variant-numeric: tabular-nums; line-height: 0; transition: background-color var(--fast) var(--ease); }
+.folio-conversation-prose sup:hover, .folio-conversation-prose sup[data-highlighted] { background: var(--accent-muted); }
+/* Footnotes. The outer box unfolds as retrieval lands; rows rise in one
+   stagger step apart; uncited rows fold shut when the answer is done. */
+.folio-conversation-sources { display: grid; grid-template-rows: 1fr; margin-block-start: .375rem; }
+.folio-conversation-sources__body { min-block-size: 0; overflow: hidden; padding-block-start: .875rem; border-block-start: 1px solid var(--rule-2); }
+.folio-conversation-sources__header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-block-end: .125rem; }
+.folio-conversation-sources ul { list-style: none; margin: 0; padding: 0; }
+.folio-conversation-sources li { display: grid; grid-template-rows: 1fr; transition: grid-template-rows var(--mid) var(--ease), opacity var(--mid) var(--ease); }
+.folio-conversation-sources li > * { min-block-size: 0; overflow: hidden; }
+.folio-conversation-sources li + li { border-block-start: 1px solid var(--rule-2); }
+.folio-conversation-sources li[data-cited='false'] { grid-template-rows: 0fr; opacity: 0; border-color: transparent; }
+.folio-conversation-sources li[data-cited='false'] > * { min-block-size: 0; padding-block: 0; }
+.folio-conversation-sources__link { display: grid; grid-template-columns: 1.375rem minmax(0, 1fr) auto; inline-size: 100%; block-size: auto; min-block-size: var(--control-h-md); align-items: baseline; padding-block: .625rem; text-align: start; gap: .5rem; }
 .folio-conversation-sources__link[data-highlighted] { background: var(--accent-muted); }
+.folio-conversation-sources__link > span:first-child { color: var(--accent); font-weight: 500; font-variant-numeric: tabular-nums; }
 .folio-conversation-sources__link > span:nth-child(2) { min-inline-size: 0; }
-.folio-conversation-sources__link > span:nth-child(2) > span { display: block; }
+.folio-conversation-sources__link > span:nth-child(2) > span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.folio-conversation-sources__link > span:last-child { white-space: nowrap; }
+/* Why there is no answer: a sentence ruled in the tone's colour, not a box. */
+.folio-conversation-note { display: grid; justify-items: start; gap: .625rem; margin-block: .375rem .25rem; padding: .125rem 0 .125rem .875rem; border-inline-start: 2px solid var(--danger); color: var(--ink-2); }
+.folio-conversation-note[data-tone='warn'] { border-inline-start-color: var(--warn); }
 .folio-action-proposal__actions { margin-block-start: .375rem; border-block-start: 1px solid var(--rule-divider); }
 .folio-action-proposal__action { display: flex; inline-size: 100%; justify-content: space-between; gap: 1rem; text-align: start; border-block-end: 1px solid var(--rule); }
 .folio-action-proposal__action > span { min-inline-size: 0; }
 .folio-action-proposal__action > span:last-child { display: flex; align-items: center; gap: .75rem; flex-shrink: 0; }
-.folio-conversation-launcher { position: fixed; inset-block-end: 1.5rem; inset-inline-start: 1.5rem; z-index: 40; min-block-size:3rem; padding-inline:1rem 1.125rem; gap:.625rem; border:1px solid var(--rule-2); border-radius:var(--radius-pill); background:var(--paper); color:var(--ink-2); font-family:var(--sans); font-size:.8125rem; font-weight:500; box-shadow:0 2px 5px color-mix(in srgb,var(--ink) 4%,transparent),0 8px 24px color-mix(in srgb,var(--ink) 6%,transparent); transition: opacity var(--duration-base) var(--ease),background var(--duration-fast),box-shadow var(--duration-fast); }
-.folio-conversation-launcher:hover { background:var(--paper-2); box-shadow:0 3px 8px color-mix(in srgb,var(--ink) 5%,transparent),0 10px 28px color-mix(in srgb,var(--ink) 8%,transparent); }
-.folio-conversation-launcher[data-revealed='false'] { opacity: 0; pointer-events: none; }
-.folio-conversation-dock__scrim { position: fixed; inset: 0; z-index: var(--z-scrim); background: var(--scrim); }
-.folio-conversation-dock { position: fixed; inset-inline: 0; inset-block-end: 0; z-index: var(--z-modal); display: flex; flex-direction: column; max-block-size: min(72svh, 40rem); overflow: hidden; border: 1px solid var(--rule-hard); border-radius: var(--radius-lg) var(--radius-lg) 0 0; background: var(--paper); transition: opacity var(--duration-base) var(--ease), transform var(--duration-base) var(--ease), visibility var(--duration-base) var(--ease); }
-.folio-conversation-dock[data-open='false'] { visibility: hidden; opacity: 0; translate: 0 .75rem; }
-.folio-conversation-dock[data-card='true'] { inset: auto; max-block-size: none; border-radius: var(--radius-lg); }
-.folio-conversation-dock[data-card='true'][data-corner='bottom-left'] { bottom: 1.5rem; left: 1.5rem; }
-.folio-conversation-dock[data-card='true'][data-corner='bottom-right'] { bottom: 1.5rem; right: 1.5rem; }
-.folio-conversation-dock[data-card='true'][data-corner='top-left'] { top: 1.5rem; left: 1.5rem; }
-.folio-conversation-dock[data-card='true'][data-corner='top-right'] { top: 1.5rem; right: 1.5rem; }
+/* ─── The dock ───
+   One shell is the launcher pill closed and the panel open. The panel inside
+   it keeps its final size and is anchored to the pill's corner, so growing the
+   shell reflows nothing: only the shell's own box, corner and lift animate. */
+.folio-conversation-dock {
+  --folio-dock-w: min(25.5rem, calc(100vw - 3rem));
+  --folio-dock-h: min(37.5rem, calc(100svh - 3rem));
+  --folio-dock-sheet-h: 77svh;
+  --folio-dock-pill-h: var(--control-h-lg);
+  --folio-dock-inset: 1.5rem;
+  position: fixed; z-index: var(--z-sticky);
+  display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start;
+  width: var(--folio-dock-pill-w, auto); height: var(--folio-dock-pill-h);
+  /* clip, not hidden: a clipped box cannot be scrolled, so focusing the wide
+     pill never slides its label out of the corner. */
+  overflow: clip; border: 1px solid var(--rule-2); border-radius: calc(var(--folio-dock-pill-h) / 2);
+  background: var(--paper); box-shadow: var(--folio-lift-rest);
+  /* Closing: the panel has already gone (--fast), and the box follows a touch quicker than it came. */
+  transition: width var(--mid) var(--ease) calc(var(--fast) / 2), height var(--mid) var(--ease) calc(var(--fast) / 2), left var(--mid) var(--ease) calc(var(--fast) / 2), right var(--mid) var(--ease) calc(var(--fast) / 2), bottom var(--mid) var(--ease) calc(var(--fast) / 2), border-radius var(--mid) var(--ease) calc(var(--fast) / 2), box-shadow var(--mid) var(--ease), background-color var(--fast) var(--ease), opacity var(--mid) var(--ease), scale var(--fast) var(--ease);
+}
+.folio-conversation-dock[data-corner^='bottom'] { bottom: var(--folio-dock-inset); }
+.folio-conversation-dock[data-corner^='top'] { top: var(--folio-dock-inset); justify-content: flex-start; }
+.folio-conversation-dock[data-corner$='left'] { left: var(--folio-dock-inset); }
+.folio-conversation-dock[data-corner$='right'] { right: var(--folio-dock-inset); align-items: flex-end; }
+/* A phone keeps the pill in the bottom-left corner whatever the card's corner. */
+.folio-conversation-dock[data-card='false'] { --folio-dock-inset: 1rem; top: auto; right: auto; bottom: var(--folio-dock-inset); left: var(--folio-dock-inset); justify-content: flex-end; align-items: flex-start; }
+.folio-conversation-dock[data-revealed='false'] { opacity: 0; pointer-events: none; }
 .folio-conversation-dock[data-dragging] { user-select: none; }
-.folio-conversation-dock[data-moving] { transition: none; }
-.folio-conversation-dock__header { display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-shrink: 0; border-block-end: 1px solid var(--rule-hard); padding-inline: 1rem; }
-.folio-conversation-dock__header > span, .folio-conversation-dock__header > div { display: flex; align-items: center; gap: .5rem; }
-.folio-conversation-dock[data-card='true'] > .folio-conversation-dock__header { cursor: grab; padding-block: .5rem; }
-.folio-conversation-dock[data-moving] > .folio-conversation-dock__header { cursor: grabbing; }
-.folio-conversation-dock__log { min-block-size: 0; flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 1rem; }
-.folio-conversation-dock__proposal { border-block-start: 1px solid var(--rule); padding: .75rem 1rem 0; }
-.folio-conversation-dock__notice { border-block-start: 1px solid var(--rule); padding: .75rem 1rem; background: var(--paper-2); }
-.folio-conversation-dock__composer { border-block-start: 1px solid var(--rule-hard); padding: .75rem 1rem max(.75rem, env(safe-area-inset-bottom)); }
-.folio-conversation-dock-welcome > p { max-inline-size: 30ch; font-family: var(--font-heading); }
-.folio-conversation-dock-welcome .folio-conversation-suggestions { margin-block-start: 1.5rem; }
-.folio-conversation-dock { border-color:var(--rule-2); box-shadow:0 12px 48px color-mix(in srgb,var(--ink) 12%,transparent); }
-.folio-conversation-dock__header { padding-inline:1.25rem; border-color:var(--rule); font-family:var(--sans); }
-.folio-conversation-dock__header a { font-family:var(--sans); font-size:.8125rem; }
-.folio-conversation-dock__log { padding:1.5rem; }
-.folio-conversation-dock-welcome>p { font-family:var(--sans); font-size:1rem; line-height:1.75; font-weight:400; color:var(--ink-2); }
-.folio-conversation-dock .folio-conversation-suggestions__action { font-family:var(--sans); font-size:.8125rem; font-weight:400; line-height:1.65; white-space:normal; padding-block:.75rem; }
-.folio-conversation-dock__composer { padding:1rem 1.25rem; border-color:var(--rule); background:var(--paper-2); }
+.folio-conversation-dock__pill { display: flex; flex-shrink: 0; align-items: center; gap: .5625rem; block-size: calc(var(--folio-dock-pill-h) - 2px); padding: 0 1.125rem 0 .9375rem; border: 0; background: transparent; color: var(--ink); font: inherit; font-family: var(--sans); font-size: .875rem; font-weight: 500; white-space: nowrap; cursor: pointer; transition: opacity var(--fast) var(--ease) var(--mid); }
+.folio-conversation-dock__pill:focus-visible { outline-offset: -.25rem; }
+/* Measured, the pill fills the shell: the button is exactly the visible pill,
+   so a click (or a voice-control tap) at its centre lands on it. */
+.folio-conversation-dock[data-measured] > .folio-conversation-dock__pill { inline-size: 100%; min-inline-size: 0; overflow: hidden; }
+.folio-conversation-dock__mark { flex-shrink: 0; color: var(--accent); }
+.folio-conversation-dock__dot { inline-size: .375rem; block-size: .375rem; margin-inline-start: -.125rem; border-radius: var(--radius-pill); background: var(--accent); }
+.folio-conversation-dock__placeholder { padding-inline-start: .625rem; border-inline-start: 1px solid var(--rule-2); color: var(--ink-3-aa); font-weight: 400; opacity: 0; transition: opacity var(--fast) var(--ease); }
+.folio-conversation-dock:not([data-measured]) .folio-conversation-dock__placeholder { display: none; }
+@media (hover: hover) {
+  .folio-conversation-dock[data-open='false']:has(> .folio-conversation-dock__pill:is(:hover, :focus-visible)) { background: var(--paper-2); box-shadow: var(--folio-lift-hover); transition: width var(--mid) var(--ease), background-color var(--fast) var(--ease), box-shadow var(--fast) var(--ease), opacity var(--mid) var(--ease), scale var(--fast) var(--ease); }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .folio-conversation-dock[data-open='false'][data-measured]:has(> .folio-conversation-dock__pill:is(:hover, :focus-visible)) { width: var(--folio-dock-pill-w-hover); }
+  .folio-conversation-dock[data-open='false'] > .folio-conversation-dock__pill:is(:hover, :focus-visible) > .folio-conversation-dock__placeholder { opacity: 1; transition-delay: calc(var(--fast) / 2); }
+  .folio-conversation-dock[data-open='false']:has(> .folio-conversation-dock__pill:active) { scale: .98; }
+}
+.folio-conversation-dock[data-open='true'] { z-index: var(--z-modal); width: var(--folio-dock-w); height: var(--folio-dock-h); border-radius: var(--radius-lg); box-shadow: var(--folio-lift-open); transition: width var(--slow) var(--ease), height var(--slow) var(--ease), left var(--slow) var(--ease), right var(--slow) var(--ease), bottom var(--slow) var(--ease), border-radius var(--slow) var(--ease), box-shadow var(--slow) var(--ease), opacity var(--mid) var(--ease); }
+/* A resize or a move follows the pointer, so nothing eases behind it. */
+.folio-conversation-dock[data-open][data-dragging] { transition: none; }
+.folio-conversation-dock[data-open='true'] > .folio-conversation-dock__pill { opacity: 0; pointer-events: none; transition: opacity var(--fast) var(--ease); }
+/* The sheet: the same shell, opened to the bottom edge and above the keyboard. */
+.folio-conversation-dock[data-card='false'][data-open='true'] { left: -1px; bottom: calc(var(--folio-dock-keyboard, 0px) - 1px); width: calc(100% + 2px); height: var(--folio-dock-sheet-h); border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+.folio-conversation-dock__scrim { position: fixed; inset: 0; z-index: var(--z-scrim); background: var(--scrim); opacity: 0; pointer-events: none; transition: opacity var(--mid) var(--ease); }
+.folio-conversation-dock__scrim[data-open='true'] { opacity: 1; pointer-events: auto; transition-duration: var(--slow); }
+.folio-conversation-dock__panel { position: absolute; display: flex; flex-direction: column; inline-size: calc(var(--folio-dock-w) - 2px); block-size: calc(var(--folio-dock-h) - 2px); opacity: 0; visibility: hidden; transition: opacity var(--fast) var(--ease), visibility 0s linear var(--fast); }
+.folio-conversation-dock[data-corner^='bottom'] > .folio-conversation-dock__panel { bottom: 0; }
+.folio-conversation-dock[data-corner^='top'] > .folio-conversation-dock__panel { top: 0; }
+.folio-conversation-dock[data-corner$='left'] > .folio-conversation-dock__panel { left: 0; }
+.folio-conversation-dock[data-corner$='right'] > .folio-conversation-dock__panel { right: 0; }
+.folio-conversation-dock[data-card='false'] > .folio-conversation-dock__panel { inset: auto auto 0 0; inline-size: 100vw; block-size: calc(var(--folio-dock-sheet-h) - 1px); }
+.folio-conversation-dock[data-open='true'] > .folio-conversation-dock__panel { opacity: 1; visibility: visible; transition: opacity var(--mid) var(--ease) var(--fast), visibility 0s; }
+.folio-conversation-dock__grab { position: absolute; inset-block-start: .375rem; inset-inline-start: 50%; inline-size: 2.25rem; block-size: .25rem; translate: -50% 0; border-radius: var(--radius-pill); background: var(--rule-2); }
+.folio-conversation-dock__header { display: flex; align-items: center; justify-content: space-between; gap: .5rem; flex-shrink: 0; block-size: 3rem; padding-inline: 1.25rem .375rem; font-family: var(--sans); }
+.folio-conversation-dock__header > span { display: flex; align-items: baseline; gap: .5rem; min-inline-size: 0; font-size: .8125rem; white-space: nowrap; }
+.folio-conversation-dock__header b { color: var(--ink); font-weight: 500; }
+.folio-conversation-dock__header > div { display: flex; align-items: center; }
+.folio-conversation-dock__header a { font-family: var(--sans); font-size: .8125rem; color: var(--ink-2); }
+.folio-conversation-dock[data-card='true'] .folio-conversation-dock__header { cursor: grab; }
+.folio-conversation-dock[data-moving] .folio-conversation-dock__header { cursor: grabbing; }
+.folio-conversation-dock[data-card='false'] .folio-conversation-dock__header { padding-inline-start: 1rem; }
+.folio-conversation-dock__log { flex: 1; min-block-size: 0; overflow-y: auto; overscroll-behavior: contain; padding: .5rem 1.25rem 1.25rem; scrollbar-width: thin; scrollbar-color: var(--rule-2) transparent; }
+.folio-conversation-dock[data-card='false'] .folio-conversation-dock__log { padding-inline: 1rem; }
+.folio-conversation-dock__proposal { display: grid; grid-template-rows: 1fr; padding: .75rem 1.25rem 0; border-block-start: 1px solid var(--rule-2); }
+.folio-conversation-dock__proposal > * { min-block-size: 0; overflow: hidden; }
+.folio-conversation-dock__notice { padding: .5rem 1.25rem; color: var(--ink-2); }
+.folio-conversation-dock__composer { flex-shrink: 0; padding: .625rem .75rem .75rem; }
+.folio-conversation-dock[data-card='false'] .folio-conversation-dock__composer { padding-block-end: max(.75rem, env(safe-area-inset-bottom)); }
+.folio-conversation-dock-welcome { padding-block-start: .375rem; }
+.folio-conversation-dock-welcome > p { max-inline-size: 14em; margin-block-end: 1.375rem; color: var(--ink); font-family: var(--sans); font-size: 1.25rem; font-weight: 400; line-height: 1.35; letter-spacing: -.01em; text-wrap: balance; }
+.folio-conversation-dock-welcome > p:lang(zh) { line-height: 1.5; }
+.folio-conversation-dock-welcome .folio-conversation-suggestions { margin-block-start: 0; }
+.folio-conversation-dock .folio-conversation-suggestions > ul { margin-block-start: .25rem; border: 0; }
+.folio-conversation-dock .folio-conversation-suggestions > ul > li { border: 0; }
+.folio-conversation-dock .folio-conversation-suggestions > ul > li + li { border-block-start: 1px solid var(--rule-2); }
+.folio-conversation-dock .folio-conversation-suggestions__action { color: var(--ink-2); font-family: var(--sans); font-size: .875rem; font-weight: 400; line-height: 1.45; white-space: normal; padding-block: .625rem; }
+.folio-conversation-dock .folio-conversation-suggestions__action > svg { color: var(--ink-3-aa); }
 .folio-conversation-resize { position: absolute; z-index: 10; }
 .folio-conversation-resize[data-side='top'], .folio-conversation-resize[data-side='bottom'] { inset-inline: 0; block-size: .375rem; cursor: ns-resize; }
 .folio-conversation-resize[data-side='left'], .folio-conversation-resize[data-side='right'] { inset-block: 0; inline-size: .375rem; cursor: ew-resize; }
@@ -101,21 +204,49 @@
 @media (max-width: 639px) {
   .folio-conversation-suggestions [data-wide-only] { display: none; }
   .folio-action-proposal__detail { display: none; }
-  .folio-question-composer[data-compact] .folio-question-composer__row { gap: .5rem; }
-  .folio-question-composer[data-compact] input { font-size: 1rem; }
+  .folio-question-composer__field > input { font-size: 1rem; }
 }
 @media (min-width: 901px) {
   .folio-conversation-layout { grid-template-columns: minmax(0, 1fr) minmax(17rem, 21rem); gap: clamp(2.5rem, 5vw, 5rem); }
   .folio-conversation-layout__evidence { display: block; position: sticky; inset-block-start: var(--scroll-offset); border-inline-start: 1px solid var(--rule); padding-inline-start: clamp(1.5rem, 3vw, 2.5rem); }
 }
 @media (min-width: 640px) { .folio-conversation-facts { display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem 3rem; } }
+/* Arrivals. Exits are always shorter than entrances, and nothing overshoots. */
 @media (prefers-reduced-motion: no-preference) {
-  .folio-conversation-caret { animation: folio-conversation-blink 1s steps(2, end) infinite; }
+  .folio-conversation-dock[data-open='true'] :is(.folio-conversation-dock__composer, .folio-conversation-dock__log, .folio-conversation-dock__header) { animation: folio-conversation-rise var(--mid) var(--ease) backwards; }
+  .folio-conversation-dock[data-open='true'] .folio-conversation-dock__composer { animation-delay: var(--fast); }
+  .folio-conversation-dock[data-open='true'] .folio-conversation-dock__log { animation-delay: calc(var(--fast) + var(--stagger)); }
+  .folio-conversation-dock[data-open='true'] .folio-conversation-dock__header { animation-delay: calc(var(--fast) + var(--stagger) * 2); }
+  .folio-conversation-dock[data-open='true'] .folio-conversation-dock-welcome li { animation: folio-conversation-rise var(--mid) var(--ease) backwards; animation-delay: calc(var(--fast) + var(--stagger) * (3 + var(--n, 0))); }
+  .folio-conversation-answer__question { animation: folio-conversation-question-in var(--mid) var(--ease) backwards; }
+  .folio-conversation-answer > .folio-reasoning { animation: folio-conversation-rise var(--mid) var(--ease) backwards; animation-delay: calc(var(--stagger) * 2); }
+  .folio-conversation-words { animation: folio-conversation-fade-in var(--mid) var(--ease) backwards; }
+  .folio-conversation-sources { animation: folio-conversation-unfold var(--slow) var(--ease) backwards; }
+  .folio-conversation-sources li { animation: folio-conversation-source-in var(--mid) var(--ease) backwards; animation-delay: calc(var(--stagger) * var(--n, 0)); }
+  .folio-conversation-note { animation: folio-conversation-rise var(--mid) var(--ease) backwards; }
+  .folio-conversation-dock__proposal { animation: folio-conversation-unfold var(--slow) var(--ease) backwards; }
+  .folio-conversation-turn::before { animation: folio-conversation-rule-in var(--slow) var(--ease) backwards; }
 }
+/* Reduced motion: nothing translates, scales, draws or loops; a state change
+   keeps a --fast opacity or colour change so it still reads as a change. */
 @media (prefers-reduced-motion: reduce) {
-  .folio-conversation-dock, .folio-conversation-launcher, .folio-conversation-turn__toggle > svg { transition: none; }
+  .folio-conversation-dock, .folio-conversation-dock[data-open='true'], .folio-conversation-dock[data-open='false']:has(> .folio-conversation-dock__pill:is(:hover, :focus-visible)) { transition: opacity var(--fast) var(--ease), background-color var(--fast) var(--ease); }
+  .folio-conversation-dock > .folio-conversation-dock__pill, .folio-conversation-dock[data-open='true'] > .folio-conversation-dock__pill { transition: opacity var(--fast) var(--ease); }
+  .folio-conversation-dock[data-open='true'] > .folio-conversation-dock__panel { transition: opacity var(--fast) var(--ease), visibility 0s; }
+  .folio-conversation-dock__scrim, .folio-conversation-dock__scrim[data-open='true'] { transition-duration: var(--fast); }
+  .folio-conversation-answer__question, .folio-conversation-note { animation: folio-conversation-fade-in var(--fast) var(--ease) backwards; }
+  .folio-question-composer__glyph, .folio-question-composer__send { transition: opacity var(--fast) var(--ease), background-color var(--fast) var(--ease); scale: none; }
+  .folio-question-composer__glyph[data-glyph='stop'], .folio-question-composer__send[data-pending] .folio-question-composer__glyph { scale: none; }
+  .folio-question-composer__ring circle + circle, .folio-conversation-sources li { transition: none; }
+  .folio-conversation-suggestions__action > svg, .folio-conversation-suggestions__action:hover > svg { translate: none; transition: color var(--fast) var(--ease); }
+  .folio-conversation-turn__toggle > svg { transition: none; }
 }
-@keyframes folio-conversation-blink { to { opacity: 0; } }
+@keyframes folio-conversation-rise { from { opacity: 0; transform: translateY(6px); } }
+@keyframes folio-conversation-question-in { from { opacity: 0; transform: translateY(8px); } }
+@keyframes folio-conversation-source-in { from { opacity: 0; transform: translateY(4px); } }
+@keyframes folio-conversation-fade-in { from { opacity: 0; } }
+@keyframes folio-conversation-unfold { from { grid-template-rows: 0fr; opacity: 0; } }
+@keyframes folio-conversation-rule-in { from { transform: scaleX(0); } }
 
 /* Row-shaped controls — a suggestion, a source, a proposal's action. Each is
    a full-width row, not a standalone button, so its hover and selected fill

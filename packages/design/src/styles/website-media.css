@@ -26,8 +26,14 @@
 .folio-media-gallery-item,
 .folio-media-gallery-item figure { min-inline-size: 0; margin: 0; }
 .folio-media-gallery-link { position: relative; display: flex; aspect-ratio: 1; align-items: flex-end; justify-content: center; }
-.folio-media-gallery-link img { display: block; inline-size: auto; block-size: auto; max-inline-size: 100%; max-block-size: 100%; object-fit: contain; transition: transform var(--duration-fast) var(--ease); }
-.folio-media-gallery-link:hover img { transform: translateY(-2px); }
+.folio-media-gallery-link img { display: block; inline-size: auto; block-size: auto; max-inline-size: 100%; max-block-size: 100%; object-fit: contain; transition: filter var(--mid) var(--ease); }
+/* An uncropped photograph is not moved off its baseline or scaled: it brightens
+   a touch, and its caption answers — the title underlined, the index in the accent. */
+.folio-media-gallery-item:hover .folio-media-gallery-link img { filter: brightness(1.04); }
+.folio-media-gallery-title { text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 1px; text-underline-offset: .25rem; transition: text-decoration-color var(--fast) var(--ease); }
+.folio-media-gallery-index { transition: color var(--fast) var(--ease); }
+.folio-media-gallery-item:hover .folio-media-gallery-title { text-decoration-color: var(--rule-2); }
+.folio-media-gallery-item:hover .folio-media-gallery-index { color: var(--accent); }
 .folio-media-gallery-link:focus-visible,
 .folio-media-thumbnail:focus-visible,
 .folio-media-pager-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
@@ -50,7 +56,7 @@
 .folio-media-index-bar > :is(a, button) { min-inline-size: 44.25px; min-block-size: 44.25px; }
 .folio-media-index { color: var(--foreground-muted); font-family: var(--label-font); font-size: 0.6875rem; font-variant-numeric: tabular-nums; letter-spacing: calc(0.13em * var(--label-tracking-scale)); }
 .folio-media-spread { display: grid; grid-template-columns: minmax(0, 1fr) clamp(20rem, 29vw, 27rem); align-items: start; gap: clamp(1.5rem, 3.5vw, 4.5rem); padding-block: clamp(1.5rem, 3.5vw, 3.75rem); }
-.folio-media-well { display: flex; min-inline-size: 0; align-items: flex-start; }
+.folio-media-well { display: flex; min-inline-size: 0; align-items: flex-start; justify-content: center; }
 .folio-media-frame {
   --folio-media-max-block: 76svh;
   display: block;
@@ -83,7 +89,6 @@
 .folio-media-light-line svg { flex: none; }
 .folio-media-light-detail { color: var(--secondary-text); }
 .folio-media-spread[data-photo-spread='wide'] { grid-template-columns: minmax(0, 1fr); row-gap: clamp(1.75rem, 3.5vw, 3rem); }
-.folio-media-spread[data-photo-spread='wide'] .folio-media-well { justify-content: center; }
 .folio-media-spread[data-photo-spread='wide'] .folio-media-frame { --folio-media-max-block: 74svh; }
 .folio-media-spread[data-photo-spread='wide'] .folio-media-ledger { display: grid; grid-template-columns: minmax(0, 1fr) clamp(20rem, 34vw, 29rem); column-gap: clamp(2rem, 6vw, 6rem); align-items: start; }
 .folio-media-spread[data-photo-spread='wide'] .folio-media-ledger-narrative,
@@ -110,9 +115,25 @@
   box-shadow: none;
   backdrop-filter: none;
   cursor: zoom-out;
-  animation: folio-fade-in var(--duration-fast) var(--ease);
+  animation: folio-lightbox-scrim-in var(--mid) var(--ease);
 }
-.folio-media-lightbox-stage { display: flex; justify-content: center; cursor: default; }
+/* Closing is a real exit: the scrim lifts while the photograph returns to its
+   frame, and the dialog stays mounted until both are done. */
+.folio-media-lightbox[role='dialog'][data-state='closed'] { animation: folio-lightbox-scrim-out var(--mid) var(--ease) forwards; }
+/* The print the page already painted, at once; the larger rendering fades in
+   over it when it has loaded. Both share one cell, so neither moves. */
+.folio-media-lightbox-stage { display: grid; justify-items: center; cursor: default; transform-origin: center; }
+.folio-media-lightbox-stage > * { grid-area: 1 / 1; }
+.folio-media-lightbox-full { opacity: 0; transition: opacity var(--mid) var(--ease); }
+.folio-media-lightbox-full[data-loaded='true'] { opacity: 1; }
+.folio-media-lightbox[data-state='open'] .folio-media-lightbox-stage { animation: folio-lightbox-grow var(--slow) var(--ease); }
+.folio-media-lightbox[data-state='closed'] .folio-media-lightbox-stage { animation: folio-lightbox-shrink var(--mid) var(--ease) forwards; }
+.folio-media-lightbox[data-state='open'] :is(.folio-media-lightbox-close, .folio-media-lightbox-caption) { animation: folio-fade-in var(--fast) var(--ease) var(--mid) backwards; }
+.folio-media-lightbox[data-state='closed'] :is(.folio-media-lightbox-close, .folio-media-lightbox-caption) { animation: folio-fade-out var(--fast) var(--ease) forwards; }
+@keyframes folio-lightbox-grow { from { transform: translate(var(--folio-lightbox-x, 0px), var(--folio-lightbox-y, 0px)) scale(var(--folio-lightbox-scale, 1)); } }
+@keyframes folio-lightbox-shrink { to { transform: translate(var(--folio-lightbox-x, 0px), var(--folio-lightbox-y, 0px)) scale(var(--folio-lightbox-scale, 1)); } }
+@keyframes folio-lightbox-scrim-in { from { background-color: transparent; } }
+@keyframes folio-lightbox-scrim-out { to { background-color: transparent; } }
 .folio-media-lightbox-stage img { display: block; inline-size: min(calc(100vw - 2rem), calc((100svh - 7.25rem) * var(--folio-media-aspect, 1.5))); block-size: auto; aspect-ratio: auto var(--folio-media-aspect, 1.5); object-fit: contain; }
 .folio-media-lightbox-close { position: absolute; inset-block-start: 1rem; inset-inline-end: 1rem; color: var(--on-dark); border-color: color-mix(in srgb, var(--on-dark) 40%, transparent); }
 .folio-media-lightbox-close:hover { border-color: var(--on-dark); }
@@ -123,6 +144,10 @@
 .folio-media-pager-link { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); min-block-size: 44px; align-items: center; gap: 1rem; padding-block: 1.125rem; padding-inline-end: 1.5rem; color: inherit; text-decoration: none; }
 .folio-media-pager-link[data-direction='previous'] { border-inline-end: 1px solid var(--border-subtle); }
 .folio-media-pager-link[data-direction='next'] { grid-template-columns: minmax(0, 1fr) 4.5rem; padding-inline: 1.5rem 0; }
+.folio-media-pager-link { transition: background-color var(--fast) var(--ease); }
+.folio-media-pager-link:hover { background: color-mix(in srgb, var(--paper-2) 60%, transparent); }
+.folio-media-pager-title { text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 1px; text-underline-offset: .3125rem; transition: text-decoration-color var(--fast) var(--ease); }
+.folio-media-pager-link:hover .folio-media-pager-title { text-decoration-color: var(--rule-2); }
 .folio-media-pager-copy { min-inline-size: 0; }
 .folio-media-pager-link[data-direction='next'] .folio-media-pager-copy { text-align: end; }
 .folio-media-pager-image { position: relative; display: block; block-size: 3.25rem; overflow: hidden; border-radius: var(--radius-sm); background: var(--background-elevated); }
@@ -231,11 +256,12 @@
 @media (prefers-reduced-motion: reduce) {
   .folio-media-gallery-link img,
   .folio-media-map-pin > span { transition: none; }
-  .folio-media-gallery-link:hover img { transform: none; }
-  .folio-media-lightbox[role='dialog'] { animation: none; }
+  /* Plain fades: the scrim and the larger rendering keep theirs; the photograph does not travel. */
+  .folio-media-lightbox[role='dialog'] { animation-duration: var(--fast); }
+  .folio-media-lightbox[data-state] .folio-media-lightbox-stage { animation: none; }
+  .folio-media-lightbox-full { transition-duration: var(--fast); }
 }
 
 [data-motion='still'] .folio-media-gallery-link img,
 [data-motion='still'] .folio-media-map-pin > span { transition: none; }
-[data-motion='still'] .folio-media-gallery-link:hover img { transform: none; }
-[data-motion='still'] .folio-media-lightbox[role='dialog'] { animation: none; }
+[data-motion='still'] .folio-media-lightbox[role='dialog'], [data-motion='still'] .folio-media-lightbox[data-state] .folio-media-lightbox-stage { animation: none; }

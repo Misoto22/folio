@@ -34,6 +34,9 @@
 .folio-evidence-scores > div > div:first-child { display: flex; align-items: baseline; justify-content: space-between; gap: .75rem; margin-block-end: .375rem; }
 .folio-evidence-scores > div > div:first-child > span:first-child { min-inline-size: 0; overflow-wrap: anywhere; }
 .folio-evidence-scores > div > div:first-child > span:last-child { flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.folio-evidence-scores > div > div:first-child > span:first-child { color: var(--ink-2); }
+.folio-evidence-scores > div[data-cited] > div:first-child > span:first-child { color: var(--ink); }
+.folio-evidence-scores__citation { margin-inline-end: .25rem; color: var(--accent); font-size: .625rem; font-weight: 500; }
 .folio-signal-figure, .folio-evidence-meter { margin-block-start: .75rem; }
 .folio-signal-figure__bars { display: flex; align-items: end; justify-content: space-between; gap: 1px; block-size: 2.375rem; overflow: hidden; border-block-end: 1px solid var(--rule); }
 .folio-signal-figure__bars > span { inline-size: 3px; flex-shrink: 1; block-size: 3px; opacity: .4; background: var(--ink); }
@@ -42,41 +45,79 @@
 .folio-evidence-durations__header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-block-end: .5rem; font-variant-numeric: tabular-nums; }
 .folio-evidence-durations__bar { display: flex; gap: 1px; block-size: .375rem; overflow: hidden; background: var(--rule); }
 .folio-evidence-durations__bar > span { block-size: 100%; background: var(--ink); }
+.folio-evidence-durations__bar[data-live] { background: var(--stone); }
+/* One clock for the whole answer: linear while the stream runs, eased once it settles. */
+.folio-evidence-durations__bar > .folio-evidence-durations__fill { inline-size: 100%; transform-origin: left; transform: scaleX(var(--folio-progress)); transition: transform var(--slow) var(--ease); }
+.folio-evidence-durations__bar > .folio-evidence-durations__fill[data-running] { transition: transform var(--mid) linear; }
 .folio-evidence-durations__bar > span:nth-child(3n + 1) { background: var(--stone); }
 .folio-evidence-durations__bar > span:nth-child(3n + 2) { background: var(--ink-3-aa); }
+/* The live clock's fill is one span, not a segment: it must not take the
+   first segment's stone, which is also the live track's colour. */
+.folio-evidence-durations__bar > span.folio-evidence-durations__fill { background: var(--ink); }
 .folio-evidence-durations__legend { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin-block-start: .5rem; }
 .folio-evidence-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; padding-block-start: 1rem; }
 .folio-evidence-summary > div:last-child { text-align: end; }
 @media (prefers-reduced-motion: no-preference) {
   .folio-signal-figure__bars[data-running] > span { animation: folio-signal-pulse .85s ease-in-out infinite; }
+  /* Rows arrive one stagger step apart; each similarity bar grows a fast step after its row. */
+  .folio-evidence-scores > div { animation: folio-evidence-row-in var(--mid) var(--ease) backwards; animation-delay: calc(var(--stagger) * var(--n, 0)); }
+  .folio-evidence-scores > div [role='progressbar'] > * { transform-origin: left; animation: folio-evidence-grow var(--slow) var(--ease) backwards; animation-delay: calc(var(--stagger) * var(--n, 0) + var(--fast)); }
 }
 @media (prefers-reduced-motion: reduce) {
   .folio-signal-figure__bars[data-running] > span { block-size: .7rem; opacity: .7; }
+  .folio-evidence-durations__bar > .folio-evidence-durations__fill, .folio-evidence-durations__bar > .folio-evidence-durations__fill[data-running] { transition: none; }
 }
+@keyframes folio-evidence-row-in { from { opacity: 0; transform: translateY(4px); } }
+@keyframes folio-evidence-grow { from { transform: scaleX(0); } }
 @keyframes folio-signal-pulse { 50% { block-size: 2rem; opacity: .85; } }
 
-/* Reasoning: one quiet line over the steps. While running, the title carries a
-   light sweep — a highlight crossing muted ink, clipped to the letters — and
-   the steps hang off a hairline under the icon. Done, it is a check and a
-   duration, and the steps fold away. */
-.folio-reasoning { margin-block-end: .75rem; }
-.folio-reasoning__line { display: inline-flex; align-items: center; gap: .5rem; min-block-size: 2.75rem; margin-inline: -.5rem; padding: .25rem .5rem; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink-3-aa); font: inherit; font-size: .8125rem; text-align: start; }
-button.folio-reasoning__line { cursor: pointer; transition: background-color var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease); }
+/* Reasoning: the one line that carries every in-flight state. Its mark and its
+   words change in place — a turning ring, a check that draws itself, a cross —
+   and its steps hang off a hairline under the mark, folding shut when the
+   answer's first word arrives. */
+.folio-reasoning { margin-block-end: .25rem; }
+.folio-reasoning__line { display: inline-flex; align-items: center; gap: .5rem; min-block-size: var(--control-h-md); margin-inline: -.5rem; padding: 0 .5rem; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink-3-aa); font: inherit; font-size: .8125rem; text-align: start; }
+button.folio-reasoning__line { cursor: pointer; transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease); }
 button.folio-reasoning__line:hover { background: var(--paper-2); color: var(--ink-2); }
-.folio-reasoning__icon { display: inline-grid; place-items: center; inline-size: 1rem; block-size: 1rem; }
-.folio-reasoning__chevron { transition: rotate var(--duration-fast) var(--ease); }
-.folio-reasoning [data-state='open'] > .folio-reasoning__chevron { rotate: 90deg; }
+.folio-reasoning__icon { position: relative; flex-shrink: 0; inline-size: 1rem; block-size: 1rem; }
+.folio-reasoning__icon > svg { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; transition: opacity var(--fast) var(--ease); }
+.folio-reasoning__track { stroke: var(--rule-2); }
+.folio-reasoning__check, .folio-reasoning__fail { opacity: 0; }
+.folio-reasoning__check path { stroke-dasharray: 24; stroke-dashoffset: 24; transition: stroke-dashoffset var(--mid) var(--ease) var(--fast); }
+.folio-reasoning__icon:not([data-mark='spin']) > .folio-reasoning__spin { opacity: 0; }
+.folio-reasoning__icon[data-mark='check'] > .folio-reasoning__check { opacity: 1; color: var(--ink-2); }
+.folio-reasoning__icon[data-mark='check'] > .folio-reasoning__check path { stroke-dashoffset: 0; }
+.folio-reasoning__icon[data-mark='fail'] > .folio-reasoning__fail { opacity: 1; color: var(--danger); }
+.folio-reasoning__meta { font-variant-numeric: tabular-nums; }
+.folio-reasoning__meta::before { content: '·'; margin-inline-end: .5rem; }
+.folio-reasoning__chevron { transition: rotate var(--fast) var(--ease); }
+.folio-reasoning__line[aria-expanded='true'] > .folio-reasoning__chevron { rotate: 90deg; }
 .folio-reasoning__title[data-running] {
   background-image: linear-gradient(90deg, var(--ink-3-aa) 0%, var(--ink-3-aa) 40%, var(--ink) 50%, var(--ink-3-aa) 60%, var(--ink-3-aa) 100%);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: folio-reasoning-shimmer calc(var(--slow) * 6) linear infinite;
 }
-@keyframes folio-reasoning-shimmer { from { background-position: 100% 0; } to { background-position: 0% 0; } }
-.folio-reasoning__steps { margin: .25rem 0 .25rem .5rem; padding: .25rem 0 .25rem 1rem; border-inline-start: 1px solid var(--rule); }
+.folio-reasoning__fold { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows var(--mid) var(--ease), opacity var(--fast) var(--ease); }
+.folio-reasoning__fold > div { min-block-size: 0; overflow: hidden; }
+.folio-reasoning__fold[data-open='true'] { grid-template-rows: 1fr; opacity: 1; transition: grid-template-rows var(--slow) var(--ease), opacity var(--mid) var(--ease) calc(var(--fast) / 2); }
+.folio-reasoning__steps { margin: 0 0 .625rem .4375rem; padding: .125rem 0 .125rem 1rem; border-inline-start: 1px solid var(--rule-2); }
+.folio-reasoning__steps > ul { gap: .375rem; }
+/* The line above already carries the state; the steps are words and times. */
+.folio-reasoning__steps li > :first-child { display: none; }
+.folio-reasoning__steps li { font-size: .8125rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .folio-reasoning__title[data-running] { animation: folio-reasoning-shimmer calc(var(--slow) * 6) linear infinite; }
+  .folio-reasoning__icon[data-mark='spin'] > .folio-reasoning__spin { animation: folio-reasoning-spin calc(var(--slow) * 3) linear infinite; }
+  .folio-reasoning__steps li { animation: folio-reasoning-step-in var(--mid) var(--ease) backwards; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .folio-reasoning__title[data-running] { animation: none; background: none; color: var(--ink-3-aa); }
+  .folio-reasoning__title[data-running] { background: none; color: var(--ink-3-aa); }
+  .folio-reasoning__check path { transition: none; }
+  .folio-reasoning__fold, .folio-reasoning__fold[data-open='true'] { transition: opacity var(--fast) var(--ease); }
   button.folio-reasoning__line, .folio-reasoning__chevron { transition: none; }
 }
+@keyframes folio-reasoning-shimmer { from { background-position: 100% 0; } to { background-position: 0% 0; } }
+@keyframes folio-reasoning-spin { to { rotate: 360deg; } }
+@keyframes folio-reasoning-step-in { from { opacity: 0; transform: translateY(6px); } }

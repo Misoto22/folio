@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { RiSettings3Line } from '@remixicon/react'
+import { Settings as SettingsIcon } from '../../icons'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,13 +28,13 @@ function open(children: React.ReactNode) {
  */
 describe('DropdownMenuItem icon', () => {
   it('takes the component, which is what the type has always said', () => {
-    const { baseElement } = open(<DropdownMenuItem icon={RiSettings3Line}>Settings</DropdownMenuItem>)
+    const { baseElement } = open(<DropdownMenuItem icon={SettingsIcon}>Settings</DropdownMenuItem>)
     expect(baseElement.querySelector('svg')).not.toBeNull()
   })
 
   it('takes the element too, so the near-miss is no longer a crash', () => {
     const { baseElement } = open(
-      <DropdownMenuItem icon={<RiSettings3Line size={16} />}>Settings</DropdownMenuItem>,
+      <DropdownMenuItem icon={<SettingsIcon size={16} />}>Settings</DropdownMenuItem>,
     )
     expect(baseElement.querySelector('svg')).not.toBeNull()
   })

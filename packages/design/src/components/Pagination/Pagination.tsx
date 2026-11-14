@@ -1,6 +1,6 @@
 'use client'
 
-import { RiArrowLeftSLine, RiArrowRightSLine } from '@remixicon/react'
+import { ChevronLeft, ChevronRight } from '../../icons'
 import type { HTMLAttributes } from 'react'
 import { cn } from '../../lib/cn'
 import { useSelectionIndicator } from '../../lib/useSelectionIndicator'
@@ -132,7 +132,7 @@ export function Pagination({
         onClick={() => onPageChange(page - 1)}
         className={cn(STEP, 'border-(--rule-2) text-(--ink-2) hover:border-(--ink) hover:text-(--ink)')}
       >
-        <RiArrowLeftSLine size={16} aria-hidden />
+        <ChevronLeft size={16} aria-hidden />
       </button>
 
       <ol ref={listRef} className="relative m-0 flex list-none items-center gap-1 p-0">
@@ -185,7 +185,7 @@ export function Pagination({
         onClick={() => onPageChange(page + 1)}
         className={cn(STEP, 'border-(--rule-2) text-(--ink-2) hover:border-(--ink) hover:text-(--ink)')}
       >
-        <RiArrowRightSLine size={16} aria-hidden />
+        <ChevronRight size={16} aria-hidden />
       </button>
     </nav>
   )

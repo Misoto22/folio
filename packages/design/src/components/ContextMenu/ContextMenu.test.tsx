@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { fireEvent, render, screen } from '@testing-library/react'
-import { RiFileCopyLine } from '@remixicon/react'
+import { Copy as CopyIcon } from '../../icons'
 import {
   ContextMenu,
   ContextMenuContent,
@@ -24,12 +24,12 @@ function open(children: React.ReactNode) {
 /** The same inverted `icon` contract as `DropdownMenuItem`, one file over. */
 describe('ContextMenuItem icon', () => {
   it('takes the component', () => {
-    const { baseElement } = open(<ContextMenuItem icon={RiFileCopyLine}>Copy</ContextMenuItem>)
+    const { baseElement } = open(<ContextMenuItem icon={CopyIcon}>Copy</ContextMenuItem>)
     expect(baseElement.querySelector('svg')).not.toBeNull()
   })
 
   it('takes the element too', () => {
-    const { baseElement } = open(<ContextMenuItem icon={<RiFileCopyLine size={16} />}>Copy</ContextMenuItem>)
+    const { baseElement } = open(<ContextMenuItem icon={<CopyIcon size={16} />}>Copy</ContextMenuItem>)
     expect(baseElement.querySelector('svg')).not.toBeNull()
   })
 })

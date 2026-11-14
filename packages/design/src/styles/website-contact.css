@@ -8,6 +8,18 @@
 .folio-contact-form, .folio-contact-facts { min-inline-size: 0; }
 .folio-contact-form__fields { display: grid; gap: 2rem; border-block-start: 1px solid var(--rule-divider); padding-block-start: 2rem; }
 .folio-contact-form__identity { display: grid; gap: 2rem; }
+.folio-contact-form__error { display: grid; grid-template-rows: 1fr; }
+.folio-contact-form__error > span { min-block-size: 0; overflow: hidden; }
+/* A failed send: a sentence ruled in the danger colour, as the answer notes are. */
+.folio-contact-form__note { margin: 0; padding: .125rem 0 .125rem .875rem; border-inline-start: 2px solid var(--danger); color: var(--ink-2); font-size: .875rem; line-height: 1.55; }
+@media (prefers-reduced-motion: no-preference) {
+  .folio-contact-form__error, .folio-contact-form__note { animation: folio-contact-unfold var(--mid) var(--ease) backwards; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .folio-contact-form__error, .folio-contact-form__note { animation: folio-contact-fade var(--fast) var(--ease) backwards; }
+}
+@keyframes folio-contact-unfold { from { grid-template-rows: 0fr; opacity: 0; } }
+@keyframes folio-contact-fade { from { opacity: 0; } }
 .folio-contact-form__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem; }
 .folio-contact-facts__links { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-block-start: 1rem; }
 /* A fact's link sits on the same left edge as its label: a ghost button's

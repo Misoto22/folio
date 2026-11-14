@@ -1,7 +1,8 @@
 'use client'
 
 import { useRef, useState, type FC, type ReactNode, type RefObject } from 'react'
-import { RiFileDownloadLine, RiImageDownloadLine, RiResetLeftLine, RiZoomInLine, RiZoomOutLine, type RemixiconComponentType } from '@remixicon/react'
+import { FileDown, ImageDown, RotateCcw, ZoomIn, ZoomOut } from '../../icons'
+import type { IconComponent } from '../../icons'
 import { cn } from '../../lib/cn'
 import { Button } from '../../components/Button/Button'
 import { chartToCsv, chartToPng, downloadBlob, exportFilename } from './export'
@@ -66,7 +67,7 @@ interface ToolbarControl {
   id: string
   /** The accessible name, the tooltip, and the menu row's text. One string. */
   label: string
-  icon: RemixiconComponentType
+  icon: IconComponent
   disabled?: boolean
   busy?: boolean
   run: () => void
@@ -176,21 +177,21 @@ export function ChartToolbar({
       {
         id: 'zoom-in',
         label: 'Zoom in',
-        icon: RiZoomInLine,
+        icon: ZoomIn,
         disabled: !zoomState.canZoomIn,
         run: () => zoomState.zoomIn(),
       },
       {
         id: 'zoom-out',
         label: 'Zoom out',
-        icon: RiZoomOutLine,
+        icon: ZoomOut,
         disabled: !zoomState.canZoomOut,
         run: () => zoomState.zoomOut(),
       },
       {
         id: 'reset',
         label: 'Reset zoom',
-        icon: RiResetLeftLine,
+        icon: RotateCcw,
         disabled: !zoomState.isZoomed,
         run: () => zoomState.reset(),
       },
@@ -201,7 +202,7 @@ export function ChartToolbar({
     controls.push({
       id: 'png',
       label: 'Download PNG',
-      icon: RiImageDownloadLine,
+      icon: ImageDown,
       busy: busy === 'png',
       disabled: busy !== null,
       run: () => void runExport('png'),
@@ -212,7 +213,7 @@ export function ChartToolbar({
     controls.push({
       id: 'csv',
       label: 'Download CSV',
-      icon: RiFileDownloadLine,
+      icon: FileDown,
       busy: busy === 'csv',
       disabled: busy !== null,
       run: () => void runExport('csv'),

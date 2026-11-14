@@ -1,6 +1,6 @@
 'use client'
 
-import { RiCalendarLine } from '@remixicon/react'
+import { Calendar as CalendarIcon } from '../../icons'
 import { useId, useRef, useState, type ComponentProps } from 'react'
 import { dateMatchModifiers, type DateRange } from 'react-day-picker'
 import { cn } from '../../lib/cn'
@@ -254,7 +254,7 @@ export function DatePicker({
         <span id={valueId} className="truncate">
           {current ? format(current) : placeholder}
         </span>
-        <RiCalendarLine size={14} aria-hidden className="shrink-0 text-(--ink-3-aa)" />
+        <CalendarIcon size={14} aria-hidden className="shrink-0 text-(--ink-3-aa)" />
       </PopoverTrigger>
       <PopoverContent label={label} align="start" className="w-auto overflow-hidden p-0">
         <div className="flex flex-col sm:flex-row">
@@ -411,7 +411,7 @@ export function DateRangePicker({
         <span id={valueId} className="truncate">
           {printed}
         </span>
-        <RiCalendarLine size={14} aria-hidden className="shrink-0 text-(--ink-3-aa)" />
+        <CalendarIcon size={14} aria-hidden className="shrink-0 text-(--ink-3-aa)" />
       </PopoverTrigger>
       <PopoverContent label={label} align="start" className="w-auto overflow-hidden p-0">
         <div className="flex flex-col sm:flex-row">

@@ -2,6 +2,7 @@
 
 import { Slot } from '@radix-ui/react-slot'
 import { useEffect, useRef, type ReactElement } from 'react'
+import { revealOnScroll } from './reveal-on-scroll'
 
 export interface RevealProps {
   /** One element; it keeps its own tag and receives the reveal state. */
@@ -15,26 +16,15 @@ export interface RevealProps {
  * element that starts below the fold, is it hidden and then revealed — so a
  * page without JavaScript, a crawler and anything already on screen never see
  * an empty frame. Reduced motion skips the whole thing, and the duration is the
- * motion axis's own, so `data-motion="still"` makes it instant.
+ * motion axis's own, so `data-motion="still"` makes it instant. Inside another
+ * reveal it does nothing, so travel and opacity never compound.
  */
 export function Reveal({ children }: RevealProps) {
   const ref = useRef<HTMLElement>(null)
   useEffect(() => {
     const node = ref.current
-    if (!node || typeof IntersectionObserver === 'undefined') return
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
-    if (node.getBoundingClientRect().top < window.innerHeight) return
-    node.dataset.reveal = 'hidden'
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) return
-        node.dataset.reveal = 'shown'
-        observer.disconnect()
-      },
-      { rootMargin: '0px 0px -10% 0px' },
-    )
-    observer.observe(node)
-    return () => observer.disconnect()
+    if (!node || node.parentElement?.closest('.folio-wb-reveal')) return
+    return revealOnScroll([node])
   }, [])
   return <Slot ref={ref} className="folio-wb-reveal">{children}</Slot>
 }

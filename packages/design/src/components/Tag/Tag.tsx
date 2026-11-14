@@ -1,4 +1,4 @@
-import { RiCloseLine } from '@remixicon/react'
+import { X as XIcon } from '../../icons'
 import type { HTMLAttributes, ReactNode } from 'react'
 import { cn } from '../../lib/cn'
 
@@ -118,7 +118,7 @@ export function Tag({ children, active, onClick, onRemove, removeLabel, classNam
         'opacity-60 transition-opacity duration-(--duration-fast) hover:opacity-100 focus-visible:opacity-100',
       )}
     >
-      <RiCloseLine size={12} aria-hidden />
+      <XIcon size={12} aria-hidden />
     </button>
   ) : null
 

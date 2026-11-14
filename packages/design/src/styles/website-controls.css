@@ -31,8 +31,11 @@
 .folio-selection-toolbar { animation: folio-fade-in var(--duration-fast) var(--ease); }
 /* The site-wide ring that reads this colour lives in `website-base.css`; the
    scoped rules below read it too. */
-:root { --website-focus: color-mix(in srgb, var(--ink) 60%, var(--paper)); }
-.folio-site-navigation-inner { min-block-size: 3.75rem; }
+:root { --website-focus: color-mix(in srgb, var(--ink) 60%, var(--paper)); --website-header-h: 3.75rem; }
+/* --website-header-h: the masthead's height, read again by anything that has to clear it — a
+   loading page that must fill the screen under it, so the footer does not
+   ride up beneath a skeleton and jump down when the page arrives. */
+.folio-site-navigation-inner { min-block-size: var(--website-header-h); }
 .folio-site-navigation .folio-navigation-search {
   min-block-size: 34px;
   block-size: 34px;

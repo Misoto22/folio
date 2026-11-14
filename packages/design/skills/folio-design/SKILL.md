@@ -53,6 +53,15 @@ specification and renders on a server. `Diagram` is a different thing and stays
 on the root: a nesting CSS diagram for an article, not an SVG figure with
 routed edges.
 
+Icons have their own specifier too. It re-exports the Lucide glyphs the
+package draws, each stroked at `--ico-stroke`, and any of them fits a prop that
+takes an icon component — `<EmptyState icon={Inbox} … />`. Import a glyph from
+here rather than from `lucide-react` directly, or it misses the weight:
+
+```tsx
+import { Inbox, Search } from '@misoto22/folio/icons'
+```
+
 One more, for surfaces that cannot read a custom property — an OpenGraph card, a
 `theme-color`, a canvas:
 

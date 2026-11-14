@@ -135,8 +135,10 @@ const BUDGET = {
   /**
    * Seventeen website families, including their shared Radix primitives.
    *
-   * 275 → 285 for the same Radix minor releases (275.8 kB measured, up from
-   * 269.3); the growth is Radix's, not the compositions'.
+   * 275 → 285 for the Radix minor releases (275.8 kB measured, up from
+   * 269.3), and then for the ask dock's single pill-and-panel shell, the
+   * composer's Stop and countdown states, the palette's answer view, the
+   * lightbox's frame-to-stage growth and the staggered section reveal.
    */
   website: 285,
   /** A navigation link must not pull in conversations, galleries or charts. */

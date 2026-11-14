@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { describe, expect, it, vi } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { RiSettings3Line } from '@remixicon/react'
+import { Settings as SettingsIcon } from '../../icons'
 import {
   Command,
   CommandDialog,
@@ -105,12 +105,12 @@ function palette(children: React.ReactNode) {
  */
 describe('CommandItem icon', () => {
   it('takes the element, which is what the type has always said', () => {
-    const { container } = palette(<CommandItem icon={<RiSettings3Line size={16} />}>Settings</CommandItem>)
+    const { container } = palette(<CommandItem icon={<SettingsIcon size={16} />}>Settings</CommandItem>)
     expect(container.querySelector('svg')).not.toBeNull()
   })
 
   it('takes the component too', () => {
-    const { container } = palette(<CommandItem icon={RiSettings3Line}>Settings</CommandItem>)
+    const { container } = palette(<CommandItem icon={SettingsIcon}>Settings</CommandItem>)
     expect(container.querySelector('svg')).not.toBeNull()
   })
 })

@@ -60,13 +60,14 @@
 /* An ANCHORED panel arriving, growing from wherever its trigger is.
    Radix puts that point on the wrapper as --radix-popper-transform-origin; the
    call site passes it down. Origin is what makes this read as an animation
-   rather than as a flicker: four pixels of travel over 130ms is technically
-   motion and perceptually nothing, which is what "the menu has no animation"
-   turned out to mean. */
+   rather than as a flicker: two pixels over 130ms was technically motion and
+   perceptually nothing, which is what "the menu has no animation" turned out
+   to mean. It opens over a mid step from 4px and a .96 scale; it still closes
+   over a fast one, because closing should never feel like waiting. */
 @keyframes folio-pop-in {
   from {
     opacity: 0;
-    transform: scale(0.96) translateY(-2px);
+    transform: scale(0.96) translateY(-4px);
   }
   to {
     opacity: 1;
@@ -88,11 +89,11 @@
 }
 
 /* A page arriving. Longer travel than a panel, because more of the view is
-   being replaced. */
+   being replaced — but 8px, not 12: over a mid step 12 read as a jump. */
 @keyframes folio-route-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -306,7 +307,7 @@
 @keyframes folio-palette-in {
   from {
     opacity: 0;
-    transform: translateY(-8px) scale(0.98);
+    transform: translateY(-8px) scale(0.985);
   }
   to {
     opacity: 1;
@@ -317,7 +318,22 @@
 @keyframes folio-palette-out {
   to {
     opacity: 0;
-    transform: translateY(-4px) scale(0.99);
+    transform: translateY(-8px);
+  }
+}
+
+/* Reduced motion's palette: it arrives by opacity alone. */
+@keyframes folio-palette-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* The palette's answer view rising in after its list has faded. */
+@keyframes folio-palette-answer-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
   }
 }
 

@@ -1,11 +1,11 @@
-import type { RemixiconComponentType } from '@remixicon/react'
+import type { IconComponent } from '../../icons'
 import type { HTMLAttributes, ReactNode } from 'react'
 import { Heading, type HeadingLevel } from '../Heading/Heading'
 import { cn } from '../../lib/cn'
 
 export interface EmptyStateProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
-  /** Optional Remix Icon glyph, shown muted inside a quiet circle. */
-  icon?: RemixiconComponentType
+  /** Optional icon component, such as a glyph from `@misoto22/folio/icons`, shown muted inside a quiet circle. */
+  icon?: IconComponent
   title: ReactNode
   description?: ReactNode
   /** The one thing to do next. An empty state without an action is a dead end. */

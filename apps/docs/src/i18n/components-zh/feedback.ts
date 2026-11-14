@@ -100,7 +100,7 @@ export const FEEDBACK_ZH: Record<string, ComponentCopyZh> = {
     accessibility: [['74064425', 'danger 是 role="alert"，会打断；其余三种是 role="status"，等读屏说完这句话。'], ['02812e9f', '颜色由图标和文字双重表达。']],
     anatomy: [
       { hash: '56b945a8', element: '区域', description: '外层容器，带着由 tone 决定的 role 和 aria-live，以及那个 tone 的底色。它不可聚焦、也不是地标，所以它是为已经在这里的读者、以及为那次播报而存在的。' },
-      { hash: '52959f3d', element: '标记', description: '18px 的 Remix Icon 字形，按 tone 取——RiInformationLine、RiCheckboxCircleLine、RiAlertLine 或 RiCloseCircleLine——aria-hidden，所以它只为看得见的读者把颜色再说一遍。hideIcon 会去掉它。' },
+      { hash: '5d3d342e', element: '标记', description: '18px 的字形，按 tone 取——来自 @misoto22/folio/icons 的 Info、CircleCheck、TriangleAlert 或 CircleX——aria-hidden，所以它只为看得见的读者把颜色再说一遍。hideIcon 会去掉它。' },
       { hash: 'e2b77a75', element: '标题', description: 'title，一个 --ink 色、中等字重的段落。是 p 而不是标题元素，所以它永远不会出现在读屏软件的标题列表里。' },
       { hash: '1f9eee31', element: '正文', description: 'children，--ink-2 色、宽松行距，只有真的有标题时才和标题拉开间距。' },
       { hash: '91ea3ac4', element: '操作', description: 'action，在正文下方、区域之内——所以它的标签是跟着这条消息一起被念出来的，而不是要读者自己去找的东西。' },
@@ -120,7 +120,7 @@ export const FEEDBACK_ZH: Record<string, ComponentCopyZh> = {
     when: ['6fe12ff7', '这里没有出错，所以文案说“接下来做什么”，而不是“什么失败了”。'],
     anatomy: [
       { hash: '27bf7f71', element: '外框', description: '一根居中的竖列，上下各 80px 内边距，两侧是 --page-pad。它是视图尺度的，自己不带任何 role，也没有 live region。' },
-      { hash: '56404ef8', element: '圆章', description: '可选的 24px Remix Icon 字形，装在一个 56px 的 --stone 圆里，aria-hidden。它是让这根竖列有个起头的装饰，永远不是消息本身。' },
+      { hash: '645e716b', element: '圆章', description: '可选的 24px 图标字形，装在一个 56px 的 --stone 圆里，aria-hidden。它是让这根竖列有个起头的装饰，永远不是消息本身。' },
       { hash: 'e7b727b8', element: '标题', description: 'title，用标题字体、--fs-sub 字号，经由 Heading 渲染。level 决定用哪个元素、默认是 2；字号不跟着它走，所以无论哪一级，标题都是 --fs-sub。' },
       { hash: 'bf62e55c', element: '描述', description: 'description，--ink-3-aa 色，宽度封顶 24rem，这样竖列保持居中的同时，行长仍然是可读的。' },
       { hash: '41313143', element: '操作', description: '接下来该做的那一件事，在描述下方 32px 处，也是这个外框提供的唯一可交互元素。' },

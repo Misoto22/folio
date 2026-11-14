@@ -1,6 +1,6 @@
 'use client'
 
-import { RiPauseLine, RiPlayLine, RiStopLine } from '@remixicon/react'
+import { Pause as PauseIcon, Play as PlayIcon, Square } from '../../icons'
 import { useCallback, useEffect, useMemo, useRef, useState, type FC } from 'react'
 import { cn } from '../../lib/cn'
 import { Button } from '../../components/Button/Button'
@@ -346,7 +346,7 @@ export function ChartSonifyButton({
 
   const hasPoints = series.some((entry) => entry.values.some((value) => value !== null))
   const isDisabled = !isSupported || !hasPoints
-  const Icon = isPlaying ? RiPauseLine : RiPlayLine
+  const Icon = isPlaying ? PauseIcon : PlayIcon
 
   const reason = !isSupported
     ? ' — audio is not available in this browser'
@@ -367,7 +367,7 @@ export function ChartSonifyButton({
 
       {state !== 'idle' && (
         <Button variant="ghost" size="md" onClick={stop}>
-          <RiStopLine size={14} aria-hidden />
+          <Square size={14} aria-hidden />
           Stop
           <span className="sr-only"> playing {title} as sound</span>
         </Button>
