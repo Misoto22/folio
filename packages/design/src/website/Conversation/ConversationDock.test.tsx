@@ -61,7 +61,8 @@ describe('ConversationDock', () => {
     expect(shell.style.getPropertyValue('--folio-dock-h')).toBe('560px')
     expect(shell.style.getPropertyValue('--folio-dock-keyboard')).toBe('300px')
     expect(shell.style.width).toBe('')
-    expect(shell.style.transform).toBe('translate(4px, 0px)')
+    // jsdom 31 drops a zero second argument when it serialises the transform.
+    expect(shell.style.transform).toMatch(/^translate\(4px(, 0px)?\)$/)
     expect(shell).toHaveAttribute('data-measured')
   })
 
