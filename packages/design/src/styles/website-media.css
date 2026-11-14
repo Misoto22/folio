@@ -171,11 +171,16 @@
 .folio-media-map-marker { position: relative; min-inline-size: 44px; min-block-size: 44px; padding: 0; border: 0; border-radius: var(--radius-pill); background: transparent; }
 .folio-media-map-marker:hover { background: transparent; }
 .folio-media-map-marker:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-.folio-media-map-pin { position: relative; display: grid; inline-size: 2rem; block-size: 2rem; place-items: center; border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: var(--radius-pill); background: color-mix(in srgb, var(--background) 70%, transparent); pointer-events: none; }
-.folio-media-map-pin > span { inline-size: 0.625rem; block-size: 0.625rem; border: 1px solid var(--background); border-radius: var(--radius-pill); background: var(--accent); transition: transform var(--duration-fast) var(--ease); }
-.folio-media-map-pin[data-active] { border-color: var(--accent); }
+/* A place is a small ink dot; only the selected or hovered one takes the
+   accent. The pin used to be a 2rem accent ring with a filled centre, and on a
+   map holding dozens of frames the rings overlapped into orange clusters that
+   read louder than the map. The ink dot's 2px paper ring keeps it apart from
+   the basemap's own black city dots. The 44px hit area stays on the marker
+   button. */
+.folio-media-map-pin { position: relative; display: grid; inline-size: 2rem; block-size: 2rem; place-items: center; pointer-events: none; }
+.folio-media-map-pin > span { inline-size: 0.625rem; block-size: 0.625rem; border: 2px solid var(--background); border-radius: var(--radius-pill); background: var(--foreground); transition: transform var(--duration-fast) var(--ease), background-color var(--duration-fast) var(--ease); }
 .folio-media-map-pin[data-active] > span,
-.folio-media-map-marker:hover .folio-media-map-pin > span { transform: scale(1.3); }
+.folio-media-map-marker:hover .folio-media-map-pin > span { background: var(--accent); transform: scale(1.4); }
 .folio-media-map-frame-compact { display: grid; gap: 0.75rem; margin-block-start: 1.5rem; }
 .folio-media-map-label { color: var(--secondary-text); font-family: var(--label-font); font-size: 0.625rem; letter-spacing: calc(0.14em * var(--label-tracking-scale)); text-transform: var(--label-case); }
 .folio-media-map-frame-compact .folio-media-map-stage { block-size: 9.375rem; }
@@ -227,7 +232,7 @@
   .folio-media-lightbox[role='dialog'] { animation: none; }
 }
 
-[data-motion='none'] .folio-media-gallery-link img,
-[data-motion='none'] .folio-media-map-pin > span { transition: none; }
-[data-motion='none'] .folio-media-gallery-link:hover img { transform: none; }
-[data-motion='none'] .folio-media-lightbox[role='dialog'] { animation: none; }
+[data-motion='still'] .folio-media-gallery-link img,
+[data-motion='still'] .folio-media-map-pin > span { transition: none; }
+[data-motion='still'] .folio-media-gallery-link:hover img { transform: none; }
+[data-motion='still'] .folio-media-lightbox[role='dialog'] { animation: none; }
