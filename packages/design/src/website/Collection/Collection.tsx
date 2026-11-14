@@ -188,7 +188,7 @@ export function CollectionControls({ items, selected, onSelect, filterLabel, sea
         {items.map((item) => {
           const pressed = item.value === selected
           return <button key={item.value ?? '__all'} type="button" className="folio-collection-filter" aria-pressed={pressed} data-indicator-active={pressed} onClick={() => onSelect(item.value)}>
-            {item.label}{showCounts && item.count !== undefined && <>{' '}<span className="folio-collection-count">{item.count}</span></>}
+            {item.label}{showCounts && item.count !== undefined && <>{' '}<span className="folio-collection-count" aria-hidden="true">{item.count}</span></>}
           </button>
         })}
       </div>}
@@ -232,7 +232,7 @@ export function CollectionFacet({ label, options, selected = null, onSelect, clo
   const list = <ul className="folio-collection-facet__options">
     {options.map((option) => {
       const current = option.value === selected
-      const body = <><Check size={15} aria-hidden="true" className="folio-collection-facet__check" /><span>{option.label}</span>{option.count !== undefined && <>{' '}<span className="folio-collection-count">{option.count}</span></>}</>
+      const body = <><Check size={15} aria-hidden="true" className="folio-collection-facet__check" /><span>{option.label}</span>{option.count !== undefined && <>{' '}<span className="folio-collection-count" aria-hidden="true">{option.count}</span></>}</>
       return <li key={option.value}>
         {option.link
           ? <Close asChild><Slot className="folio-collection-facet__option" aria-current={current ? 'page' : undefined} data-current={current || undefined}>{replaceSlotContent(option.link, body)}</Slot></Close>

@@ -19,9 +19,9 @@ describe('Collection compositions', () => {
     render(<CollectionControls items={[{ value: null, label: 'All', count: 9 }, { value: 'writing', label: 'Writing', count: 8 }]} selected={null} onSelect={onSelect} filterLabel="Filter records" />)
     const group = screen.getByRole('group', { name: 'Filter records' })
     // The count is read as part of the name, not hidden from it.
-    expect(within(group).getByRole('button', { name: 'All 9' })).toHaveAttribute('aria-pressed', 'true')
-    expect(within(group).getByRole('button', { name: 'Writing 8' })).toHaveAttribute('aria-pressed', 'false')
-    fireEvent.click(screen.getByRole('button', { name: 'Writing 8' }))
+    expect(within(group).getByRole('button', { name: 'All' })).toHaveAttribute('aria-pressed', 'true')
+    expect(within(group).getByRole('button', { name: 'Writing' })).toHaveAttribute('aria-pressed', 'false')
+    fireEvent.click(screen.getByRole('button', { name: 'Writing' }))
     expect(onSelect).toHaveBeenCalledWith('writing')
     // The label names the group; it is no longer printed beside the pills.
     expect(screen.queryByText('Filter records')).toBeNull()
@@ -62,6 +62,13 @@ describe('Collection compositions', () => {
     rail.scrollLeft = 300
     fireEvent.scroll(rail)
     expect(rail).toHaveAttribute('data-fade', 'start')
+  })
+
+  it('shows each count beside its filter but keeps it out of the control name', () => {
+    render(<CollectionControls filterLabel="Filter" items={[{ label: 'All', value: null, count: 6 }, { label: 'Still life', value: 'still', count: 3 }]} selected={null} onSelect={() => {}} />)
+    const pill = screen.getByRole('button', { name: 'Still life' })
+    expect(pill).toHaveTextContent('Still life 3')
+    expect(pill.querySelector('.folio-collection-count')).toHaveAttribute('aria-hidden', 'true')
   })
 
   it('keeps search named after typing and reports clear without submitting', () => {
@@ -152,14 +159,14 @@ describe('CollectionFacet', () => {
     expect(trigger).not.toHaveAttribute('data-active')
     await user.click(trigger)
     const panel = screen.getByRole('dialog', { name: 'Tags' })
-    await user.click(within(panel).getByRole('button', { name: 'AI 4' }))
+    await user.click(within(panel).getByRole('button', { name: 'AI' }))
     expect(onSelect).toHaveBeenLastCalledWith('ai')
     expect(screen.queryByRole('dialog')).toBeNull()
     view.rerender(<CollectionFacet label="Tags" closeLabel="Close" options={options} onSelect={onSelect} selected="ai" />)
     expect(trigger).toHaveAttribute('data-active', 'true')
     await user.click(trigger)
-    expect(screen.getByRole('button', { name: 'AI 4' })).toHaveAttribute('aria-pressed', 'true')
-    await user.click(screen.getByRole('button', { name: 'AI 4' }))
+    expect(screen.getByRole('button', { name: 'AI' })).toHaveAttribute('aria-pressed', 'true')
+    await user.click(screen.getByRole('button', { name: 'AI' }))
     expect(onSelect).toHaveBeenLastCalledWith(null)
   })
 
@@ -167,8 +174,8 @@ describe('CollectionFacet', () => {
     const user = userEvent.setup()
     render(<CollectionFacet label="Tags" closeLabel="Close" selected="tmux" options={options.map((option) => ({ ...option, link: <a href={`/blog/tag/${option.value}`} /> }))} />)
     await user.click(screen.getByRole('button', { name: 'Tags' }))
-    expect(screen.getByRole('link', { name: 'AI 4' })).toHaveAttribute('href', '/blog/tag/ai')
-    expect(screen.getByRole('link', { name: 'tmux 2' })).toHaveAttribute('aria-current', 'page')
+    expect(screen.getByRole('link', { name: 'AI' })).toHaveAttribute('href', '/blog/tag/ai')
+    expect(screen.getByRole('link', { name: 'tmux' })).toHaveAttribute('aria-current', 'page')
   })
 
   it('opens a bottom sheet with its own close on a phone', async () => {
