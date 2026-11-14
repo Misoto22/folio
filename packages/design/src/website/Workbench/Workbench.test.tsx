@@ -1,4 +1,4 @@
-import { act, render, screen, within } from '@testing-library/react'
+import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import { renderToString } from 'react-dom/server'
 import axe from 'axe-core'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -167,7 +167,10 @@ describe('WorkbenchSection reveal', () => {
     viewport.fire(true, units.slice(3))
     expect(units.slice(3).map((unit) => unit.style.getPropertyValue('--folio-reveal-step'))).toEqual(['0', '1', '2'])
     expect(viewport.disconnect).toHaveBeenCalled()
-    viewport.fire(false)
+    // Arrived, a unit is handed back to its own transitions.
+    fireEvent.transitionEnd(units[0]!)
+    expect(units[0]).not.toHaveAttribute('data-reveal')
+    expect(units[0]!.style.getPropertyValue('--folio-reveal-step')).toBe('')
   })
 
   it('reveals nothing of its own inside another reveal, so the two never compound', () => {

@@ -28,6 +28,12 @@ export function revealOnScroll(nodes: HTMLElement[]): () => void {
       arriving.forEach((node, index) => {
         node.style.setProperty('--folio-reveal-step', String(Math.min(index, MAX_STEP)))
         node.dataset.reveal = 'shown'
+        // Once it has arrived the element is handed back to its own rules, so
+        // its hover transitions do not inherit the reveal's duration and delay.
+        node.addEventListener('transitionend', () => {
+          delete node.dataset.reveal
+          node.style.removeProperty('--folio-reveal-step')
+        }, { once: true })
         observer.unobserve(node)
         waiting -= 1
       })
