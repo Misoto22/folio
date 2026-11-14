@@ -134,6 +134,9 @@
 .folio-conversation-dock[data-dragging] { user-select: none; }
 .folio-conversation-dock__pill { display: flex; flex-shrink: 0; align-items: center; gap: .5625rem; block-size: calc(var(--folio-dock-pill-h) - 2px); padding: 0 1.125rem 0 .9375rem; border: 0; background: transparent; color: var(--ink); font: inherit; font-family: var(--sans); font-size: .875rem; font-weight: 500; white-space: nowrap; cursor: pointer; transition: opacity var(--fast) var(--ease) var(--mid); }
 .folio-conversation-dock__pill:focus-visible { outline-offset: -.25rem; }
+/* Measured, the pill fills the shell: the button is exactly the visible pill,
+   so a click (or a voice-control tap) at its centre lands on it. */
+.folio-conversation-dock[data-measured] > .folio-conversation-dock__pill { inline-size: 100%; min-inline-size: 0; overflow: hidden; }
 .folio-conversation-dock__mark { flex-shrink: 0; color: var(--accent); }
 .folio-conversation-dock__dot { inline-size: .375rem; block-size: .375rem; margin-inline-start: -.125rem; border-radius: var(--radius-pill); background: var(--accent); }
 .folio-conversation-dock__placeholder { padding-inline-start: .625rem; border-inline-start: 1px solid var(--rule-2); color: var(--ink-3-aa); font-weight: 400; opacity: 0; transition: opacity var(--fast) var(--ease); }

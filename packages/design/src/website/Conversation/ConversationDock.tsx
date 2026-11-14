@@ -72,7 +72,10 @@ function usePillWidths(shell: RefObject<HTMLElement | null>, pill: RefObject<HTM
     if (!shellNode || !pillNode) return
     const measure = () => {
       const frame = shellNode.offsetWidth - shellNode.clientWidth
-      const full = pillNode.offsetWidth
+      // scrollWidth, not offsetWidth: once measured the pill is stretched to the
+      // shell (so its whole visible face is the click target), and only its
+      // content width says how wide the shell has to be.
+      const full = pillNode.scrollWidth
       const hint = placeholder.current
       const extra = hint && hint.offsetWidth > 0 ? hint.offsetWidth + (Number.parseFloat(getComputedStyle(pillNode).columnGap) || 0) : 0
       shellNode.style.setProperty('--folio-dock-pill-w', `${full - extra + frame}px`)

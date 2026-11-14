@@ -111,3 +111,13 @@ describe('the scroll control', () => {
   })
 })
 
+
+describe('dock pill and live latency bar', () => {
+  it('stretches the measured pill to the shell so its visible face is the whole click target', () => {
+    expect(strip(conversation)).toMatch(/\.folio-conversation-dock\[data-measured\] > \.folio-conversation-dock__pill \{[^}]*inline-size: 100%/)
+  })
+
+  it('draws the live latency fill in ink, never the stone of its own track', () => {
+    expect(strip(evidence)).toMatch(/\.folio-evidence-durations__bar > span\.folio-evidence-durations__fill \{ background: var\(--ink\); \}/)
+  })
+})

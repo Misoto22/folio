@@ -51,6 +51,9 @@
 .folio-evidence-durations__bar > .folio-evidence-durations__fill[data-running] { transition: transform var(--mid) linear; }
 .folio-evidence-durations__bar > span:nth-child(3n + 1) { background: var(--stone); }
 .folio-evidence-durations__bar > span:nth-child(3n + 2) { background: var(--ink-3-aa); }
+/* The live clock's fill is one span, not a segment: it must not take the
+   first segment's stone, which is also the live track's colour. */
+.folio-evidence-durations__bar > span.folio-evidence-durations__fill { background: var(--ink); }
 .folio-evidence-durations__legend { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin-block-start: .5rem; }
 .folio-evidence-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; padding-block-start: 1rem; }
 .folio-evidence-summary > div:last-child { text-align: end; }
