@@ -142,7 +142,8 @@ jobs:
     # the runs that released. The plural is the manifest-wide answer.
     if: needs.release.outputs.releases_created == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # Room for the build and the registry wait below, which alone is ten.
+    timeout-minutes: 20
     permissions:
       # Mints the short-lived OIDC token npmjs exchanges for publish rights, and
       # the whole reason no npm credential is stored anywhere.
@@ -185,7 +186,14 @@ jobs:
       # than a minute later. So the job does not call itself done on the CLI's
       # exit code alone — it asks the registry, because the registry is what a
       # consumer will ask.
+      #
+      # The wait is ten minutes, not one. 0.19.0, 0.19.1 and 0.20.0 all
+      # published and all failed here, because npm took longer than a minute
+      # to serve them. Ten minutes still ends inside the job's timeout, so a
+      # publish that never appears fails this step by name rather than by a
+      # cancelled job.
       - name: Confirm the registry serves it
+        timeout-minutes: 12
         run: |
           set -euo pipefail
 
@@ -195,15 +203,28 @@ jobs:
           name=$(node -p "require('./packages/design/package.json').name")
           version=$(node -p "require('./packages/design/package.json').version")
 
+          # `--prefer-online` skips the local cache, so every attempt asks the
+          # registry again instead of replaying an earlier 404.
+          deadline=$(( SECONDS + 600 ))
+          delay=5
           published=""
-          for _ in 1 2 3 4 5 6; do
-            published=$(npm view "${name}@${version}" version 2>/dev/null || true)
-            [ "$published" = "$version" ] && break
-            sleep 10
+          last_error=""
+          while :; do
+            if published=$(npm view --prefer-online "${name}@${version}" version 2>"${RUNNER_TEMP}/npm-view.err"); then
+              [ "$published" = "$version" ] && break
+            fi
+            last_error=$(tail -n 3 "${RUNNER_TEMP}/npm-view.err" || true)
+            if [ "$SECONDS" -ge "$deadline" ]; then
+              break
+            fi
+            echo "not served yet; asking again in ${delay}s"
+            sleep "$delay"
+            delay=$(( delay * 2 > 60 ? 60 : delay * 2 ))
           done
 
           if [ "$published" != "$version" ]; then
-            echo "::error title=Publish not visible::${name}@${version} is not on the registry a minute after publishing."
+            echo "::error title=Publish not visible::${name}@${version} is not on the registry ten minutes after publishing."
+            if [ -n "$last_error" ]; then echo "last npm view error: ${last_error}"; fi
             exit 1
           fi
           echo "published: ${name}@${version}"
