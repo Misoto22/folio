@@ -38,7 +38,14 @@ const BUDGET = {
   /**
    * Everything, bundled and minified — the worst case a consumer can hit.
    *
-   * 440 → 445 for tab measurement, drag gestures and shared overlay behavior
+   * 445 → 460 for the Radix minor releases of November 2026 (454.2 kB
+   * measured, up from 444.0). The growth is spread across Radix's own
+   * packages — `react-slot` +2.6 kB, `react-collection` +1.3, and under one
+   * kilobyte each for select, scroll-area, slider, focus-scope and popover —
+   * with nothing of this package's own code changing. The single-component
+   * budget remains unchanged.
+   *
+   * Previously, 440 → 445 for tab measurement, drag gestures and shared overlay behavior
    * (440.7 kB measured). The single-component budget remains unchanged.
    *
    * Previously, 435 → 440 for the icon set. Remix Icon carries each glyph as an inline
@@ -49,7 +56,7 @@ const BUDGET = {
    * like the whole set arriving in the bundle rather than three kilobytes.
    * (`diagrams` went the other way, 172.8 → 171.0, for the same reason.)
    */
-  everything: 445,
+  everything: 460,
   /**
    * One leaf component, bundled and minified. If this ever approaches
    * `everything`, tree shaking has stopped working and every consumer is
@@ -125,8 +132,13 @@ const BUDGET = {
    * already has.
    */
   singleFigure: 55,
-  /** Seventeen website families, including their shared Radix primitives. */
-  website: 275,
+  /**
+   * Seventeen website families, including their shared Radix primitives.
+   *
+   * 275 → 285 for the same Radix minor releases (275.8 kB measured, up from
+   * 269.3); the growth is Radix's, not the compositions'.
+   */
+  website: 285,
   /** A navigation link must not pull in conversations, galleries or charts. */
   singleWebsiteComponent: 40,
 }
