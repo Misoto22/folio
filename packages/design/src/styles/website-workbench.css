@@ -142,8 +142,10 @@
 
 
   /* ─── Reveal ──────────────────────────────────────────────────────────── */
-  .folio-wb-reveal[data-reveal] { transition: opacity calc(var(--slow) * 1.2) var(--ease), translate calc(var(--slow) * 1.2) var(--ease); }
-  .folio-wb-reveal[data-reveal='hidden'] { opacity: 0; translate: 0 12px; }
+  /* 8px over a slow step: at 12px and a longer step the sections arrived late
+     and heavy. Units that arrive together are one stagger step apart. */
+  .folio-wb-reveal[data-reveal] { transition: opacity var(--slow) var(--ease), translate var(--slow) var(--ease); transition-delay: calc(var(--stagger) * var(--folio-reveal-step, 0)); }
+  .folio-wb-reveal[data-reveal='hidden'] { opacity: 0; translate: 0 8px; }
 
   .folio-wb-visually-hidden { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 

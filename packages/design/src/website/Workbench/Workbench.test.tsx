@@ -10,10 +10,11 @@ import { WorkbenchEntries } from './WorkbenchEntries'
 import { WorkbenchHero } from './WorkbenchHero'
 import { WorkbenchSection } from './Workbench'
 
-type ObserverCallback = (entries: { isIntersecting: boolean }[]) => void
+type ObserverCallback = (entries: { isIntersecting: boolean; target: Element }[]) => void
 
 function stubViewport({ reduced = false, top = 2000 }: { reduced?: boolean; top?: number }) {
   let fire: ObserverCallback = () => {}
+  const observed: Element[] = []
   const disconnect = vi.fn()
   vi.stubGlobal(
     'IntersectionObserver',
@@ -21,13 +22,18 @@ function stubViewport({ reduced = false, top = 2000 }: { reduced?: boolean; top?
       constructor(callback: ObserverCallback) {
         fire = callback
       }
-      observe() {}
+      observe(node: Element) { observed.push(node) }
+      unobserve(node: Element) { observed.splice(observed.indexOf(node), 1) }
       disconnect = disconnect
     },
   )
   vi.stubGlobal('matchMedia', (query: string) => ({ matches: reduced && query.includes('reduce') }))
   vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockReturnValue({ top } as DOMRect)
-  return { fire: (isIntersecting: boolean) => act(() => fire([{ isIntersecting }])), disconnect }
+  return {
+    observed,
+    fire: (isIntersecting: boolean, targets: Element[] = [...observed]) => act(() => fire(targets.map((target) => ({ isIntersecting, target })))),
+    disconnect,
+  }
 }
 
 afterEach(() => {
@@ -143,3 +149,32 @@ describe('Reveal without matchMedia', () => {
     expect(screen.getByText('Plain')).toHaveAttribute('data-reveal', 'shown')
   })
 })
+
+describe('WorkbenchSection reveal', () => {
+  it('reveals the heading and each card on its own, one stagger step apart and capped at four', () => {
+    const viewport = stubViewport({})
+    const { container } = render(<WorkbenchSection title="Work"><WorkbenchCardGrid>
+      {['A', 'B', 'C', 'D', 'E'].map((name) => <WorkbenchCard key={name} title={name} cover={<span />} />)}
+    </WorkbenchCardGrid></WorkbenchSection>)
+    const units = [...container.querySelectorAll<HTMLElement>('.folio-wb-reveal')]
+    expect(units).toHaveLength(6)
+    expect(units[0]).toHaveClass('folio-wb-section-head')
+    expect(container.querySelector('.folio-wb-section')).not.toHaveClass('folio-wb-reveal')
+    expect(units.every((unit) => unit.dataset.reveal === 'hidden')).toBe(true)
+    viewport.fire(true, units.slice(0, 3))
+    expect(units.slice(0, 3).map((unit) => unit.style.getPropertyValue('--folio-reveal-step'))).toEqual(['0', '1', '2'])
+    expect(units[3]).toHaveAttribute('data-reveal', 'hidden')
+    viewport.fire(true, units.slice(3))
+    expect(units.slice(3).map((unit) => unit.style.getPropertyValue('--folio-reveal-step'))).toEqual(['0', '1', '2'])
+    expect(viewport.disconnect).toHaveBeenCalled()
+    viewport.fire(false)
+  })
+
+  it('reveals nothing of its own inside another reveal, so the two never compound', () => {
+    stubViewport({})
+    const { container } = render(<Reveal><div><WorkbenchSection title="Work"><p>Body</p></WorkbenchSection></div></Reveal>)
+    expect(container.querySelectorAll('.folio-wb-reveal')).toHaveLength(1)
+    expect(container.querySelector('.folio-wb-section-head')).not.toHaveAttribute('data-reveal')
+  })
+})
+
