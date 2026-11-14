@@ -17,6 +17,10 @@ export type ButtonSize = 'sm' | 'md' | 'lg'
  * axis sets it for every button at once (the Workbench preset makes them
  * capsules), so a host never re-rounds a single button by hand.
  *
+ * Pressed, it gives a hair — 98% for the length of the press — so the hand
+ * feels the click land before anything else answers; a menu trigger is left
+ * alone because its menu is the answer. Reduced motion keeps it still.
+ *
  * It does not move on hover. An earlier base lifted a pixel and asked for a
  * shadow the White Reset does not have — `--shadow` resolves to `none`, so that
  * hover state was invisible on every button in the system while still costing a
@@ -28,7 +32,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg'
  * instead of sliding.
  */
 const BASE =
-  'inline-flex items-center justify-center gap-(--control-gap) rounded-(--radius-control) font-sans transition-[opacity,color,border-color,background-color] duration-(--duration-fast) ease-(--ease-out-expo) disabled:opacity-(--disabled-opacity) disabled:pointer-events-none aria-disabled:opacity-(--disabled-opacity) aria-disabled:pointer-events-none'
+  'inline-flex items-center justify-center gap-(--control-gap) rounded-(--radius-control) font-sans transition-[opacity,color,border-color,background-color,scale] duration-(--duration-fast) ease-(--ease-out-expo) active:not-aria-[haspopup]:scale-[0.98] motion-reduce:active:scale-100 disabled:opacity-(--disabled-opacity) disabled:pointer-events-none aria-disabled:opacity-(--disabled-opacity) aria-disabled:pointer-events-none'
 
 const VARIANT: Record<ButtonVariant, string> = {
   primary: 'bg-(--action) text-(--action-foreground) border border-(--action) hover:opacity-85',

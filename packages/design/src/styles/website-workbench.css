@@ -93,6 +93,14 @@
   .folio-wb-entry-featured h3 { margin: 0 0 auto; font-family: var(--font-heading); font-weight: 400; font-size: 1.375rem; line-height: 1.3; color: var(--ink); }
   .folio-wb-entry-featured p { margin: 0; font-size: .9375rem; line-height: 1.625rem; color: var(--ink-2); }
   .folio-wb-entry-featured h3 a::after { content: ''; position: absolute; inset: 0; }
+  /* With a cover the tile leads with the picture and the title follows it,
+     a step down; the ruled-paper ground gives way to the image. */
+  .folio-wb-entry-featured[data-has-cover] { background-image: none; padding-block-start: .75rem; }
+  .folio-wb-entry-featured[data-has-cover] h3 { margin-block: .25rem 0; }
+  .folio-wb-entry-featured[data-has-cover] .folio-wb-entry-meta { margin-block-start: auto; }
+  .folio-wb-entry-cover { position: relative; overflow: hidden; aspect-ratio: 16 / 9; margin-inline: -.75rem; border-radius: calc(var(--radius) - 1px); background: var(--paper-2); }
+  .folio-wb-entry-cover img { object-fit: cover; transition: scale var(--duration-base) var(--ease); }
+  .folio-wb-entry-featured:hover .folio-wb-entry-cover img { scale: 1.02; }
   .folio-wb-entry h3 { margin: 0; font-family: var(--font-heading); font-weight: 400; font-size: 1rem; line-height: 1.4; }
   .folio-wb-entry h3 a,
   .folio-wb-entry-featured h3 a { display: inline-flex; align-items: center; min-block-size: 44px; color: var(--ink); text-decoration: none; }
@@ -160,3 +168,8 @@
   }
 }
 
+
+@media (prefers-reduced-motion: reduce) {
+  .folio-wb-entry-cover img { transition: none; }
+  .folio-wb-entry-featured:hover .folio-wb-entry-cover img { scale: none; }
+}

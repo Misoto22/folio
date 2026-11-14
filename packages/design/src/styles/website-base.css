@@ -11,7 +11,22 @@
  * All of it sits in the base layer, so any utility still wins over it.
  */
 @layer base {
-  html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; }
+  /* A website scrolls one way. `clip` on both the root and the body (not
+     `hidden`, which would make the body a scroll container and break sticky
+     headers) means a child that ends up a pixel too wide can never give a
+     phone a sideways pan, and the root refuses horizontal overscroll so a
+     diagonal swipe stays a vertical one. */
+  html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; overflow-x: clip; overscroll-behavior-x: none; }
+  body { overflow-x: clip; }
+  /* A modal locks scroll on the ROOT, not the body. The root keeps its
+     reserved scrollbar gutter (above) under overflow: hidden, so nothing
+     behind the overlay moves. Radix's lock instead hides overflow on the body
+     and pads it by the scrollbar's width; in Chrome that dropped the gutter
+     and added the margin, so every centred element behind the palette jumped
+     half a scrollbar sideways on open and back on close. Layered !important
+     outranks the lock's unlayered !important, which is the point. */
+  html:has(> body[data-scroll-locked]) { overflow: hidden; }
+  body[data-scroll-locked] { overflow: visible !important; margin-right: 0 !important; }
   body {
     margin: 0;
     background: var(--paper);
