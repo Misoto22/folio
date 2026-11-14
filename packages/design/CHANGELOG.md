@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.20.2](https://github.com/Misoto22/folio/compare/v0.20.1...v0.20.2) (2026-11-14)
+
+
+### Bug Fixes
+
+* **a11y:** put visible text in the names axe 4.14 checks ([#176](https://github.com/Misoto22/folio/issues/176)) ([291f470](https://github.com/Misoto22/folio/commit/291f4700931bfebce44047750b122af23e895ea3))
+
 ## [0.20.1](https://github.com/Misoto22/folio/compare/v0.20.0...v0.20.1) (2026-11-14)
 
 
