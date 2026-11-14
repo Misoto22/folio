@@ -202,6 +202,8 @@ export const AXIS_DEFAULTS = {
   'data-action': 'accent',
   'data-surface': 'paper',
   'data-radius': 'the default radius ladder',
+  // Buttons and other pressable controls; fields and plates keep `--radius`.
+  'data-controls': 'the control step of the radius ladder',
   'data-rules': 'hairline',
   'data-type': 'editorial',
   'data-motion': 'calm',

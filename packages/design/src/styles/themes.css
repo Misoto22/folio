@@ -366,6 +366,17 @@
   --radius-factor: 2;
 }
 
+/* ─── Controls ─────────────────────────────────────────────────────────────
+   The shape of a pressable control, separate from the radius ladder so a
+   preset can draw its buttons as capsules while its fields, cards and code
+   keep their corners. `pill` still rides the ladder through `--radius-pill`,
+   so a `sharp` radius theme squares a pill control too. Declared on the
+   element that carries the attribute, like the ladder itself, so a subtree
+   can opt in on its own. */
+[data-controls='pill'] {
+  --radius-control: var(--radius-pill);
+}
+
 /* ─── Rules ────────────────────────────────────────────────────────────────
    How much the system draws its own edges. `firm` is the setting for a dense
    console; `quiet` leans on the surface steps and is what a reading page

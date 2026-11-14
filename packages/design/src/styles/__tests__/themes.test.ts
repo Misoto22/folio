@@ -168,11 +168,14 @@ describe('themes.css', () => {
    * Re-typing the steps is what let the ladder go out of proportion with
    * itself, and a corner nested inside another corner is only ever right while
    * the two stay in proportion. One number keeps every step — the pill
-   * included — on the same ratio at every setting.
+   * included — on the same ratio at every setting. The control ROLE is the one
+   * other name a theme may set, and only to point it at a step, never at a
+   * number.
    */
   it('themes the radius through the factor alone', () => {
     const touched = [...declared(THEMES)].filter((name) => name.startsWith('radius'))
-    expect(touched).toEqual(['radius-factor'])
+    expect(touched).toEqual(['radius-factor', 'radius-control'])
+    expect(THEMES).toMatch(/--radius-control:\s*var\(--radius-pill\);/)
   })
 })
 

@@ -24,6 +24,16 @@ function Launcher({ groups = [], detail, onCloseAutoFocus }: {
 }
 
 describe('SearchPalette', () => {
+  it('places the panel with its own composition class and enter/exit motion', async () => {
+    const user = userEvent.setup()
+    render(<Launcher />)
+    await user.click(screen.getByRole('button', { name: 'Launch search' }))
+    const dialog = screen.getByRole('dialog', { name: 'Search the archive' })
+    expect(dialog).toHaveClass('folio-search-palette')
+    expect(dialog.className).toContain('folio-palette-in')
+    expect(dialog.className).not.toContain('top-[10vh]')
+  })
+
   it('opens as one named dialog with the combobox focused', async () => {
     const user = userEvent.setup()
     render(<Launcher />)

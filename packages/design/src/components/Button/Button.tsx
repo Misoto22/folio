@@ -10,13 +10,12 @@ export type ButtonSize = 'sm' | 'md' | 'lg'
 /**
  * The base every variant shares.
  *
- * It reads `--radius`, the CONTROL step, which is the same corner an `Input`,
- * a `Select` trigger and a `Textarea` draw. It used to be a pill, and a pill
- * beside an 8px field is two different ideas of what a control is — the one
- * inconsistency in the system that every reader noticed and none of the
- * component pages could explain. Everything on the control line now agrees,
- * and the capsule is kept for the things that genuinely are one: a badge, a
- * status pill, a segmented strip, a progress track.
+ * It reads `--radius-control`, which defaults to `--radius`, the same corner an
+ * `Input`, a `Select` trigger and a `Textarea` draw. It used to be a hard-coded
+ * pill, and a pill beside an 8px field that nobody chose is two different ideas
+ * of what a control is. The shape is now a theme decision: the `data-controls`
+ * axis sets it for every button at once (the Workbench preset makes them
+ * capsules), so a host never re-rounds a single button by hand.
  *
  * It does not move on hover. An earlier base lifted a pixel and asked for a
  * shadow the White Reset does not have — `--shadow` resolves to `none`, so that
@@ -29,7 +28,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg'
  * instead of sliding.
  */
 const BASE =
-  'inline-flex items-center justify-center gap-(--control-gap) rounded-(--radius) font-sans transition-[opacity,color,border-color,background-color] duration-(--duration-fast) ease-(--ease-out-expo) disabled:opacity-(--disabled-opacity) disabled:pointer-events-none aria-disabled:opacity-(--disabled-opacity) aria-disabled:pointer-events-none'
+  'inline-flex items-center justify-center gap-(--control-gap) rounded-(--radius-control) font-sans transition-[opacity,color,border-color,background-color] duration-(--duration-fast) ease-(--ease-out-expo) disabled:opacity-(--disabled-opacity) disabled:pointer-events-none aria-disabled:opacity-(--disabled-opacity) aria-disabled:pointer-events-none'
 
 const VARIANT: Record<ButtonVariant, string> = {
   primary: 'bg-(--action) text-(--action-foreground) border border-(--action) hover:opacity-85',
