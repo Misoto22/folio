@@ -14,9 +14,11 @@
   .folio-navigation-search kbd { margin-inline-start: auto; font-size: .7rem; border: 1px solid var(--rule); padding: .15rem .35rem; background: var(--paper); color: var(--ink-3-aa); }
   @media (max-width: 599px) {
     .folio-navigation-search-label { display: none; }
-    .folio-navigation-search kbd { margin-inline-start: 0; }
-    .folio-navigation-search { inline-size: auto; gap: .4rem; padding-inline: .5rem; }
+    .folio-navigation-search { inline-size: 44px; justify-content: center; padding-inline: 0; }
   }
+  /* A keyboard shortcut means nothing on a touch screen, and on a phone the
+     keycap crowded four controls into the bar. */
+  @media (hover: none), (max-width: 599px) { .folio-navigation-search kbd { display: none; } }
   .folio-site-navigation[data-overlay]::before { content: ''; position: absolute; inset: 0 0 -3rem; z-index: -1; pointer-events: none; background: linear-gradient(color-mix(in srgb, var(--photo-scrim) 45%, transparent), transparent); }
   .folio-site-navigation-inner { max-inline-size: var(--w-page); padding-inline: var(--page-pad); margin-inline: auto; min-block-size: 4.25rem; display: flex; align-items: center; gap: 2rem; }
   .folio-site-wordmark { font-family: var(--font-heading); font-size: 1.4rem; letter-spacing: -.025em; white-space: nowrap; }
@@ -24,8 +26,19 @@
   .folio-site-navigation-desktop { margin-inline-start: auto; }
   .folio-site-navigation-desktop ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 1.6rem; }
   .folio-site-navigation-link { display: inline-flex; align-items: center; min-block-size: 44px; font-family: var(--sans); font-size: .875rem; color: inherit; opacity: .7; text-decoration: none; }
-  .folio-site-navigation-link[aria-current] { opacity: 1; text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 1px; }
+  .folio-site-navigation-link[aria-current] { opacity: 1; }
   .folio-site-navigation-link:hover { opacity: 1; }
+  /* Text links ease like the icon buttons beside them rather than snapping. */
+  .folio-site-navigation-link, .folio-site-footer li a { transition: opacity var(--fast) var(--ease), color var(--fast) var(--ease), text-decoration-color var(--fast) var(--ease); }
+  /* The current page's underline is a drawn rule, so it can draw itself in
+     from the left when the page changes. */
+  .folio-site-navigation-desktop .folio-site-navigation-link[aria-current] { position: relative; }
+  .folio-site-navigation-desktop .folio-site-navigation-link[aria-current]::after { content: ''; position: absolute; inset-inline: 0; inset-block-end: .375rem; block-size: 1px; background: currentColor; transform-origin: left; }
+  @media (prefers-reduced-motion: no-preference) { .folio-site-navigation-desktop .folio-site-navigation-link[aria-current]::after { animation: folio-navigation-rule-in var(--mid) var(--ease) backwards; } }
+  @keyframes folio-navigation-rule-in { from { transform: scaleX(0); } }
+  /* A ring that hugs the word and takes the controls' corner, not a tall
+     square around the 44px hit area. */
+  :is(.folio-site-navigation-link, .folio-site-footer li a):focus-visible { outline-offset: -6px; border-radius: var(--radius-sm); }
   .folio-site-navigation-actions { display: flex; align-items: center; gap: .4rem; }
   .folio-site-navigation-actions>button { flex-shrink:0; }
   @media(max-width:359px) {
@@ -37,8 +50,19 @@
   }
   .folio-site-navigation-toggle { display: none; }
   .folio-site-navigation-sheet { padding: max(1rem, env(safe-area-inset-top)) 1rem 1rem; max-block-size: 85svh; border-radius: 0 0 1rem 1rem; background: var(--paper); backdrop-filter: none; transition: none; translate: none; }
-  .folio-site-navigation-sheet[data-state=open] { animation: folio-navigation-down 260ms var(--ease-out-expo) both; }
-  .folio-site-navigation-sheet[data-state=closed] { animation: folio-navigation-up 180ms var(--ease) both; }
+  .folio-site-navigation-sheet[data-state=open] { animation: folio-navigation-down var(--slow) var(--ease) both; }
+  .folio-site-navigation-sheet[data-state=closed] { animation: folio-navigation-up var(--mid) var(--ease) both; }
+  /* The scrim keeps step with the sheet rather than finishing before it. */
+  [data-folio-animated][data-state=open]:has(+ .folio-site-navigation-sheet) { animation: folio-fade-in var(--slow) var(--ease) both; }
+  [data-folio-animated][data-state=closed]:has(+ .folio-site-navigation-sheet) { animation: folio-fade-out var(--mid) var(--ease) both; }
+  /* Once the sheet lands, its links rise in one stagger step apart. */
+  @media (prefers-reduced-motion: no-preference) {
+    .folio-site-navigation-sheet[data-state=open] .folio-site-navigation-mobile > * { animation: folio-palette-part-in var(--mid) var(--ease) backwards; animation-delay: calc(var(--slow) + var(--stagger) * var(--folio-nav-step, 0)); }
+    .folio-site-navigation-sheet[data-state=open] .folio-site-navigation-mobile > :nth-child(2) { --folio-nav-step: 1; }
+    .folio-site-navigation-sheet[data-state=open] .folio-site-navigation-mobile > :nth-child(3) { --folio-nav-step: 2; }
+    .folio-site-navigation-sheet[data-state=open] .folio-site-navigation-mobile > :nth-child(4) { --folio-nav-step: 3; }
+    .folio-site-navigation-sheet[data-state=open] .folio-site-navigation-mobile > :nth-child(n + 5) { --folio-nav-step: 4; }
+  }
   .folio-site-navigation-sheet>div:first-child { margin: 0; min-block-size: 3rem; padding-inline: .75rem 3rem; justify-content: center; border-block-end: 1px solid var(--rule); }
   .folio-site-navigation-sheet h2 { font-family: var(--sans); font-size: .75rem; font-weight: 500; color: var(--ink-3-aa); }
   .folio-site-navigation-sheet>button { inset-block-start: max(1rem, env(safe-area-inset-top)); inset-inline-end: 1rem; inline-size: 44px; block-size: 44px; }
@@ -58,7 +82,8 @@
   .folio-site-footer h2 { font-family: var(--sans); font-size: .85rem; font-weight: 500; color: var(--ink-3-aa); margin-block-end: .75rem; }
   .folio-site-footer ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1rem; }
   .folio-site-footer li a { min-block-size: 44px; display: inline-flex; align-items: center; font-size: .85rem; color: var(--ink-2); overflow-wrap: anywhere; }
-  .folio-site-footer li a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+  .folio-site-footer li a { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; }
+  .folio-site-footer li a:hover { color: var(--ink); text-decoration-color: currentColor; }
   .folio-site-footer [data-kind='files'] a { font-family: var(--mono); font-size: .75rem; }
   .folio-site-footer [data-kind='social'] ul { display: flex; flex-wrap: wrap; gap: .25rem; }
   .folio-site-footer [data-kind='social'] a { min-inline-size: 44px; justify-content: center; }

@@ -123,7 +123,7 @@ export function SiteNavigation({ brand, links, actions, footer, label, openLabel
           {actions}
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild><Button variant="ghost" iconOnly aria-label={open ? closeLabel : openLabel} className="folio-site-navigation-toggle"><Menu size={19} aria-hidden /></Button></SheetTrigger>
-            <SheetContent side="top" title={label} closeLabel={closeLabel} className="folio-site-navigation-sheet" aria-describedby={undefined}>
+            <SheetContent side="top" title={label} hideTitle closeLabel={closeLabel} className="folio-site-navigation-sheet" aria-describedby={undefined}>
               <nav aria-label={label} className="folio-site-navigation-mobile">
                 {links.map(item => <SheetClose asChild key={item.id}><Slot className="folio-site-navigation-link" aria-current={item.active ? 'page' : undefined}>{item.content}</Slot></SheetClose>)}
               </nav>
