@@ -66,6 +66,29 @@ describe('ConversationDock', () => {
     expect(shell).toHaveAttribute('data-measured')
   })
 
+  it('measures the pill by its content, not by the shell it is stretched across', () => {
+    // jsdom has no layout, so the stretched pill is given the open shell's
+    // width and only a max-content read gives its content. Reading the
+    // stretched width would make every collapse frame a new, smaller target.
+    const offsetWidth = vi.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockImplementation(function (this: HTMLElement) {
+      if (this.classList.contains('folio-conversation-dock__pill')) return this.style.inlineSize === 'max-content' ? 300 : 416
+      if (this.classList.contains('folio-conversation-dock__placeholder')) return 200
+      return 0
+    })
+    const scrollWidth = vi.spyOn(HTMLElement.prototype, 'scrollWidth', 'get').mockReturnValue(416)
+    try {
+      const { container } = render(dock())
+      const shell = container.querySelector<HTMLElement>('.folio-conversation-dock')!
+      expect(shell.style.getPropertyValue('--folio-dock-pill-w-hover')).toBe('300px')
+      expect(shell.style.getPropertyValue('--folio-dock-pill-w')).toBe('100px')
+      // The read leaves the pill stretched as it found it.
+      expect(container.querySelector<HTMLElement>('.folio-conversation-dock__pill')!.style.inlineSize).toBe('')
+    } finally {
+      offsetWidth.mockRestore()
+      scrollWidth.mockRestore()
+    }
+  })
+
   it('opens as a sheet with a scrim and grabber when it is not a card, closing from the scrim', async () => {
     const user = userEvent.setup()
     const onClose = vi.fn()

@@ -72,10 +72,18 @@ function usePillWidths(shell: RefObject<HTMLElement | null>, pill: RefObject<HTM
     if (!shellNode || !pillNode) return
     const measure = () => {
       const frame = shellNode.offsetWidth - shellNode.clientWidth
-      // scrollWidth, not offsetWidth: once measured the pill is stretched to the
-      // shell (so its whole visible face is the click target), and only its
-      // content width says how wide the shell has to be.
-      const full = pillNode.scrollWidth
+      // Once measured the pill is stretched to the shell, so its whole visible
+      // face is the click target. Its own width — and its scrollWidth, which
+      // never reads less than the box — is then the shell's current width, not
+      // the content's. Read that while the shell eases shut and every frame
+      // writes a new, slightly smaller target, restarting the transition each
+      // time: the shell crawls home instead of closing. So the content is
+      // measured at max-content for this one read, and the measure is
+      // idempotent however often the observer fires mid-animation.
+      const stretched = pillNode.style.inlineSize
+      pillNode.style.inlineSize = 'max-content'
+      const full = pillNode.offsetWidth
+      pillNode.style.inlineSize = stretched
       const hint = placeholder.current
       const extra = hint && hint.offsetWidth > 0 ? hint.offsetWidth + (Number.parseFloat(getComputedStyle(pillNode).columnGap) || 0) : 0
       shellNode.style.setProperty('--folio-dock-pill-w', `${full - extra + frame}px`)
