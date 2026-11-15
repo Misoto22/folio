@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.21.3](https://github.com/Misoto22/folio/compare/v0.21.2...v0.21.3) (2026-11-15)
+
+
+### Bug Fixes
+
+* **website:** stop the conversation dock crawling shut ([#188](https://github.com/Misoto22/folio/issues/188)) ([4b0eb32](https://github.com/Misoto22/folio/commit/4b0eb321de248c77eaea28e9fddaef20bd16ddde))
+
 ## [0.21.2](https://github.com/Misoto22/folio/compare/v0.21.1...v0.21.2) (2026-11-14)
 
 
