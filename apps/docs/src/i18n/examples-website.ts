@@ -12,7 +12,7 @@ export const WEBSITE_EXAMPLES_ZH: Record<string, ExampleCopy> = {
   'Music/01-recording-and-preview-state': { hash: '4421e267', title: "曲目信息与预览状态", zh: "录音信息和预览状态由应用的播放器通过属性传入。这个示例只切换可见状态，不会加载或播放音频。" },
   'Timeline/01-dated-records': { hash: '407b3a3e', title: "带日期的经历", zh: "时间线条目保留传入的日期、组织和辅助信息。应用在渲染之前决定排列顺序和日期格式。" },
   'Recovery/01-missing-record': { hash: '3a95a44f', title: "缺失条目的恢复入口", zh: "缺失条目状态会说明原因，并给出明确的目的地。恢复链接由应用传入，因此可以使用任意路由方案。" },
-  'Media/01-photograph-collection': { hash: '533130da', title: "照片集合", zh: "图库接收链接和图片插槽，同时保留每张作品的方向。示意图代替应用提供的照片，并保留描述清楚的替代文本。" },
+  'Media/01-photograph-collection': { hash: '7098ce24', title: "照片集合", zh: "两端对齐的图库让每张作品保持自己的比例，排成同一高度的行，无需脚本。示意图代替应用提供的照片，并保留描述清楚的替代文本。" },
   'Media/02-photograph-detail': { hash: 'aba7c6ea', title: "照片详情", zh: "媒体详情保留应用提供的返回链接，并在浏览器子像素取整后仍维持可测得的触控尺寸。" },
   'Metrics/01-a-controlled-range': { hash: '4d43112d', title: "由应用控制的时间范围", zh: "选中的时间范围和已格式化的读数保留在应用状态中。具名面板可以容纳列表、表格或由其他渲染器绘制的图表。" },
   'SearchPalette/01-host-filtered-results': { hash: 'd4ebbcd0', title: "应用筛选的搜索结果", zh: "应用筛选条目并处理选择，搜索面板负责弹窗焦点和键盘导航。关闭后，焦点回到打开面板的按钮。" },

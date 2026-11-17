@@ -15,6 +15,32 @@ describe('Media gallery and detail composition', () => {
     expect(screen.getByRole('listitem')).toHaveTextContent('001A portraitSydney')
   })
 
+  it('sets level mounts unless a host asks for justified rows', () => {
+    const { rerender } = render(<MediaGallery><MediaGalleryItem title="A frame"><a href="/a"><img alt="A" /></a></MediaGalleryItem></MediaGallery>)
+    expect(screen.getByRole('list')).toHaveAttribute('data-layout', 'mounts')
+    rerender(<MediaGallery layout="justified"><MediaGalleryItem title="A frame"><a href="/a"><img alt="A" /></a></MediaGalleryItem></MediaGallery>)
+    expect(screen.getByRole('list')).toHaveAttribute('data-layout', 'justified')
+  })
+
+  it('hands each print its own ratio and keeps the host style beside it', () => {
+    render(<MediaGallery layout="justified"><MediaGalleryItem title="Wide" ratio={1.5} style={{ marginTop: 0 }}><a href="/w"><img alt="Wide" /></a></MediaGalleryItem></MediaGallery>)
+    const item = screen.getByRole('listitem')
+    expect(item.style.getPropertyValue('--folio-media-ratio')).toBe('1.5')
+    expect(item.style.marginTop).toBe('0px')
+  })
+
+  it.each([undefined, 0, -1, Number.NaN, Number.POSITIVE_INFINITY])('leaves a ratio of %s to the stylesheet\'s portrait default', (ratio) => {
+    render(<MediaGallery layout="justified"><MediaGalleryItem title="Unknown" ratio={ratio}><a href="/u"><img alt="Unknown" /></a></MediaGalleryItem></MediaGallery>)
+    expect(screen.getByRole('listitem').style.getPropertyValue('--folio-media-ratio')).toBe('')
+  })
+
+  it('gives a justified skeleton a mix of frame ratios', () => {
+    render(<MediaGallerySkeleton label="Loading photographs" layout="justified" count={3} />)
+    const items = within(screen.getByRole('status')).getAllByRole('listitem')
+    expect(screen.getByRole('list')).toHaveAttribute('data-layout', 'justified')
+    expect(items.map((item) => item.style.getPropertyValue('--folio-media-ratio'))).toEqual(['1.5', '0.8', '1'])
+  })
+
   it('lets page compositions join an existing document outline', () => {
     render(
       <>

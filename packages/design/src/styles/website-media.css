@@ -44,6 +44,34 @@
 .folio-media-gallery-title { display: -webkit-box; overflow: hidden; color: var(--foreground); font-family: var(--font-heading); font-size: 0.9375rem; font-weight: var(--display-weight); line-height: 1.22; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .folio-media-gallery-mount { block-size: auto; aspect-ratio: 1; }
 
+/* Justified rows, in CSS alone so server-rendered markup lands in place: each
+   print grows in proportion to its ratio from a basis of ratio × row height,
+   so every print in a row shares one height and the row meets both edges. The
+   grow factor is scaled up because a line whose factors sum below 1 hands out
+   only that fraction of its free space, and a lone portrait would fall short. The
+   box takes the print's own ratio, so the image fills it with nothing cropped.
+   A filler that out-grows every print holds the last row near the target
+   height instead of stretching two frames across the page. */
+.folio-media-gallery[data-layout='justified'] { --folio-media-row-h: var(--media-row-h-compact); display: flex; flex-wrap: wrap; gap: var(--media-row-gap-block-compact) var(--media-row-gap-compact); }
+.folio-media-gallery[data-layout='justified']::after { content: ''; flex: 1000000000 1 0; }
+.folio-media-gallery[data-layout='justified'] > .folio-media-gallery-item { --folio-media-tile-ratio: var(--folio-media-ratio, 4 / 5); position: relative; flex: calc(var(--folio-media-tile-ratio) * 1000) 1 calc(var(--folio-media-tile-ratio) * var(--folio-media-row-h)); container-type: inline-size; }
+.folio-media-gallery[data-layout='justified'] .folio-media-gallery-link,
+.folio-media-gallery[data-layout='justified'] .folio-media-gallery-mount { display: block; aspect-ratio: var(--folio-media-tile-ratio); }
+.folio-media-gallery[data-layout='justified'] .folio-media-gallery-link img { inline-size: 100%; block-size: 100%; }
+.folio-media-gallery[data-layout='justified'] .folio-media-gallery-caption { grid-template-columns: 2rem minmax(0, 1fr); column-gap: 0.625rem; padding-block-start: 0.625rem; }
+.folio-media-gallery[data-layout='justified'] .folio-media-gallery-title { display: block; text-overflow: ellipsis; white-space: nowrap; }
+.folio-media-gallery[data-layout='justified'] .folio-media-gallery-location { display: none; }
+/* A wide tile has room for where it was taken; a narrow one keeps only its
+   number, and its title stays in the accessibility tree. */
+@container (min-width: 16rem) {
+  .folio-media-gallery[data-layout='justified'] .folio-media-gallery-caption { grid-template-columns: 2.25rem minmax(0, 1fr) auto; column-gap: 0.75rem; }
+  .folio-media-gallery[data-layout='justified'] .folio-media-gallery-location { display: block; grid-column: auto; max-inline-size: 12ch; }
+}
+@container (max-width: 8rem) {
+  .folio-media-gallery[data-layout='justified'] .folio-media-gallery-caption:has(.folio-media-gallery-index) { grid-template-columns: minmax(0, 1fr); }
+  .folio-media-gallery[data-layout='justified'] .folio-media-gallery-caption:has(.folio-media-gallery-index) .folio-media-gallery-title { position: absolute; inset-inline: 0; clip-path: inset(50%); }
+}
+
 .folio-photograph-feature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: clamp(2rem, 6vw, 6rem); padding-block: clamp(3rem, 8vw, 7rem); }
 .folio-photograph-feature-title { margin-block: 1rem; color: var(--foreground); font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 4rem); font-weight: var(--display-weight); letter-spacing: -0.035em; line-height: 1.08; }
 .folio-photograph-feature-action { margin-block-start: 2rem; }
@@ -223,6 +251,16 @@
   .folio-media-gallery-caption { grid-template-columns: 2.25rem minmax(0, 1fr) auto; column-gap: 0.75rem; }
   .folio-media-gallery-title { display: block; font-size: 1.03125rem; text-overflow: ellipsis; white-space: nowrap; }
   .folio-media-gallery-location { grid-column: auto; max-inline-size: 12ch; }
+}
+
+/* The row height follows the room the gallery has, not the viewport, so a
+   gallery set in a narrow column still fits more than one frame to a row. */
+.folio-media-container[data-gallery-layout='justified'] { container: folio-media-gallery / inline-size; }
+@container folio-media-gallery (min-width: 560px) {
+  .folio-media-gallery[data-layout='justified'] { --folio-media-row-h: var(--media-row-h-medium); gap: var(--media-row-gap-block) var(--media-row-gap); }
+}
+@container folio-media-gallery (min-width: 900px) {
+  .folio-media-gallery[data-layout='justified'] { --folio-media-row-h: var(--media-row-h-wide); }
 }
 
 @media (max-width: 939px) {
