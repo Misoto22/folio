@@ -117,7 +117,9 @@
 .folio-preview-pair[data-layout=overlap]>:nth-child(2){position:absolute;inset-block-start:0;inset-inline-end:0;width:calc(var(--folio-pair-phone) * 100%);max-width:none;margin-block-start:calc((var(--folio-pair-desktop) * 10 / 16 + var(--folio-pair-drop) - var(--folio-pair-phone) * 852 / 393) * 100%)}
 .folio-preview-pair[data-layout=overlap]>:nth-child(2)>div{padding:0;border:1px solid var(--rule-2);border-radius:var(--device-glass-radius);background:var(--paper);box-shadow:none;outline:.375rem solid var(--paper)}
 .folio-preview-pair[data-layout=overlap]>:nth-child(2) .folio-device-glass{border-radius:0;background:var(--paper)}
-.folio-preview-pair[data-layout=overlap]>:nth-child(2) figcaption{position:absolute;margin:0;clip-path:inset(50%);white-space:nowrap}
+/* Read by assistive tech, never drawn. A 1px box with overflow hidden, not a clip alone: a clipped
+   nowrap caption kept its full width and pushed the page sideways on a phone. */
+.folio-preview-pair[data-layout=overlap]>:nth-child(2) figcaption{position:absolute;inset-block-start:0;inset-inline-start:0;width:1px;height:1px;margin:0;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 @media(max-width:640px){.folio-preview-pair[data-layout=overlap]{--folio-pair-desktop:.94;--folio-pair-phone:.32;--folio-pair-drop:.22}}
 .folio-device-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12.5rem),1fr));gap:clamp(1.5rem,4vw,3rem);align-items:end;padding-block:1.75rem .5rem}
 @media(min-width:48rem){.folio-device-row>:nth-child(3n+2){margin-block-end:2.5rem}}
