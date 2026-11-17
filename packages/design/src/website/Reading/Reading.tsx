@@ -123,13 +123,76 @@ export interface ActionBandProps { title: ReactNode; description?: ReactNode; ac
 export function ActionBand({ title, description, actions, eyebrow }: ActionBandProps) { return <section className="folio-action-band">{eyebrow && <span className="folio-action-band__eyebrow">{eyebrow}</span>}<div className="folio-action-band__copy"><h2>{title}</h2>{description && <p>{description}</p>}</div>{actions && <div className="folio-action-band__actions">{actions}</div>}</section> }
 export interface FeaturePairsProps { items: { id?: string; label?: ReactNode; title?: ReactNode; description: ReactNode }[] }
 export function FeaturePairs({ items }: FeaturePairsProps) { return <div className="folio-feature-pairs">{items.map((item, index) => <div key={item.id ?? index}>{item.label && <span>{item.label}</span>}{item.title && <h3>{item.title}</h3>}<div className="folio-feature-description">{item.description}</div></div>)}</div> }
-export interface DevicePreviewProps { kind: 'browser' | 'phone'; label?: string; media: ReactNode; caption?: ReactNode }
-export function DevicePreview({ kind, label, media, caption }: DevicePreviewProps) { return <figure className="folio-device-preview" data-kind={kind}><div>{kind === 'browser' && <div className="folio-browser-bar"><span aria-hidden>● ● ●</span><span>{label}</span></div>}<div className="folio-device-screen">{media}</div></div>{caption && <figcaption>{caption}</figcaption>}</figure> }
-export interface PreviewPairProps { desktop: ReactNode; mobile?: ReactNode }
+export interface DevicePreviewProps {
+  kind: 'browser' | 'phone'
+  /** The address a browser screenshot shows, set at the end of the caption line. */
+  label?: string
+  media: ReactNode
+  caption?: ReactNode
+  /**
+   * Draw a phone's status bar — the time, signal and battery — above the
+   * screenshot, so a capture without a system bar still reads as a phone.
+   * Turn it off for a screenshot that already includes one.
+   */
+  statusBar?: boolean
+}
+
+/* The status bar's glyphs as iOS draws them, scaled with the phone. They carry
+   no information about the product, so they are hidden from assistive tech. */
+function PhoneStatusBar() {
+  return (
+    <div className="folio-device-status" aria-hidden="true">
+      <span>9:41</span>
+      <span>
+        <svg viewBox="0 0 16 10" fill="currentColor"><rect x="0" y="6" width="3" height="4" rx=".6" /><rect x="4.3" y="4" width="3" height="6" rx=".6" /><rect x="8.6" y="2" width="3" height="8" rx=".6" /><rect x="12.9" y="0" width="3" height="10" rx=".6" /></svg>
+        <svg viewBox="0 0 20 10" fill="currentColor"><rect x=".5" y=".5" width="16" height="9" rx="2.5" fill="none" stroke="currentColor" strokeOpacity=".4" /><rect x="2" y="2" width="12" height="6" rx="1.4" /><rect x="17.5" y="3.3" width="1.5" height="3.4" rx=".7" fillOpacity=".4" /></svg>
+      </span>
+    </div>
+  )
+}
+
+/**
+ * A screenshot in its device: a browser capture in a flat hairline frame, or a
+ * phone capture behind glass with a drawn status bar and home indicator.
+ */
+export function DevicePreview({ kind, label, media, caption, statusBar = true }: DevicePreviewProps) {
+  const screen = <div className="folio-device-screen">{media}</div>
+  const hasCaption = Boolean(caption) || Boolean(kind === 'browser' && label)
+  return (
+    <figure className="folio-device-preview" data-kind={kind} data-status-bar={kind === 'phone' && statusBar ? '' : undefined}>
+      <div>
+        {kind === 'phone' ? (
+          <div className="folio-device-glass">
+            {statusBar && <PhoneStatusBar />}
+            {screen}
+            <span className="folio-device-home" aria-hidden="true" />
+          </div>
+        ) : screen}
+      </div>
+      {hasCaption && (
+        <figcaption>
+          {caption}
+          {kind === 'browser' && label && <span className="folio-device-address">{label}</span>}
+        </figcaption>
+      )}
+    </figure>
+  )
+}
+export interface PreviewPairProps {
+  desktop: ReactNode
+  mobile?: ReactNode
+  /**
+   * `overlap` lays the phone over the desktop screenshot's lower corner under
+   * one caption line; `side` sets the two side by side. Without a phone the
+   * desktop stands alone either way.
+   */
+  layout?: 'overlap' | 'side'
+}
 export interface DeviceRowProps { children: ReactNode; label?: string }
 /** Two or three phones side by side, the middle one raised a step, wrapping to a column on a narrow screen. */
 export function DeviceRow({ children, label }: DeviceRowProps) { return <div className="folio-device-row" role={label ? 'group' : undefined} aria-label={label}>{children}</div> }
-export function PreviewPair({ desktop, mobile }: PreviewPairProps) { return <div className="folio-preview-pair" data-mobile={Boolean(mobile) || undefined}>{desktop}{mobile}</div> }
+/** A desktop screenshot with an optional phone screenshot of the same page. */
+export function PreviewPair({ desktop, mobile, layout = 'overlap' }: PreviewPairProps) { return <div className="folio-preview-pair" data-mobile={Boolean(mobile) || undefined} data-layout={mobile ? layout : undefined}>{desktop}{mobile}</div> }
 export interface CommandTab { id: string; name: string; commands: string[]; then?: ReactNode; note?: ReactNode; link?: ReactNode }
 export interface CommandTabsProps { label: string; tabs: CommandTab[]; copyLabel: string; copiedLabel: string; footer?: ReactNode }
 export function CommandTabs({ label, tabs, copyLabel, copiedLabel, footer }: CommandTabsProps) {

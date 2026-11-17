@@ -8,6 +8,7 @@ export const WEBSITE_EXAMPLES_ZH: Record<string, ExampleCopy> = {
   'PortfolioIndex/01-related-collections': { hash: '7c767f86', title: "相关内容集合", zh: "每个标签将条目和辅助说明放在一起。方向键可切换共用标签栏，不会更改应用路由。" },
   'Collection/01-searchable-records': { hash: '8c66e0be', title: "可搜索的条目", zh: "搜索和分类状态由应用维护，应用将筛选后的条目传入组件。控件提供具名输入框、清空操作和筛选按钮的选中状态。" },
   'Reading/01-article-and-outline': { hash: '07772440', title: "文章与目录", zh: "阅读布局组合了具有语义的发布日期、章节和目录。相邻条目的导航仍是应用提供的普通链接，并保留有意义的标题。" },
+  'Reading/02-device-previews': { hash: 'f986de63', title: "设备截图", zh: "桌面截图平放在细线边框里，手机截图叠在它的右下角，两者共用一行说明。手机自带绘制的状态栏；一排手机保留机身边框。示意图代替应用提供的截图。" },
   'Contact/01-controlled-correspondence': { hash: 'd0be39ab', title: "受控留言表单", zh: "应用控制每个字段，并在自己的提交工作完成后确认成功。这个本地示例仅在内存中保存草稿，不会发送消息。" },
   'Music/01-recording-and-preview-state': { hash: '4421e267', title: "曲目信息与预览状态", zh: "录音信息和预览状态由应用的播放器通过属性传入。这个示例只切换可见状态，不会加载或播放音频。" },
   'Timeline/01-dated-records': { hash: '407b3a3e', title: "带日期的经历", zh: "时间线条目保留传入的日期、组织和辅助信息。应用在渲染之前决定排列顺序和日期格式。" },

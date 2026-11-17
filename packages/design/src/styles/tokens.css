@@ -296,6 +296,10 @@
   --device-bezel: #1d1d1f;
   --device-rim: #4a4a4d;
   --device-island: #000;
+  /* The glass corner as a share of the screen, so it follows the phone at any size. */
+  --device-glass-radius: 12.5% / 5.8%;
+  /* The status bar's type, as iOS sets 17pt on a 393pt-wide screen. */
+  --device-status-type: 4.3cqi;
 }
 
 /* Photograph rows. A justified gallery sets every row near one height and

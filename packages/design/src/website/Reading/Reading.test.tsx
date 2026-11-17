@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { Suspense, type ReactElement } from 'react'
 import { describe, expect, it } from 'vitest'
-import { DetailMasthead, DevicePreview, DeviceRow, RecordPager, TableOfContents, TokenLine, isSelfNumbered, numberToc } from './Reading'
+import { DetailMasthead, DevicePreview, DeviceRow, PreviewPair, RecordPager, TableOfContents, TokenLine, isSelfNumbered, numberToc } from './Reading'
 
 describe('Reading compositions', () => {
   it('retains semantic dates and host navigation in its masthead', () => {
@@ -83,6 +83,40 @@ describe('CommandSnippet', () => {
     expect(group.querySelectorAll('figure[data-kind="phone"]')).toHaveLength(2)
     expect(screen.getByText('Trip').tagName).toBe('FIGCAPTION')
     expect(screen.getByAltText('Map screen').closest('.folio-device-screen')).not.toBeNull()
+  })
+
+  it('frames a browser capture without chrome and sets its address in the caption line', () => {
+    render(<DevicePreview kind="browser" label="example.com/ask" caption="Desktop" media={<img alt="Desktop capture" />} />)
+    const caption = screen.getByText('example.com/ask').closest('figcaption')
+    expect(caption).toHaveTextContent('Desktopexample.com/ask')
+    expect(document.querySelector('.folio-device-status')).toBeNull()
+    expect(document.querySelector('[aria-hidden]')).toBeNull()
+  })
+
+  it('draws a hidden status bar and home indicator on a phone unless the capture has its own', () => {
+    const { rerender } = render(<DevicePreview kind="phone" media={<img alt="Phone capture" />} />)
+    const figure = screen.getByRole('figure')
+    const status = figure.querySelector('.folio-device-status')
+    expect(figure).toHaveAttribute('data-status-bar')
+    expect(status).toHaveAttribute('aria-hidden', 'true')
+    expect(status).toHaveTextContent('9:41')
+    expect(figure.querySelector('.folio-device-home')).toHaveAttribute('aria-hidden', 'true')
+    expect(screen.getByAltText('Phone capture').closest('.folio-device-glass')).not.toBeNull()
+    rerender(<DevicePreview kind="phone" statusBar={false} media={<img alt="Phone capture" />} />)
+    expect(screen.getByRole('figure')).not.toHaveAttribute('data-status-bar')
+    expect(screen.getByRole('figure').querySelector('.folio-device-status')).toBeNull()
+  })
+
+  it('overlaps a pair by default, sets it side by side on request, and leaves a lone desktop alone', () => {
+    const desktop = <DevicePreview kind="browser" media={<img alt="Desktop" />} />
+    const phone = <DevicePreview kind="phone" caption="Phone" media={<img alt="Phone" />} />
+    const { container, rerender } = render(<PreviewPair desktop={desktop} mobile={phone} />)
+    expect(container.firstElementChild).toHaveAttribute('data-layout', 'overlap')
+    expect(screen.getByText('Phone').tagName).toBe('FIGCAPTION')
+    rerender(<PreviewPair desktop={desktop} mobile={phone} layout="side" />)
+    expect(container.firstElementChild).toHaveAttribute('data-layout', 'side')
+    rerender(<PreviewPair desktop={desktop} />)
+    expect(container.firstElementChild).not.toHaveAttribute('data-layout')
   })
 
   it('leaves an unlabelled row without a group role', () => {
