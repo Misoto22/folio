@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.22.1](https://github.com/Misoto22/folio/compare/v0.22.0...v0.22.1) (2026-11-17)
+
+
+### Bug Fixes
+
+* **website:** keep the overlapped phone's caption from widening the page ([#192](https://github.com/Misoto22/folio/issues/192)) ([d0fcbfd](https://github.com/Misoto22/folio/commit/d0fcbfd6338abdc61ac58ff8040d5a98b63fcc97))
+
 ## [0.22.0](https://github.com/Misoto22/folio/compare/v0.21.3...v0.22.0) (2026-11-17)
 
 
