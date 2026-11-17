@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import { cloneElement, type HTMLAttributes, type ReactElement, type ReactNode } from 'react'
 import { Badge } from '../../components/Badge/Badge'
 import { Heading } from '../../components/Heading/Heading'
 import { Tag } from '../../components/Tag/Tag'
@@ -36,17 +36,62 @@ export interface CareerRecordProps extends Omit<HTMLAttributes<HTMLElement>, 'ti
   tagsLabel: string
   mark?: ReactNode
   currentLabel?: string
+  /** Content under the record's tags, such as a `CareerRecordProjects` list of the work done in this role. */
+  children?: ReactNode
 }
 
 /** One dated record, reusable for a role, qualification or other chronology. */
-export function CareerRecord({ title, organization, period, periodLabel, location, locationLabel, description, tags, tagsLabel, mark, currentLabel, className, ...rest }: CareerRecordProps) {
+export function CareerRecord({ title, organization, period, periodLabel, location, locationLabel, description, tags, tagsLabel, mark, currentLabel, children, className, ...rest }: CareerRecordProps) {
   return (
     <article className={cn('folio-career-record', className)} {...rest}>
       <div className="folio-career-record__dates"><dl><dt className="sr-only">{periodLabel}</dt><dd><Text as="span" size="sm" tone="strong">{period}</Text></dd><dt className="sr-only">{locationLabel}</dt><dd><Text as="span" size="xs" tone="muted">{location}</Text></dd></dl>{currentLabel && <Badge>{currentLabel}</Badge>}</div>
-      <div className="folio-career-record__body"><Heading level={3} size="heading">{title}</Heading><div className="mt-2">{organization}</div>{description.length === 1 && <Text className="mb-0 mt-5 max-w-(--measure-record)">{description[0]}</Text>}{description.length > 1 && <ul className="folio-career-record__description">{description.map((point, index) => <Text as="li" key={index}>{point}</Text>)}</ul>}{tags.length > 0 && <ul aria-label={tagsLabel} className="folio-career-record__tags">{tags.map((tag, index) => { const { label, icon } = typeof tag === 'string' ? { label: tag, icon: undefined } : tag; return <li key={`${label}-${index}`}><Tag className="folio-career-record__tag">{icon && <span aria-hidden="true" className="folio-career-record__tag-mark">{icon}</span>}{label}</Tag></li> })}</ul>}</div>
+      <div className="folio-career-record__body"><Heading level={3} size="heading">{title}</Heading><div className="mt-2">{organization}</div>{description.length === 1 && <Text className="mb-0 mt-5 max-w-(--measure-record)">{description[0]}</Text>}{description.length > 1 && <ul className="folio-career-record__description">{description.map((point, index) => <Text as="li" key={index}>{point}</Text>)}</ul>}{tags.length > 0 && <ul aria-label={tagsLabel} className="folio-career-record__tags">{tags.map((tag, index) => { const { label, icon } = typeof tag === 'string' ? { label: tag, icon: undefined } : tag; return <li key={`${label}-${index}`}><Tag className="folio-career-record__tag">{icon && <span aria-hidden="true" className="folio-career-record__tag-mark">{icon}</span>}{label}</Tag></li> })}</ul>}{children}</div>
       {mark && <div className="folio-career-record__mark">{mark}</div>}
     </article>
   )
+}
+
+/** One project done within a record: its name, an optional link element supplied by the host, and one line on it. */
+export interface CareerRecordProject {
+  id: string
+  title: string
+  summary?: string
+  /** The host's own navigation element (an `<a>` or a framework `Link`) wrapping the title. */
+  link?: ReactElement<{ children?: ReactNode }>
+}
+
+export interface CareerRecordProjectGroup {
+  id: string
+  label: string
+  projects: CareerRecordProject[]
+}
+
+export interface CareerRecordProjectsProps extends HTMLAttributes<HTMLElement> {
+  headingId: string
+  title: string
+  groups: CareerRecordProjectGroup[]
+}
+
+/**
+ * The work done inside one role, grouped by kind.
+ *
+ * Bullets say what a role was; this says what it produced. Each group is a
+ * small label over a ruled list, so a role with one platform and three apps
+ * reads as two kinds of work rather than one long run of bullets.
+ */
+export function CareerRecordProjects({ headingId, title, groups, className, ...rest }: CareerRecordProjectsProps) {
+  const visible = groups.filter((group) => group.projects.length > 0)
+  if (visible.length === 0) return null
+  return <section aria-labelledby={headingId} className={cn('folio-career-projects', className)} {...rest}>
+    <Heading level={4} size="label" id={headingId} className="folio-career-projects__title">{title}</Heading>
+    {visible.map((group) => <div key={group.id} className="folio-career-projects__group">
+      <Text as="p" size="xs" tone="muted" className="folio-career-projects__label">{group.label}</Text>
+      <ul className="folio-career-projects__list">{group.projects.map((project) => <li key={project.id} className="folio-career-projects__item">
+        <Text as="span" tone="strong" className="folio-career-projects__name">{project.link ? cloneElement(project.link, undefined, project.title) : project.title}</Text>
+        {project.summary && <Text as="span" size="sm" tone="muted" className="folio-career-projects__summary">{project.summary}</Text>}
+      </li>)}</ul>
+    </div>)}
+  </section>
 }
 
 export interface ProfileSectionProps extends HTMLAttributes<HTMLElement> {

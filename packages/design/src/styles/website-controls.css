@@ -57,7 +57,9 @@
 .folio-collection-search input::placeholder { color: var(--ink-3-aa); }
 .folio-collection-search input:focus, .folio-collection-search input:focus-visible { outline: none; box-shadow: none; }
 .folio-collection-search input::-webkit-search-cancel-button { -webkit-appearance: none; }
-.folio-collection-search__key { flex: none; margin-inline-start: auto; border-radius: var(--radius-pill); font-family: var(--sans); color: var(--ink-3-aa); }
+/* The shortcut key is a true circle: equal sides, no padding, the slash centred by grid. */
+.folio-collection-search__key { flex: none; display: inline-grid; place-items: center; inline-size: 1.5rem; min-inline-size: 0; block-size: 1.5rem; margin-inline-start: auto; padding: 0; border-radius: var(--radius-pill); color: var(--ink-3-aa); }
+.folio-collection-search__key svg { inline-size: .875rem; block-size: .875rem; }
 .folio-collection-search:is(:focus-within, [data-has-value]) .folio-collection-search__key { display: none; }
 @media (hover: none) { .folio-collection-search__key { display: none; } }
 .folio-collection-search__clear { flex: none; inline-size: 1.75rem; min-inline-size: 1.75rem; block-size: 1.75rem; min-block-size: 1.75rem; border-radius: var(--radius-pill); }

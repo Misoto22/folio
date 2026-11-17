@@ -1,6 +1,6 @@
 import { Slot } from '@radix-ui/react-slot'
 import { Minus, Plus } from '../../icons'
-import type { ComponentPropsWithRef, HTMLAttributes, ReactElement, ReactNode } from 'react'
+import type { ComponentPropsWithRef, CSSProperties, HTMLAttributes, ReactElement, ReactNode } from 'react'
 import { Badge } from '../../components/Badge/Badge'
 import { Button, type ButtonProps } from '../../components/Button/Button'
 import { DescriptionList, type DescriptionListItem } from '../../components/DescriptionList/DescriptionList'
@@ -81,17 +81,27 @@ export interface MediaGalleryProps extends HTMLAttributes<HTMLUListElement> {
   /** Supply localized empty copy when the collection may have no children. */
   emptyTitle?: ReactNode
   emptyAction?: ReactNode
+  /**
+   * `mounts` sets every print in a level mount of one shape. `justified` fills
+   * rows edge to edge at one height, each print at its own `ratio`, in CSS alone.
+   */
+  layout?: 'mounts' | 'justified'
 }
 
 /** Level mounts keep unlike aspect ratios aligned without cropping the prints. */
-export function MediaGallery({ children, emptyTitle, emptyAction, className, ...rest }: MediaGalleryProps) {
+export function MediaGallery({ children, emptyTitle, emptyAction, layout = 'mounts', className, ...rest }: MediaGalleryProps) {
   return (
-    <div className="folio-media-container">
+    <div className="folio-media-container" data-gallery-layout={layout}>
       {emptyTitle ? <EmptyState title={emptyTitle} action={emptyAction} /> : (
-        <ul role="list" className={cn('folio-media-gallery', className)} {...rest}>{children}</ul>
+        <ul role="list" className={cn('folio-media-gallery', className)} data-layout={layout} {...rest}>{children}</ul>
       )}
     </div>
   )
+}
+
+/** A usable width-over-height ratio, or nothing so the stylesheet's portrait default applies. */
+function usableRatio(ratio: number | undefined): number | undefined {
+  return ratio !== undefined && Number.isFinite(ratio) && ratio > 0 ? ratio : undefined
 }
 
 export interface MediaGalleryItemProps extends Omit<HTMLAttributes<HTMLLIElement>, 'title'> {
@@ -101,11 +111,19 @@ export interface MediaGalleryItemProps extends Omit<HTMLAttributes<HTMLLIElement
   index?: ReactNode
   location?: ReactNode
   orientation?: 'portrait' | 'landscape' | 'square'
+  /**
+   * The print's width over its height. A justified gallery sizes the tile from
+   * it; without one, or with one that is not a positive number, the tile is a
+   * 4:5 portrait.
+   */
+  ratio?: number
 }
 
-export function MediaGalleryItem({ children, title, index, location, orientation, className, ...rest }: MediaGalleryItemProps) {
+export function MediaGalleryItem({ children, title, index, location, orientation, ratio, className, style, ...rest }: MediaGalleryItemProps) {
+  const usable = usableRatio(ratio)
+  const itemStyle = usable === undefined ? style : { ...style, '--folio-media-ratio': usable } as CSSProperties
   return (
-    <li className={cn('folio-media-gallery-item', className)} {...rest}>
+    <li className={cn('folio-media-gallery-item', className)} style={itemStyle} {...rest}>
       <figure>
         <Slot className="folio-media-gallery-link" data-photo-orientation={orientation}>{children}</Slot>
         <figcaption className="folio-media-gallery-caption">
@@ -121,9 +139,15 @@ export function MediaGalleryItem({ children, title, index, location, orientation
 export interface MediaGallerySkeletonProps {
   label: string
   count?: number
+  /** Match the gallery the page will paint, so the prints land where their placeholders were. */
+  layout?: MediaGalleryProps['layout']
 }
 
-export function MediaGallerySkeleton({ label, count = 6 }: MediaGallerySkeletonProps) {
+/* Placeholder ratios for a justified skeleton: a plausible mix of frames, so
+   the rows read as photographs rather than a grid of identical boxes. */
+const SKELETON_RATIOS = [3 / 2, 4 / 5, 1, 3 / 2, 2 / 3, 4 / 3]
+
+export function MediaGallerySkeleton({ label, count = 6, layout = 'mounts' }: MediaGallerySkeletonProps) {
   return (
     <div className="folio-loading-page">
       <div className="folio-loading-data"><SkeletonPage label={label} aria-label={label}>
@@ -134,9 +158,9 @@ export function MediaGallerySkeleton({ label, count = 6 }: MediaGallerySkeletonP
         </header>
         <div className="folio-media-container"><SkeletonLine className="h-11 w-full" /></div>
         <section data-loading-content className="folio-media-gallery-content">
-          <MediaGallery>
+          <MediaGallery layout={layout}>
             {Array.from({ length: count }, (_, index) => (
-              <li key={index}>
+              <li key={index} className="folio-media-gallery-item" style={layout === 'justified' ? { '--folio-media-ratio': SKELETON_RATIOS[index % SKELETON_RATIOS.length] } as CSSProperties : undefined}>
                 <SkeletonBlock className="folio-media-gallery-mount" />
                 <SkeletonLine className="mt-3 w-3/4" />
               </li>
