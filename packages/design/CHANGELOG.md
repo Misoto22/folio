@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.22.0](https://github.com/Misoto22/folio/compare/v0.21.3...v0.22.0) (2026-11-17)
+
+
+### Features
+
+* **website:** add career projects, justified gallery and overlap previews ([#190](https://github.com/Misoto22/folio/issues/190)) ([53bda58](https://github.com/Misoto22/folio/commit/53bda5865542ca31476c09ac0aff87ad2b28c074))
+
 ## [0.21.3](https://github.com/Misoto22/folio/compare/v0.21.2...v0.21.3) (2026-11-15)
 
 
