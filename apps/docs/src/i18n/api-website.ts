@@ -117,6 +117,8 @@ export const WEBSITE_API_ZH: Record<string, ApiCopy> = {
   'SiteShell.SiteLink': { hash: '6c42cbfc', zh: "为应用路由链接提供样式，不决定链接目的地。" },
   'Timeline.RecordSection': { hash: 'fde2ac60', zh: "具名记录分区。应用提供时间顺序，组件不会重新排序。" },
   'Timeline.CareerRecord': { hash: '1cc60f4f', zh: "一个带日期的条目，可用于职位、学历或其他时间记录。" },
+  'Timeline.CareerRecord#children': { hash: '79ced654', zh: "放在条目标签之下的内容，例如用 `CareerRecordProjects` 列出这个职位里做过的项目。" },
+  'Timeline.CareerRecordProjects': { hash: '55f8547c', zh: "一个职位里做出的项目，按类别分组。要点说明这个职位是什么，这里说明它产出了什么。每组是一个小标签加一列带分隔线的条目，所以一个职位里有一个平台加三个应用时，读起来是两类工作，而不是一长串要点。" },
   'Timeline.ProfileSection': { hash: 'c16ca2a4', zh: "个人资料分区遵循相邻分区相同的标题和间距约定。" },
   'Timeline.ProfileNarrative': { hash: '6a24ce1b', zh: "简短介绍包含摘录，并在旁边展示更完整的叙述。" },
   'Timeline.ProfileSkills': { hash: 'c1cd3f6e', zh: "技能标签和适配主题的图形，由应用的内容适配层提供。" },
