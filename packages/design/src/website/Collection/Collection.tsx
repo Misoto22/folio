@@ -113,7 +113,10 @@ export function CollectionSearch({ value, onChange, label, placeholder, clearLab
     <Input ref={ref} id={inputId} aria-label={label} type="search" value={value} placeholder={placeholder} onChange={(event) => onChange(event.target.value)}
       onFocus={() => { if (foldable) setOpen(true) }}
       onKeyDown={(event) => { if (event.key === 'Escape') { event.preventDefault(); clear(true) } }} />
-    {focusShortcut && <Kbd className="folio-collection-search__key" aria-hidden="true">/</Kbd>}
+    {/* A drawn slash, not the "/" character: a text slash sits on its font's baseline
+        and descends below it, so inside a round key it reads low and to one side in
+        every face. A stroke through the centre of a square box is centred in all. */}
+    {focusShortcut && <Kbd className="folio-collection-search__key" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round"><path d="M10 3.5 6 12.5" /></svg></Kbd>}
     {(value !== '' || (foldable && open)) && <Button type="button" variant="ghost" iconOnly aria-label={clearLabel} className="folio-collection-search__clear" onClick={() => clear(false)}><X size={15} aria-hidden="true" /></Button>}
   </div>
 }

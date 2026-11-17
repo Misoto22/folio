@@ -104,9 +104,13 @@ describe('Collection compositions', () => {
   it('keeps the field open at every width without an opener label, and clears on Escape', async () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
-    render(<CollectionSearch value="next" onChange={onChange} label="Search posts" clearLabel="Clear search" focusShortcut />)
+    const { container } = render(<CollectionSearch value="next" onChange={onChange} label="Search posts" clearLabel="Clear search" focusShortcut />)
     expect(screen.queryByRole('button', { name: /open/i })).toBeNull()
-    expect(screen.getByText('/').tagName).toBe('KBD')
+    // The key draws its slash: a text '/' sits on the baseline and reads off-centre in a round key.
+    const key = container.querySelector('.folio-collection-search__key')
+    expect(key?.tagName).toBe('KBD')
+    expect(key?.textContent).toBe('')
+    expect(key?.querySelector('svg path')).not.toBeNull()
     await user.click(screen.getByRole('searchbox', { name: 'Search posts' }))
     await user.keyboard('{Escape}')
     expect(onChange).toHaveBeenCalledWith('')
