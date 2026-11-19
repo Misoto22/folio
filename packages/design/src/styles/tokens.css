@@ -296,8 +296,17 @@
   --device-bezel: #1d1d1f;
   --device-rim: #4a4a4d;
   --device-island: #000;
-  /* The glass corner as a share of the screen, so it follows the phone at any size. */
-  --device-glass-radius: 12.5% / 5.8%;
+  /* The glass corner and the bezel around it share one centre: the bezel's
+     radius is the glass radius plus its padding, so the black band is as
+     thick at the corners as along the sides. A percentage glass radius could
+     not do that — it tracked the screen while the bezel's radius was fixed,
+     so the two met at one phone width only. 1.75rem is the iPhone's own
+     corner at the frame's usual 14rem. */
+  --device-glass-radius: 1.75rem;
+  --device-bezel-pad: .5rem;
+  /* A frameless phone (the overlap pair) has no bezel to stay concentric
+     with, so its corner follows the screen. */
+  --device-frameless-radius: 12.5% / 5.8%;
   /* The status bar's type, as iOS sets 17pt on a 393pt-wide screen. */
   --device-status-type: 4.3cqi;
 }
