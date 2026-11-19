@@ -1,5 +1,13 @@
 # @misoto22/folio
 
+## [0.22.2](https://github.com/Misoto22/folio/compare/v0.22.1...v0.22.2) (2026-11-19)
+
+
+### Bug Fixes
+
+* **website:** keep phone corners concentric with the bezel ([a631725](https://github.com/Misoto22/folio/commit/a6317255679f72997b254fa499b9546c8b6b09fa))
+* **website:** start detail pages below the fixed site header ([5fd4ebd](https://github.com/Misoto22/folio/commit/5fd4ebdac8437831a58f77c86da0b7f0b1b10aa6))
+
 ## [0.22.1](https://github.com/Misoto22/folio/compare/v0.22.0...v0.22.1) (2026-11-17)
 
 
