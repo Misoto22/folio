@@ -155,8 +155,19 @@ discovering the collision on `main`, after publish.
 That rule applies to the release pull request too, and `always-update: true` in
 `release-please-config.json` is what resolves it: every push to `main` re-renders
 the release branch from the current `main`, so a release pull request that fell
-behind is replaced by one that has not, with fresh checks. The visible cost is a
-`verify` and a `browser` run per push to `main`.
+behind is replaced by one that has not, with fresh checks. Those checks are
+short: a release pull request that changes only the version and the changelog
+runs `verify` and `browser` in their `verified` form, and so does the push to
+`main` that lands a pull request's exact, already-passed tree (`trust` in
+`release.yml`). A full run happens wherever the tree is new.
+
+### After a publish
+
+The last step of `publish` sends a `folio-released` repository dispatch to
+`misoto22-site`, whose `folio-release.yml` opens the bump pull request and
+merges it once the site's CI passes. It is sent after the registry check,
+because the site installs from npm. The dispatch uses the release bot's App
+token, minted for that one repository.
 
 > [!NOTE]
 > A **merge queue** is the automated form of that rule — it builds the combined

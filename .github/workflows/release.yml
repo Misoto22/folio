@@ -36,12 +36,58 @@ permissions:
 jobs:
   # The same two gates a pull request gets, from the same definitions. Deploying
   # and publishing hang off them, so nothing ships that they have not seen.
+  #
+  # Except when the pull request already ran them on this exact tree. `main`
+  # requires an up-to-date branch, so a squash merge lands the head its pull
+  # request tested; a release pull request's own run passed on a
+  # version-only diff over an already-verified main. In both cases the gates
+  # run in their `verified` form: they still report, and `verify` still
+  # builds the export the deploy uploads, but nothing is checked twice. A
+  # direct push, a stale tree or any API failure gets the full run.
+  trust:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+      checks: read
+    outputs:
+      verified: ${{ steps.pr.outputs.verified }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          verified=false
+          tree=$(git rev-parse "HEAD^{tree}")
+          head=$(gh api "repos/$REPO/commits/$GITHUB_SHA/pulls" --jq '[.[] | select(.merged_at != null)][0].head.sha // empty' || true)
+          if [ -n "$head" ]; then
+            head_tree=$(gh api "repos/$REPO/git/commits/$head" --jq .tree.sha || true)
+            passed=0
+            for check in "verify / verify" "browser / browser"; do
+              n=$(gh api -X GET "repos/$REPO/commits/$head/check-runs" -f check_name="$check" --jq '[.check_runs[] | select(.conclusion == "success")] | length' || echo 0)
+              [ "$n" -gt 0 ] && passed=$((passed + 1))
+            done
+            if [ "$head_tree" = "$tree" ] && [ "$passed" = 2 ]; then verified=true; fi
+            echo "pull request head $head: tree match $([ "$head_tree" = "$tree" ] && echo yes || echo no), gates passed $passed/2"
+          fi
+          echo "verified=$verified" >> "$GITHUB_OUTPUT"
+          echo "tree verified by its pull request: $verified"
+
   verify:
+    needs: trust
     uses: ./.github/workflows/verify.yml
+    with:
+      verified: ${{ needs.trust.outputs.verified == 'true' }}
 
   browser:
-    needs: verify
+    needs: trust
     uses: ./.github/workflows/browser.yml
+    with:
+      verified: ${{ needs.trust.outputs.verified == 'true' }}
 
   deploy:
     needs: [verify, browser]
@@ -256,3 +302,29 @@ jobs:
             exit 1
           fi
           echo "published: ${name}@${version}"
+
+      # The site adopts every release (its pnpm config exempts folio from the
+      # release-age delay for that reason), so it is told rather than left to
+      # notice on Dependabot's weekly run. misoto22-site's folio-release.yml
+      # opens the bump pull request and merges it once its CI passes. Sent
+      # after the registry check: the site installs from npm, so the version
+      # has to be readable there first.
+      - name: Mint a token for misoto22-site
+        id: site-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: Misoto22
+          repositories: misoto22-site
+
+      - name: Tell misoto22-site about the release
+        env:
+          GH_TOKEN: ${{ steps.site-token.outputs.token }}
+        run: |
+          set -euo pipefail
+          version=$(node -p "require('./packages/design/package.json').version")
+          gh api repos/Misoto22/misoto22-site/dispatches \
+            -f event_type=folio-released \
+            -f "client_payload[version]=${version}"
+          echo "dispatched folio-released ${version}"
