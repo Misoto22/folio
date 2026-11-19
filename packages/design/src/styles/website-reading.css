@@ -183,7 +183,8 @@
 .folio-content-figure figcaption{font-size:.875rem;color:var(--ink-3-aa);margin-block-start:.5rem}
 .folio-reading-surface table{width:100%;table-layout:auto}
 .folio-reading-surface :is(th,td){white-space:normal;overflow-wrap:anywhere}
-.folio-reading-page{min-height:100vh;padding-block:clamp(2.5rem,7vw,5.25rem) 6rem;background:var(--paper);color:var(--ink)}
+/* The site header is fixed, so the page's top padding starts below it: before, a 7vw padding sat partly under the 3.75rem header and left a phone's first line 1px clear of it. */
+.folio-reading-page{min-height:100vh;padding-block:calc(var(--website-header-h, 3.75rem) + clamp(.75rem,2vw,1.5rem)) 6rem;background:var(--paper);color:var(--ink)}
 .folio-detail-opening:not([data-stacked]){grid-template-columns:minmax(0,1.35fr) minmax(17rem,.65fr);gap:clamp(3rem,7vw,6.5rem)}
 .folio-detail-opening:not([data-stacked])>.folio-detail-dek{margin-block-start:.5rem;max-width:42ch}
 .folio-detail-opening[data-stacked]:not([data-aside]){grid-template-columns:1fr;gap:1.75rem}
