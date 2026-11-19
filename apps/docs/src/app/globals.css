@@ -54,7 +54,7 @@
 
   /* The running-text scale. The package's ladder (--fs-title … --fs-item)
      covers headings only, so this app had invented its own: 11, 12, 12.5, 13,
-     13.5, 15 and 17px, typed 230 times. These are the steps every one of those
+     13.5, 15 and 17px, typed 66 times across the chrome and views. These are the steps every one of those
      now names, as Tailwind utilities (`text-meta`, `text-body`, …):
        micro    11px  counts, keycaps, a thumbnail's own labels
        caption  12px  code and table metadata
