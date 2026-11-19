@@ -3,6 +3,7 @@
 import type { ReactNode } from 'react'
 import { X } from '../../icons'
 import { cn } from '../../lib/cn'
+import { SURFACE_PANEL_QUIET } from '../../lib/surface'
 
 /** One fact about the selected thing: a short label and its value. */
 export interface InspectorFact {
@@ -87,7 +88,8 @@ export function DiagramInspector({
       aria-label={`${title} details`}
       aria-live="polite"
       className={cn(
-        'flex flex-col gap-3 rounded-(--radius-lg) border border-(--rule-2) bg-(--panel-bg) p-4',
+        'flex flex-col gap-3 rounded-(--radius-lg) border p-4',
+        SURFACE_PANEL_QUIET,
         floating && 'absolute bottom-3 start-3 z-(--z-sticky) w-72 max-w-[calc(100%-1.5rem)]',
         className,
       )}

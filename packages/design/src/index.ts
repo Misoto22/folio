@@ -32,6 +32,7 @@ export type { BrandColor } from './tokens/brand'
 // ─── Utilities ───
 export { cn } from './lib/cn'
 export { CONTROL_BASE, CONTROL_BORDER, isInvalid } from './lib/control'
+export { SURFACE_FEATURE, SURFACE_PANEL, SURFACE_PANEL_QUIET } from './lib/surface'
 export { useSelectionIndicator } from './lib/useSelectionIndicator'
 export type { IndicatorStyle } from './lib/useSelectionIndicator'
 

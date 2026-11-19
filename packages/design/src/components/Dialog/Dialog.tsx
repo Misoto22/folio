@@ -4,6 +4,7 @@ import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { X } from '../../icons'
 import type { ComponentProps, ReactNode } from 'react'
 import { cn } from '../../lib/cn'
+import { SURFACE_PANEL } from '../../lib/surface'
 import { useOverlayContainer } from '../../lib/overlay-container'
 import { DEV, warn } from '../../lib/warn'
 
@@ -127,7 +128,8 @@ export function DialogContent({
       <DialogPrimitive.Content
         data-folio-animated
         className={cn(
-          'fixed left-1/2 top-1/2 z-(--z-modal) max-h-[85vh] w-[min(92vw,32rem)] -translate-x-1/2 -translate-y-1/2 overflow-auto rounded-(--radius-lg) border border-(--panel-border) bg-(--panel-bg) p-6 shadow-(--panel-lift) panel-blur scroll-slim',
+          'fixed left-1/2 top-1/2 z-(--z-modal) max-h-[85vh] w-[min(92vw,32rem)] -translate-x-1/2 -translate-y-1/2 overflow-auto rounded-(--radius-lg) border p-6 scroll-slim',
+          SURFACE_PANEL,
           'data-[state=open]:animate-[folio-panel-in_var(--duration-base)_var(--ease)] data-[state=closed]:animate-[folio-fade-out_var(--duration-fast)_var(--ease)]',
           // Against the container's box rather than the viewport's, and capped
           // by it: 92vw inside a 400px frame is not a cap at all.

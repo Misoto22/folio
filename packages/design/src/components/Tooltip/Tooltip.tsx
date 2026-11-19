@@ -3,6 +3,7 @@
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
 import type { ComponentProps, ReactNode } from 'react'
 import { cn } from '../../lib/cn'
+import { SURFACE_FEATURE } from '../../lib/surface'
 import { useOverlayContainer } from '../../lib/overlay-container'
 
 /**
@@ -64,7 +65,8 @@ export function Tooltip({
           sideOffset={sideOffset}
           data-folio-animated
           className={cn(
-            'z-(--z-toast) max-w-64 rounded-(--radius) bg-(--feature-surface) px-2.5 py-1.5 font-mono text-[11px] leading-snug text-(--on-feature)',
+            'z-(--z-toast) max-w-64 rounded-(--radius) px-2.5 py-1.5 font-mono text-[11px] leading-snug',
+            SURFACE_FEATURE,
             'data-[state=delayed-open]:animate-[folio-fade-in_var(--duration-fast)_var(--ease)]',
           )}
         >

@@ -4,6 +4,7 @@ import * as ContextMenuPrimitive from '@radix-ui/react-context-menu'
 import type { IconComponent } from '../../icons'
 import { isValidElement, useId, type ComponentProps, type ReactNode } from 'react'
 import { cn } from '../../lib/cn'
+import { SURFACE_PANEL } from '../../lib/surface'
 import { useOverlayContainer } from '../../lib/overlay-container'
 
 /**
@@ -71,7 +72,8 @@ export function ContextMenuContent({
         collisionPadding={8}
         data-folio-animated
         className={cn(
-          'z-(--z-dropdown) min-w-44 rounded-(--radius-lg) border border-(--panel-border) bg-(--panel-bg) p-1.5 shadow-(--panel-lift) panel-blur',
+          'z-(--z-dropdown) min-w-44 rounded-(--radius-lg) border p-1.5',
+          SURFACE_PANEL,
           'data-[state=open]:animate-[folio-pop-in_var(--duration-base)_var(--ease-out-expo)] data-[state=closed]:animate-[folio-pop-out_var(--duration-fast)_var(--ease)] origin-(--radix-popper-transform-origin)',
           className,
         )}

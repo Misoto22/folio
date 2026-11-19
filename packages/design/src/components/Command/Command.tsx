@@ -5,6 +5,7 @@ import { Search as SearchIcon } from '../../icons'
 import type { IconComponent } from '../../icons'
 import { isValidElement, type ComponentProps, type ReactNode } from 'react'
 import { cn } from '../../lib/cn'
+import { SURFACE_PANEL } from '../../lib/surface'
 
 /**
  * True for a component type — `icon={Settings}` — rather than a rendered element.
@@ -60,7 +61,8 @@ export function Command({
   return (
     <CommandPrimitive
       className={cn(
-        'flex w-full flex-col overflow-hidden rounded-(--radius-lg) border border-(--panel-border) bg-(--panel-bg) shadow-(--panel-lift) panel-blur',
+        'flex w-full flex-col overflow-hidden rounded-(--radius-lg) border',
+        SURFACE_PANEL,
         className,
       )}
       {...props}
