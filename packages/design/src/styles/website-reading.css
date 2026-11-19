@@ -94,7 +94,7 @@
    a drawn status bar so a capture without a system bar still reads as a phone.
    The status bar takes the page's paper and ink, matching a themed capture. */
 .folio-device-preview[data-kind=phone]{max-width:16.5rem;justify-self:center}
-.folio-device-preview[data-kind=phone]>div{position:relative;padding:.5rem;border:0;border-radius:2.75rem;background:var(--device-bezel);box-shadow:0 0 0 1px var(--device-rim),0 1.5rem 3rem color-mix(in srgb,var(--device-island) 22%,transparent)}
+.folio-device-preview[data-kind=phone]>div{position:relative;padding:var(--device-bezel-pad);border:0;border-radius:calc(var(--device-glass-radius) + var(--device-bezel-pad));background:var(--device-bezel);box-shadow:0 0 0 1px var(--device-rim),0 1.5rem 3rem color-mix(in srgb,var(--device-island) 22%,transparent)}
 .folio-device-glass{position:relative;display:flex;flex-direction:column;aspect-ratio:393/852;overflow:hidden;border-radius:var(--device-glass-radius);background:var(--device-island);container-type:inline-size}
 .folio-device-glass::before{content:'';position:absolute;z-index:1;inset-block-start:1.3%;inset-inline-start:50%;inline-size:31%;block-size:3.6%;translate:-50% 0;border-radius:var(--radius-pill);background:var(--device-island)}
 .folio-device-status{flex:none;display:flex;align-items:center;justify-content:space-between;aspect-ratio:393/54;padding-inline:9% 7%;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:var(--device-status-type);font-weight:600;font-variant-numeric:tabular-nums;line-height:1}
@@ -115,7 +115,7 @@
 .folio-preview-pair[data-layout=overlap]>:first-child>div{margin-block-end:calc(var(--folio-pair-drop) / var(--folio-pair-desktop) * 100%)}
 .folio-preview-pair[data-layout=overlap]>:first-child figcaption{margin-inline-end:calc((var(--folio-pair-desktop) - 1) / var(--folio-pair-desktop) * 100%)}
 .folio-preview-pair[data-layout=overlap]>:nth-child(2){position:absolute;inset-block-start:0;inset-inline-end:0;width:calc(var(--folio-pair-phone) * 100%);max-width:none;margin-block-start:calc((var(--folio-pair-desktop) * 10 / 16 + var(--folio-pair-drop) - var(--folio-pair-phone) * 852 / 393) * 100%)}
-.folio-preview-pair[data-layout=overlap]>:nth-child(2)>div{padding:0;border:1px solid var(--rule-2);border-radius:var(--device-glass-radius);background:var(--paper);box-shadow:none;outline:.375rem solid var(--paper)}
+.folio-preview-pair[data-layout=overlap]>:nth-child(2)>div{padding:0;border:1px solid var(--rule-2);border-radius:var(--device-frameless-radius);background:var(--paper);box-shadow:none;outline:.375rem solid var(--paper)}
 .folio-preview-pair[data-layout=overlap]>:nth-child(2) .folio-device-glass{border-radius:0;background:var(--paper)}
 /* Read by assistive tech, never drawn. A 1px box with overflow hidden, not a clip alone: a clipped
    nowrap caption kept its full width and pushed the page sideways on a phone. */
