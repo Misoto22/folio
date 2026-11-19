@@ -33,7 +33,8 @@
     ],
     ".rulesync/rules/10-core-git.md": [
       "HAR-GIT-001",
-      "HAR-GIT-002"
+      "HAR-GIT-002",
+      "HAR-GIT-003"
     ],
     ".rulesync/rules/10-core-governance.md": [
       "HAR-GOV-001",
@@ -206,6 +207,30 @@
         {
           "type": "policy",
           "ref": "user-approved-plan-2026-08-30"
+        }
+      ],
+      "enforcement": [
+        {
+          "kind": "review",
+          "check": "Repository review",
+          "blocking": true
+        }
+      ]
+    },
+    {
+      "id": "HAR-GIT-003",
+      "name": "Commit hygiene",
+      "level": "MUST",
+      "scope": "core",
+      "owner": "harness",
+      "status": "active",
+      "since": "0.21.0",
+      "statement": "Commit only on a non-default branch, keep one logical change per commit, and keep the commit subject under 72 characters.",
+      "rationale": "Small single-purpose commits on a branch keep history reviewable and revertible, and a short subject survives every log view.",
+      "sources": [
+        {
+          "type": "policy",
+          "ref": "owner-decision-2026-11-19"
         }
       ],
       "enforcement": [

@@ -3,7 +3,7 @@
   "files": [
     {
       "path": ".cursor/rules/misoto-harness.mdc",
-      "sha256": "9c389841640442fccdfbc352159840f47968afd9f45c25d17c143298b078ffb0"
+      "sha256": "290974ad7f3bca8e735a541eed32e000380dd88d376d5db7dbc5595b16dc1629"
     },
     {
       "path": ".github/workflows/misoto-harness.yml",
@@ -31,7 +31,7 @@
     },
     {
       "path": ".rulesync/rules/00-generated-metadata.md",
-      "sha256": "31dbd49bf393a505aa9f7068d2f63a7be0fbae97708e68c01b55c4a085aa1afa"
+      "sha256": "27196e8c5f91fe82ecfddccf889c0125d6020e0dc3ad28d817b98fe14360c258"
     },
     {
       "path": ".rulesync/rules/10-core-architecture.md",
@@ -55,7 +55,7 @@
     },
     {
       "path": ".rulesync/rules/10-core-git.md",
-      "sha256": "94ced4c78e0a0e1e6846f0d71d6d7ea182ed5abae88ad18b60c03208adb8368f"
+      "sha256": "2f1b162c2207f44dea9e12809a7631c89090a3e8408533b770dfa90ceec6cbd3"
     },
     {
       "path": ".rulesync/rules/10-core-governance.md",
@@ -83,19 +83,19 @@
     },
     {
       "path": ".rulesync/shared-rules.json",
-      "sha256": "8d78d2c2f3305b429d2b70b2bc3776750ed3a66f7bac5252026a2f1d435ffdec"
+      "sha256": "f716e541c15313c2ef935dbf3e8609c72067103c12919b4130924339b00ffd6a"
     },
     {
       "path": "AGENTS.md",
-      "sha256": "5b7116020208aef9850e0afaf4f58fe2327c6ea46233fd669a2d0b30fc8e6518"
+      "sha256": "026de975be410ac0ae4dfbd4a18c37397a4c2b5bea4d20c376f8b1b90a8f54db"
     },
     {
       "path": "CLAUDE.md",
-      "sha256": "add2ca7358c668f670d87f371dc322039c087d56f9566ba7527317942c43708c"
+      "sha256": "ce3a898e683d3a0b83ff442e46b0c19bddc0bd5dfc73a6b9d34bb1cdb1c9cb51"
     },
     {
       "path": "GEMINI.md",
-      "sha256": "908d58a8c7ae2a1fb136ed16def9f5629c9629120c54789efa39d1cee87d2c09"
+      "sha256": "326d45447dd041aecb803a69d0648e5b02b90aaaa3d3b45ffb7013c89d15d3f2"
     },
     {
       "path": "rulesync.jsonc",
@@ -103,7 +103,7 @@
     },
     {
       "path": "rulesync.lock.json",
-      "sha256": "7d85920d1e3966cb94932a21d4352ae7c65528df11b169e6fcfbe466d94c6f19"
+      "sha256": "b7a9ff3a981ced19eb9830972b675db426c69fcbcc422b3475a515aa5c4be229"
     }
   ]
 }
