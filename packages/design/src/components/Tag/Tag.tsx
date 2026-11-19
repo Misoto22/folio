@@ -114,7 +114,7 @@ export function Tag({ children, active, onClick, onRemove, removeLabel, classNam
         // the chips apart — the 44px floor is for a standalone control, and
         // a chip is 24 tall to begin with.
         'relative inline-flex size-4 shrink-0 items-center justify-center rounded-(--radius-xs)',
-        "before:absolute before:inset-[-4px] before:content-['']",
+        "before:absolute before:-inset-1 before:content-['']",
         'opacity-60 transition-opacity duration-(--duration-fast) hover:opacity-100 focus-visible:opacity-100',
       )}
     >

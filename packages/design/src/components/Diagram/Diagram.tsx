@@ -95,7 +95,7 @@ export function Diagram({ spec, className }: DiagramProps) {
 
   return (
     <figure className={cn('m-0', className)} role="group" aria-label={label ?? caption ?? undefined}>
-      <div className="overflow-x-auto rounded-(--radius-lg) border border-(--rule) bg-(--paper-2) p-[clamp(1.125rem,calc(2.5*var(--fluid)),1.875rem)] scroll-slim">
+      <div className="overflow-x-auto rounded-(--radius-lg) border border-(--rule) bg-(--paper-2) p-(--space-figure) scroll-slim">
         <NodeList nodes={nodes} leads={leads} direction={direction} depth={0} />
       </div>
       {caption && (

@@ -160,7 +160,7 @@ function LegendSwatch({
       return (
         <span
           aria-hidden
-          className="size-2.5 shrink-0 rounded-(--radius-pill) p-[1.5px]"
+          className="size-2.5 shrink-0 rounded-(--radius-pill) p-(--space-swatch)"
           style={outline}
         />
       )
@@ -169,7 +169,7 @@ function LegendSwatch({
     case 'horizontal-bar':
       return <span aria-hidden className="h-1 w-3 shrink-0 rounded-[2px]" style={fill} />
     case 'rounded-square-outline':
-      return <span aria-hidden className="size-2.5 shrink-0 rounded-[3px] p-[1.5px]" style={outline} />
+      return <span aria-hidden className="size-2.5 shrink-0 rounded-[3px] p-(--space-swatch)" style={outline} />
     case 'rounded-square':
     default:
       return <span aria-hidden className="size-2 shrink-0 rounded-[2px]" style={fill} />

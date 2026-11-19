@@ -79,7 +79,7 @@ describe('Tag', () => {
       </Tag>,
     )
     expect(screen.getByRole('button', { name: 'Remove Rust filter' }).className).toContain(
-      'before:inset-[-4px]',
+      'before:-inset-1',
     )
   })
 

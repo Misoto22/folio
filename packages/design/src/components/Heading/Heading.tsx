@@ -104,7 +104,7 @@ export function Heading({ children, level, size, className, ...rest }: HeadingPr
   return (
     <Comp
       className={cn(
-        'm-0 scroll-mt-[var(--scroll-offset)] font-heading font-normal text-(--ink)',
+        'm-0 scroll-mt-(--scroll-offset) font-heading font-normal text-(--ink)',
         SIZE[step],
         className,
       )}

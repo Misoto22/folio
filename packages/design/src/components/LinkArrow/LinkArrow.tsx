@@ -26,7 +26,7 @@ export function LinkArrow({ className, ...rest }: LinkArrowProps) {
     <span
       aria-hidden="true"
       className={cn(
-        'ms-[0.22em] inline-block align-[0.28em] font-mono text-[0.68em] leading-none text-(--ink-3-aa)',
+        'ms-(--space-arrow) inline-block align-[0.28em] font-mono text-[0.68em] leading-none text-(--ink-3-aa)',
         className,
       )}
       {...rest}

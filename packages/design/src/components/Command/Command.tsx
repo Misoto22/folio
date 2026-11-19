@@ -328,7 +328,7 @@ export function CommandDialog({
         // does — but the reserved gutter was still there, so the list stopped
         // thirteen pixels short of the panel and drew its own hairline inside
         // an empty channel. Two bars, one of them permanently blank.
-        className={cn('top-[10vh] w-[min(94vw,44rem)] translate-y-0 overflow-hidden p-0 [scrollbar-gutter:auto]', className)}
+        className={cn('top-(--space-palette-top) w-[min(94vw,44rem)] translate-y-0 overflow-hidden p-0 [scrollbar-gutter:auto]', className)}
       >
         {/* The modal has the whole screen, so its list may be taller than the
             default an inline menu should keep.
