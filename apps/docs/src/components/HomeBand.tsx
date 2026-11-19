@@ -183,7 +183,7 @@ const ROW_TWO: Tile[] = [
   {
     name: 'Kbd',
     render: (
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[13px] text-(--ink-3-aa)">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-meta text-(--ink-3-aa)">
         <span className="flex items-center gap-1.5">
           <Kbd>⌘</Kbd>
           <Kbd>K</Kbd>
@@ -249,7 +249,7 @@ const ROW_TWO: Tile[] = [
   {
     name: 'Separator',
     render: (
-      <div className="flex w-full flex-col gap-3 text-[13px] text-(--ink-2)">
+      <div className="flex w-full flex-col gap-3 text-meta text-(--ink-2)">
         <span>Radix under the behaviour</span>
         <Separator />
         <span>Tokens over the paint</span>

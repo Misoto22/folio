@@ -14,7 +14,7 @@ import { LawDemo } from '@/components/LawDemo'
 export function Principles({ locale }: { locale: Locale }) {
   const copy = locale === 'zh' ? PAGE_ZH.principles : undefined
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-col gap-10">
+    <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 xl:max-w-[70rem]">
       <PageIntro
         eyebrow={locale === 'zh' ? '开始' : 'Start'}
         title={copy?.title ?? 'Principles'}
@@ -35,10 +35,10 @@ export function Principles({ locale }: { locale: Locale }) {
                 <h2 className="m-0 font-heading text-[length:var(--fs-item)] font-normal text-(--ink)">
                   {translated?.title ?? law.title}
                 </h2>
-                <p className="m-0 max-w-(--w-reading) text-sm leading-relaxed text-(--ink-2)">
+                <p className="m-0 max-w-(--w-reading) text-body text-(--ink-2)">
                   {translated?.body ?? law.body}
                 </p>
-                <p className="m-0 max-w-(--w-reading) border-s border-(--rule-2) ps-4 text-[13px] leading-relaxed text-(--ink-3-aa)">
+                <p className="m-0 max-w-(--w-reading) border-s border-(--rule-2) ps-4 text-meta leading-relaxed text-(--ink-3-aa)">
                   <span className="eyebrow">{copy?.rulesOut ?? 'Rules out'}</span>
                   <br />
                   {translated?.rules_out ?? law.rules_out}

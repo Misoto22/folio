@@ -60,7 +60,7 @@ export function TokenTable({ id, title, note, rows, dark, locale = 'en' }: Token
           {title}
         </h2>
         {note && (
-          <p className="m-0 max-w-(--measure-record) text-[13px] leading-relaxed text-(--ink-3-aa)">
+          <p className="m-0 max-w-(--measure-record) text-meta leading-relaxed text-(--ink-3-aa)">
             {note}
           </p>
         )}
@@ -110,7 +110,7 @@ export function TokenTable({ id, title, note, rows, dark, locale = 'en' }: Token
                     )}
                   </TD>
                 )}
-                <TD className="max-w-(--measure-record) align-top text-[13px] leading-relaxed">
+                <TD className="max-w-(--measure-record) align-top text-meta leading-relaxed">
                   {row.comment ?? <span className="text-(--rule-2)">—</span>}
                 </TD>
               </TR>

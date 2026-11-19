@@ -34,7 +34,7 @@ export async function FoundationPage({ locale, slug }: { locale: Locale; slug: s
 
         <div className="flex max-w-(--w-reading) flex-col gap-4">
           {(zh.intro ?? page.intro).map((paragraph) => (
-            <p key={paragraph} className="m-0 text-[15px] leading-relaxed text-(--ink-2)">
+            <p key={paragraph} className="m-0 text-body leading-relaxed text-(--ink-2)">
               {paragraph}
             </p>
           ))}
@@ -103,7 +103,7 @@ function ProseSection({ section, copy }: { section: FoundationSection; copy?: Se
             // there. `md:` only — at a phone's width the two stack.
             <div key={row.term} className="grid gap-1 py-3.5 md:grid-cols-[15rem_minmax(0,1fr)] md:gap-5">
               <dt className="m-0 font-mono text-xs text-(--ink)">{row.term}</dt>
-              <dd className="m-0 max-w-(--measure-record) text-[13px] leading-relaxed text-(--ink-2)">
+              <dd className="m-0 max-w-(--measure-record) text-meta leading-relaxed text-(--ink-2)">
                 {copy?.rows?.[row.term] ?? row.detail}
               </dd>
             </div>

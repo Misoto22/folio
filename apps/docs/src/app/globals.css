@@ -51,6 +51,31 @@
   --font-heading: var(--serif);
   --font-serif: var(--serif);
   --font-mono: var(--mono);
+
+  /* The running-text scale. The package's ladder (--fs-title … --fs-item)
+     covers headings only, so this app had invented its own: 11, 12, 12.5, 13,
+     13.5, 15 and 17px, typed 66 times across the chrome and views. These are the steps every one of those
+     now names, as Tailwind utilities (`text-meta`, `text-body`, …):
+       micro    11px  counts, keycaps, a thumbnail's own labels
+       caption  12px  code and table metadata
+       meta     13px  kickers, captions, secondary rows
+       body     16px  running text — up from 14/15, which read as faint
+       lede     20px  the one summary under a page title
+       title    32–40px  the page's <h1> */
+  --text-thumb: 0.4375rem;
+  --text-micro: 0.6875rem;
+  --text-caption: 0.75rem;
+  --text-meta: 0.8125rem;
+  --text-meta--line-height: 1.25rem;
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+  --text-lede: 1.25rem;
+  --text-lede--line-height: 1.5;
+  /* A page's one <h1>. Not the package's --fs-title: under the quiet voice
+     the display steps come down to two-thirds, which suits a portfolio's
+     headline and leaves a reference page's title smaller than its lede. */
+  --text-title: clamp(2rem, 1.4rem + 1.6vw, 2.5rem);
+  --text-title--line-height: 1.15;
 }
 
 @layer base {
@@ -76,8 +101,10 @@
     background: var(--paper);
     color: var(--ink);
     font-family: var(--sans);
-    font-weight: 300;
-    line-height: 1.6;
+    /* The voice axis decides: light under the White Reset, regular under the
+       site's own Workbench preset. */
+    font-weight: var(--body-weight);
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
 }
@@ -128,6 +155,6 @@
 .shiki code {
   display: block;
   font-family: var(--mono);
-  font-size: 12.5px;
+  font-size: var(--text-caption);
   line-height: 1.75;
 }

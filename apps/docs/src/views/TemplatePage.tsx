@@ -28,7 +28,7 @@ export async function TemplatePage({ locale, slug }: { locale: Locale; slug: str
           { label: zh.name ?? template.name },
         ]}
       >
-        <p className="m-0 max-w-(--w-reading) border-s border-(--rule-2) ps-4 text-sm leading-relaxed text-(--ink-2)">
+        <p className="m-0 max-w-(--w-reading) border-s border-(--rule-2) ps-4 text-body text-(--ink-2)">
           {zh.tests ?? template.tests}
         </p>
       </PageIntro>
@@ -42,7 +42,7 @@ export async function TemplatePage({ locale, slug }: { locale: Locale; slug: str
             <Tag key={name}>{name}</Tag>
           ))}
         </div>
-        <p className="m-0 max-w-(--w-reading) text-sm leading-relaxed text-(--ink-3-aa)">
+        <p className="m-0 max-w-(--w-reading) text-body text-(--ink-3-aa)">
           {locale === 'zh'
             ? PAGE_ZH.templates.builtNote
             : 'Nothing here was styled specially for the template. That is the only arrangement where it stays honest as the system changes — a template with its own CSS stops being a test of the components and becomes a screenshot.'}

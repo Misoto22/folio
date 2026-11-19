@@ -43,7 +43,7 @@ export function Home({ locale }: { locale: Locale }) {
   const groups = groupedComponents()
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-16">
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-16">
       {/* The landing page's own masthead rather than `PageIntro`, which every
           other route shares. This is the one page with nothing above it and
           nothing to navigate back to, so it takes the title step the ladder
@@ -60,10 +60,10 @@ export function Home({ locale }: { locale: Locale }) {
             <p className="m-0 eyebrow text-(--ink-3-aa)">{copy.eyebrow}</p>
             <Badge tone="outline">v{packageVersion()}</Badge>
           </div>
-          <h1 className="m-0 font-heading text-[length:var(--fs-title)] font-normal leading-[1.05] tracking-[-0.02em] text-(--ink)">
+          <h1 className="m-0 font-heading text-title font-medium tracking-tight text-(--ink)">
             {copy.title}
           </h1>
-          <p className="m-0 max-w-(--w-reading) text-[17px] leading-relaxed text-(--ink-2)">
+          <p className="m-0 max-w-(--w-reading) text-lede leading-relaxed text-(--ink-2)">
             {copy.summary}
           </p>
         </div>
@@ -91,7 +91,7 @@ export function Home({ locale }: { locale: Locale }) {
           <span className="eyebrow text-(--ink-3-aa)">{copy.builtOn}</span>
           {STACK.map((row) => (
             <span key={row.name} className="flex items-baseline gap-1.5">
-              <span className="text-[13px] text-(--ink-2)">{row.name}</span>
+              <span className="text-meta text-(--ink-2)">{row.name}</span>
               {'version' in row && (
                 <span className="mono-meta text-(--ink-3-aa)">v{row.version}</span>
               )}
@@ -128,7 +128,7 @@ export function Home({ locale }: { locale: Locale }) {
         <div className="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]">
           <div className="flex flex-col gap-4">
             <CodeBlock {...snippet('install')} label="install" />
-            <p className="m-0 text-sm leading-relaxed text-(--ink-3-aa)">{copy.installNote}</p>
+            <p className="m-0 text-body text-(--ink-3-aa)">{copy.installNote}</p>
           </div>
           <CodeBlock {...snippet('usage')} label="usage" />
         </div>
@@ -154,7 +154,7 @@ export function Home({ locale }: { locale: Locale }) {
                 <span className="font-heading text-[length:var(--fs-item)] text-(--ink)">
                   {zh.title ?? page.title}
                 </span>
-                <span className="text-[13px] leading-relaxed text-(--ink-3-aa)">
+                <span className="text-meta leading-relaxed text-(--ink-3-aa)">
                   {zh.summary ?? page.summary}
                 </span>
               </Link>
@@ -187,7 +187,7 @@ export function Home({ locale }: { locale: Locale }) {
 
       <section className="flex flex-col gap-5">
         <SectionHeading id="tailwind">{t.section.tailwind}</SectionHeading>
-        <p className="m-0 max-w-(--w-reading) text-sm leading-relaxed text-(--ink-2)">
+        <p className="m-0 max-w-(--w-reading) text-body text-(--ink-2)">
           {copy.tailwindNote}
         </p>
         <div className="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-2">
@@ -207,7 +207,7 @@ export function Home({ locale }: { locale: Locale }) {
           pointed every agent at the copy that goes stale. */}
       <section className="flex flex-col gap-5">
         <SectionHeading id="agents">{t.section.agents}</SectionHeading>
-        <p className="m-0 max-w-(--w-reading) text-sm leading-relaxed text-(--ink-2)">
+        <p className="m-0 max-w-(--w-reading) text-body text-(--ink-2)">
           {t.agents.note}
         </p>
 
@@ -217,11 +217,11 @@ export function Home({ locale }: { locale: Locale }) {
               {t.agents.installedTitle}
             </h3>
             <CodeBlock {...snippet('agent')} label="agent" />
-            <p className="m-0 text-sm leading-relaxed text-(--ink-3-aa)">
+            <p className="m-0 text-body text-(--ink-3-aa)">
               {fill(t.agents.installed, { count: COMPONENTS.length })}
             </p>
-            <p className="m-0 text-sm leading-relaxed text-(--ink-3-aa)">{t.agents.skill}</p>
-            <p className="m-0 text-sm leading-relaxed text-(--ink-3-aa)">{t.agents.skillsAdd}</p>
+            <p className="m-0 text-body text-(--ink-3-aa)">{t.agents.skill}</p>
+            <p className="m-0 text-body text-(--ink-3-aa)">{t.agents.skillsAdd}</p>
           </div>
 
           <div className="flex flex-col gap-3">
@@ -238,11 +238,11 @@ export function Home({ locale }: { locale: Locale }) {
                 <li key={row.href} className="flex flex-col gap-0.5">
                   <a
                     href={row.href}
-                    className="font-mono text-[13px] text-(--ink) underline decoration-(--rule-2) underline-offset-4 hover:decoration-(--ink)"
+                    className="font-mono text-meta text-(--ink) underline decoration-(--rule-2) underline-offset-4 hover:decoration-(--ink)"
                   >
                     {row.href}
                   </a>
-                  <span className="text-[13px] text-(--ink-3-aa)">{row.note}</span>
+                  <span className="text-meta text-(--ink-3-aa)">{row.note}</span>
                 </li>
               ))}
             </ul>
@@ -256,12 +256,12 @@ export function Home({ locale }: { locale: Locale }) {
           <h3 className="m-0 font-heading text-[length:var(--fs-item)] text-(--ink)">
             {t.agents.warningsTitle}
           </h3>
-          <p className="m-0 max-w-(--w-reading) text-sm leading-relaxed text-(--ink-3-aa)">
+          <p className="m-0 max-w-(--w-reading) text-body text-(--ink-3-aa)">
             {t.agents.warnings}
           </p>
           <ul className="m-0 flex list-none flex-wrap gap-x-4 gap-y-1 p-0">
             {WARNING_CODES.map((code) => (
-              <li key={code} className="font-mono text-[13px] text-(--ink-2)">
+              <li key={code} className="font-mono text-meta text-(--ink-2)">
                 {code}
               </li>
             ))}

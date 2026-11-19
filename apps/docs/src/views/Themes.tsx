@@ -7,7 +7,7 @@ export function Themes({ locale }: { locale: Locale }) {
   const t = getMessages(locale)
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-10">
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-10">
       <PageIntro
         eyebrow={t.nav.foundations}
         title={t.themes.title}

@@ -1,16 +1,17 @@
 'use client'
 
-import {
-  SidebarGroup,
-  SidebarItem,
-} from '@misoto22/folio'
+import { SidebarItem } from '@misoto22/folio'
+import type { RemixiconComponentType } from '@remixicon/react'
 import Link from 'next/link'
+import { useId } from 'react'
 import { usePathname } from 'next/navigation'
 import { groupedComponents } from '@/content/registry'
 import { foundationsInGroup } from '@/content/foundations'
 import { TEMPLATES } from '@/content/templates'
 import { sectionFor } from '@/content/sections'
 import { ThemeRail } from './ThemeRail'
+import { IconTile } from './IconTile'
+import { FOUNDATIONS_ICON, GROUP_ICON, SECTION_ICON } from '@/content/icons'
 import { componentName, foundationCopy, groupName, templateCopy } from '@/i18n/content'
 import { localePath } from '@/i18n/locales'
 import { useLocale, useMessages } from '@/i18n/useLocale'
@@ -43,16 +44,18 @@ export function Sidebar() {
   if (section === 'components') {
     return (
       <>
-        {/* The group holding the page you are on opens itself. Everything else
-            stays rolled up until asked for: forty-nine rows under seven headings
-            is a column taller than most screens, and a reader looking at Button
-            has no use for the other forty-eight being permanently unrolled. */}
+        {/* Every group unrolled. Rolled up, the rail was eleven chevrons and a
+            reader opened them one at a time to find a name; unrolled it is a
+            list the eye runs down, with a glyph per heading to land on. The
+            rail scrolls in its own box, so its length costs the page nothing,
+            and the group holding the open page is marked by its ink tile. */}
         {groupedComponents().map((group) => (
           <Section
             key={group.group}
             title={groupName(locale, group.group)}
+            icon={GROUP_ICON[group.group]}
             count={group.entries.length}
-            defaultOpen={group.entries.some((entry) =>
+            current={group.entries.some((entry) =>
               pathname.includes(`/components/${entry.slug}/`),
             )}
           >
@@ -74,7 +77,7 @@ export function Sidebar() {
   if (section === 'templates') {
     return (
       <>
-        <Section title={t.nav.templates} count={TEMPLATES.length} defaultOpen>
+        <Section title={t.nav.templates} icon={SECTION_ICON.templates} count={TEMPLATES.length} current>
           {TEMPLATES.map((template) => (
             <Row
               key={template.slug}
@@ -116,14 +119,15 @@ export function Sidebar() {
   return (
     <>
       {[
-        { title: t.nav.guide, rows: guide },
-        { title: t.nav.foundations, rows: foundations },
+        { title: t.nav.guide, icon: SECTION_ICON.docs, rows: guide },
+        { title: t.nav.foundations, icon: FOUNDATIONS_ICON, rows: foundations },
       ].map((group) => (
         <Section
           key={group.title}
           title={group.title}
+          icon={group.icon}
           count={group.rows.length}
-          defaultOpen={group.rows.some((row) => row.href === pathname)}
+          current={group.rows.some((row) => row.href === pathname)}
         >
           {group.rows.map((row) => (
             <Row key={row.href} href={row.href} pathname={pathname}>
@@ -137,29 +141,42 @@ export function Sidebar() {
 }
 
 /**
- * A group in the rail.
+ * A group in the rail: its glyph, its name, how many rows it holds, and the
+ * rows — always open.
  *
- * A thin pass to the package's own `SidebarGroup`: this site was carrying its
- * own heading, chevron, count and indent rule, which is how three rails that
- * render the same component ended up looking like three components. What is
- * left here is the one thing the package cannot know — whether the page being
- * read is inside this group.
+ * Not the package's `SidebarGroup`, which folds and has no place for a glyph.
+ * Folding was the rail's worst habit: eleven headings with chevrons and
+ * counts, and a reader had to open each to learn what was inside. The rows are
+ * short enough to scan unrolled, and the glyph beside each heading is what
+ * lets an eye find "Charts" without reading eleven words. The tile is ink for
+ * the group holding the open page and stone for the rest — the rail's "you are
+ * here" before the row itself is found.
  */
 function Section({
   title,
+  icon,
   count,
-  defaultOpen = false,
+  current = false,
   children,
 }: {
   title: string
+  icon: RemixiconComponentType
   count?: number
-  defaultOpen?: boolean
+  current?: boolean
   children: React.ReactNode
 }) {
+  const id = useId()
   return (
-    <SidebarGroup label={title} count={count} defaultOpen={defaultOpen}>
-      {children}
-    </SidebarGroup>
+    <div role="group" aria-labelledby={id} className="flex flex-col gap-0.5 pb-4">
+      <p id={id} className="m-0 flex items-center gap-2.5 px-2 pb-1 text-sm font-medium text-(--ink)">
+        <IconTile icon={icon} size="sm" current={current} />
+        {title}
+        {count !== undefined && (
+          <span className="ms-auto font-normal text-meta text-(--ink-3-aa) tabular-nums">{count}</span>
+        )}
+      </p>
+      <div className="flex flex-col gap-0.5 ps-8">{children}</div>
+    </div>
   )
 }
 

@@ -56,7 +56,7 @@ export function IconSpecimen({ locale }: { locale: Locale }) {
             <p className="m-0 w-28 shrink-0 mono-meta text-(--ink-3-aa)">
               {step.size}px{step.token ? ` · ${step.token}` : ''}
             </p>
-            <p className="m-0 max-w-(--measure-record) text-[13px] leading-relaxed text-(--ink-2)">
+            <p className="m-0 max-w-(--measure-record) text-meta leading-relaxed text-(--ink-2)">
               {t.sizes[step.size]}
             </p>
           </div>
@@ -78,7 +78,7 @@ export function IconSpecimen({ locale }: { locale: Locale }) {
             </div>
           ))}
         </div>
-        <p className="m-0 max-w-(--measure-record) text-[13px] leading-relaxed text-(--ink-3-aa)">
+        <p className="m-0 max-w-(--measure-record) text-meta leading-relaxed text-(--ink-3-aa)">
           {t.inABoxNote}
         </p>
       </section>
@@ -93,7 +93,7 @@ export function IconSpecimen({ locale }: { locale: Locale }) {
             </div>
           ))}
         </div>
-        <p className="m-0 max-w-(--measure-record) text-[13px] leading-relaxed text-(--ink-3-aa)">
+        <p className="m-0 max-w-(--measure-record) text-meta leading-relaxed text-(--ink-3-aa)">
           {t.brandsNote}
         </p>
       </section>

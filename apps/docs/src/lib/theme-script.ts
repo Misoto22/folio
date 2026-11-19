@@ -38,12 +38,19 @@ export const THEME_SCRIPT = `
     var stored = read(keys.mode)
     var system = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
     root.dataset.mode = stored === 'light' || stored === 'dark' ? stored : system
-    var accent = read(keys.accent)
-    if (accent) root.dataset.accent = accent
+    // A reader who has never chosen gets the site's own look — the Docs preset,
+    // Workbench with an ink accent — rather than the bare package. The initial object is that preset;
+    // the defaults object is what each axis reads with NO attribute, so a value equal
+    // to its default is still left unwritten. Both are checked against
+    // ThemeProvider by theme-axes.test.ts.
+    var initial = { surface: 'linen', action: 'ink', radius: 'soft', rules: 'quiet', type: 'grotesk', motion: 'calm', voice: 'quiet', density: 'comfortable', chartPalette: 'mono', controls: 'pill', accent: 'ink' }
+    var accent = read(keys.accent) || initial.accent
+    root.dataset.accent = accent
     // Every other axis, restored the same way and for the same reason: a theme
     // applied on hydration is a theme the reader watches being applied.
-    var theme = JSON.parse(read(keys.theme) || '{}')
-    var defaults = { surface: 'paper', action: 'accent', radius: 'soft', rules: 'hairline', type: 'editorial', motion: 'calm', voice: 'display', density: 'comfortable', chartPalette: 'mono' }
+    var storedTheme = read(keys.theme)
+    var theme = storedTheme ? JSON.parse(storedTheme) : initial
+    var defaults = { surface: 'paper', action: 'accent', radius: 'soft', rules: 'hairline', type: 'editorial', motion: 'calm', voice: 'display', density: 'comfortable', chartPalette: 'mono', controls: 'fitted' }
     for (var axis in defaults) {
       if (theme[axis] && theme[axis] !== defaults[axis]) root.dataset[axis] = theme[axis]
     }

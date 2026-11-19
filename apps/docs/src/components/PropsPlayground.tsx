@@ -299,7 +299,7 @@ export function PropsPlayground({
       )}
 
       {passthrough.length > 0 && !failed && (
-        <p className="m-0 text-[13px] leading-relaxed text-(--ink-3-aa)">
+        <p className="m-0 text-meta leading-relaxed text-(--ink-3-aa)">
           {fill(t.table.passthrough, { types: passthrough.join(', ') })}
         </p>
       )}
@@ -373,7 +373,7 @@ function ControlTable({
                   onChange={(next) => set(row.name, next)}
                 />
               </TD>
-              <TD className="max-w-(--measure-record) align-top text-[13px] leading-relaxed">
+              <TD className="max-w-(--measure-record) align-top text-meta leading-relaxed">
                 {row.description || <span className="text-(--ink-3-aa)">—</span>}
               </TD>
             </TR>

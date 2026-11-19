@@ -58,7 +58,7 @@ export function Changelog({ locale }: { locale: Locale }) {
   const t = getMessages(locale)
   const copy = locale === 'zh' ? PAGE_ZH.changelog : undefined
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-col gap-10">
+    <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 xl:max-w-[70rem]">
       <PageIntro
         eyebrow={t.nav.start}
         title={copy?.title ?? t.nav.changelog}

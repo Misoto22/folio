@@ -21,6 +21,7 @@ import { DocsFooter } from './DocsFooter'
 import { LocaleMenu } from './LocaleMenu'
 import { Sidebar } from './Sidebar'
 import { ThemeToggle } from './ThemeToggle'
+import { SECTION_ICON } from '@/content/icons'
 import { HAS_SIDEBAR, SECTIONS, SECTION_ROOT, sectionFor, type SectionId } from '@/content/sections'
 import { localePath } from '@/i18n/locales'
 import { useLocale, useMessages } from '@/i18n/useLocale'
@@ -28,8 +29,9 @@ import { BRAND_NAME } from '@/lib/brand'
 import { STORAGE_KEYS } from '@/lib/storage-keys'
 
 /**
- * The frame every page sits in: a fixed sidebar on a desktop, a drawer under
- * `lg`, and one scrolling content column.
+ * The frame every page sits in: one masthead across the whole width, the
+ * section's rail under it on a desktop (a drawer under `lg`), and one
+ * scrolling content column.
  *
  * Not `AppShell` from the package, deliberately. `AppShell` is the admin-console
  * layout — a topbar plus a content well — and this site needs a documentation
@@ -38,28 +40,28 @@ import { STORAGE_KEYS } from '@/lib/storage-keys'
  * only to serve this site, which is exactly what DESIGN-ARCH-001 forbids.
  * Everything INSIDE the frame is the package's own components.
  */
-export function DocsShell({ children }: { children: ReactNode }) {
+/**
+ * `version` is handed in by the server layout rather than imported: the module
+ * that knows it also holds every example's source, and this is a client file.
+ */
+export function DocsShell({ children, version }: { children: ReactNode; version: string }) {
   return (
-    // Everything this used to keep by hand — which media query makes the rail a
-    // drawer, whether a closed one is `inert`, where the docked state is
-    // remembered — is the component's now. `1024` is `lg`, the width the rest
-    // of this file already switches at; the key is `STORAGE_KEYS.sidebar`, and
-    // the pre-paint script copies a value saved under its legacy name forward
-    // before this mounts, so a reader who had put the rail away keeps it away.
-    // `shortcut={null}` because this site's chord is ⌘K and taking a second one
-    // nobody asked for is not a refactor.
+    // `1024` is `lg`, the width the rest of this file switches at; the key is
+    // `STORAGE_KEYS.sidebar`, and the pre-paint script copies a value saved
+    // under its legacy name forward before this mounts. `shortcut={null}`
+    // because this site's chord is ⌘K.
     <SidebarProvider
       collapsible="offcanvas"
       breakpoint="lg"
       persist={STORAGE_KEYS.sidebar}
       shortcut={null}
     >
-      <Frame>{children}</Frame>
+      <Frame version={version}>{children}</Frame>
     </SidebarProvider>
   )
 }
 
-function Frame({ children }: { children: ReactNode }) {
+function Frame({ children, version }: { children: ReactNode; version: string }) {
   const { open, setOpen, mobile } = useSidebar()
   const docked = !mobile && open
   const pathname = usePathname()
@@ -67,9 +69,7 @@ function Frame({ children }: { children: ReactNode }) {
   const t = useMessages()
   const section = sectionFor(pathname)
   const sidebar = HAS_SIDEBAR[section]
-  // The rail's own name. It used to be the aside's, with a second `<nav>`
-  // inside it carrying a second name — two landmarks for one column. There is
-  // one now, and it is called what it holds: the themes rail is a set of
+  // The rail's own name, and what it holds: the themes rail is a set of
   // switches, not an index of documents.
   const railLabel = section === 'themes' ? t.themes.title : t.nav.documentation
   const SECTION_LABEL: Record<SectionId, string> = {
@@ -81,12 +81,9 @@ function Frame({ children }: { children: ReactNode }) {
 
   // Close on navigation: a drawer left open over the page the reader just asked
   // for is the most common mobile-nav bug. Guarded on `mobile`, because at a
-  // desktop width the same call means "undock the rail" — one `open` answering
-  // two questions, and this is the call site where the difference bites.
+  // desktop width the same call means "undock the rail".
   useEffect(() => {
     if (mobile) setOpen(false)
-    // The rail's own rows close it; this is for everything else that navigates
-    // — the palette, the section strip, a link inside the page.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
@@ -100,13 +97,6 @@ function Frame({ children }: { children: ReactNode }) {
   return (
     <>
       <CommandPalette />
-    {/* A flex row, not a grid with a computed track list. The grid had to be
-        told the sidebar's width AND told to drop the track when the sidebar
-        went away, in two places that could disagree — and they did: with a
-        fixed first track and the aside hidden, the CONTENT landed in the 272px
-        column. A collapsed rail is `w-0` here, so the row needs no second
-        opinion about how wide it is. */}
-    <div className="flex min-h-svh">
       <a
         href="#content"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-(--z-toast) focus:rounded-(--radius) focus:bg-(--ink) focus:px-4 focus:py-2 focus:text-sm focus:text-(--paper)"
@@ -114,207 +104,109 @@ function Frame({ children }: { children: ReactNode }) {
         {t.nav.skip}
       </a>
 
-      {sidebar && (
-      <SidebarRail
-        id="docs-sidebar"
-        label={railLabel}
-        scrimLabel={t.nav.closeNav}
-        // `compact`, and it is the system's own axis rather than a number
-        // invented here: this is a dense index driven by a mouse, which is
-        // exactly the trade `data-density` documents. Ten groups at the
-        // comfortable 44px floor is four hundred pixels of mostly nothing, and
-        // a reader looking for Breadcrumb scrolls past it.
-        data-density="compact"
-        // `lg:` on both, so neither can win against the drawer's own `fixed`
-        // below that width — a bare `sticky` here is merged as the same
-        // property and takes the drawer off the page it is supposed to cover.
-        className="lg:sticky lg:top-0 lg:h-svh"
-      >
-        {/* The same 4rem as the header beside it, and its own bottom rule, so
-            the two run as one line across the page. They used to be a
-            content-height block against a fixed-height bar, and the rules did
-            not meet.
+      {/* One band across the whole width, above the rail rather than beside it.
+          The brand used to live in the rail's head and move into the masthead
+          when the rail was put away — one fact in two places, and the place
+          changed with a toggle. It is in the masthead now, always.
 
-            4rem rather than 3.5: the lockup is two lines of type beside a
-            26px mark, and at 56px that stack had no air above or below it —
-            the band read as thin because it was being asked to hold more than
-            it had room for. The rule under it is the EDGE weight, not the
-            hairline, which is this system's own way of saying "this is a band,
-            not a row". */}
-        {/* The wordmark, and the control that puts this column away.
-            The collapse button lives HERE, on the thing it collapses, rather
-            than out in the masthead among five other icons with nothing
-            connecting it to the column it operates.
-            It used to be in both places depending on the state, which is how
-            neither ended up findable. The rule now is one control per state and
-            never two at once: this one closes the rail while the rail is on
-            screen, and the masthead's own button — the same button a phone uses
-            to open the drawer — brings it back once there is no rail left to
-            put it in. */}
-        <SidebarHeader className="h-(--bar-h) justify-between border-(--rule-2) px-4">
-          <Link
-            href={localePath(locale, '/')}
-            className="flex items-center gap-2.5 text-(--ink) transition-opacity duration-(--duration-fast) hover:opacity-70"
-          >
-            <BrandMark size={26} className="shrink-0" />
-            <span className="flex flex-col leading-none">
-              <span className="font-heading text-[17px] leading-tight">{BRAND_NAME[locale]}</span>
-              <span className="mono-meta text-(--ink-3-aa)">{t.tagline}</span>
-            </span>
-          </Link>
-          <Button
-            iconOnly
-            size="sm"
-            variant="ghost"
-            className="lg:hidden"
-            aria-label={t.nav.closeNav}
-            onClick={() => setOpen(false)}
-          >
-            <RiCloseLine size={16} aria-hidden />
-          </Button>
+          Three regions: the brand, the sections as one segmented control, and
+          the tools. Every control on a coarse pointer gets 44px. */}
+      <header className="sticky top-0 z-(--z-sticky) grid h-(--bar-h) grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 sm:gap-3 border-b border-(--rule-2) bg-(--paper) px-3 sm:px-5 pointer-coarse:[&_a]:min-h-11 pointer-coarse:[&_button]:min-h-11">
+        <div className="flex items-center gap-2">
+          {sidebar && (
+            <Button
+              iconOnly
+              size="sm"
+              variant="ghost"
+              className="lg:hidden"
+              aria-label={t.nav.openNav}
+              aria-expanded={open}
+              aria-controls="docs-sidebar"
+              onClick={() => setOpen(true)}
+            >
+              <RiMenuLine size={18} aria-hidden />
+            </Button>
+          )}
+          {/* The rail's own toggle, beside the brand on a desktop: one control
+              whose name says what it will do. */}
           {sidebar && (
             <Button
               iconOnly
               size="sm"
               variant="ghost"
               className="max-lg:hidden"
-              aria-label={t.nav.collapseNav}
-              aria-expanded
+              aria-label={docked ? t.nav.collapseNav : t.nav.expandNav}
+              aria-expanded={docked}
               aria-controls="docs-sidebar"
-              onClick={() => setOpen(false)}
+              onClick={() => setOpen(!docked)}
             >
-              <RiMenuFoldLine size={16} aria-hidden />
+              {docked ? <RiMenuFoldLine size={17} aria-hidden /> : <RiMenuUnfoldLine size={17} aria-hidden />}
             </Button>
           )}
-        </SidebarHeader>
-        {/* The four sections used to be repeated here, on the grounds that they
-            live in the masthead on a desktop and had nowhere to go on a phone.
-            They have somewhere to go now — the strip under the masthead — so
-            the drawer is back to one job: the open section's own index, rather
-            than sixteen rows of tree behind four rows of something else. */}
-        <SidebarContent className="gap-2 p-0 px-4 pt-4 pb-6">
-          <Sidebar />
-        </SidebarContent>
-      </SidebarRail>
-      )}
-
-      <SidebarInset>
-        {/* `size="sm"` is 36px, which the Button docs are explicit about being
-            below the pointer-target floor — a deliberate density for a mouse.
-            A finger is not a mouse, so every control in this bar gets 44px on a
-            coarse pointer. */}
-        <header className="sticky top-0 z-(--z-sticky) flex h-(--bar-h) items-center justify-between gap-3 border-b border-(--rule-2) bg-(--paper)/85 px-5 backdrop-blur pointer-coarse:[&_a]:min-h-11 pointer-coarse:[&_button]:min-h-11">
-          <Button
-            iconOnly
-            size="sm"
-            variant="ghost"
-            className="-ms-2 lg:hidden"
-            aria-label={t.nav.openNav}
-            aria-expanded={open}
-            aria-controls="docs-sidebar"
-            onClick={() => setOpen(true)}
-          >
-            <RiMenuLine size={18} aria-hidden />
-          </Button>
-
-          {/* The brand, wherever the sidebar's own head is not on screen.
-              That is not only the phone: collapsing the sidebar on a desktop
-              took the aside away with `lg:hidden`, and the site's name went
-              with it — the one state where a reader could not tell what they
-              were reading. The tagline is dropped here; below `sm` even the
-              wordmark goes, because at 390px the bar has a hamburger and four
-              controls to seat first and the mark alone still says whose site
-              this is. */}
           <Link
             href={localePath(locale, '/')}
-            className={`flex items-center gap-2 text-(--ink) transition-opacity duration-(--duration-fast) hover:opacity-70 ${
-              sidebar && docked ? 'lg:hidden' : ''
-            }`}
+            className="flex items-center gap-2.5 text-(--ink) transition-opacity duration-(--duration-fast) hover:opacity-70"
           >
             <BrandMark size={24} className="shrink-0" />
-            <span className="font-heading text-[16px] leading-none max-sm:sr-only">
+            <span className="text-[length:var(--fs-item)] leading-none font-medium tracking-tight max-sm:sr-only">
               {BRAND_NAME[locale]}
             </span>
           </Link>
-          {/* Only while there is no rail to hold its own control. Shown in
-              both states, this was the same action in two places at once. */}
-          {sidebar && !docked && (
-            <Button
-              iconOnly
-              size="sm"
-              variant="ghost"
-              className="max-lg:hidden"
-              aria-label={t.nav.expandNav}
-              aria-expanded={false}
-              aria-controls="docs-sidebar"
-              onClick={() => setOpen(true)}
-            >
-              <RiMenuUnfoldLine size={16} aria-hidden />
-            </Button>
-          )}
+          {/* Outside the link, so the link's name is the brand and nothing else. */}
+          <span className="rounded-(--radius-pill) bg-(--paper-2) px-2 py-0.5 font-mono text-micro text-(--ink-2) max-md:hidden">
+            v{version}
+          </span>
+        </div>
 
-          {/* The four sections, in the masthead rather than as four rows among
-              sixteen in the sidebar. A reader arriving on a component page had
-              no way to see that templates and themes existed at all. */}
-          {/* Full-height items, so the current section's underline lands ON
-              the masthead's bottom rule rather than floating above it. Colour
-              alone was carrying the state before, and one step of grey is not
-              a state anyone can see. */}
-          <nav
-            aria-label={t.nav.sections}
-            className="-mb-px flex h-(--bar-h) items-stretch gap-1 self-stretch max-nav:hidden"
-          >
+        {/* The four sections as one segmented control. Icon and word from
+            `nav` up; the icon alone below it, named for a screen reader, so a
+            phone still sees that templates and themes exist without a second
+            sticky strip eating 44px under the masthead. The current tab is a
+            raised capsule with its own edge — a state that does not rest on
+            one step of grey. */}
+        <nav
+          aria-label={t.nav.sections}
+          className="flex justify-center overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          <div className="flex items-center gap-0.5 rounded-(--radius-pill) bg-(--paper-2) p-1">
             {SECTIONS.map((id) => {
-              const href = localePath(locale, SECTION_ROOT[id])
+              const Icon = SECTION_ICON[id]
               return (
                 <Link
                   key={id}
-                  href={href}
+                  href={localePath(locale, SECTION_ROOT[id])}
                   aria-current={section === id ? 'page' : undefined}
-                  className="flex items-center border-b-2 border-transparent px-3 text-sm text-(--ink-3-aa) transition-colors duration-(--duration-fast) hover:text-(--ink) aria-[current=page]:border-(--ink) aria-[current=page]:text-(--ink)"
+                  className="flex h-9 shrink-0 items-center gap-2 rounded-(--radius-pill) border border-transparent px-2.5 nav:px-3 text-sm whitespace-nowrap text-(--ink-2) transition-colors duration-(--duration-fast) hover:text-(--ink) aria-[current=page]:border-(--rule-2) aria-[current=page]:bg-(--paper) aria-[current=page]:font-medium aria-[current=page]:text-(--ink)"
                 >
-                  {SECTION_LABEL[id]}
+                  <Icon size={16} aria-hidden />
+                  <span className="max-nav:sr-only">{SECTION_LABEL[id]}</span>
                 </Link>
               )
             })}
-          </nav>
+          </div>
+        </nav>
 
-          <div className="flex-1" />
-          <div className="flex items-center gap-1">
-            {/* A visible way in, because a shortcut nobody is told about is a
-                shortcut for the person who built it. */}
-            {/* `secondary`, so it reads as the FIELD it opens rather than as a
-                third ghost link in a row of ghost links. Same bordered box the
-                system gives an input, at the toolbar's own height. */}
-            {/* Wide enough to read as the FIELD it opens. Sized to its own
-                contents it was a button with three things crammed against each
-                other — narrower than the word "Search" needs, with the shortcut
-                pressed onto its end — and nothing about it said a search box
-                was one click away. The label takes the slack so the icon stays
-                at the start and the key stays at the end, which is the shape of
-                every search field this replaces. */}
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={() => document.dispatchEvent(new CustomEvent('folio:palette'))}
-              className="gap-2 text-(--ink-3-aa) sm:w-56 sm:justify-start max-sm:border-transparent max-sm:px-2"
-            >
-              <RiSearchLine size={14} aria-hidden />
-              <span className="max-sm:sr-only sm:flex-1 sm:text-start">{t.search}</span>
-              <Kbd className="max-sm:hidden">⌘K</Kbd>
-            </Button>
-            {/* The mark, not the word. Four of the five controls beside it are
-                icons, and spelling this one out made the row read as a link
-                that had wandered in from the page.
-
-                It is an import again. Remix Icon ships the brand marks lucide
-                dropped, so the octocat this site carried as a hand-drawn path
-                for two years is `RiGithubFill` — filled with `currentColor`,
-                so it still follows the button into dark mode. */}
+        <div className="flex items-center gap-2">
+          {/* A field, not a button that happens to open one: filled, with the
+              icon at the start and the chord at the end, which is the shape of
+              every search box this replaces. Below `sm` it is the glyph. */}
+          <button
+            type="button"
+            onClick={() => document.dispatchEvent(new CustomEvent('folio:palette'))}
+            className="flex h-9 items-center gap-2.5 rounded-(--radius-pill) bg-(--paper-2) px-3 text-sm text-(--ink-3-aa) transition-colors duration-(--duration-fast) hover:text-(--ink) max-sm:size-9 max-sm:justify-center max-sm:px-0 sm:w-56 lg:w-60"
+          >
+            <RiSearchLine size={16} aria-hidden />
+            <span className="max-sm:sr-only sm:flex-1 sm:text-start">{t.search}</span>
+            <Kbd className="max-sm:hidden">⌘K</Kbd>
+          </button>
+          {/* One capsule for the tools, so four icons read as a group rather
+              than as four unrelated buttons trailing off the edge. */}
+          <div className="flex items-center rounded-(--radius-pill) border border-(--rule-2) p-0.5">
             <Button
               iconOnly
               size="sm"
               variant="ghost"
+              className="rounded-(--radius-pill) max-md:hidden"
               href="https://github.com/Misoto22/folio"
               target="_blank"
               rel="noreferrer noopener"
@@ -322,59 +214,75 @@ function Frame({ children }: { children: ReactNode }) {
             >
               <RiGithubFill size={17} aria-hidden />
             </Button>
-            <LocaleMenu />
+            <span className="max-sm:hidden">
+              <LocaleMenu />
+            </span>
+            {/* The theme panel stays in the masthead at every width: it is the
+                site's demonstration, and a phone reader should not have to
+                open the drawer to find it. */}
             <ThemeMenu />
             <ThemeToggle />
           </div>
-        </header>
+        </div>
+      </header>
 
-        {/* The masthead's four sections, for the widths the masthead cannot
-            seat them at. Below `nav` they were reachable only by opening the
-            drawer — which is the exact failure the sections were lifted out of
-            the sidebar to fix: a reader on a component page could not see that
-            templates and themes existed at all.
-
-            Sticky under the masthead rather than scrolling away with the page.
-            It costs 44px of a phone screen, and it buys the same contract the
-            desktop already has: the top-level nav is reachable from anywhere in
-            a document, not only from its first screen. Scrolling it away while
-            the drawer no longer carries the sections would have left the middle
-            of a long page with no way across the site at all.
-
-            It scrolls sideways in its own box when the four labels do not fit —
-            English is the tight case at 390px — which is why the page itself
-            still does not. */}
-        <nav
-          aria-label={t.nav.sections}
-          className="sticky top-16 z-(--z-sticky) flex items-stretch gap-1 overflow-x-auto border-b border-(--rule) bg-(--paper)/85 px-3 backdrop-blur [scrollbar-width:none] nav:hidden [&::-webkit-scrollbar]:hidden"
-        >
-          {SECTIONS.map((id) => {
-            const href = localePath(locale, SECTION_ROOT[id])
-            return (
+      {/* A flex row, not a grid with a computed track list: a collapsed rail is
+          `w-0` here, so the row needs no second opinion about how wide it is. */}
+      <div className="flex min-h-[calc(100svh-var(--bar-h))]">
+        {sidebar && (
+          <SidebarRail
+            id="docs-sidebar"
+            label={railLabel}
+            scrimLabel={t.nav.closeNav}
+            // `compact`: a dense index driven by a mouse, which is exactly the
+            // trade `data-density` documents.
+            data-density="compact"
+            // `lg:` on all three, so none can win against the drawer's own
+            // `fixed` below that width.
+            className="lg:sticky lg:top-(--bar-h) lg:h-[calc(100svh-var(--bar-h))]"
+          >
+            {/* The drawer's own head, on a phone only: the masthead is behind
+                the scrim there, so the drawer carries the brand, the language
+                menu the masthead has no room for, and its own way out. */}
+            <SidebarHeader className="h-(--bar-h) justify-between border-(--rule-2) px-4 lg:hidden">
               <Link
-                key={id}
-                href={href}
-                aria-current={section === id ? 'page' : undefined}
-                className="flex h-11 shrink-0 items-center border-b-2 border-transparent px-3 text-sm whitespace-nowrap text-(--ink-3-aa) transition-colors duration-(--duration-fast) hover:text-(--ink) aria-[current=page]:border-(--ink) aria-[current=page]:text-(--ink)"
+                href={localePath(locale, '/')}
+                className="flex items-center gap-2.5 text-(--ink)"
               >
-                {SECTION_LABEL[id]}
+                <BrandMark size={22} className="shrink-0" />
+                <span className="text-[length:var(--fs-item)] leading-none font-medium">{BRAND_NAME[locale]}</span>
               </Link>
-            )
-          })}
-        </nav>
+              <div className="flex items-center gap-1">
+                <span className="sm:hidden">
+                  <LocaleMenu />
+                </span>
+                <Button
+                  iconOnly
+                  size="sm"
+                  variant="ghost"
+                  aria-label={t.nav.closeNav}
+                  onClick={() => setOpen(false)}
+                >
+                  <RiCloseLine size={16} aria-hidden />
+                </Button>
+              </div>
+            </SidebarHeader>
+            <SidebarContent className="gap-2 p-0 px-4 pt-5 pb-6">
+              <Sidebar />
+            </SidebarContent>
+          </SidebarRail>
+        )}
 
-        {/* `flex-1` on the MAIN and `mt-auto` on the footer, so a short page
-            pushes the footer to the bottom of the viewport instead of leaving
-            it stranded halfway up. The bottom padding drops from 24 to 16:
-            the footer's own top rule is the ending now, and 96px of nothing
-            in front of it just reads as the same void with a line under it. */}
-        <main id="content" className="min-w-0 flex-1 px-5 pb-16 pt-8 sm:px-8 lg:px-12">
-          {children}
-        </main>
+        <SidebarInset>
+          {/* `flex-1` on the MAIN and `mt-auto` on the footer, so a short page
+              pushes the footer to the bottom of the viewport. */}
+          <main id="content" className="min-w-0 flex-1 px-5 pb-16 pt-10 sm:px-8 lg:px-14">
+            {children}
+          </main>
 
-        <DocsFooter />
-      </SidebarInset>
-    </div>
+          <DocsFooter />
+        </SidebarInset>
+      </div>
     </>
   )
 }

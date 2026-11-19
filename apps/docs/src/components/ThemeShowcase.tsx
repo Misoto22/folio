@@ -93,13 +93,13 @@ function Storefront() {
   return (
     <section aria-label="Storefront" className="flex flex-col">
       <div className="flex items-center gap-3 border-b border-(--rule) px-5 py-3">
-        <span className="font-heading text-[15px] text-(--ink)">Studio</span>
+        <span className="font-heading text-body text-(--ink)">Studio</span>
         <nav aria-label="Storefront sections" className="flex items-center gap-1 max-@lg:hidden">
           {['Shop', 'New In', 'Stories', 'Help'].map((label, index) => (
             <span
               key={label}
               aria-current={index === 0 ? 'true' : undefined}
-              className="rounded-(--radius-pill) px-2.5 py-1 text-[13px] text-(--ink-3-aa) aria-[current]:bg-(--stone) aria-[current]:text-(--ink)"
+              className="rounded-(--radius-pill) px-2.5 py-1 text-meta text-(--ink-3-aa) aria-[current]:bg-(--stone) aria-[current]:text-(--ink)"
             >
               {label}
             </span>
@@ -138,10 +138,10 @@ function Storefront() {
             />
             <CardBody className="flex flex-col gap-2">
               <div className="flex items-baseline justify-between gap-2">
-                <span className="font-heading text-[15px] text-(--ink)">{product.name}</span>
+                <span className="font-heading text-body text-(--ink)">{product.name}</span>
                 <Badge tone={product.tone}>{product.tag}</Badge>
               </div>
-              <p className="m-0 text-[13px] leading-relaxed text-(--ink-3-aa)">{product.note}</p>
+              <p className="m-0 text-meta leading-relaxed text-(--ink-3-aa)">{product.note}</p>
               <div className="mt-1 flex items-center gap-2">
                 <span className="mono-meta text-(--ink)">{product.price}</span>
                 <Button size="sm" variant="secondary" className="ms-auto">
@@ -204,14 +204,14 @@ function Checkout() {
                 </Select>
               </Field>
             </div>
-            <label className="flex cursor-pointer items-center gap-2.5 text-[13px] text-(--ink-2)">
+            <label className="flex cursor-pointer items-center gap-2.5 text-meta text-(--ink-2)">
               <Checkbox defaultChecked />
               Save this card for one-click checkout
             </label>
           </TabsContent>
 
           <TabsContent value="wallet">
-            <p className="m-0 text-[13px] leading-relaxed text-(--ink-3-aa)">
+            <p className="m-0 text-meta leading-relaxed text-(--ink-3-aa)">
               You will be taken to your wallet to confirm. Nothing is charged here.
             </p>
           </TabsContent>
@@ -270,7 +270,7 @@ function Inventory() {
               <TD className="align-middle">
                 <span className="flex flex-col">
                   <span className="text-(--ink)">{row.name}</span>
-                  <span className="text-[12px] text-(--ink-3-aa)">{row.spec}</span>
+                  <span className="text-caption text-(--ink-3-aa)">{row.spec}</span>
                 </span>
               </TD>
               <TD align="end" className="align-middle tabular-nums">
@@ -330,7 +330,7 @@ function Numbers() {
               >
                 <Avatar alt="" fallback={row.id.slice(-2)} size="sm" />
                 <span className="flex min-w-0 flex-col">
-                  <span className="truncate text-[13px] text-(--ink)">Order #{row.id}</span>
+                  <span className="truncate text-meta text-(--ink)">Order #{row.id}</span>
                   <span className="mono-meta text-(--ink-3-aa)">
                     {row.what} · {row.when}
                   </span>

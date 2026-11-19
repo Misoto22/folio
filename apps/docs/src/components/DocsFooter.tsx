@@ -60,9 +60,9 @@ export function DocsFooter() {
               className="flex w-fit items-center gap-2.5 text-(--ink) transition-opacity duration-(--duration-fast) hover:opacity-70"
             >
               <BrandMark size={24} ground="var(--paper-2)" className="shrink-0" />
-              <span className="font-heading text-[17px] leading-tight">{BRAND_NAME[locale]}</span>
+              <span className="font-heading text-[length:var(--fs-item)] leading-tight">{BRAND_NAME[locale]}</span>
             </Link>
-            <p className="max-w-[38ch] text-[13.5px] leading-relaxed text-(--ink-2)">{t.footer.blurb}</p>
+            <p className="max-w-[38ch] text-meta leading-relaxed text-(--ink-2)">{t.footer.blurb}</p>
             {/* The site is published twice — once for people, once for a reader
                 that does not render CSS. The second one is only discoverable if
                 something says so out loud. */}
@@ -141,7 +141,7 @@ function FooterLink({
   children: React.ReactNode
 }) {
   const className =
-    'w-fit text-[13.5px] text-(--ink-2) transition-colors duration-(--duration-fast) hover:text-(--ink) hover:underline hover:underline-offset-2'
+    'w-fit text-meta text-(--ink-2) transition-colors duration-(--duration-fast) hover:text-(--ink) hover:underline hover:underline-offset-2'
 
   if (external) {
     return (

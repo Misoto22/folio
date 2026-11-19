@@ -138,11 +138,12 @@ test('the four sections are reachable without opening the drawer', async ({ page
     'page',
   )
 
-  // Sticky, not scrolled away. A strip that leaves with the first screen, on a
-  // drawer that no longer carries the sections, would strand the middle of a
-  // long page with no way across the site.
+  // Sticky, not scrolled away — and IN the masthead rather than a second bar
+  // under it. A strip of its own cost 44px of a phone screen on every page;
+  // as icon tabs inside the masthead it costs nothing and still never leaves.
+  await expect(page.getByRole('banner').getByRole('navigation', { name: 'Sections' })).toBeVisible()
   await page.evaluate(() => window.scrollTo(0, 2000))
-  await expect.poll(async () => Math.round((await strip.boundingBox())!.y)).toBe(64)
+  await expect.poll(async () => Math.round((await strip.boundingBox())!.y)).toBeLessThan(64)
 
   // Whatever the labels measure in a given language, they overflow INTO the
   // strip rather than dragging the document sideways. The sweep at the top of

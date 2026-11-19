@@ -78,7 +78,7 @@ export function PropsTable({ name, dir, rows, passthrough, locale = 'en' }: Prop
                     </span>
                   )}
                 </TD>
-                <TD className="max-w-(--measure-record) align-top text-[13px] leading-relaxed">
+                <TD className="max-w-(--measure-record) align-top text-meta leading-relaxed">
                   {apiCopy(locale, `${dir}.${name}#${row.name}`, row.description) || (
                     <span className="text-(--ink-3-aa)">—</span>
                   )}
@@ -90,7 +90,7 @@ export function PropsTable({ name, dir, rows, passthrough, locale = 'en' }: Prop
       )}
 
       {passthrough.length > 0 && (
-        <p className="m-0 text-[13px] leading-relaxed text-(--ink-3-aa)">
+        <p className="m-0 text-meta leading-relaxed text-(--ink-3-aa)">
           {fill(t.table.passthrough, { types: passthrough.join(', ') })}
         </p>
       )}

@@ -85,32 +85,27 @@ test('the theme toggle is reachable and flips the document', async ({ page }) =>
   await expect(page.locator('html')).not.toHaveAttribute('data-mode', before ?? 'light')
 })
 
-test('the sidebar groups collapse, so the index is not one long column', async ({ page }) => {
+test('the sidebar lists every group open, each under its heading', async ({ page }) => {
   // The component groups live under the Components section: the masthead names
   // the four sections, and the sidebar indexes whichever one is open.
   await page.goto('/components/')
   await expect(page.getByRole('button', { name: /Switch to the (light|dark) theme/ })).toBeVisible()
 
   const nav = page.getByRole('navigation', { name: 'Documentation' })
-  // Table sits under Data rather than Surfaces: it renders data without a
-  // rendering engine, which is exactly what that group means.
-  const data = nav.getByRole('button', { name: /Data/ })
-
-  // Sixty rows under nine headings is taller than most screens, and a reader
-  // looking at one component has no use for the other fifty-nine.
-  await expect(data).toHaveAttribute('aria-expanded', 'false')
-  await expect(nav.getByRole('link', { name: 'Table', exact: true })).toBeHidden()
-
-  await data.click()
-  await expect(data).toHaveAttribute('aria-expanded', 'true')
-  await expect(nav.getByRole('link', { name: 'Table', exact: true })).toBeVisible()
+  // Unrolled on purpose: folded, the rail was eleven chevrons a reader opened
+  // one at a time. Table sits under Data — it renders data without an engine.
+  const data = nav.getByRole('group', { name: /Data/ })
+  await expect(data).toBeVisible()
+  await expect(data.getByRole('link', { name: 'Table', exact: true })).toBeVisible()
+  await expect(nav.getByRole('button', { name: /Data/ })).toHaveCount(0)
 })
 
-test('the group holding the current page opens itself', async ({ page }) => {
+test('the row for the current page is marked inside its group', async ({ page }) => {
   await page.goto('/components/table/')
   const nav = page.getByRole('navigation', { name: 'Documentation' })
-  await expect(nav.getByRole('button', { name: /Data/ })).toHaveAttribute('aria-expanded', 'true')
-  await expect(nav.getByRole('link', { name: 'Table', exact: true })).toBeVisible()
+  const row = nav.getByRole('group', { name: /Data/ }).getByRole('link', { name: 'Table', exact: true })
+  await expect(row).toBeVisible()
+  await expect(row).toHaveAttribute('aria-current', 'page')
 })
 
 test('the sidebar can be put away, and stays away', async ({ page }) => {

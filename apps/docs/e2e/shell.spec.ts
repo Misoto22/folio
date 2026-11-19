@@ -106,6 +106,9 @@ test.describe('theme', () => {
     // Presets open first; the axes and the accent are one click away, named in
     // the tab strip rather than found by scrolling past four presets.
     await page.getByRole('tab', { name: 'Customise' }).click()
+    // The site opens with the primary action in ink, which an accent does not
+    // move by design. Hand the action to the accent first, then move the accent.
+    await page.getByRole('radiogroup', { name: 'Primary action' }).getByRole('radio', { name: 'Accent' }).click()
     await page.getByRole('button', { name: 'Cobalt', exact: true }).click()
 
     await expect(page.locator('html')).toHaveAttribute('data-accent', 'cobalt')

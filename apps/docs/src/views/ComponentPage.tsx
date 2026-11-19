@@ -2,9 +2,11 @@ import { apiCopy } from '@/i18n/api'
 import { componentCopy, componentName, groupName } from '@/i18n/content'
 import { exampleCopy, exampleTitle } from '@/i18n/examples'
 import { localePath, type Locale } from '@/i18n/locales'
-import { getMessages } from '@/i18n/messages'
+import { fill, getMessages } from '@/i18n/messages'
 import { Alert, Badge, Kbd, Separator, TBody, TD, TH, THead, TR, Table } from '@misoto22/folio'
-import { RiCheckLine, RiCloseLine } from '@remixicon/react'
+import { RiCheckboxCircleLine, RiCloseCircleLine } from '@remixicon/react'
+import { IconTile } from '@/components/IconTile'
+import { GROUP_ICON, HEADING_ICON } from '@/content/icons'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { CodeBlock } from '@/components/CodeBlock'
@@ -87,8 +89,69 @@ export async function ComponentPage({ locale, slug }: { locale: Locale; slug: st
     text: zh.practices?.[index] ?? practice.text,
   }))
 
+  const examplesBlock = (
+    <>
+      {examples.length > 0 && (
+        <section className="flex flex-col gap-6">
+          <SectionHeading id="examples">{t.section.examples}</SectionHeading>
+          {examples.map((example) => (
+            <div key={example.id} className="flex flex-col gap-3">
+              {/* The kicker and its sentence are one unit and sit closer to
+                  each other than either does to the canvas — otherwise the
+                  description reads as a caption for the preview below it
+                  rather than as the answer to the heading above it. */}
+              <div className="flex flex-col gap-2">
+                {/* An <h3>, not a styled <p>. It was the one part of the page a
+                    reader three screens down could not navigate to, and half of
+                    what is worth reading on a component page is under it. */}
+                <h3
+                  id={`example-${example.id}`}
+                  className="m-0 scroll-mt-(--scroll-offset) text-body font-medium text-(--ink)"
+                >
+                  {exampleTitle(locale, `${entry.dir}/${example.id}`, example.title)}
+                </h3>
+                {example.description && (
+                  <p className="m-0 max-w-(--w-reading) text-body text-(--ink-2)">
+                    {exampleCopy(locale, `${entry.dir}/${example.id}`, example.description)}
+                  </p>
+                )}
+              </div>
+              <ExampleCanvas
+                exampleKey={`${entry.dir}/${example.id}`}
+                html={example.html}
+                snippet={example.snippet}
+                previewHeight={entry.previewHeight}
+              />
+            </div>
+          ))}
+        </section>
+      )}
+
+    </>
+  )
+
   const overview = (
     <>
+      {/* The component first, then the writing about it. The examples used to
+          be the fifth section, under a callout, the import line, the notes,
+          the anatomy and the practices — a reader came to see a Button and
+          met four screens of prose about one. */}
+      <Glance
+        title={t.section.glance}
+        keyboardLabel={t.section.keyboard}
+        keyboard={(entry.keyboard ?? []).slice(0, 2).map((row, index) => ({
+          keys: row.keys,
+          does: zh.keyboard?.[index] ?? row.does,
+        }))}
+        propsLabel={t.section.props}
+        props={propRows.map((row) => row.name)}
+        more={(count) => fill(t.section.more, { count })}
+        promiseLabel={t.section.accessibility}
+        promise={(zh.accessibility ?? entry.accessibility ?? [])[0]}
+      />
+
+      {examplesBlock}
+
       <section className="flex flex-col gap-4">
         <SectionHeading id="usage">{t.section.usage}</SectionHeading>
         {(zh.when ?? entry.when) && (
@@ -105,7 +168,7 @@ export async function ComponentPage({ locale, slug }: { locale: Locale; slug: st
         {entry.entry !== '@misoto22/folio' && (
           <p className="m-0 flex flex-wrap items-baseline gap-2">
             <span className="eyebrow text-(--ink-3-aa)">{t.section.shipsFrom}</span>
-            <code className="font-mono text-[13px] text-(--ink)">{entry.entry}</code>
+            <code className="font-mono text-meta text-(--ink)">{entry.entry}</code>
           </p>
         )}
         <CodeBlock
@@ -134,9 +197,14 @@ export async function ComponentPage({ locale, slug }: { locale: Locale; slug: st
               </TR>
             </THead>
             <TBody>
-              {anatomy.map((part) => (
+              {anatomy.map((part, index) => (
                 <TR key={part.element}>
                   <TD className="align-top">
+                    {/* Numbered, so "the second part" is something a reader
+                        can say, and point back to, in a review. */}
+                    <span className="me-2.5 inline-flex size-5.5 items-center justify-center rounded-(--radius-pill) bg-(--ink) align-middle text-micro font-medium text-(--paper) tabular-nums">
+                      {index + 1}
+                    </span>
                     <span className="text-sm text-(--ink)">{part.element}</span>
                     {part.required && (
                       <Badge tone="outline" className="ms-2 align-middle">
@@ -144,7 +212,7 @@ export async function ComponentPage({ locale, slug }: { locale: Locale; slug: st
                       </Badge>
                     )}
                   </TD>
-                  <TD className="max-w-(--measure-record) align-top text-[13px] leading-relaxed">
+                  <TD className="max-w-(--measure-record) align-top text-meta leading-relaxed">
                     {part.description}
                   </TD>
                 </TR>
@@ -157,26 +225,27 @@ export async function ComponentPage({ locale, slug }: { locale: Locale; slug: st
       {practices.length > 0 && (
         <section className="flex flex-col gap-5">
           <SectionHeading id="best-practices">{t.section.practices}</SectionHeading>
-          {/* Two lists, and the half a reader is in is said by an icon AND a
-              word. A green tick beside a red cross is one distinction spent
-              twice; either alone would leave the page unreadable to the eight
-              percent of men who cannot tell them apart. */}
-          <div className="grid gap-6 sm:grid-cols-2">
-            {PRACTICE_HALVES.map(({ kind, icon: Icon, tone }) => {
+          {/* Two cards, and the half a reader is in is said by an icon, a word
+              AND the card's top edge in the state colour. A green tick beside a
+              red cross is one distinction spent twice; either alone would leave
+              the page unreadable to the eight percent of men who cannot tell
+              them apart, which is why the word stays. */}
+          <div className="grid gap-4 sm:grid-cols-2">
+            {PRACTICE_HALVES.map(({ kind, icon: Icon, tone, edge }) => {
               const half = practices.filter((practice) => practice.kind === kind)
               if (half.length === 0) return null
               return (
-                <div key={kind} className="flex flex-col gap-3">
-                  <h3 className="m-0 flex items-center gap-2 eyebrow text-(--ink)">
-                    <Icon size={15} aria-hidden className={tone} />
+                <div
+                  key={kind}
+                  className={`flex flex-col gap-3 rounded-(--radius-lg) border border-(--rule-2) border-t-4 bg-(--paper-2) p-5 ${edge}`}
+                >
+                  <h3 className={`m-0 flex items-center gap-2 text-body font-medium ${tone}`}>
+                    <Icon size={18} aria-hidden />
                     {kind === 'do' ? t.practice.do : t.practice.dont}
                   </h3>
                   <ul className="m-0 flex list-none flex-col gap-3 p-0">
                     {half.map((practice) => (
-                      <li
-                        key={practice.text}
-                        className="max-w-(--w-reading) border-s border-(--rule-2) ps-4 text-sm leading-relaxed text-(--ink-2)"
-                      >
+                      <li key={practice.text} className="text-body text-(--ink-2)">
                         {practice.text}
                       </li>
                     ))}
@@ -188,46 +257,10 @@ export async function ComponentPage({ locale, slug }: { locale: Locale; slug: st
         </section>
       )}
 
-      {examples.length > 0 && (
-        <section className="flex flex-col gap-6">
-          <SectionHeading id="examples">{t.section.examples}</SectionHeading>
-          {examples.map((example) => (
-            <div key={example.id} className="flex flex-col gap-3">
-              {/* The kicker and its sentence are one unit and sit closer to
-                  each other than either does to the canvas — otherwise the
-                  description reads as a caption for the preview below it
-                  rather than as the answer to the heading above it. */}
-              <div className="flex flex-col gap-2">
-                {/* An <h3>, not a styled <p>. It was the one part of the page a
-                    reader three screens down could not navigate to, and half of
-                    what is worth reading on a component page is under it. */}
-                <h3
-                  id={`example-${example.id}`}
-                  className="m-0 scroll-mt-(--scroll-offset) eyebrow text-(--ink-3-aa)"
-                >
-                  {exampleTitle(locale, `${entry.dir}/${example.id}`, example.title)}
-                </h3>
-                {example.description && (
-                  <p className="m-0 max-w-(--w-reading) text-sm leading-relaxed text-(--ink-2)">
-                    {exampleCopy(locale, `${entry.dir}/${example.id}`, example.description)}
-                  </p>
-                )}
-              </div>
-              <ExampleCanvas
-                exampleKey={`${entry.dir}/${example.id}`}
-                html={example.html}
-                snippet={example.snippet}
-                previewHeight={entry.previewHeight}
-              />
-            </div>
-          ))}
-        </section>
-      )}
-
       {parts.length > 0 && (
         <section className="flex flex-col gap-6">
           <SectionHeading id="parts">{t.section.parts}</SectionHeading>
-          <p className="m-0 max-w-(--w-reading) text-sm leading-relaxed text-(--ink-3-aa)">
+          <p className="m-0 max-w-(--w-reading) text-body text-(--ink-3-aa)">
             {t.section.partsNote}
           </p>
           {parts.map((part) => (
@@ -295,7 +328,7 @@ export async function ComponentPage({ locale, slug }: { locale: Locale; slug: st
                       ))}
                     </span>
                   </TD>
-                  <TD className="max-w-(--measure-record) align-top text-[13px] leading-relaxed">
+                  <TD className="max-w-(--measure-record) align-top text-meta leading-relaxed">
                     {zh.keyboard?.[index] ?? row.does}
                   </TD>
                 </TR>
@@ -312,7 +345,7 @@ export async function ComponentPage({ locale, slug }: { locale: Locale; slug: st
             {(zh.accessibility ?? entry.accessibility).map((note) => (
               <li
                 key={note}
-                className="max-w-(--w-reading) border-s border-(--rule-2) ps-4 text-sm leading-relaxed text-(--ink-2)"
+                className="max-w-(--w-reading) border-s border-(--rule-2) ps-4 text-body text-(--ink-2)"
               >
                 {note}
               </li>
@@ -380,11 +413,39 @@ export async function ComponentPage({ locale, slug }: { locale: Locale; slug: st
           eyebrow={groupName(locale, entry.group)}
           title={componentName(locale, entry.slug, entry.name)}
           summary={zh.summary ?? entry.summary}
+          icon={GROUP_ICON[entry.group]}
           crumbs={[
             { label: t.section.components, href: localePath(locale, '/components/') },
-            { label: componentName(locale, entry.slug, entry.name) },
+            { label: groupName(locale, entry.group) },
           ]}
-        />
+        >
+          {/* What the page holds, counted, each a jump to its section. A reader
+              deciding whether this page answers their question gets the answer
+              before the first scroll. */}
+          <nav aria-label={t.section.glance} className="flex flex-wrap gap-2">
+            {[
+              { id: 'examples', label: t.section.examples, count: examples.length },
+              { id: 'props', label: t.section.props, count: propRows.length },
+              { id: 'keyboard', label: t.section.keyboard, count: entry.keyboard?.length ?? 0 },
+              { id: 'accessibility', label: t.section.accessibility, count: entry.accessibility?.length ?? 0 },
+            ]
+              .filter((fact) => fact.count > 0)
+              .map((fact) => {
+                const Icon = HEADING_ICON[fact.id]!
+                return (
+                  <a
+                    key={fact.id}
+                    href={`#${fact.id}`}
+                    className="inline-flex h-8 items-center gap-2 rounded-(--radius-pill) bg-(--paper-2) px-3 text-meta text-(--ink-2) no-underline transition-colors duration-(--duration-fast) hover:text-(--ink)"
+                  >
+                    <Icon size={14} aria-hidden />
+                    {fact.label}
+                    <span className="font-medium text-(--ink) tabular-nums">{fact.count}</span>
+                  </a>
+                )
+              })}
+          </nav>
+        </PageIntro>
 
         <PageTabs
           label={componentName(locale, entry.slug, entry.name)}
@@ -405,15 +466,15 @@ export async function ComponentPage({ locale, slug }: { locale: Locale; slug: st
         />
       </article>
 
-      <TocRail label={t.section.onThisPage} className="hidden w-56 shrink-0 xl:block" />
+      <TocRail label={t.section.onThisPage} glyphs className="hidden w-56 shrink-0 xl:block" />
     </div>
   )
 }
 
 /** The two halves of "best practices", and the second signal each one carries. */
 const PRACTICE_HALVES = [
-  { kind: 'do' as const, icon: RiCheckLine, tone: 'text-(--ok)' },
-  { kind: 'dont' as const, icon: RiCloseLine, tone: 'text-(--danger)' },
+  { kind: 'do' as const, icon: RiCheckboxCircleLine, tone: 'text-(--ok)', edge: 'border-t-(--ok)' },
+  { kind: 'dont' as const, icon: RiCloseCircleLine, tone: 'text-(--danger)', edge: 'border-t-(--danger)' },
 ]
 
 /**
@@ -424,11 +485,11 @@ const PRACTICE_HALVES = [
  * not stop working because a section moved behind a tab.
  */
 const OVERVIEW_ANCHORS = [
+  'examples',
   'usage',
   'notes',
   'anatomy',
   'best-practices',
-  'examples',
   'parts',
   'reexports',
   'types',
@@ -436,3 +497,104 @@ const OVERVIEW_ANCHORS = [
   'accessibility',
   'related',
 ]
+
+/**
+ * The page's "at a glance" row: what a reader checks before reading.
+ *
+ * Three cards drawn from data every entry already carries — the first keys of
+ * its keyboard contract as keycaps, its props as names, its first accessibility
+ * promise — so a skim answers "does it do Escape?", "is there a size prop?"
+ * and "is it announced?" without a scroll. A card with nothing to show is left
+ * out rather than drawn empty.
+ */
+function Glance({
+  title,
+  keyboardLabel,
+  keyboard,
+  propsLabel,
+  props,
+  more,
+  promiseLabel,
+  promise,
+}: {
+  title: string
+  keyboardLabel: string
+  keyboard: { keys: string[]; does: string }[]
+  propsLabel: string
+  props: string[]
+  more: (count: number) => string
+  promiseLabel: string
+  promise?: string
+}) {
+  const SHOWN = 6
+  const cards = [
+    keyboard.length > 0 && (
+      <GlanceCard key="keyboard" icon={HEADING_ICON.keyboard!} label={keyboardLabel} href="#keyboard">
+        <ul className="m-0 flex list-none flex-col gap-2 p-0">
+          {keyboard.map((row) => (
+            <li key={row.keys.join('+')} className="flex items-center gap-1.5 text-meta text-(--ink-2)">
+              {row.keys.map((key) => (
+                <Kbd key={key} className="shrink-0">{key}</Kbd>
+              ))}
+              <span className="min-w-0 truncate">{row.does}</span>
+            </li>
+          ))}
+        </ul>
+      </GlanceCard>
+    ),
+    props.length > 0 && (
+      <GlanceCard key="props" icon={HEADING_ICON.props!} label={propsLabel} href="#props">
+        <p className="m-0 flex flex-wrap gap-1.5">
+          {props.slice(0, SHOWN).map((name) => (
+            <code key={name} className="rounded-(--radius-sm) bg-(--paper) px-1.5 py-0.5 font-mono text-caption text-(--ink)">
+              {name}
+            </code>
+          ))}
+          {props.length > SHOWN && (
+            <span className="px-1 text-meta text-(--ink-3-aa)">{more(props.length - SHOWN)}</span>
+          )}
+        </p>
+      </GlanceCard>
+    ),
+    promise && (
+      <GlanceCard key="a11y" icon={HEADING_ICON.accessibility!} label={promiseLabel} href="#accessibility">
+        <p className="m-0 line-clamp-3 text-meta text-(--ink-2)">{promise}</p>
+      </GlanceCard>
+    ),
+  ].filter(Boolean)
+
+  if (cards.length === 0) return null
+  return (
+    // `minmax(0, 1fr)`, not the default `auto` minimum: a keyboard line is
+    // truncated, and a track sized to its content would take the line's FULL
+    // width first — on a phone, 624px of card in a 390px page.
+    <section
+      aria-label={title}
+      className="grid grid-cols-[minmax(0,1fr)] gap-3 md:grid-cols-[repeat(3,minmax(0,1fr))]"
+    >
+      {cards}
+    </section>
+  )
+}
+
+function GlanceCard({
+  icon,
+  label,
+  href,
+  children,
+}: {
+  icon: Parameters<typeof IconTile>[0]['icon']
+  label: string
+  href: string
+  children: React.ReactNode
+}) {
+  return (
+    <div className="flex min-w-0 flex-col gap-3 rounded-(--radius-lg) bg-(--paper-2) p-4">
+      <a href={href} className="flex items-center gap-2 text-meta font-medium text-(--ink) no-underline">
+        <IconTile icon={icon} size="sm" className="bg-(--paper)" />
+        {label}
+      </a>
+      {children}
+    </div>
+  )
+}

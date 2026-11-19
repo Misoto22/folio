@@ -82,7 +82,7 @@ export function CommandBlock({ source, label, className }: CommandBlockProps) {
         aria-label={label}
         className="overflow-x-auto px-4 py-3.5 scroll-slim"
       >
-        <pre className="m-0 bg-transparent font-mono text-[12.5px] leading-[1.75] text-(--ink-2)">
+        <pre className="m-0 bg-transparent font-mono text-caption leading-[1.75] text-(--ink-2)">
           {source}
         </pre>
       </div>

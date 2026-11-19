@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { HEADING_ICON } from '@/content/icons'
 
 export interface TocItem {
   /** The heading's `id`. What the rail links to and what the spy watches. */
@@ -52,6 +53,15 @@ export interface TocRailProps {
    * has to be scrolled is competing with the page for the same gesture.
    */
   collapsible?: boolean
+  /**
+   * Draw each heading's glyph from `HEADING_ICON` in place of its number.
+   *
+   * For a page whose `SectionHeading`s carry those glyphs, so the rail and the
+   * heading show one mark. A boolean rather than the map itself: the pages that
+   * want it are server components, and a component cannot cross into this
+   * client one as a prop. A heading with no glyph keeps its number.
+   */
+  glyphs?: boolean
   className?: string
 }
 
@@ -101,6 +111,7 @@ export function TocRail({
   label,
   numbered = true,
   collapsible = true,
+  glyphs = false,
   className = '',
 }: TocRailProps) {
   const [items, setItems] = useState<TocItem[]>([])
@@ -212,7 +223,7 @@ export function TocRail({
   return (
     <nav aria-label={label} className={`print:hidden ${className}`}>
       <div className="sticky top-(--scroll-offset) flex max-h-[calc(100svh-var(--scroll-offset)-2rem)] flex-col overflow-y-auto scroll-slim">
-        <p className="m-0 mb-3 eyebrow text-(--ink-3-aa)">{label}</p>
+        <p className="m-0 mb-3 text-meta font-medium text-(--ink-3-aa)">{label}</p>
 
         <ul className="m-0 flex list-none flex-col border-s border-(--rule) p-0">
           {groups.map((group) => {
@@ -233,15 +244,25 @@ export function TocRail({
                     active ? 'font-medium text-(--ink)' : 'text-(--ink-3-aa) hover:text-(--ink)'
                   }`}
                 >
-                  {numbered && (
-                    <span
-                      aria-hidden="true"
-                      className={`mono-meta shrink-0 text-[11px] tabular-nums ${
-                        active ? 'text-(--ink)' : 'text-(--ink-3-aa)'
-                      }`}
-                    >
-                      {numbers[group.headIndex]}
-                    </span>
+                  {/* The heading's own glyph where the site has one — the same
+                      mark the heading draws — and the outline number where it
+                      does not. Two markers on one row would be noise. */}
+                  {glyphs && HEADING_ICON[group.head.id] ? (
+                    (() => {
+                      const Icon = HEADING_ICON[group.head.id]!
+                      return <Icon size={15} aria-hidden className="shrink-0 self-center" />
+                    })()
+                  ) : (
+                    numbered && (
+                      <span
+                        aria-hidden="true"
+                        className={`mono-meta shrink-0 text-micro tabular-nums ${
+                          active ? 'text-(--ink)' : 'text-(--ink-3-aa)'
+                        }`}
+                      >
+                        {numbers[group.headIndex]}
+                      </span>
+                    )
                   )}
                   <span>{group.head.label}</span>
                 </a>
@@ -256,14 +277,14 @@ export function TocRail({
                             href={`#${item.id}`}
                             onClick={() => pin(item.id)}
                             aria-current={on ? 'true' : undefined}
-                            className={`${row} py-1.5 ps-8 text-[13px] ${
+                            className={`${row} py-1.5 ps-8 text-meta ${
                               on ? 'font-medium text-(--ink)' : 'text-(--ink-3-aa) hover:text-(--ink)'
                             }`}
                           >
                             {numbered && (
                               <span
                                 aria-hidden="true"
-                                className={`mono-meta shrink-0 text-[10.5px] tabular-nums ${
+                                className={`mono-meta shrink-0 text-micro tabular-nums ${
                                   on ? 'text-(--ink)' : 'text-(--ink-3-aa)'
                                 }`}
                               >
