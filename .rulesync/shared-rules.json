@@ -217,6 +217,31 @@
       ]
     },
     {
+      "id": "HAR-GIT-003",
+      "name": "Commit hygiene",
+      "level": "MUST",
+      "scope": "core",
+      "owner": "harness",
+      "status": "deprecated",
+      "since": "0.21.0",
+      "statement": "Commit only on a non-default branch, keep one logical change per commit, and keep the commit subject under 72 characters.",
+      "rationale": "Small single-purpose commits on a branch keep history reviewable and revertible, and a short subject survives every log view.",
+      "sources": [
+        {
+          "type": "policy",
+          "ref": "owner-decision-2026-11-19"
+        }
+      ],
+      "enforcement": [
+        {
+          "kind": "review",
+          "check": "Superseded by HAR-PER-006",
+          "blocking": false
+        }
+      ],
+      "replacement": "HAR-PER-006"
+    },
+    {
       "id": "HAR-SEC-001",
       "name": "Secret safety",
       "level": "MUST",
