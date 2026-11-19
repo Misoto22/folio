@@ -38,6 +38,16 @@ and gets no error, no warning, and no corner. Two more layers are opt-in rather
 than missing: `@misoto22/folio/fonts.css` carries the vendored faces, and
 `@misoto22/folio/article.css` styles long-form prose.
 
+The fifth is `@misoto22/folio/utilities.css`, and it goes in your Tailwind entry
+rather than in a JS import: it declares the utilities components name by class
+(`panel-blur`, `eyebrow`, `scroll-slim` and the rest), which only Tailwind can
+compile. Without it those classes reach the page with no rule behind them.
+
+```css
+@import 'tailwindcss';
+@import '@misoto22/folio/utilities.css';
+```
+
 Diagrams ship from their own specifier, so a page that renders a `Badge` does
 not pay for a routing engine:
 

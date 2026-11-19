@@ -49,6 +49,7 @@
     "./tokens.css": "./dist/tokens.css",
     "./semantic.css": "./dist/semantic.css",
     "./keyframes.css": "./dist/keyframes.css",
+    "./utilities.css": "./dist/utilities.css",
     "./fonts.css": "./dist/fonts.css",
     "./tokens.json": "./dist/tokens.json",
     "./tokens": {

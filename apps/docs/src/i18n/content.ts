@@ -290,7 +290,7 @@ const FOUNDATIONS_ZH: Record<string, FoundationCopy> = {
         title: 'CSS 入口点',
         body: [
           '真正要选的其实是两套配方。`styles.css` 是整张编译好的样式表：Tailwind、原始 token、语义角色、主题轴、长文样式、动效关键帧，以及附在末尾的自带 @font-face 规则。一次 import，不用再做别的决定，Tailwind 也一并带过来。',
-          '另一套配方是给已经自己编译 Tailwind、不想要第二份 utility 的应用的。它是三次 import——`tokens.css`、`semantic.css`、`keyframes.css`——而在选它之前值得知道的，是这三张表没有带上什么。',
+          '另一套配方是给已经自己编译 Tailwind、不想要第二份 utility 的应用的。它是四次 import——`tokens.css`、`semantic.css`、`keyframes.css`，以及放在 `@import \'tailwindcss\'` 之后的 `utilities.css`，因为它声明了组件按 class 名使用的那些 utility，只有你自己的 Tailwind 能编译它们——而在选它之前值得知道的，是这四张表没有带上什么。',
           '`data-mode="dark"` 和 `data-density="compact"` 声明在 `tokens.css` 里，活得下来。另外五条轴——`data-surface`、`data-radius`、`data-rules`、`data-type`、`data-motion`——只声明在 `themes.css` 里，那是一个单独的导出，既不在 README 的配方里，也不在上面那段代码里。没有它就写 `data-radius="sharp"`，属性会落到元素上，然后什么都不改变。字体在 `fonts.css`，同样是单独的；长文正文样式在 `article.css`。要哪一张，就按名字自己加上。',
         ],
         rows: {
@@ -303,7 +303,8 @@ const FOUNDATIONS_ZH: Record<string, FoundationCopy> = {
           '/tokens.css': '原始 token，外加默认的暗色换值和 compact 密度轴。',
           '/semantic.css': '组件真正读的那些角色——`--background`、`--foreground-muted`、`--border-color`。',
           '/keyframes.css': '动画，以及把它们停下来的那一条减少动效规则。',
-          '/themes.css': '剩下的五条主题轴。不在那套三层配方里；只要你设了其中任何一条，就得把它加上。',
+          '/utilities.css': '组件按 class 名使用的那些 utility——`panel-blur`、`eyebrow`、`mono-meta`，以及几个滚动相关的写法。从你的 Tailwind 入口里 import 它；`styles.css` 里已经包含了。',
+          '/themes.css': '剩下的五条主题轴。不在那套四层配方里；只要你设了其中任何一条，就得把它加上。',
           '/fonts.css': '自带的 @font-face 规则。已经附在 `styles.css` 里面了。',
           '/article.css': '长文正文的排版样式，给 `Article` 组件用。',
           '/tokens.json + /tokens': '同一批 token，作为数据——JSON 给构建脚本，带类型的 `TOKENS` 记录和 `TokenName` 联合类型给 TypeScript。',
@@ -362,7 +363,7 @@ const FOUNDATIONS_ZH: Record<string, FoundationCopy> = {
       '度量宽度以 ch 而不是 px 为上限，所以它跟随它所排的字。--measure-record 是列表记录描述文字的天花板，不是宽度：更窄的栏依然胜出。',
       '只有一条阶梯，以及带动整条阶梯的一个系数：每一级都是 --radius-factor 的倍数，所以主题只改一个数，各级之间的比例不变。这正是嵌套能对上的前提——两条相隔 p 的圆角边只有在“内圆角 = 外圆角 − p”时才是同心的，--radius-row 和 --radius-frame 分别给出了这两个方向。50% 的圆是几何形状而不是圆角，它压根不在这条阶梯上。',
       '每个组件都用逻辑属性书写——ps-/pe- 而不是 pl-/pr-，start-/end- 而不是 left-/right-——所以从右到左的文档不需要自己的样式表就能镜像。构建时有测试会因为一个物理属性而失败：事后给四十个组件补方向支持，是没人会排期的清扫，而且它出错时没有任何声音。上面任何一个例子都可以切到 RTL 看看。',
-      '这一切底下的那一步是 4px。内边距、间隙和外边距用的是 Tailwind 的间距刻度，在 v4 里它只是一个变量——--spacing，0.25rem——乘以 class 里的数字：p-1 是 4px，gap-2.5 是 10px，p-6 是 24px。包里没有重新声明它，因为自己编译 Tailwind 的使用者收不到这份重新声明；每个组件所依据的刻度，就是每一个 v4 构建本来就有的那一把。半步用在面板给自己的行留内边距的地方。不在网格上的长度是起名字而不是写数字——页面边距是 --pad，控件是 --field-px 和 --field-py，它们跟着密度轴走——而 class 里方括号写的长度是例外，必须说明理由，就像 Kbd 以 em 为单位的内边距那样。',
+      '这一切底下的那一步是 4px。内边距、间隙和外边距用的是 Tailwind 的间距刻度，在 v4 里它只是一个变量——--spacing，0.25rem——乘以 class 里的数字：p-1 是 4px，gap-2.5 是 10px，p-6 是 24px。包里没有重新声明它，因为自己编译 Tailwind 的使用者收不到这份重新声明；每个组件所依据的刻度，就是每一个 v4 构建本来就有的那一把。半步用在面板给自己的行留内边距的地方。不在网格上的长度是起名字而不是写数字——页面边距是 --pad，控件是 --field-px 和 --field-py，它们跟着密度轴走。其余放不上网格的长度——列表的缩进、代码片段的内边距，都以 em 为单位，好跟着字走——是 --space-* token，article.css 和组件读的是同一份；方括号间距 class 里只要出现一个裸长度，构建就会被测试拦下。',
     ],
     categories: {
       space: { title: '布局' },

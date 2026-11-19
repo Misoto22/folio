@@ -1,0 +1,94 @@
+/*
+ * The package's own utilities — the idioms a component names by class.
+ *
+ * A separate entry rather than part of `index.css`, because `index.css` is
+ * only what builds `dist/styles.css`. A consumer that compiles its own
+ * Tailwind over `dist/` (misoto22.com, this repository's documentation site)
+ * never reads that entry, so every utility declared there reached it as a bare
+ * class with no rule behind it — or as a hand-kept copy that had already
+ * drifted: the docs' `eyebrow` ignored the voice axis and it had no
+ * `scroll-hairline` at all, and the site had no `panel-blur`, so a glass theme
+ * there drew translucent menus with nothing blurred behind them.
+ *
+ * Import it after `tailwindcss`:  @import '@misoto22/folio/utilities.css';
+ */
+
+/* ─── Mono label idioms ───
+   The two label voices, defined once. Colour is deliberately left to a paired
+   text-* utility so an over-photo or accent variant stays explicit rather than
+   depending on utility precedence.
+
+   eyebrow   → the uppercase kicker ("01 / COMPONENTS")
+   mono-meta → inline numeric / timing / metadata labels (not uppercased) */
+@utility eyebrow {
+  font-family: var(--label-font);
+  font-size: 11px;
+  text-transform: var(--label-case);
+  letter-spacing: calc(0.2em * var(--label-tracking-scale));
+}
+@utility mono-meta {
+  /* The label face from the voice axis: mono by default, the sans under a
+     quiet voice. Numbers stay aligned either way through tabular figures. */
+  font-family: var(--label-font);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: calc(0.08em * var(--label-tracking-scale));
+}
+
+/* ─── Scroll surfaces ───
+   scroll-slim → a hairline scrollbar tinted with the rule token. Standard
+                 properties only: defining any ::-webkit-scrollbar rule opts
+                 Chrome and Safari out of overlay scrollbars and permanently
+                 reserves a classic gutter, which is the look this replaces.
+   scroll-fade → dissolves the first and last rows at the container edge so
+                 content meets a border by fading rather than being sliced
+                 mid-glyph. The scroll-padding matches the fade so a
+                 keyboard-driven scrollIntoView parks the active row just
+                 inside the opaque area. */
+@utility scroll-slim {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule-2) transparent;
+  scrollbar-gutter: stable;
+}
+/* A scrollbar for a bounded panel, where `scroll-slim`'s eleven pixels are the
+   widest thing on screen.
+
+   This DOES define ::-webkit-scrollbar, which opts Chrome and Safari out of
+   overlay scrollbars for this element — the reason `scroll-slim` refuses to. It
+   is the right trade here and nowhere else: a palette is already a fixed box
+   with a permanent list, so there is no overlay behaviour left to lose, and six
+   pixels of hairline reads as an edge rather than as furniture. */
+@utility scroll-hairline {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule-2) transparent;
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--rule-2);
+    border-radius: var(--radius-pill);
+  }
+}
+
+/* The one place a blur is allowed, and only ever behind a surface that floats.
+   Two properties because Safari still wants the prefix, and a design system
+   that ships the effect on Chrome only has shipped half a theme. */
+@utility panel-blur {
+  -webkit-backdrop-filter: var(--panel-filter);
+  backdrop-filter: var(--panel-filter);
+}
+
+@utility scroll-fade {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 14px,
+    #000 calc(100% - 14px),
+    transparent 100%
+  );
+  scroll-padding-block: 14px;
+}

@@ -92,6 +92,7 @@ function installed(asJson) {
             '@misoto22/folio/tokens.css',
             '@misoto22/folio/semantic.css',
             '@misoto22/folio/keyframes.css',
+            '@misoto22/folio/utilities.css',
           ],
           detail: 'npx @misoto22/folio docs <Component>',
         },

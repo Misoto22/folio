@@ -25,6 +25,7 @@ const PORTABLE = [
   'themes.css',
   'article.css',
   'keyframes.css',
+  'utilities.css',
   'fonts.css',
   ...(await readdir(SRC)).filter(file => file.startsWith('website') && file.endsWith('.css')),
 ]
