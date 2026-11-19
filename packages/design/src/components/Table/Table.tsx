@@ -176,7 +176,7 @@ export interface THProps extends Omit<ThHTMLAttributes<HTMLTableCellElement>, 'a
  * symmetric padding inside its border.
  */
 const CELL =
-  'px-[var(--table-pad-x,0)] [&:not(:last-child)]:pe-[calc(var(--table-pad-x,0px)+1.5rem)]'
+  'px-[var(--table-pad-x,0)] [&:not(:last-child)]:pe-[calc(var(--table-pad-x,0px)+--spacing(6))]'
 
 const SORT_ICON = {
   ascending: ArrowUp,

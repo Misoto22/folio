@@ -1,5 +1,6 @@
 import type { HTMLAttributes } from 'react'
 import { cn } from '../../lib/cn'
+import { SURFACE_FEATURE } from '../../lib/surface'
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
   /**
@@ -15,7 +16,7 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 const VARIANT = {
   outline: 'border border-(--rule) bg-(--paper)',
   plate:
-    'border border-(--feature-surface) bg-(--feature-surface) text-(--on-feature) [--card-title:var(--on-feature)]',
+    `border border-(--feature-surface) ${SURFACE_FEATURE} [--card-title:var(--on-feature)]`,
   flat: 'border border-transparent bg-transparent',
 } as const
 

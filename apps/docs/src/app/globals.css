@@ -16,6 +16,7 @@
 @import '../../../../packages/design/src/styles/themes.css';
 @import '../../../../packages/design/src/styles/article.css';
 @import '../../../../packages/design/src/styles/keyframes.css';
+@import '../../../../packages/design/src/styles/utilities.css';
 @import '../../../../packages/design/src/styles/website.css';
 /* This site is a website, so it takes the document defaults and the site-wide
    focus ring as well — the opt-in half `styles.css` no longer carries. */
@@ -79,32 +80,6 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
-}
-
-@utility eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-}
-@utility mono-meta {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-}
-@utility scroll-slim {
-  scrollbar-width: thin;
-  scrollbar-color: var(--rule-2) transparent;
-  scrollbar-gutter: stable;
-}
-@utility panel-blur {
-  -webkit-backdrop-filter: var(--panel-filter);
-  backdrop-filter: var(--panel-filter);
-}
-
-@utility scroll-fade {
-  mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
-  scroll-padding-block: 14px;
 }
 
 /* ─── Accents ───

@@ -1,4 +1,5 @@
 export { cn } from './cn'
 export { CONTROL_BASE, CONTROL_BORDER, isInvalid } from './control'
+export { SURFACE_FEATURE, SURFACE_PANEL, SURFACE_PANEL_QUIET } from './surface'
 export { useSelectionIndicator } from './useSelectionIndicator'
 export type { IndicatorStyle } from './useSelectionIndicator'

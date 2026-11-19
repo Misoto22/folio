@@ -4,6 +4,7 @@ import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { X } from '../../icons'
 import type { ComponentProps, ReactNode } from 'react'
 import { cn } from '../../lib/cn'
+import { SURFACE_PANEL } from '../../lib/surface'
 import { useOverlayContainer } from '../../lib/overlay-container'
 
 /** Radix Dialog root, trigger and close — a sheet IS a dialog, docked. */
@@ -92,7 +93,8 @@ export function SheetContent({
         // depends on anyone remembering it.
         data-folio-animated
         className={cn(
-          'folio-sheet fixed z-(--z-modal) flex flex-col overflow-y-auto border-(--panel-border) bg-(--panel-bg) p-6 shadow-(--panel-lift) panel-blur scroll-slim',
+          'folio-sheet fixed z-(--z-modal) flex flex-col overflow-y-auto p-6 scroll-slim',
+          SURFACE_PANEL,
           SIDE[side],
           // Docked to the container's edge, and capped by its box — the widths
           // above are read against the viewport and would overflow a frame.

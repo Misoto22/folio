@@ -125,6 +125,7 @@ Take the portable layers instead and skip a second copy of the utilities:
 @import '@misoto22/folio/tokens.css';    /* primitives  */
 @import '@misoto22/folio/semantic.css';  /* roles       */
 @import '@misoto22/folio/keyframes.css'; /* motion      */
+@import '@misoto22/folio/utilities.css'; /* the classes components name */
 
 @source '../node_modules/@misoto22/folio/dist';
 

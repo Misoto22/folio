@@ -138,7 +138,7 @@ function renderBlock(node: MarkdownNode, key: number, context: RenderContext): R
       return (
         <blockquote
           key={key}
-          className="m-0 border-s-2 border-(--rule-hard) ps-[1.25em] font-serif text-[length:var(--fs-item)] leading-[1.55] text-(--ink) [&>*+*]:mt-[0.6em]"
+          className="m-0 border-s-2 border-(--rule-hard) ps-(--space-quote) font-serif text-[length:var(--fs-item)] leading-[1.55] text-(--ink) [&>*+*]:mt-(--space-list-block)"
         >
           {node.children.map((child, i) => renderBlock(child, i, context))}
         </blockquote>
@@ -147,7 +147,7 @@ function renderBlock(node: MarkdownNode, key: number, context: RenderContext): R
       return node.ordered ? (
         <ol
           key={key}
-          className="m-0 list-decimal ps-[1.4em] text-(--ink-2) marker:text-(--ink-3-aa) [&>li+li]:mt-[0.4em]"
+          className="m-0 list-decimal ps-(--space-list-ordered) text-(--ink-2) marker:text-(--ink-3-aa) [&>li+li]:mt-(--space-list-item)"
         >
           {node.items.map((item, i) => renderItem(item, i, context))}
         </ol>
@@ -158,7 +158,7 @@ function renderBlock(node: MarkdownNode, key: number, context: RenderContext): R
         // Article coincides with the stylesheet rather than doubling it.
         <ul
           key={key}
-          className="m-0 list-none ps-[1.15em] text-(--ink-2) [&>li+li]:mt-[0.4em] [&>li]:before:absolute [&>li]:before:start-[-1.15em] [&>li]:before:top-[0.85em] [&>li]:before:h-px [&>li]:before:w-[0.55em] [&>li]:before:bg-(--rule-2) [&>li]:before:content-['']"
+          className="m-0 list-none ps-(--space-list) text-(--ink-2) [&>li+li]:mt-(--space-list-item) [&>li]:before:absolute [&>li]:before:-start-(--space-list) [&>li]:before:top-(--space-list-marker-y) [&>li]:before:h-px [&>li]:before:w-(--space-list-marker-w) [&>li]:before:bg-(--rule-2) [&>li]:before:content-['']"
         >
           {node.items.map((item, i) => renderItem(item, i, context))}
         </ul>

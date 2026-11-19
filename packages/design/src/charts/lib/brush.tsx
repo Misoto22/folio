@@ -497,7 +497,7 @@ function BrushHandle({
       >
         <span
           aria-hidden
-          className="flex h-4 w-1.5 flex-col items-center justify-center gap-[2px] rounded-(--radius-sm) bg-(--ink-3-aa) transition-colors duration-(--duration-fast) group-hover/handle:bg-(--ink) group-focus-visible/handle:bg-(--ink)"
+          className="flex h-4 w-1.5 flex-col items-center justify-center gap-0.5 rounded-(--radius-sm) bg-(--ink-3-aa) transition-colors duration-(--duration-fast) group-hover/handle:bg-(--ink) group-focus-visible/handle:bg-(--ink)"
         >
           <span className="size-[2px] rounded-(--radius-pill) bg-(--chart-surface)/70" />
           <span className="size-[2px] rounded-(--radius-pill) bg-(--chart-surface)/70" />

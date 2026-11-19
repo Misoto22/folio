@@ -89,7 +89,7 @@ export const FOUNDATIONS: FoundationPage[] = [
         title: 'The CSS entry points',
         body: [
           'The choice is really between two recipes. `styles.css` is the whole compiled sheet: Tailwind, the primitives, the roles, the theming axes, the article styles, the keyframes, and the vendored @font-face rules appended to the end. One import, nothing else to decide, and Tailwind arrives with it.',
-          'The other recipe is for an app that already compiles Tailwind and does not want a second copy of the utilities. It is three imports — `tokens.css`, `semantic.css`, `keyframes.css` — and the thing worth knowing before you pick it is what those three do not carry.',
+          'The other recipe is for an app that already compiles Tailwind and does not want a second copy of the utilities. It is four imports — `tokens.css`, `semantic.css`, `keyframes.css`, and `utilities.css` after `@import \'tailwindcss\'`, because it declares the utilities the components name by class and only your Tailwind can compile them — and the thing worth knowing before you pick it is what those four do not carry.',
           '`data-mode="dark"` and `data-density="compact"` are declared in `tokens.css` and survive. The other five axes — `data-surface`, `data-radius`, `data-rules`, `data-type`, `data-motion` — are declared only in `themes.css`, which is a separate export and is in neither the README recipe nor the snippet above. Write `data-radius="sharp"` without it and the attribute lands on the element and changes nothing. The faces are in `fonts.css`, also separate; the long-form article styles are in `article.css`. Add the ones you want by name.',
         ],
         rows: [
@@ -122,7 +122,8 @@ export const FOUNDATIONS: FoundationPage[] = [
           { term: '/tokens.css', detail: 'The primitives, plus the default dark swap and the compact density axis.' },
           { term: '/semantic.css', detail: 'The roles a component actually reads — `--background`, `--foreground-muted`, `--border-color`.' },
           { term: '/keyframes.css', detail: 'The animations, and the one reduced-motion rule that stops them.' },
-          { term: '/themes.css', detail: 'The five remaining theming axes. Not in the three-layer recipe; add it if you set any of them.' },
+          { term: '/utilities.css', detail: 'The utilities the components name by class — `panel-blur`, `eyebrow`, `mono-meta`, the scroll idioms. Import it from your Tailwind entry; it is already inside `styles.css`.' },
+          { term: '/themes.css', detail: 'The five remaining theming axes. Not in the four-layer recipe; add it if you set any of them.' },
           { term: '/fonts.css', detail: 'The vendored @font-face rules. Already appended inside `styles.css`.' },
           { term: '/article.css', detail: 'Long-form prose styling, for the `Article` component.' },
           { term: '/tokens.json + /tokens', detail: 'The same tokens as data — JSON for a build script, and a typed `TOKENS` record with a `TokenName` union for TypeScript.' },
@@ -192,6 +193,7 @@ export const FOUNDATIONS: FoundationPage[] = [
       'Measures are capped in ch rather than px, so they track the type they are set in. --measure-record is a ceiling on a listed record’s description, not a width: a narrower column still wins.',
       'One ladder, and one factor that moves the whole of it: every step is a multiple of --radius-factor, so a theme sets one number and the steps keep their proportions. That is what makes nesting safe — two rounded edges separated by a gap of p are concentric only when the inner radius is the outer minus p, and --radius-row and --radius-frame name both directions. A 50% circle is geometry rather than a corner and is not on the ladder at all.',
       'Every component is written in logical properties — ps- and pe- rather than pl- and pr-, start- and end- rather than left- and right- — so a right-to-left document mirrors without a stylesheet of its own. A test fails the build on a physical one, because retrofitting direction into forty components after the fact is a sweep nobody schedules and a failure nobody sees. Flip any example above to RTL.',
+      'The step under all of it is 4px. Padding, gaps and margins are Tailwind’s spacing scale, which in v4 is one variable — --spacing, 0.25rem — multiplied by the number in the class: p-1 is 4px, gap-2.5 is 10px, p-6 is 24px. The package does not redeclare it, because a consumer compiling its own Tailwind would not receive the redeclaration; the scale every component is measured in is the one every v4 build already has. The half steps are used where a panel pads its rows. The lengths that are not on the grid are named instead of numbered — --pad for the page gutter, --field-px and --field-py for a control, which follow the density axis. The rest that cannot sit on the grid — a list’s indent, a code span’s padding, both in em so they follow the type — are --space-* tokens, read by article.css and the components alike, and a test fails the build on a raw length inside a bracketed spacing class.',
     ],
     categories: [
       { key: 'space', title: 'Layout' },
@@ -234,6 +236,7 @@ export const FOUNDATIONS: FoundationPage[] = [
       'There is no elevation ramp, and the four tokens named after one are there to neutralise it. --shadow-sm, --shadow and --shadow-lg all resolve to none, and --shadow-color to transparent. That is not an oversight waiting to be filled in: a component ported from a shadowed system keeps its shadow class, draws nothing, and stays flat, which is the entire point of declaring them. Law 2 — a box-shadow is never blurred — is enforced by the values rather than by a reviewer.',
       'The one depth cue the system does own is --lift: 3px 3px 0 0 var(--shadow-offset), a hard ink offset with no blur at all, and --lift-sm at 2px. --shadow-offset points at --clay, so the offset is the accent rather than a grey and it re-points when the accent does. Worth knowing before you reach for it: no component in the package uses either one — there is not a single shadow-(--lift) in the library. It is published as the sanctioned idiom for a consumer building a plate of their own, not as something the library leans on.',
       'What the library actually separates with is three things, in this order. A hairline: --rule between rows, --rule-2 around a box. A change of ground: --paper, --paper-2, --stone, three steps and no fourth. And reversal, which is what Card variant="plate" reaches for — it fills with the one reversed surface and carries its own title colour, because a hardcoded ink title on a reversed plate came out at 1.25:1 and was invisible on the one variant whose whole job is to look different. Use at most one plate per screen; two of them is a page with no ground left.',
+      'What floats and what is reversed are each assembled once, as a named material, so a surface is chosen rather than rebuilt. SURFACE_PANEL is everything that sits over the page — dialog, sheet, popover, menu, select, palette: --panel-bg, --panel-border, the two-step --panel-lift, and under the glass theme the backdrop blur, which nothing but a panel is allowed. SURFACE_PANEL_QUIET is the same panel without the lift, for chrome pinned over a canvas rather than over the page — a diagram’s toolbar, minimap and inspector. SURFACE_FEATURE is the reversed plate — Card variant="plate" and the tooltip: --feature-surface together with --on-feature, so the ground never travels without the one text colour readable on it. Both are exported as class strings beside CONTROL_BASE, the field’s material, and shape stays outside them: the same panel has 12px corners as a menu and none as a sheet. A test fails the build when a component writes either ground by hand.',
       'Height and stacking are separate questions here, and only the second one is real. Seven ranks — --z-rule at 1 through --z-toast at 300 — say what sits over what, and none of them implies a shadow, because there is none to cast. A surface’s rank is decided by what it has to survive: a drawer has to clear a sticky header, a scrim has to cover both, a modal has to sit on its own scrim, an ANCHORED panel has to clear the modal it was opened from — a select inside a dialog is one of the most ordinary shapes there is, and ranked under the modal the panel paints behind the very dialog that summoned it — and a toast has to be visible over a modal that is asking a question. The ladder itself is tabled on Space & shape rather than repeated here.',
       'Two of the seven have component-facing aliases in the semantic layer, --z-dropdown and --z-overlay. Reach for those from a component and for the primitive ranks only when you are placing something the system has no name for.',
     ],
@@ -275,6 +278,58 @@ export const FOUNDATIONS: FoundationPage[] = [
       'Every animation in the package is gated behind motion-safe, and the keyframe layer carries one reduced-motion rule that stops anything marked data-folio-animated. A reader who asked for less motion gets the end state, not a faster version of the same move.',
     ],
     categories: [{ key: 'motion', title: 'Motion tokens' }],
+  },
+  {
+    slug: 'choosing',
+    title: 'Choosing a surface',
+    summary: 'Two decision trees: what to tell the reader with, and what to put over the page.',
+    group: 'guide',
+    categories: [],
+    related: ['elevation', 'getting-started'],
+    intro: [
+      'Most of the mistakes a design system cannot catch are not wrong components but wrong choices between right ones — a toast for an error the reader had to act on, a tooltip holding a link, a menu that sets a value. Each component page says when to reach for it; this page puts those answers side by side, in the order they should be asked.',
+      'Read each tree top to bottom and stop at the first row that is true. The order is the point: the earlier questions are the ones whose wrong answer costs the reader most, so they are settled before a cheaper surface gets the chance to look right.',
+    ],
+    sections: [
+      {
+        id: 'feedback',
+        title: 'Telling the reader something',
+        body: [
+          'Ask first whether there is a page at all, then whether the reader is waiting, then how much the message needs from them. A message that needs an answer is never transient, and a message that needs none never takes the screen.',
+          'Waiting has its own threshold. Under --wait, 0.3s, show nothing: an indicator that appears and vanishes inside that window is a flash, not information. Past it, the choice is how much is known about what is coming.',
+        ],
+        rows: [
+          { term: 'ErrorState', detail: 'The page itself could not be shown — a 404, a failed load of the whole view. It is a page, not a block, so never inside a card or a panel.' },
+          { term: 'EmptyState', detail: 'Nothing went wrong and the collection is empty. The copy says what to do next, not what failed.' },
+          { term: 'Skeleton', detail: 'The reader is waiting for a view whose shape is known. A shape that describes what is coming beats an indicator that describes nothing.' },
+          { term: 'Progress', detail: 'The reader is waiting on a task with a measurable end — an upload, an import. Indeterminate only when the end truly is unknown.' },
+          { term: 'Spinner', detail: 'A short wait where the shape of the result does not matter — a button that is submitting.' },
+          { term: 'Dialog', detail: 'The reader must decide before anything else can happen — a destructive confirmation, an unsaved-changes prompt.' },
+          { term: 'Alert', detail: 'The reader must see it and may need to act on it, but can carry on. In place, beside what it is about, and it stays until the condition clears.' },
+          { term: 'Toast', detail: 'Something succeeded and needs no response. Dismissed by time, and time is not an acknowledgement — so never for an error.' },
+          { term: 'StatusPill', detail: 'Not an event but a standing state of a thing — live, draft, failed. It sits on the thing, not over the page.' },
+        ],
+      },
+      {
+        id: 'overlays',
+        title: 'Putting something over the page',
+        body: [
+          'Ask first whether the reader can be allowed to ignore it. An overlay that must be answered is modal and takes a scrim; everything after that is anchored to the control that opened it and closes when the reader looks away.',
+          'Every surface in this tree except the tooltip is the same material, SURFACE_PANEL, so the choice between them is about behaviour — focus, dismissal, reach on touch — and never about looks.',
+        ],
+        rows: [
+          { term: 'Dialog', detail: 'The page has to stop until the reader answers. Centred, with a scrim, and focus is trapped inside it.' },
+          { term: 'Sheet', detail: 'The same stop, but the content needs room — a filter panel, a detail view. It is a Dialog, docked to an edge.' },
+          { term: 'Popover', detail: 'Not modal, tied to one control, and it holds something the reader interacts with — a link, a field, a button.' },
+          { term: 'Select', detail: 'The reader is choosing a value. A menu that sets a value is a Select, or a RadioGroup when every option fits on the page.' },
+          { term: 'DropdownMenu', detail: 'A short list of actions from one control. Items that navigate belong in a nav.' },
+          { term: 'SearchableMenu', detail: 'The same actions past about a dozen rows, where scanning stops working and a filter is faster.' },
+          { term: 'Command', detail: 'Actions from anywhere in the app, page-level and modal — the ⌘K surface, not anchored to a control.' },
+          { term: 'ContextMenu', detail: 'A right-click shortcut to actions that are also reachable some other way. Never the only route.' },
+          { term: 'Tooltip', detail: 'A short label for a control the reader can already use. Nothing the reader needs, and nothing that can be clicked: it is unreachable on touch.' },
+        ],
+      },
+    ],
   },
   {
     slug: 'agents',

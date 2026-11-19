@@ -177,7 +177,7 @@ export function DiagramFrame({
         </div>
       )}
 
-      <div className="overflow-x-auto rounded-(--radius-lg) border border-(--rule) bg-(--diagram-surface) p-[clamp(0.75rem,calc(1.6*var(--fluid)),1.25rem)] scroll-slim">
+      <div className="overflow-x-auto rounded-(--radius-lg) border border-(--rule) bg-(--diagram-surface) p-(--space-frame) scroll-slim">
         <svg
           viewBox={viewBoxOf(model.extent)}
           role="img"

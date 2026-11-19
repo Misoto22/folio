@@ -12,6 +12,7 @@ import {
   type Ref,
 } from 'react'
 import { cn } from '../../lib/cn'
+import { SURFACE_PANEL_QUIET } from '../../lib/surface'
 
 const MIN_SCALE = 0.35
 const MAX_SCALE = 4
@@ -288,7 +289,7 @@ export function DiagramCanvas({
       </p>
 
       {controls && (
-        <div className="absolute bottom-3 end-3 flex items-center gap-px rounded-(--radius) border border-(--rule-2) bg-(--panel-bg) p-0.5">
+        <div className={cn('absolute bottom-3 end-3 flex items-center gap-px rounded-(--radius) border p-0.5', SURFACE_PANEL_QUIET)}>
           <CanvasButton label="Zoom out" onClick={() => zoomAbout(1 / STEP)}>
             <span aria-hidden>−</span>
           </CanvasButton>

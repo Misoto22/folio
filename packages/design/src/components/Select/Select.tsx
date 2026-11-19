@@ -4,6 +4,7 @@ import * as SelectPrimitive from '@radix-ui/react-select'
 import { Check, ChevronDown, ChevronUp } from '../../icons'
 import { useId, type ComponentProps, type ReactNode } from 'react'
 import { cn } from '../../lib/cn'
+import { SURFACE_PANEL } from '../../lib/surface'
 import { warnBlankName } from '../../lib/warn'
 import { useOverlayContainer } from '../../lib/overlay-container'
 import { useFieldControl } from '../Field/field-control'
@@ -152,7 +153,8 @@ export function Select({
           sideOffset={6}
           data-folio-animated
           className={cn(
-            'z-(--z-dropdown) max-h-72 min-w-(--radix-select-trigger-width) overflow-hidden rounded-(--radius-lg) border border-(--panel-border) bg-(--panel-bg) shadow-(--panel-lift) panel-blur',
+            'z-(--z-dropdown) max-h-72 min-w-(--radix-select-trigger-width) overflow-hidden rounded-(--radius-lg) border',
+            SURFACE_PANEL,
             contentClassName,
             'data-[state=open]:animate-[folio-pop-in_var(--duration-base)_var(--ease-out-expo)] data-[state=closed]:animate-[folio-pop-out_var(--duration-fast)_var(--ease)] origin-(--radix-popper-transform-origin)',
           )}

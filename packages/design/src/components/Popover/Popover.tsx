@@ -4,6 +4,7 @@ import * as PopoverPrimitive from '@radix-ui/react-popover'
 import { X } from '../../icons'
 import type { ComponentProps } from 'react'
 import { cn } from '../../lib/cn'
+import { SURFACE_PANEL } from '../../lib/surface'
 import { useOverlayContainer } from '../../lib/overlay-container'
 
 /** Radix Popover root, trigger, anchor and close, as typed passthroughs. */
@@ -60,7 +61,8 @@ export function PopoverContent({
         sideOffset={sideOffset}
         data-folio-animated
         className={cn(
-          'z-(--z-dropdown) w-72 rounded-(--radius-lg) border border-(--panel-border) bg-(--panel-bg) p-4 shadow-(--panel-lift) panel-blur',
+          'z-(--z-dropdown) w-72 rounded-(--radius-lg) border p-4',
+          SURFACE_PANEL,
           'data-[state=open]:animate-[folio-pop-in_var(--duration-base)_var(--ease-out-expo)] data-[state=closed]:animate-[folio-pop-out_var(--duration-fast)_var(--ease)] origin-(--radix-popper-transform-origin)',
           className,
         )}

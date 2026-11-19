@@ -2,6 +2,7 @@
 
 import type { ComponentProps, ReactNode } from 'react'
 import { cn } from '../../lib/cn'
+import { SURFACE_PANEL_QUIET } from '../../lib/surface'
 
 export interface DiagramToolbarProps extends Omit<ComponentProps<'div'>, 'children'> {
   children: ReactNode
@@ -52,7 +53,8 @@ export function DiagramToolbar({
       aria-label={label}
       aria-orientation="horizontal"
       className={cn(
-        'flex items-center gap-1 rounded-(--radius) border border-(--rule-2) bg-(--panel-bg) p-1',
+        'flex items-center gap-1 rounded-(--radius) border p-1',
+        SURFACE_PANEL_QUIET,
         placement === 'floating' && 'absolute top-3 z-(--z-sticky)',
         placement === 'floating' && (align === 'end' ? 'end-3' : 'start-3'),
         className,

@@ -157,17 +157,17 @@
    filled circle is a status dot. */
 
 [data-folio-article] :is(ul, ol) {
-  padding-inline-start: 1.4em;
+  padding-inline-start: var(--space-list-ordered);
 }
 [data-folio-article] :is(ul, ol) :is(ul, ol) {
-  margin-block-start: 0.4em;
+  margin-block-start: var(--space-list-item);
 }
 [data-folio-article] li + li {
-  margin-block-start: 0.4em;
+  margin-block-start: var(--space-list-item);
 }
 /* A paragraph or a fence nested inside a list item is still a block. */
 [data-folio-article] li > * + * {
-  margin-block-start: 0.6em;
+  margin-block-start: var(--space-list-block);
 }
 [data-folio-article] li::marker {
   color: var(--ink-3-aa);
@@ -175,7 +175,7 @@
 }
 [data-folio-article] ul {
   list-style: none;
-  padding-inline-start: 1.15em;
+  padding-inline-start: var(--space-list);
 }
 [data-folio-article] ul > li {
   position: relative;
@@ -184,9 +184,9 @@
 [data-folio-article] ul > li::before {
   content: '';
   position: absolute;
-  inset-inline-start: -1.15em;
-  inset-block-start: 0.85em;
-  width: 0.55em;
+  inset-inline-start: calc(-1 * var(--space-list));
+  inset-block-start: var(--space-list-marker-y);
+  width: var(--space-list-marker-w);
   height: 1px;
   background: var(--rule-2);
 }
@@ -226,7 +226,7 @@
    A rule and a change of face, not italics and not a giant quote mark. */
 
 [data-folio-article] blockquote {
-  padding-inline-start: 1.25em;
+  padding-inline-start: var(--space-quote);
   border-inline-start: 2px solid var(--rule-hard);
   color: var(--ink);
   font-family: var(--serif);
@@ -234,7 +234,7 @@
   line-height: 1.55;
 }
 [data-folio-article] blockquote p + p {
-  margin-block-start: 0.6em;
+  margin-block-start: var(--space-list-block);
 }
 [data-folio-article] blockquote cite {
   display: block;
@@ -253,7 +253,7 @@
 [data-folio-article] code {
   background: var(--stone);
   border-radius: var(--radius-sm);
-  padding: 0.15em 0.4em;
+  padding: var(--space-code-y) var(--space-chip-x);
   color: var(--ink);
   font-family: var(--mono);
   font-size: 0.85em;
@@ -345,7 +345,7 @@
 [data-folio-article] kbd {
   border: 1px solid var(--rule-2);
   border-radius: var(--radius-sm);
-  padding: 0.1em 0.4em;
+  padding: var(--space-kbd-y) var(--space-chip-x);
   color: var(--ink-2);
   font-family: var(--mono);
   font-size: 0.8em;

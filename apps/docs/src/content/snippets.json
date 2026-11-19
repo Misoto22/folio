@@ -9,7 +9,7 @@
   },
   "tailwind": {
     "lang": "css",
-    "code": "/* An app that already compiles Tailwind takes the token layers only, and\n   skips a second copy of the utilities. */\n@import 'tailwindcss';\n@import '@misoto22/folio/tokens.css';\n@import '@misoto22/folio/semantic.css';\n@import '@misoto22/folio/keyframes.css';\n\n/* Generate the utilities the library's own components use. */\n@source '../node_modules/@misoto22/folio/dist';\n\n@custom-variant dark (&:is([data-mode='dark'] *));"
+    "code": "/* An app that already compiles Tailwind takes the token layers only, and\n   skips a second copy of the utilities. */\n@import 'tailwindcss';\n@import '@misoto22/folio/tokens.css';\n@import '@misoto22/folio/semantic.css';\n@import '@misoto22/folio/keyframes.css';\n@import '@misoto22/folio/utilities.css';\n\n/* Generate the utilities the library's own components use. */\n@source '../node_modules/@misoto22/folio/dist';\n\n@custom-variant dark (&:is([data-mode='dark'] *));"
   },
   "theme": {
     "lang": "html",

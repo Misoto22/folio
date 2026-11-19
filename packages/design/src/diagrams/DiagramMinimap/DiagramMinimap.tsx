@@ -2,6 +2,7 @@
 
 import { useRef, type PointerEvent as ReactPointerEvent, type ReactNode } from 'react'
 import { cn } from '../../lib/cn'
+import { SURFACE_PANEL_QUIET } from '../../lib/surface'
 import type { CanvasView } from '../DiagramCanvas/DiagramCanvas'
 
 export interface DiagramMinimapProps {
@@ -99,7 +100,8 @@ export function DiagramMinimap({
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-(--radius) border border-(--rule-2) bg-(--panel-bg)',
+        'relative overflow-hidden rounded-(--radius) border',
+        SURFACE_PANEL_QUIET,
         className,
       )}
       style={{ width, height }}

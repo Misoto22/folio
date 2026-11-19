@@ -356,6 +356,55 @@
   --pad: clamp(18px, calc(4.4 * var(--fluid)), 64px);
   --sec: clamp(54px, calc(7 * var(--fluid)), 96px);
   --sec-tight: clamp(40px, calc(5 * var(--fluid)), 68px);
+
+  /* A figure's own inset, and the tighter one of the frame a diagram is drawn
+     in. Fluid for the same reason the gutter is: a figure in a phone preview
+     should pad like a figure on a phone. */
+  --space-figure: clamp(1.125rem, calc(2.5 * var(--fluid)), 1.875rem); /* 18 → 30px */
+  --space-frame: clamp(0.75rem, calc(1.6 * var(--fluid)), 1.25rem); /* 12 → 20px */
+}
+
+/* ─── Off-grid space ───────────────────────────────────────────────────────
+   Everything else is Tailwind's 4px step (`--spacing`, 0.25rem, times the
+   number in the class). These are the lengths that cannot be on it, named so a
+   component never writes one in brackets.
+
+   Most are in `em` on purpose: they belong to TEXT, and must scale with the
+   type they sit in — the gap before an inline arrow, the padding of a code
+   span, a list's indent. The prose stylesheet (`article.css`) and the
+   Markdown component draw the same lists and the same inline chips, which is
+   why the two read these rather than each holding its own copy. */
+:root {
+  /* Lists and quotations. */
+  --space-list: 1.15em; /* an unordered list's indent — and how far out its dash sits */
+  --space-list-ordered: 1.4em; /* room for a two-digit numeral */
+  --space-list-item: 0.4em; /* between two items */
+  --space-list-block: 0.6em; /* between two blocks inside one item or quote */
+  --space-list-marker-y: 0.85em; /* the dash, on the first line's x-height */
+  --space-list-marker-w: 0.55em;
+  --space-quote: 1.25em;
+
+  /* Inline chips: a code span and a key cap. Same sides, a hair less height
+     on the key, whose border already adds a pixel. */
+  --space-chip-x: 0.4em;
+  --space-code-y: 0.15em;
+  --space-kbd-y: 0.1em;
+  /* Between a link's text and its trailing arrow. */
+  --space-arrow: 0.22em;
+
+  /* A nested sidebar group's rail, aligned under its parent's icon. The second
+     step is a group inside a collapsible row, whose chevron sits further in. */
+  --space-nav-indent: 0.9rem;
+  --space-nav-indent-2: 1.35rem;
+
+  /* How far down a palette opens: the command palette a tenth of the way, the
+     site's search below the header and never higher than 4rem. */
+  --space-palette-top: 10vh;
+  --space-search-top: max(4rem, 15svh);
+
+  /* The ring of an outlined legend swatch: the swatch is 10px across and this
+     inset IS the ring, so it sits under the 2px step on purpose. */
+  --space-swatch: 1.5px;
 }
 
 /* ─── Radius ───────────────────────────────────────────────────────────────

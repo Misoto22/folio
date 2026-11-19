@@ -84,7 +84,7 @@ export interface SearchPaletteProps {
   onCloseAutoFocus?: DialogContentProps['onCloseAutoFocus']
 }
 
-const PANEL = 'folio-search-palette top-[max(4rem,15svh)] w-[min(calc(100vw-2rem),38.75rem)] data-[state=open]:animate-[folio-palette-in_var(--duration-base)_var(--ease)] data-[state=closed]:animate-[folio-palette-out_var(--duration-fast)_var(--ease)]'
+const PANEL = 'folio-search-palette top-(--space-search-top) w-[min(calc(100vw-2rem),38.75rem)] data-[state=open]:animate-[folio-palette-in_var(--duration-base)_var(--ease)] data-[state=closed]:animate-[folio-palette-out_var(--duration-fast)_var(--ease)]'
 
 /**
  * The body's height, eased between whatever the visible view needs.

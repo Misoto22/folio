@@ -5,6 +5,7 @@ import { Search as SearchIcon } from '../../icons'
 import type { IconComponent } from '../../icons'
 import { isValidElement, type ComponentProps, type ReactNode } from 'react'
 import { cn } from '../../lib/cn'
+import { SURFACE_PANEL } from '../../lib/surface'
 
 /**
  * True for a component type — `icon={Settings}` — rather than a rendered element.
@@ -60,7 +61,8 @@ export function Command({
   return (
     <CommandPrimitive
       className={cn(
-        'flex w-full flex-col overflow-hidden rounded-(--radius-lg) border border-(--panel-border) bg-(--panel-bg) shadow-(--panel-lift) panel-blur',
+        'flex w-full flex-col overflow-hidden rounded-(--radius-lg) border',
+        SURFACE_PANEL,
         className,
       )}
       {...props}
@@ -326,7 +328,7 @@ export function CommandDialog({
         // does — but the reserved gutter was still there, so the list stopped
         // thirteen pixels short of the panel and drew its own hairline inside
         // an empty channel. Two bars, one of them permanently blank.
-        className={cn('top-[10vh] w-[min(94vw,44rem)] translate-y-0 overflow-hidden p-0 [scrollbar-gutter:auto]', className)}
+        className={cn('top-(--space-palette-top) w-[min(94vw,44rem)] translate-y-0 overflow-hidden p-0 [scrollbar-gutter:auto]', className)}
       >
         {/* The modal has the whole screen, so its list may be taller than the
             default an inline menu should keep.

@@ -30,7 +30,7 @@ export function Code({ children, className, ...rest }: CodeProps) {
   return (
     <code
       className={cn(
-        'rounded-(--radius-sm) bg-(--stone) px-[0.4em] py-[0.15em] font-mono text-[0.85em] text-(--ink)',
+        'rounded-(--radius-sm) bg-(--stone) px-(--space-chip-x) py-(--space-code-y) font-mono text-[0.85em] text-(--ink)',
         className,
       )}
       {...rest}

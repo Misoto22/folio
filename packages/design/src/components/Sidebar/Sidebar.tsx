@@ -768,7 +768,7 @@ export function SidebarGroup({
           {heading}
           {action}
         </div>
-        <div className="ms-[0.9rem] flex flex-col gap-0.5 border-s border-(--rule) ps-2">{rows}</div>
+        <div className="ms-(--space-nav-indent) flex flex-col gap-0.5 border-s border-(--rule) ps-2">{rows}</div>
       </div>
     )
   }
@@ -791,7 +791,7 @@ export function SidebarGroup({
         {action}
       </div>
       <CollapsibleContent>
-        <div className="ms-[0.9rem] flex flex-col gap-0.5 border-s border-(--rule) ps-2">{rows}</div>
+        <div className="ms-(--space-nav-indent) flex flex-col gap-0.5 border-s border-(--rule) ps-2">{rows}</div>
       </CollapsibleContent>
     </Collapsible>
   )
@@ -918,7 +918,7 @@ export function SidebarBranch({
         )}
       </CollapsibleTrigger>
       <CollapsibleContent>
-        <div className="group/rows ms-[1.35rem] flex flex-col gap-0.5 border-s border-(--rule) ps-2">
+        <div className="group/rows ms-(--space-nav-indent-2) flex flex-col gap-0.5 border-s border-(--rule) ps-2">
           {children}
         </div>
       </CollapsibleContent>
