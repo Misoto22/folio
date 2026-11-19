@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.23.0](https://github.com/Misoto22/folio/compare/v0.22.2...v0.23.0) (2026-11-19)
+
+
+### Features
+
+* **design:** add surface materials, space tokens and utilities.css ([#200](https://github.com/Misoto22/folio/issues/200)) ([b3665b7](https://github.com/Misoto22/folio/commit/b3665b71135934652e87f87ddafa9a948ee1d18a))
+
 ## [0.22.2](https://github.com/Misoto22/folio/compare/v0.22.1...v0.22.2) (2026-11-19)
 
 
