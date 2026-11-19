@@ -79,7 +79,8 @@
 .folio-photograph-feature-image img { display: block; inline-size: 100%; block-size: auto; object-fit: contain; }
 .folio-photograph-feature-caption { margin-block-start: 0.875rem; color: var(--secondary-text); font-family: var(--font-mono); font-size: 0.6875rem; }
 
-.folio-media-detail { padding-block: clamp(2rem, 5vw, 4.5rem) clamp(4rem, 8vw, 7rem); }
+/* Starts below the fixed site header, with the same clearance a reading page has above its back link. A bare 5vw padding was less than the header between 820px and 1200px, so the back link ran under it. */
+.folio-media-detail { padding-block: calc(var(--website-header-h, 3.75rem) + clamp(1.25rem, 2.25vw, 2rem)) clamp(4rem, 8vw, 7rem); }
 .folio-media-index-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block-end: 1rem; border-block-end: 1px solid var(--border-subtle); }
 .folio-media-index-bar > :is(a, button) { min-inline-size: 44.25px; min-block-size: 44.25px; }
 .folio-media-index { color: var(--foreground-muted); font-family: var(--label-font); font-size: 0.6875rem; font-variant-numeric: tabular-nums; letter-spacing: calc(0.13em * var(--label-tracking-scale)); }
@@ -270,7 +271,6 @@
 }
 
 @media (max-width: 820px) {
-  .folio-media-detail { padding-block-start: 5.5rem; }
   .folio-media-spread,
   .folio-media-spread[data-photo-spread='wide'] .folio-media-ledger { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
   .folio-media-frame { --folio-media-max-block: 72svh; }
