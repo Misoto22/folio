@@ -111,7 +111,7 @@ function Frame({ children, version }: { children: ReactNode; version: string }) 
 
           Three regions: the brand, the sections as one segmented control, and
           the tools. Every control on a coarse pointer gets 44px. */}
-      <header className="sticky top-0 z-(--z-sticky) grid h-(--bar-h) grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border-b border-(--rule-2) bg-(--paper) px-3 sm:px-5 pointer-coarse:[&_a]:min-h-11 pointer-coarse:[&_button]:min-h-11">
+      <header className="sticky top-0 z-(--z-sticky) grid h-(--bar-h) grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 sm:gap-3 border-b border-(--rule-2) bg-(--paper) px-3 sm:px-5 pointer-coarse:[&_a]:min-h-11 pointer-coarse:[&_button]:min-h-11">
         <div className="flex items-center gap-2">
           {sidebar && (
             <Button
@@ -176,7 +176,7 @@ function Frame({ children, version }: { children: ReactNode; version: string }) 
                   key={id}
                   href={localePath(locale, SECTION_ROOT[id])}
                   aria-current={section === id ? 'page' : undefined}
-                  className="flex h-9 shrink-0 items-center gap-2 rounded-(--radius-pill) border border-transparent px-3 text-sm whitespace-nowrap text-(--ink-2) transition-colors duration-(--duration-fast) hover:text-(--ink) aria-[current=page]:border-(--rule-2) aria-[current=page]:bg-(--paper) aria-[current=page]:font-medium aria-[current=page]:text-(--ink)"
+                  className="flex h-9 shrink-0 items-center gap-2 rounded-(--radius-pill) border border-transparent px-2.5 nav:px-3 text-sm whitespace-nowrap text-(--ink-2) transition-colors duration-(--duration-fast) hover:text-(--ink) aria-[current=page]:border-(--rule-2) aria-[current=page]:bg-(--paper) aria-[current=page]:font-medium aria-[current=page]:text-(--ink)"
                 >
                   <Icon size={16} aria-hidden />
                   <span className="max-nav:sr-only">{SECTION_LABEL[id]}</span>
@@ -217,9 +217,10 @@ function Frame({ children, version }: { children: ReactNode; version: string }) 
             <span className="max-sm:hidden">
               <LocaleMenu />
             </span>
-            <span className="max-sm:hidden">
-              <ThemeMenu />
-            </span>
+            {/* The theme panel stays in the masthead at every width: it is the
+                site's demonstration, and a phone reader should not have to
+                open the drawer to find it. */}
+            <ThemeMenu />
             <ThemeToggle />
           </div>
         </div>
@@ -241,8 +242,8 @@ function Frame({ children, version }: { children: ReactNode; version: string }) 
             className="lg:sticky lg:top-(--bar-h) lg:h-[calc(100svh-var(--bar-h))]"
           >
             {/* The drawer's own head, on a phone only: the masthead is behind
-                the scrim there, so the drawer carries the brand, the two menus
-                the masthead has no room for, and its own way out. */}
+                the scrim there, so the drawer carries the brand, the language
+                menu the masthead has no room for, and its own way out. */}
             <SidebarHeader className="h-(--bar-h) justify-between border-(--rule-2) px-4 lg:hidden">
               <Link
                 href={localePath(locale, '/')}
@@ -254,9 +255,6 @@ function Frame({ children, version }: { children: ReactNode; version: string }) 
               <div className="flex items-center gap-1">
                 <span className="sm:hidden">
                   <LocaleMenu />
-                </span>
-                <span className="sm:hidden">
-                  <ThemeMenu />
                 </span>
                 <Button
                   iconOnly

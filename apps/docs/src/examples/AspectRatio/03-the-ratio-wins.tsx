@@ -9,8 +9,10 @@ const NOTE =
  * wrapper hides its overflow, so content longer than the box is CLIPPED rather
  * than allowed to push the height — the ratio was the promise, and it is the
  * promise kept. Where the words have to be readable, give the child its own
- * scroll, as the second box does; where they do not, reach for a box that can
- * grow instead of one that cannot.
+ * scroll, as the second box does — and make that scroll reachable: a box that
+ * scrolls is a control, so it takes `tabIndex={0}` and a name, or a keyboard
+ * reader can never see its end. Where the words do not have to be readable,
+ * reach for a box that can grow instead of one that cannot.
  */
 export function Example() {
   return (
@@ -27,7 +29,12 @@ export function Example() {
       </div>
       <div className="flex flex-col gap-2">
         <AspectRatio ratio="16 / 9" className="rounded-(--radius) border border-(--rule-2)">
-          <div className="overflow-y-auto p-3 scroll-slim">
+          <div
+            tabIndex={0}
+            role="region"
+            aria-label="Release note"
+            className="overflow-y-auto p-3 scroll-slim"
+          >
             <Text size="sm">{NOTE}</Text>
           </div>
         </AspectRatio>

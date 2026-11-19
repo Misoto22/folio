@@ -565,7 +565,13 @@ function Glance({
 
   if (cards.length === 0) return null
   return (
-    <section aria-label={title} className="grid gap-3 md:grid-cols-3">
+    // `minmax(0, 1fr)`, not the default `auto` minimum: a keyboard line is
+    // truncated, and a track sized to its content would take the line's FULL
+    // width first — on a phone, 624px of card in a 390px page.
+    <section
+      aria-label={title}
+      className="grid grid-cols-[minmax(0,1fr)] gap-3 md:grid-cols-[repeat(3,minmax(0,1fr))]"
+    >
       {cards}
     </section>
   )
@@ -583,7 +589,7 @@ function GlanceCard({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex flex-col gap-3 rounded-(--radius-lg) bg-(--paper-2) p-4">
+    <div className="flex min-w-0 flex-col gap-3 rounded-(--radius-lg) bg-(--paper-2) p-4">
       <a href={href} className="flex items-center gap-2 text-meta font-medium text-(--ink) no-underline">
         <IconTile icon={icon} size="sm" className="bg-(--paper)" />
         {label}
