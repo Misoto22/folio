@@ -217,12 +217,20 @@ Two entry points, named after what triggers them, over two shared definitions:
 
 ```
 pr-title.yml on: pull_request_target  →  pr-title
-pr.yml       on: pull_request         →  verify → browser
-release.yml  on: push to main         →  verify → browser → deploy · release → publish
-                                                     ↑         ↑        ↑         ↑
-                               verify.yml · browser.yml   Cloudflare  release-  npmjs
+pr.yml       on: pull_request         →  scope → verify ∥ browser
+release.yml  on: push to main         →  trust → verify ∥ browser → deploy · release → publish → misoto22-site
+                                                     ↑         ↑        ↑         ↑           ↑
+                               verify.yml · browser.yml   Cloudflare  release-  npmjs   bump PR
                                                                        please
 ```
+
+`verify` and `browser` run side by side: each of the six browser shards
+builds its own export rather than waiting for `verify` to upload one. Both
+take a `verified` input. `scope` sets it for a release pull request whose diff
+is only the version and the changelog; `trust` sets it on `main` when the
+pushed tree is exactly the head a merged pull request already passed. In that
+form the jobs still run and report, and `verify` still builds the export the
+deploy uploads, but nothing is checked twice.
 
 `verify.yml` is lint, typecheck, tests, both builds and the size and
 tree-shaking budget; `browser.yml` is the axe, keyboard and RTL suite against

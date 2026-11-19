@@ -5,6 +5,14 @@ name: Browser
 
 on:
   workflow_call:
+    inputs:
+      verified:
+        description: >-
+          The tree was already checked (see verify.yml). Every shard still
+          starts and reports, so the required `browser / browser` check
+          stays green, but none of them builds or drives a browser.
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -27,27 +35,38 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2, 3]
+        #
+        # Six, and each builds its own export: the shards used to wait for
+        # `verify` to upload one, so a pull request paid verify's four minutes
+        # and then the sweep's six to eight in series. Building in the shard
+        # costs about a minute and a half and runs alongside verify instead.
+        # A verified tree needs one placeholder shard, not six idle runners.
+        shard: ${{ fromJSON(inputs.verified && '[1]' || '[1, 2, 3, 4, 5, 6]') }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: ${{ !inputs.verified }}
       - uses: ./.github/actions/setup
+        if: ${{ !inputs.verified }}
 
       - name: Install Chromium
+        if: ${{ !inputs.verified }}
         run: pnpm --filter @misoto22/folio-docs exec playwright install --with-deps chromium
 
       # The suite serves the built export, so it tests the artifact that ships
       # rather than a dev server that renders through a different pipeline.
-      - name: Download the static export
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
-        with:
-          name: docs-out
-          path: apps/docs/out
+      # Same two commands verify.yml builds the deployed export with.
+      - name: Build the static export
+        if: ${{ !inputs.verified }}
+        run: |
+          pnpm build:design
+          pnpm build:docs
 
       # `exec playwright` rather than the `test:e2e` script: pnpm forwards `--`
       # to the script verbatim, so Playwright received a literal `--` and ran
       # the whole suite on every shard — three times the work and none of the
       # speed.
       - name: Accessibility and keyboard suite
+        if: ${{ !inputs.verified }}
         run: pnpm --filter @misoto22/folio-docs exec playwright test --shard=${{ matrix.shard }}/${{ strategy.job-total }}
 
       - name: Upload the report on failure

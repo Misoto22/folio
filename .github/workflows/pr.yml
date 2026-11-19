@@ -14,9 +14,49 @@ permissions:
   contents: read
 
 jobs:
-  verify:
-    uses: ./.github/workflows/verify.yml
+  # A release-please pull request changes the version and the changelog and
+  # nothing else, on top of a main that its own Release run already verified.
+  # Checking that tree again cost ten minutes per release for no new answer.
+  # Anything else on that branch — a hand-pushed fix, a widened diff — fails
+  # this test and gets the full run.
+  scope:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      verified: ${{ steps.release.outputs.verified }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - id: release
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          verified=false
+          if [[ "$HEAD_REF" == release-please--* ]]; then
+            files=$(git diff --name-only "$BASE" "$HEAD" | sort | tr '\n' ' ')
+            allowed=".release-please-manifest.json packages/design/CHANGELOG.md packages/design/package.json "
+            # package.json may differ only in its "version" line.
+            other=$(git diff -U0 "$BASE" "$HEAD" -- packages/design/package.json | grep -E '^[+-] ' | grep -vcE '^[+-]  "version": ' || true)
+            if [ "$files" = "$allowed" ] && [ "$other" = 0 ]; then verified=true; fi
+            echo "files: $files; other package.json lines: $other"
+          fi
+          echo "verified=$verified" >> "$GITHUB_OUTPUT"
+          echo "release-only change: $verified"
 
+  verify:
+    needs: scope
+    uses: ./.github/workflows/verify.yml
+    with:
+      verified: ${{ needs.scope.outputs.verified == 'true' }}
+
+  # Not after `verify`: each shard builds its own export, so the two run side
+  # by side and a pull request waits for the slower one, not for both.
   browser:
-    needs: verify
+    needs: scope
     uses: ./.github/workflows/browser.yml
+    with:
+      verified: ${{ needs.scope.outputs.verified == 'true' }}

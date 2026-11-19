@@ -5,6 +5,16 @@ name: Verify
 
 on:
   workflow_call:
+    inputs:
+      verified:
+        description: >-
+          The tree was already checked: a release commit whose only change is
+          the version, or a merge that lands exactly a pull request's verified
+          head. The job still runs, so the required `verify / verify` check
+          reports, and it still builds the docs export the deploy uploads; the
+          checks themselves are skipped.
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -18,6 +28,7 @@ jobs:
       - uses: ./.github/actions/setup
 
       - name: Lint
+        if: ${{ !inputs.verified }}
         run: pnpm lint
 
       # The docs app reads the design package from `dist`, so the library is
@@ -27,19 +38,23 @@ jobs:
         run: pnpm build:design
 
       - name: Type check
+        if: ${{ !inputs.verified }}
         run: pnpm typecheck
 
       - name: Test
+        if: ${{ !inputs.verified }}
         run: pnpm test
 
       # Answers "did the package suddenly get bigger" and, more usefully, "does
       # importing one component still avoid dragging in the other forty-eight".
       - name: Size and tree-shaking budget
+        if: ${{ !inputs.verified }}
         run: pnpm --filter @misoto22/folio check:size
 
       # The tarball and its nine export paths — the surface a consumer meets,
       # and the one thing every other gate here tests around rather than.
       - name: Publish surface
+        if: ${{ !inputs.verified }}
         run: pnpm --filter @misoto22/folio check:publish
 
       - name: Build the documentation site
