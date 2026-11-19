@@ -95,7 +95,7 @@ export function Playground({ code, className }: PlaygroundProps) {
             // The font and colours are ours, so the editor matches the
             // read-only blocks beside it rather than arriving in the library's
             // own theme.
-            className="!bg-(--paper-2) !font-mono !text-[12.5px] !leading-[1.75]"
+            className="!bg-(--paper-2) !font-mono !text-caption !leading-[1.75]"
           />
         </div>
         {/* A live region, so the message is announced when the code stops

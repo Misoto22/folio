@@ -38,10 +38,10 @@ export function ThemeSpecimen() {
         aria-hidden
         className="pointer-events-none absolute end-3 bottom-12 z-1 flex w-32 flex-col gap-1 rounded-(--radius-lg) border border-(--panel-border) bg-(--panel-bg) p-1.5 panel-blur"
       >
-        <span className="rounded-(--radius-row) bg-(--stone) px-2.5 py-1.5 text-[12px] text-(--ink)">
+        <span className="rounded-(--radius-row) bg-(--stone) px-2.5 py-1.5 text-caption text-(--ink)">
           Re-run
         </span>
-        <span className="px-2.5 py-1.5 text-[12px] text-(--ink-2)">Roll back</span>
+        <span className="px-2.5 py-1.5 text-caption text-(--ink-2)">Roll back</span>
       </div>
       <Card>
         <CardHeader>
@@ -68,7 +68,7 @@ export function ThemeSpecimen() {
             </TBody>
           </Table>
           <Input aria-label="Filter" placeholder="branch…" />
-          <label className="flex items-center gap-2.5 text-[13px] text-(--ink-2)">
+          <label className="flex items-center gap-2.5 text-meta text-(--ink-2)">
             <Switch defaultChecked aria-label="Notify on failure" />
             Notify on failure
           </label>

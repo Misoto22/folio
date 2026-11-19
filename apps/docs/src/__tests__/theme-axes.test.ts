@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { ACCENTS } from '@/components/AccentProvider'
-import { AXES, DEFAULTS, LOOK_AXES, PRESETS, attribute } from '@/components/ThemeProvider'
+import { AXES, DEFAULTS, LOOK_AXES, PRESETS, SITE_PRESET, attribute } from '@/components/ThemeProvider'
 // Reached across the workspace on purpose: a selector is the only thing that
 // settles whether an axis value is real, and the package already derives them.
 import { themeAxes } from '../../../../packages/design/scripts/theme-axes.mjs'
@@ -31,6 +31,20 @@ describe('the pre-paint theme script', () => {
     expect(restored).toEqual(
       Object.fromEntries(Object.keys(AXES).map((axis) => [axis, DEFAULTS[axis as never]])),
     )
+  })
+
+  /**
+   * A first visit opens in the site's own preset, and the script applies it
+   * before React exists — so it holds a second copy of that preset, checked
+   * here the same way the defaults are.
+   */
+  it('opens a first visit in the site preset', () => {
+    const literal = /var initial = \{([^}]*)\}/.exec(SCRIPT)?.[1]
+    expect(literal, 'theme-script.ts must declare the initial look inline').toBeDefined()
+    const initial = Object.fromEntries(
+      [...literal!.matchAll(/(\w+): '([\w-]+)'/g)].map((m) => [m[1]!, m[2]!]),
+    )
+    expect(initial).toEqual(SITE_PRESET.values)
   })
 })
 

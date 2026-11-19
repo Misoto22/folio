@@ -70,7 +70,7 @@ function ThemeThumb({ preset, name }: { preset: ThemePreset; name: string }) {
       {/* Over the furniture, and over a wash of the theme's own ground so the
           letters keep their contrast whatever is drawn under them. */}
       <span className="pointer-events-none absolute inset-0 z-2 flex items-center justify-center bg-(--paper)/55">
-        <span className="font-heading text-[19px] leading-none tracking-tight text-(--ink)">
+        <span className="font-heading text-[length:var(--fs-item)] leading-none tracking-tight text-(--ink)">
           {name}
         </span>
       </span>
@@ -82,12 +82,12 @@ function ThemeThumb({ preset, name }: { preset: ThemePreset; name: string }) {
         <span className="h-1 w-8 rounded-(--radius-pill) bg-(--ink-3-aa) opacity-25" />
       </span>
       <span className="flex items-center justify-between gap-2">
-        <span className="font-heading text-[11px] leading-none text-(--ink)">Deploys</span>
+        <span className="font-heading text-micro leading-none text-(--ink)">Deploys</span>
         {/* A status wash, not the accent. The accent is already on the button
             below, and spending it twice in eighty pixels makes the preview look
             like a theme about one colour — which is the reading this whole page
             exists to correct. */}
-        <span className="rounded-(--radius-pill) bg-(--success-wash) px-1.5 py-0.5 text-[7px] leading-none text-(--success)">
+        <span className="rounded-(--radius-pill) bg-(--success-wash) px-1.5 py-0.5 text-thumb leading-none text-(--success)">
           passing
         </span>
       </span>
@@ -102,10 +102,10 @@ function ThemeThumb({ preset, name }: { preset: ThemePreset; name: string }) {
         </span>
       </span>
       <span className="mt-auto flex items-center gap-1.5">
-        <span className="rounded-(--radius) bg-(--accent) px-2 py-1 text-[7px] leading-none text-(--accent-foreground)">
+        <span className="rounded-(--radius) bg-(--accent) px-2 py-1 text-thumb leading-none text-(--accent-foreground)">
           Deploy
         </span>
-        <span className="rounded-(--radius) border border-(--rule-2) px-2 py-1 text-[7px] leading-none text-(--ink-2)">
+        <span className="rounded-(--radius) border border-(--rule-2) px-2 py-1 text-thumb leading-none text-(--ink-2)">
           History
         </span>
       </span>
@@ -137,7 +137,7 @@ export function ThemeRail() {
     // is two landmarks a reader has to tell apart by nothing.
     <div className="flex h-full flex-col gap-4 pb-6">
       <div className="flex flex-col gap-2">
-        <p className="m-0 px-1 pb-1 font-mono text-[12px] tracking-[0.06em] text-(--ink-3-aa)">
+        <p className="m-0 px-1 pb-1 font-mono text-caption tracking-[0.06em] text-(--ink-3-aa)">
           {t.themes.title}
         </p>
         {PRESETS.map((preset) => {
@@ -206,14 +206,14 @@ export function ThemeRail() {
           {ORDER.map((axis) => (
             <div key={axis} className="flex items-baseline justify-between gap-3">
               <dt className="mono-meta text-(--ink-3-aa)">{t.themes.axes[axis]}</dt>
-              <dd className="m-0 text-[13px] text-(--ink-2)">
+              <dd className="m-0 text-meta text-(--ink-2)">
                 {t.themes.values[theme[axis]] ?? theme[axis]}
               </dd>
             </div>
           ))}
           <div className="flex items-baseline justify-between gap-3">
             <dt className="mono-meta text-(--ink-3-aa)">{t.appearance.accentTitle}</dt>
-            <dd className="m-0 flex items-center gap-1.5 text-[13px] text-(--ink-2)">
+            <dd className="m-0 flex items-center gap-1.5 text-meta text-(--ink-2)">
               <span
                 aria-hidden
                 className="size-2.5 rounded-full border border-(--rule-2) bg-(--accent)"
@@ -224,7 +224,7 @@ export function ThemeRail() {
         </dl>
       </div>
 
-      <p className="m-0 px-3 text-[12px] leading-relaxed text-(--ink-3-aa)">{t.themes.railNote}</p>
+      <p className="m-0 px-3 text-caption leading-relaxed text-(--ink-3-aa)">{t.themes.railNote}</p>
     </div>
   )
 }

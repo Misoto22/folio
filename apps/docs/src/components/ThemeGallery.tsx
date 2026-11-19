@@ -76,7 +76,7 @@ export function ThemeGallery({ locale }: { locale: Locale }) {
             {t.appearance.reset}
           </Button>
         </div>
-        <p className="m-0 max-w-(--w-reading) text-[13px] leading-relaxed text-(--ink-2)">
+        <p className="m-0 max-w-(--w-reading) text-meta leading-relaxed text-(--ink-2)">
           {copy?.note ?? matching?.note ?? t.themes.customNote}
         </p>
         {/* The whole of what a theme IS, in one line a reader can take away.
@@ -88,7 +88,7 @@ export function ThemeGallery({ locale }: { locale: Locale }) {
         <p
           tabIndex={0}
           aria-label={t.themes.attributesLabel}
-          className="m-0 overflow-x-auto rounded-(--radius) border border-(--rule) bg-(--stone) px-3 py-2 font-mono text-[12px] whitespace-nowrap text-(--ink-2) scroll-slim"
+          className="m-0 overflow-x-auto rounded-(--radius) border border-(--rule) bg-(--stone) px-3 py-2 font-mono text-caption whitespace-nowrap text-(--ink-2) scroll-slim"
         >
           &lt;html {snippet} data-accent=&quot;{theme.accent}&quot;&gt;
         </p>
@@ -99,7 +99,7 @@ export function ThemeGallery({ locale }: { locale: Locale }) {
       <section className="flex flex-col gap-5">
         <div className="flex flex-col gap-2">
           <SectionHeading id="chart-palette">{t.themes.axes.chartPalette}</SectionHeading>
-          <p className="m-0 max-w-(--w-reading) text-[13px] leading-relaxed text-(--ink-2)">
+          <p className="m-0 max-w-(--w-reading) text-meta leading-relaxed text-(--ink-2)">
             {t.themes.paletteLead}
           </p>
         </div>

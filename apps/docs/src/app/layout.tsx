@@ -8,6 +8,7 @@ import './globals.css'
 import { COMPONENTS } from '@/content/registry'
 import { getMessages } from '@/i18n/messages'
 import { BRAND_NAME } from '@/lib/brand'
+import { packageVersion } from '@/lib/docs'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ui.misoto22.com'),
@@ -53,7 +54,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body>
         <ThemeProvider>
-          <DocsShell>{children}</DocsShell>
+          <DocsShell version={packageVersion()}>{children}</DocsShell>
         </ThemeProvider>
       </body>
     </html>

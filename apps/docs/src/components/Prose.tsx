@@ -23,7 +23,7 @@ export function Prose({ text, small = false, className }: ProseProps) {
     <div
       className={cn(
         'flex max-w-(--w-reading) flex-col gap-3',
-        small ? 'text-[13px]' : 'text-sm',
+        small ? 'text-meta' : 'text-body',
         className,
       )}
     >

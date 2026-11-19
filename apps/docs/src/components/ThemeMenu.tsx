@@ -111,7 +111,7 @@ export function ThemeMenu() {
                         </span>
                       )}
                     </span>
-                    <span className="text-[12px] leading-snug text-(--ink-3-aa)">
+                    <span className="text-caption leading-snug text-(--ink-3-aa)">
                       {t.themes.presets[preset.id]?.note ?? preset.note}
                     </span>
                   </button>
@@ -137,7 +137,7 @@ export function ThemeMenu() {
                   className="w-full"
                 >
                   {AXES[axis].map((option) => (
-                    <ToggleGroupItem key={option} value={option} className="flex-1 text-[13px]">
+                    <ToggleGroupItem key={option} value={option} className="flex-1 text-meta">
                       {t.themes.values[option] ?? option}
                     </ToggleGroupItem>
                   ))}
@@ -169,7 +169,7 @@ export function ThemeMenu() {
               </div>
             </div>
 
-            <p className="m-0 text-[12px] leading-relaxed text-(--ink-3-aa)">
+            <p className="m-0 text-caption leading-relaxed text-(--ink-3-aa)">
               {t.appearance.axesNote}
             </p>
           </TabsContent>

@@ -51,6 +51,29 @@ const [LEGACY_THEME] = LEGACY_KEY_PAIRS.theme
 const [LEGACY_SIDEBAR] = LEGACY_KEY_PAIRS.sidebar
 
 describe('the pre-paint theme script', () => {
+  it('opens a first visit in the site preset, writing only what differs from the package', () => {
+    run()
+
+    expect(html().dataset.surface).toBe('linen')
+    expect(html().dataset.voice).toBe('quiet')
+    expect(html().dataset.controls).toBe('pill')
+    expect(html().dataset.accent).toBe('ink')
+    // `soft` and `calm` are the package's own defaults, so they stay unwritten.
+    expect(html().dataset.radius).toBeUndefined()
+    expect(html().dataset.motion).toBeUndefined()
+  })
+
+  it('keeps a returning reader on the look they chose, not the site preset', () => {
+    store.set(STORAGE_KEYS.theme, JSON.stringify({ surface: 'paper', rules: 'hairline' }))
+    store.set(STORAGE_KEYS.accent, 'ink')
+
+    run()
+
+    expect(html().dataset.surface).toBeUndefined()
+    expect(html().dataset.voice).toBeUndefined()
+    expect(html().dataset.accent).toBe('ink')
+  })
+
   it('applies a returning reader\'s legacy preferences and copies them to the new keys', () => {
     store.set(LEGACY_MODE, 'dark')
     store.set(LEGACY_ACCENT, 'cobalt')
@@ -105,7 +128,8 @@ describe('the pre-paint theme script', () => {
     run()
 
     expect(html().dataset.mode).toBe('dark')
-    expect(html().dataset.accent).toBeUndefined()
+    // The site preset's accent, applied without being written to storage.
+    expect(html().dataset.accent).toBe('ink')
     expect(store.size).toBe(0)
   })
 

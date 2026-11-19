@@ -37,7 +37,7 @@ export function TemplatesIndex({ locale }: { locale: Locale }) {
     category === ALL ? TEMPLATES : TEMPLATES.filter((template) => template.category === category)
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-10">
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-10">
       <PageIntro
         eyebrow={t.nav.start}
         title={copy?.title ?? t.nav.templates}
@@ -56,11 +56,11 @@ export function TemplatesIndex({ locale }: { locale: Locale }) {
           aria-label={t.nav.sections}
           className="flex-wrap"
         >
-          <ToggleGroupItem value={ALL} className="text-[13px]">
+          <ToggleGroupItem value={ALL} className="text-meta">
             {t.nav.allTemplates}
           </ToggleGroupItem>
           {groups.map((name) => (
-            <ToggleGroupItem key={name} value={name} className="text-[13px]">
+            <ToggleGroupItem key={name} value={name} className="text-meta">
               {name}
             </ToggleGroupItem>
           ))}
@@ -86,10 +86,10 @@ export function TemplatesIndex({ locale }: { locale: Locale }) {
                       {template.uses.length} {t.section.components.toLowerCase()}
                     </Badge>
                   </div>
-                  <p className="m-0 text-[13px] leading-relaxed text-(--ink-3-aa)">
+                  <p className="m-0 text-meta leading-relaxed text-(--ink-3-aa)">
                     {templateCopy(locale, template.slug).summary ?? template.summary}
                   </p>
-                  <p className="m-0 border-s border-(--rule-2) ps-3 text-[13px] leading-relaxed text-(--ink-2)">
+                  <p className="m-0 border-s border-(--rule-2) ps-3 text-meta leading-relaxed text-(--ink-2)">
                     {templateCopy(locale, template.slug).tests ?? template.tests}
                   </p>
                   <div className="mt-auto flex flex-wrap gap-1.5 pt-2">
