@@ -69,7 +69,22 @@
     "BadgeTone",
     "AlertTone",
     "TableAlign",
-    "TableBorders"
+    "TableBorders",
+    "Dialog",
+    "Sheet",
+    "DropdownMenu",
+    "ContextMenu",
+    "SearchableMenu",
+    "Select",
+    "Command",
+    "Tabs",
+    "Toolbar",
+    "Slider",
+    "Progress",
+    "Tooltip",
+    "Alert",
+    "Accordion",
+    "Collapsible"
   ],
   "$comment3": "Required-by-the-type props the a11y rule promises. `skill.test.ts` checks each against the extracted source, so a prop that stops being required stops being advertised as required.",
   "requiredProps": [
