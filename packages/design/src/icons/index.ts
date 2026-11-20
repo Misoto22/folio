@@ -43,6 +43,7 @@ import {
   ExternalLink as LucideExternalLink,
   FileDown as LucideFileDown,
   FileText as LucideFileText,
+  Focus as LucideFocus,
   GitBranch as LucideGitBranch,
   GraduationCap as LucideGraduationCap,
   Hand as LucideHand,
@@ -55,8 +56,10 @@ import {
   Languages as LucideLanguages,
   Layers as LucideLayers,
   List as LucideList,
+  LocateFixed as LucideLocateFixed,
   Lock as LucideLock,
   Mail as LucideMail,
+  MapPin as LucideMapPin,
   Maximize as LucideMaximize,
   Menu as LucideMenu,
   MessageCircle as LucideMessageCircle,
@@ -74,6 +77,7 @@ import {
   Puzzle as LucidePuzzle,
   RefreshCw as LucideRefreshCw,
   RotateCcw as LucideRotateCcw,
+  Ruler as LucideRuler,
   Search as LucideSearch,
   Server as LucideServer,
   Settings as LucideSettings,
@@ -130,6 +134,7 @@ export const Ellipsis = /* @__PURE__ */ folioIcon(LucideEllipsis)
 export const ExternalLink = /* @__PURE__ */ folioIcon(LucideExternalLink)
 export const FileDown = /* @__PURE__ */ folioIcon(LucideFileDown)
 export const FileText = /* @__PURE__ */ folioIcon(LucideFileText)
+export const Focus = /* @__PURE__ */ folioIcon(LucideFocus)
 export const GitBranch = /* @__PURE__ */ folioIcon(LucideGitBranch)
 export const GraduationCap = /* @__PURE__ */ folioIcon(LucideGraduationCap)
 export const Hand = /* @__PURE__ */ folioIcon(LucideHand)
@@ -142,8 +147,10 @@ export const Info = /* @__PURE__ */ folioIcon(LucideInfo)
 export const Languages = /* @__PURE__ */ folioIcon(LucideLanguages)
 export const Layers = /* @__PURE__ */ folioIcon(LucideLayers)
 export const List = /* @__PURE__ */ folioIcon(LucideList)
+export const LocateFixed = /* @__PURE__ */ folioIcon(LucideLocateFixed)
 export const Lock = /* @__PURE__ */ folioIcon(LucideLock)
 export const Mail = /* @__PURE__ */ folioIcon(LucideMail)
+export const MapPin = /* @__PURE__ */ folioIcon(LucideMapPin)
 export const Maximize = /* @__PURE__ */ folioIcon(LucideMaximize)
 export const Menu = /* @__PURE__ */ folioIcon(LucideMenu)
 export const MessageCircle = /* @__PURE__ */ folioIcon(LucideMessageCircle)
@@ -161,6 +168,7 @@ export const Plus = /* @__PURE__ */ folioIcon(LucidePlus)
 export const Puzzle = /* @__PURE__ */ folioIcon(LucidePuzzle)
 export const RefreshCw = /* @__PURE__ */ folioIcon(LucideRefreshCw)
 export const RotateCcw = /* @__PURE__ */ folioIcon(LucideRotateCcw)
+export const Ruler = /* @__PURE__ */ folioIcon(LucideRuler)
 export const Search = /* @__PURE__ */ folioIcon(LucideSearch)
 export const Server = /* @__PURE__ */ folioIcon(LucideServer)
 export const Settings = /* @__PURE__ */ folioIcon(LucideSettings)
