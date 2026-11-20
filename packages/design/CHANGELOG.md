@@ -1,5 +1,12 @@
 # @misoto22/folio
 
+## [0.24.0](https://github.com/Misoto22/folio/compare/v0.23.0...v0.24.0) (2026-11-20)
+
+
+### Features
+
+* **website:** add MediaMapFooter and polish the media maps ([#206](https://github.com/Misoto22/folio/issues/206)) ([653747b](https://github.com/Misoto22/folio/commit/653747b544a615bc5ff2b52d2e521c3b4a6937bc))
+
 ## [0.23.0](https://github.com/Misoto22/folio/compare/v0.22.2...v0.23.0) (2026-11-19)
 
 
