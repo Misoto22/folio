@@ -108,11 +108,24 @@
 .folio-media-detail-title { margin: 0; color: var(--foreground); font-family: var(--font-heading); font-size: var(--fs-title); font-weight: 400; letter-spacing: -0.025em; line-height: 1.08; text-wrap: balance; overflow-wrap: anywhere; }
 .folio-media-actions { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-block-start: 1.5rem; padding-block-start: 1.125rem; border-block-start: 1px solid var(--border-subtle); }
 .folio-media-metadata { margin-block: 1.75rem 0; border-block-start: 1px solid var(--border-color); }
-.folio-media-metadata > div { display: flex; align-items: baseline; justify-content: space-between; gap: 1.25rem; padding-block: 0.6875rem; border-block-end: 1px solid var(--border-subtle); }
+/* Centre, not baseline: a label led by an icon has no text baseline at its
+   start, and baseline alignment lifted every label above its value. */
+.folio-media-metadata > div { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding-block: 0.6875rem; border-block-end: 1px solid var(--border-subtle); }
 .folio-media-metadata > div:first-child { padding-block-start: 0.6875rem; }
 .folio-media-metadata > div:last-child { padding-block-end: 0.6875rem; border-block-end: 1px solid var(--border-subtle); }
-.folio-media-metadata dt { flex: none; color: var(--secondary-text); font-family: var(--label-font); font-size: 0.625rem; letter-spacing: calc(0.14em * var(--label-tracking-scale)); text-transform: var(--label-case); }
+.folio-media-metadata dt { display: flex; align-items: center; gap: 0.5rem; flex: none; color: var(--secondary-text); font-family: var(--label-font); font-size: 0.625rem; letter-spacing: calc(0.14em * var(--label-tracking-scale)); text-transform: var(--label-case); }
 .folio-media-metadata dd { min-inline-size: 0; margin: 0; color: var(--foreground); font-family: var(--font-mono); font-size: 0.78125rem; text-align: end; overflow-wrap: anywhere; }
+/* A host may lead a value with its maker's mark (a camera's wordmark): the
+   mark takes the text's height and its own width, in the value's colour. */
+.folio-media-metadata dd:has(.folio-media-metadata-mark, .folio-media-metadata-flag) { display: inline-flex; align-items: center; justify-content: flex-end; gap: 0.5rem; }
+/* A wordmark stands as tall as the value's capitals, so SONY reads as one more
+   word of the model name; a round emblem (Apple, Leica) takes the line height. */
+.folio-media-metadata-mark { display: block; flex: none; block-size: 0.5625rem; block-size: 1cap; inline-size: auto; fill: currentColor; }
+.folio-media-metadata-mark[data-shape='emblem'] { block-size: 1em; }
+/* A mark drawn from a file: the host sets mask-image and the file's aspect-ratio. */
+/* A country flag a host draws (flag-icons' 4:3 artwork), edged so a white field still reads. */
+.folio-media-metadata-flag { display: block; flex: none; block-size: 0.75rem; inline-size: auto; aspect-ratio: 4 / 3; outline: 1px solid var(--border-color); outline-offset: -1px; }
+span.folio-media-metadata-mark { background-color: currentColor; mask-position: center; mask-repeat: no-repeat; mask-size: contain; }
 .folio-media-light { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; padding-block: 1.1rem; border-block-end: 1px solid var(--border-subtle); }
 .folio-media-light-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; color: var(--foreground-muted); font-family: var(--font-mono); font-size: 0.6875rem; }
 .folio-media-light-line svg { flex: none; }
@@ -205,12 +218,29 @@
 .folio-media-map-stage { position: relative; z-index: 0; isolation: isolate; overflow: hidden; border: 1px solid var(--border-color); border-radius: var(--radius); background: var(--background-elevated); }
 .folio-media-map-canvas { inline-size: 100%; block-size: 38.75rem; }
 .folio-media-map-stage > [role='status'] { display: grid; block-size: 38.75rem; place-items: center; padding: 1.5rem; color: var(--secondary-text); font-family: var(--font-mono); font-size: 0.6875rem; text-align: center; }
-.folio-media-map-hint { position: absolute; inset-block-end: 0.875rem; inset-inline-start: 0.875rem; z-index: 2; padding: 0.375rem 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius); background: var(--background-elevated); color: var(--foreground-muted); font-family: var(--font-mono); font-size: 0.625rem; pointer-events: none; }
-.folio-media-map-navigation { position: absolute; inset-block-start: 0.75rem; inset-inline-end: 0.75rem; display: flex; flex-direction: column; gap: 0.25rem; background: var(--background); }
+/* Top-left: the provider's logo and attribution own the bottom edge, and the
+   hint used to sit on the logo. */
+.folio-media-map-hint { position: absolute; inset-block-start: 0.875rem; inset-inline-start: 0.875rem; z-index: 2; padding: 0.375rem 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius); background: var(--background-elevated); color: var(--foreground-muted); font-family: var(--font-mono); font-size: 0.625rem; pointer-events: none; }
+/* No fill of its own: the controls carry their surface, and a square plate
+   behind rounded buttons read as a stray tile on the map. */
+.folio-media-map-navigation { position: absolute; inset-block-start: 0.75rem; inset-inline-end: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 0.25rem; }
+.folio-media-map-navigation > * { background: var(--background); }
+/* Zoom in and out are one control: a single capsule split by a hairline, the
+   shape every map reader already knows, instead of two loose circles. */
+/* An inset outline, not a border, so the capsule stays exactly as wide as a
+   lone 44px button above it. */
+.folio-media-map-zoom { display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius-pill); outline: 1px solid var(--border-color); outline-offset: -1px; }
+.folio-media-map-zoom > button { border: 0; border-radius: 0; background: transparent; }
+.folio-media-map-zoom > button + button { border-block-start: 1px solid var(--border-color); }
+.folio-media-map-zoom > button:hover { background: var(--background-elevated); }
 .folio-media-map-preview { display: flex; min-inline-size: 0; flex-direction: column; overflow: hidden; border: 1px solid var(--border-color); border-radius: var(--radius); background: var(--background); }
 .folio-media-map-preview-image { position: relative; inline-size: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-block-end: 1px solid var(--border-subtle); background: var(--background-elevated); }
-.folio-media-map-preview-image img { object-fit: contain; }
-.folio-media-map-preview-action { position: absolute; inset-block-end: 0.75rem; inset-inline-end: 0.75rem; }
+/* Cover, not contain: a portrait frame in the 4:3 well left two flat bands of
+   the well's fill either side. The full frame is one Enlarge away. */
+.folio-media-map-preview-image img { object-fit: cover; }
+.folio-media-map-preview-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.folio-media-map-preview-heading > div:first-child { min-inline-size: 0; }
+.folio-media-map-preview-action { flex: none; }
 .folio-media-map-preview-copy { padding: 1.125rem 1.25rem 1.25rem; }
 .folio-media-map-preview-copy h3 { margin: 0; color: var(--foreground); font-family: var(--font-heading); font-size: var(--fs-lead); font-weight: 400; line-height: 1.04; letter-spacing: -0.01em; overflow-wrap: anywhere; }
 .folio-media-map-place { margin-block: 0.25rem 0; color: var(--foreground-muted); font-size: 0.875rem; }
@@ -243,6 +273,26 @@
 .folio-media-map-frame-compact .folio-media-map-stage { block-size: 9.375rem; }
 .folio-media-map-frame-compact .folio-media-map-stage img { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
 .folio-media-map-frame-compact .folio-media-map-pin { position: absolute; inset-block-start: 50%; inset-inline-start: 50%; transform: translate(-50%, -50%); }
+.folio-media-map-frame-compact .folio-media-map-canvas { block-size: 100%; }
+/* An approximate place: a host sizes this ring to how far the true point may
+   lie from the one shown, so a rounded coordinate is not drawn as a pinpoint. */
+.folio-media-map-uncertainty { border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); border-radius: var(--radius-pill); background: color-mix(in srgb, var(--accent) 8%, transparent); pointer-events: none; }
+/* A map opened into a dialog: wide, edge to edge, the dialog's close control
+   in the corner the zoom buttons would otherwise take. */
+.folio-media-map-dialog { inline-size: min(94vw, 72rem); max-inline-size: none; padding: 0; overflow: hidden; scrollbar-gutter: auto; }
+.folio-media-map-dialog .folio-media-map-stage { border: 0; border-radius: 0; }
+.folio-media-map-dialog .folio-media-map-canvas { block-size: min(72svh, 46rem); }
+/* The host puts its close control first in the map's own control column, so
+   close and zoom share one size and one edge; a wider gap parts the two jobs. */
+.folio-media-map-dialog .folio-media-map-navigation > :first-child { margin-block-end: 0.5rem; }
+.folio-media-map-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; padding: 1rem 1.25rem; border-block-start: 1px solid var(--border-color); background: var(--background); }
+.folio-media-map-footer-image { position: relative; inline-size: 3rem; block-size: 3rem; flex: none; overflow: hidden; border-radius: var(--radius-sm); background: var(--background-elevated); }
+.folio-media-map-footer-image img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+.folio-media-map-footer-copy { flex: 1 1 12rem; min-inline-size: 0; }
+.folio-media-map-footer-title { margin: 0; overflow: hidden; color: var(--foreground); font-family: var(--font-heading); font-size: 1rem; text-overflow: ellipsis; white-space: nowrap; }
+.folio-media-map-footer-meta { display: flex; flex-wrap: wrap; gap: 0.25rem 0.875rem; margin: 0.125rem 0 0; color: var(--foreground-muted); font-size: 0.8125rem; }
+.folio-media-map-footer-coordinates { color: var(--secondary-text); font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1.8; }
+.folio-media-map-footer-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem; }
 .folio-media-map-skeleton { padding-block-end: clamp(4rem, 10vw, 8rem); }
 
 @media (min-width: 768px) {

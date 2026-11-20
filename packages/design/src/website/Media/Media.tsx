@@ -331,7 +331,7 @@ export interface MediaMapNavigationProps {
 }
 
 export function MediaMapNavigation({ zoomInLabel, zoomOutLabel, onZoomIn, onZoomOut }: MediaMapNavigationProps) {
-  return <><Button variant="secondary" iconOnly aria-label={zoomInLabel} onClick={onZoomIn}><Plus size={18} aria-hidden="true" /></Button><Button variant="secondary" iconOnly aria-label={zoomOutLabel} onClick={onZoomOut}><Minus size={18} aria-hidden="true" /></Button></>
+  return <div className="folio-media-map-zoom"><Button variant="secondary" iconOnly aria-label={zoomInLabel} onClick={onZoomIn}><Plus size={18} aria-hidden="true" /></Button><Button variant="secondary" iconOnly aria-label={zoomOutLabel} onClick={onZoomOut}><Minus size={18} aria-hidden="true" /></Button></div>
 }
 
 export type MediaMapCanvasProps = ComponentPropsWithRef<'div'>
@@ -351,7 +351,29 @@ export interface MediaMapPreviewProps {
 }
 
 export function MediaMapPreview({ title, image, action, place, coordinates, children }: MediaMapPreviewProps) {
-  return <aside className="folio-media-map-preview"><div className="folio-media-map-preview-image">{image}{action && <div className="folio-media-map-preview-action">{action}</div>}</div><div className="folio-media-map-preview-copy"><h3>{title}</h3>{place && <p className="folio-media-map-place">{place}</p>}{coordinates && <div className="folio-media-map-coordinates">{coordinates}</div>}{children}</div></aside>
+  // The action sits beside the title, not on the photograph: an overlay had to
+  // fight every frame's tones for contrast, and on a narrow frame it hung off
+  // the image into the panel.
+  return <aside className="folio-media-map-preview"><div className="folio-media-map-preview-image">{image}</div><div className="folio-media-map-preview-copy"><div className="folio-media-map-preview-heading"><div><h3>{title}</h3>{place && <p className="folio-media-map-place">{place}</p>}</div>{action && <div className="folio-media-map-preview-action">{action}</div>}</div>{coordinates && <div className="folio-media-map-coordinates">{coordinates}</div>}{children}</div></aside>
+}
+
+export interface MediaMapFooterProps {
+  /** A small frame of what was taken there, square-cropped by the footer. */
+  image?: ReactNode
+  title: ReactNode
+  place?: ReactNode
+  coordinates?: ReactNode
+  /** The host's actions on the place: recentre, copy, open elsewhere. */
+  actions?: ReactNode
+}
+
+/**
+ * The strip under an opened map: what was taken here, and what to do with the
+ * place. It sits below the map rather than over it, so nothing covers the
+ * ground the reader opened the map to see.
+ */
+export function MediaMapFooter({ image, title, place, coordinates, actions }: MediaMapFooterProps) {
+  return <div className="folio-media-map-footer">{image && <div className="folio-media-map-footer-image">{image}</div>}<div className="folio-media-map-footer-copy"><p className="folio-media-map-footer-title">{title}</p>{(place || coordinates) && <p className="folio-media-map-footer-meta">{place && <span>{place}</span>}{coordinates && <span className="folio-media-map-footer-coordinates">{coordinates}</span>}</p>}</div>{actions && <div className="folio-media-map-footer-actions">{actions}</div>}</div>
 }
 
 export interface MediaMapArea {

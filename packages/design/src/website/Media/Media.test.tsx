@@ -2,7 +2,7 @@ import { useState, type ReactElement } from 'react'
 import { fireEvent, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { MediaDetailLayout, MediaGallery, MediaGalleryItem, MediaGallerySkeleton, MediaMapAreaList, MediaMapMarker, MediaMapNavigation, MediaMasthead, MediaMetadata, MediaPager, MediaPagerItem } from './Media'
+import { MediaDetailLayout, MediaGallery, MediaGalleryItem, MediaGallerySkeleton, MediaMapAreaList, MediaMapMarker, MediaMapNavigation, MediaMapPreview, MediaMasthead, MediaMetadata, MediaPager, MediaPagerItem } from './Media'
 
 describe('Media gallery and detail composition', () => {
   it('retains host links, intrinsic dimensions and image descriptions', () => {
@@ -153,5 +153,13 @@ describe('Media map controls', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Further' }))
     expect(zoomIn).toHaveBeenCalledOnce()
     expect(zoomOut).toHaveBeenCalledOnce()
+  })
+  it('sets the preview action beside its title, not over the photograph', () => {
+    render(<MediaMapPreview title="Golden hour" place="Hawkesbury" image={<img alt="Trees" src="/t.jpg" />} action={<button type="button">Enlarge</button>} />)
+    const action = screen.getByRole('button', { name: 'Enlarge' })
+    const image = screen.getByRole('img', { name: 'Trees' }).parentElement!
+    expect(image).not.toContainElement(action)
+    const heading = screen.getByRole('heading', { name: 'Golden hour' }).closest('.folio-media-map-preview-heading')!
+    expect(heading).toContainElement(action)
   })
 })
