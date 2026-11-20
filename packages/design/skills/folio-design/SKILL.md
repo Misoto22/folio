@@ -235,3 +235,19 @@ without retyping it.
 For metadata and Node build scripts, `import { BRAND } from '@misoto22/folio/brand'`
 loads the canonical color mirror without React. This is a data-only subpath,
 separate from the four React entry points above.
+
+## When you're done
+
+1. **Search your diff for `role=`.** Each one is either in the table in
+   [a11y.md](./rules/a11y.md#do-not-re-implement-a-pattern-radix-already-owns)
+   — then swap in the component — or a pattern the package does not ship.
+2. **Typecheck the app, not an empty project.** When the root `tsconfig.json`
+   has `"files": []` and `references`, `tsc --noEmit` checks nothing; run
+   `tsc -b`, or `tsc --noEmit -p <the app's config>`.
+3. **Render it once in development and read the console.** The misuse that
+   still compiles — an unwired `Field`, an unnamed icon button, a dialog with no
+   title — prints a code there and nowhere else.
+4. **Look at it under `data-mode="dark"` too.** A raw colour that slipped
+   through is right in one theme only, and jsdom cannot see colour at all.
+5. **Report** each command you ran and its result, and anything you could not
+   check.
