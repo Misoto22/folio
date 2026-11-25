@@ -3,7 +3,7 @@
   "files": [
     {
       "path": ".cursor/rules/misoto-harness.mdc",
-      "sha256": "bd2446ac91affd1580ad3cd48216b28c985500f29f286f0e396f3cc9fb98019e"
+      "sha256": "d668a2b1bb3ba0d6fbfcf796ebe88db9f0cb969b9d79a7c77815cfcc2e62d7cf"
     },
     {
       "path": ".github/workflows/misoto-harness.yml",
@@ -15,7 +15,7 @@
     },
     {
       "path": ".rulesync/checker.json",
-      "sha256": "10a4d84ccc98fedfedfa29f21c27dd97c0ea92bd69ff1f94a4fdcea29f125b9a"
+      "sha256": "047852089dbe576060fee0a555425acf68cc34c3d1003157d39599417baf5226"
     },
     {
       "path": ".rulesync/package.json",
@@ -23,7 +23,7 @@
     },
     {
       "path": ".rulesync/pnpm-lock.yaml",
-      "sha256": "03af5daa256f12388e7b787907b0822a9a65c510c07e955cdefa2e84f78e4789"
+      "sha256": "2d5a5432e9ca18ef6a33b4496b77cab5d0a363b0919be96716c3a4f8859ef117"
     },
     {
       "path": ".rulesync/pnpm-workspace.yaml",
@@ -31,7 +31,7 @@
     },
     {
       "path": ".rulesync/rules/00-generated-metadata.md",
-      "sha256": "8aae13930a908ffc75f12d3199c3e2a81024af78ceca734801194f4cc1035c3f"
+      "sha256": "1ff93a9b13bef34b2f6eb643e76cd92eb54ff90179591144d197e818bc70fad5"
     },
     {
       "path": ".rulesync/rules/10-core-architecture.md",
@@ -87,15 +87,15 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "b5083a121bc1c3808a130e1c2b3ea242956f9b08958dd422b13cff75f8cacfd0"
+      "sha256": "887914146597a5958d36594b6c6c0e958ee8157d9fe360198a83fdb7991eadf2"
     },
     {
       "path": "CLAUDE.md",
-      "sha256": "3680851921a2a33bd1b08f40f56c35a38f69c33aa60a6394c46b2b6e04a4f0dc"
+      "sha256": "4efc1d9f152c19f9b338c038b4bf92f1507bd943b93fc5ec9d54e6734436ef6a"
     },
     {
       "path": "GEMINI.md",
-      "sha256": "a6cdc01cd0b8ee9fa90b53d6b9396b3983357217dcc721d55926c24f74e94de9"
+      "sha256": "3fa44959e23d23dfc95477d24d6f3ba7a36dd98eea9b3d6349fbe2c35a34bece"
     },
     {
       "path": "rulesync.jsonc",
@@ -103,7 +103,7 @@
     },
     {
       "path": "rulesync.lock.json",
-      "sha256": "253aa896b054f80f4c9f24510f992f44673dd9788d3a20c2cb191aae7a77cddf"
+      "sha256": "720302a5b765ee2285f7d6603d880ca13903d4e35b9a156f278b68579c0097e4"
     }
   ]
 }
