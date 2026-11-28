@@ -166,7 +166,7 @@ jobs:
   # not let a version number be reused.
   release:
     needs: [verify, browser]
-    uses: Misoto22/ci/.github/workflows/release.yml@4cfbd9f5951b9609854a5cba803e5ffcc8634673 # v0.10.0
+    uses: Misoto22/ci/.github/workflows/release.yml@121edc748cf9c4c062572ee9b1275460c4a17a40 # v0.11.0
     permissions:
       contents: write
       pull-requests: write
